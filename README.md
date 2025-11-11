@@ -237,10 +237,3 @@ export default [
    git push origin desarrollo-javvi
    ```
 4. Abrir **Pull Request** en GitHub para revisión antes de fusionar con `main`.
-
----
-
-## 📄 Licencia
-
-Proyecto académico - IES Jándula © 2025  
-Desarrollado por el equipo de desarrollo del instituto.
