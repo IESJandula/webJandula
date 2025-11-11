@@ -1,0 +1,25 @@
+# Node
+node_modules/
+build/
+.cache/
+.tmp/
+dist/
+
+# Environment files
+.env
+.env.*
+
+# Database (SQLite)
+*.db
+*.sqlite
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
