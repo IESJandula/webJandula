@@ -226,7 +226,7 @@ export default [
 
 1. Crear una rama con tu nombre o funcionalidad:
    ```bash
-   git checkout -b desarrollo-javvi
+   git checkout -b desarrollo-x
    ```
 2. Hacer commits descriptivos:
    ```
@@ -234,6 +234,6 @@ export default [
    ```
 3. Subir cambios:
    ```bash
-   git push origin desarrollo-javvi
+   git push origin desarrollo-x
    ```
 4. Abrir **Pull Request** en GitHub para revisión antes de fusionar con `main`.
