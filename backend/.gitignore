@@ -1,25 +1,39 @@
-# Node
+# Dependencias
 node_modules/
+.pnpm-store/
+
+# Construcción y caché de Strapi
 build/
+dist/
 .cache/
 .tmp/
-dist/
+.strapi/
 
-# Environment files
+# --- CRÍTICO: CARPETA DE SUBIDAS ---
+# Ignoramos los archivos subidos (imágenes, pdfs locales)
+public/uploads/
+# PERO mantenemos el .gitkeep si existe para que la carpeta estructura exista
+!public/uploads/.gitkeep
+
+# Variables de entorno (SEGURIDAD)
 .env
 .env.*
 
-# Database (SQLite)
+# Bases de datos locales
 *.db
+*.db-journal
 *.sqlite
+*.sqlite-journal
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
+strapi-debug.log*
 
-# OS / Editor
+# Sistema Operativo e IDEs
 .DS_Store
 Thumbs.db
 .idea/
 .vscode/
+*.iml

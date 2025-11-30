@@ -1,0 +1,23 @@
+# --- IDEs y Editores (CRÍTICO para ti) ---
+.idea/
+*.iws
+*.iml
+*.ipr
+.vscode/
+
+# --- Sistema Operativo ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Logs y Node ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# --- Entorno Local ---
+.env
+.env.local
+*.local
