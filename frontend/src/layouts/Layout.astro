@@ -1,0 +1,44 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+    title: string;
+    description?: string;
+}
+
+const { title, description = "Web oficial del IES Jándula: FP, Bachillerato, Erasmus y más." } = Astro.props;
+const siteTitle = `${title} | IES Jándula`;
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow">
+    <title>{siteTitle}</title>
+
+</head>
+
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen antialiased">
+
+<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-50 focus:p-3 focus:bg-blue-600 focus:text-white rounded">
+    Saltar a contenido principal
+</a>
+
+<Header />
+
+<main id="main-content" class="flex-grow">
+    <slot />
+</main>
+
+<Footer />
+
+</body>
+</html>

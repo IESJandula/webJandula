@@ -1,12 +1,58 @@
-<nav class="header">
-    <a href="/" class="logo">IES Jándula</a>
+---
+const navItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Noticias', href: '/noticias' },
+    { name: 'Oferta Educativa', href: '/oferta' },
+    { name: 'Erasmus+', href: '/erasmus' },
+    { name: 'Secretaría', href: '/secretaria' },
+];
 
-    <ul class="nav-list">
-        <li><a href="/">El Centro</a></li>
-        <li><a href="/noticias">Departamentos</a></li>
-        <li><a href="/eventos">Erasmus+</a></li>
-        <li><a href="/departamentos">Noticias</a></li>
-        <li><a href="/profesorado">Formación</a></li>
-        <li><a href="/contacto">Contacto</a></li>
-    </ul>
-</nav>
+const accessLinks = [
+    { name: 'Moodle', href: 'https://moodle.iesjandula.es', icon: 'M' },
+    { name: 'Séneca', href: 'https://www.juntadeandalucia.es/educacion/seneca/', icon: 'S' },
+    { name: 'Intranet', href: '/intranet', icon: 'I' },
+];
+---
+<header class="shadow-md sticky top-0 z-50 bg-white">
+    <div class="bg-blue-800 text-white text-xs py-2 hidden md:block" aria-label="Accesos rápidos">
+        <div class="container flex justify-end space-x-4">
+            {accessLinks.map((link) => (
+                    <a
+                            href={link.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="hover:text-blue-200 transition-colors font-medium"
+                            aria-label={`Acceso a ${link.name}`}
+                    >
+                        {link.name}
+                    </a>
+            ))}
+        </div>
+    </div>
+
+    <nav class="container py-3 flex items-center justify-between" aria-label="Navegación principal del sitio">
+
+        <a href="/" class="flex items-center space-x-2 text-xl font-extrabold text-blue-900 transition-opacity hover:opacity-80" aria-label="Página de inicio IES Jándula">
+            <span class="text-3xl font-extrabold text-green-600">J</span>
+            <span class="hidden sm:inline">IES Jándula</span>
+        </a>
+
+        <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-blue-800 hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="main-menu" aria-label="Abrir menú de navegación">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+        </button>
+
+        <ul id="main-menu" class="hidden md:flex space-x-6 font-medium text-gray-700">
+            {navItems.map((item) => (
+                    <li key={item.name}>
+                        <a
+                                href={item.href}
+                                class="hover:text-blue-600 transition-colors py-2"
+                                aria-current={item.href === Astro.url.pathname ? 'page' : false}
+                        >
+                            {item.name}
+                        </a>
+                    </li>
+            ))}
+        </ul>
+    </nav>
+</header>
