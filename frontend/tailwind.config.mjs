@@ -9,8 +9,11 @@ export default {
     ],
     theme: {
         extend: {
-            // Aquí añadiremos colores, tipografías personalizadas si las necesitamos
-        },
+            colors: {
+                // Paleta IES Jándula
+                'jandula-green': '#A3CC2A',
+                'jandula-blue': '#1D829B',
+            },        },
     },
     plugins: [],
 }

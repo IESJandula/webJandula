@@ -1,0 +1,81 @@
+---
+import LogoJuntaDeAndalucia from "@components/LogoJuntaDeAndalucia.astro";
+import Facebook from "@components/Facebook.astro";
+import Instagram from "@components/Instagram.astro";
+import Youtube from "@components/Youtube.astro";
+import LinkedIn from "@components/Linkedin.astro";
+
+const quickLinks = [
+    {name: 'Aviso Legal', href: '/aviso-legal'},
+    {name: 'Política de Privacidad', href: '/privacidad'},
+    {name: 'Mapa del Sitio', href: '/sitemap'},
+    {name: 'Accesibilidad', href: '/accesibilidad'},
+    {name: 'Contacto', href: '/contacto'},
+];
+
+const socialLinks = [
+    {name: 'Facebook', href: 'https://www.facebook.com/IESJandula.es/', component: Facebook},
+    {name: 'Instagram', href: 'https://www.instagram.com/iesjandula.es/', component: Instagram},
+    {name: 'YouTube', href: 'https://www.youtube.com/@iesjandula4043', component: Youtube},
+    {name: 'LinkedIn', href: 'https://www.linkedin.com/company/ies-j%C3%A1ndula', component: LinkedIn},
+];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-8" role="contentinfo" aria-label="Información y navegación secundaria del IES Jándula">
+
+    <div class="bg-gradient-to-r from-jandula-green to-jandula-blue text-white py-6">
+        <div class="container flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
+
+            <p class="text-sm font-semibold text-center md:text-left">
+                IES Jándula: Calidad Educativa e Internacionalización (Erasmus+).
+            </p>
+
+            <div class="flex items-center space-x-4">
+                <LogoJuntaDeAndalucia class="size-20"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-gray-900 text-gray-300 py-8">
+        <div class="container">
+
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    {socialLinks.map((link) => (
+                            <a
+                                    href={link.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={`Síguenos en ${link.name}`}
+                                    class="text-gray-400 hover:text-white transition-colors"
+                            >
+                                <Fragment is={link.component}/>
+                            </a>
+                    ))}
+                </div>
+
+                <nav class="flex flex-wrap justify-center md:justify-end space-x-4 text-sm font-medium">
+                    {quickLinks.map((link) => (
+                            <a
+                                    href={link.href}
+                                    class="hover:text-white transition-colors py-1 px-2"
+                            >
+                                {link.name}
+                            </a>
+                    ))}
+                </nav>
+            </div>
+
+            <div class="text-center md:text-left text-xs text-gray-500 border-t border-gray-700 pt-4 mt-4">
+                <p>&copy; {year} IES Jándula. Todos los derechos reservados.</p>
+                <p class="mt-1">
+                    Centro acogido a la Ley Orgánica de Protección de Datos (RGPD) y regulaciones de la Junta de
+                    Andalucía.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>

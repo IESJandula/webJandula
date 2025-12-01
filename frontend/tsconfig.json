@@ -1,5 +1,24 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"]
+  "exclude": ["dist"],
+
+  "compilerOptions": {
+    // ... otras opciones
+    "baseUrl": "src", // Le dice a TypeScript que 'src' es la raíz del proyecto
+    "paths": {
+      // Define el alias @ para que apunte a la raíz 'src'
+      "@/*": [
+        "*"
+      ],
+      // Definimos un alias específico para componentes
+      "@components/*": [
+        "components/*"
+      ],
+      // Definimos un alias específico para layouts
+      "@layouts/*": [
+        "layouts/*"
+      ]
+    }
+  }
 }
