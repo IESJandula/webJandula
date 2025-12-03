@@ -1,0 +1,57 @@
+---
+// src/components/QuickAccess.astro
+const accessItems = [
+    {
+        name: 'Moodle',
+        href: 'https://moodle.iesjandula.es',
+        color: 'border-orange-500 text-orange-600',
+        bgHover: 'group-hover:bg-orange-50',
+        iconPath: 'M12 14l9-5-9-5-9 5 9 5z M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z' // Icono Académico
+    },
+    {
+        name: 'Séneca',
+        href: 'https://www.juntadeandalucia.es/educacion/seneca/',
+        color: 'border-green-600 text-green-700',
+        bgHover: 'group-hover:bg-green-50',
+        iconPath: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z' // Icono Check/Oficial
+    },
+    {
+        name: 'Intranet',
+        href: '/intranet',
+        color: 'border-blue-600 text-blue-700',
+        bgHover: 'group-hover:bg-blue-50',
+        iconPath: 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z' // Icono Usuarios
+    },
+    {
+        name: 'Secretaría',
+        href: '/secretaria',
+        color: 'border-purple-600 text-purple-700',
+        bgHover: 'group-hover:bg-purple-50',
+        iconPath: 'M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z' // Icono Documento
+    },
+];
+---
+
+<section class="container mx-auto px-4 relative z-20 -mt-20 mb-16">
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        {accessItems.map((item) => (
+                <a
+                        href={item.href}
+                        target={item.href.startsWith('http') ? "_blank" : "_self"}
+                        rel="noopener noreferrer"
+                        class={`group bg-white rounded-xl shadow-lg p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl border-b-4 ${item.color}`}
+                >
+                    <div class={`p-4 rounded-full transition-colors duration-300 ${item.bgHover} mb-3`}>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d={item.iconPath} />
+                        </svg>
+                    </div>
+
+                    <span class="font-bold text-gray-800 group-hover:text-black text-lg">
+                    {item.name}
+                </span>
+                </a>
+        ))}
+    </div>
+</section>

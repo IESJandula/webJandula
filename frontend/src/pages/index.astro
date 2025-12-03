@@ -1,9 +1,65 @@
 ---
-import MainLayout from "../layouts/Layout.astro";
+import Layout from '@layouts/Layout.astro';
+import Hero from '@components/Hero.astro';
+import QuickAccess from '@components/QuickAccess.astro';
+import CardNoticia from '@components/CardNoticia.astro';
+
+const news = [
+	{
+		title: "Alumnos de FP Dual comienzan sus prácticas en empresas tecnológicas",
+		summary: "Más de 50 alumnos de los ciclos de DAM y DAW se incorporan esta semana a empresas líderes del sector en Jaén y teletrabajo.",
+		date: "12 Oct 2025",
+		image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+		category: "FP Dual",
+		link: "/noticias/fp-dual-practicas"
+	},
+	{
+		title: "Convocatoria Erasmus+ 2026: Destinos confirmados",
+		summary: "Italia, Irlanda y Alemania son los destinos principales para las movilidades de grado medio y superior de este curso.",
+		date: "05 Oct 2025",
+		image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80",
+		category: "Erasmus+",
+		link: "/noticias/erasmus-convocatoria"
+	},
+	{
+		title: "Feria de la Ciencia: El IES Jándula presenta su coche ecológico",
+		summary: "El departamento de Automoción y Tecnología exhibe el prototipo 'Eco-Jándula' en la feria provincial.",
+		date: "28 Sep 2025",
+		image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80",
+		category: "Innovación",
+		link: "/noticias/feria-ciencia"
+	}
+];
 ---
 
-<MainLayout>
-	<section>
-		<h2>Bienvenido al IES Jándula</h2>
+<Layout title="Inicio">
+
+	<Hero />
+
+	<QuickAccess />
+
+	<section class="container mx-auto px-4 py-12">
+		<div class="flex flex-col md:flex-row justify-between items-end mb-8">
+			<div>
+				<h2 class="text-3xl font-bold text-gray-900">Última Actualidad</h2>
+				<p class="text-gray-600 mt-2">Mantente al día con las noticias de nuestro centro</p>
+			</div>
+			<a href="/noticias" class="hidden md:inline-block text-blue-600 font-bold hover:underline">
+				Ver todas las noticias &rarr;
+			</a>
+		</div>
+
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+			{news.map(item => (
+				<CardNoticia {...item} />
+			))}
+		</div>
+
+		<div class="mt-8 text-center md:hidden">
+			<a href="/noticias" class="btn-secondary inline-block border border-blue-600 text-blue-600 px-6 py-2 rounded-full font-bold">
+				Ver todo
+			</a>
+		</div>
 	</section>
-</MainLayout>
+
+</Layout>

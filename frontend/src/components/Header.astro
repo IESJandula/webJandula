@@ -9,9 +9,7 @@ const navItems = [
 ];
 
 const accessLinks = [
-    {name: 'Moodle', href: 'https://moodle.iesjandula.es', icon: 'M'},
-    {name: 'Séneca', href: 'https://www.juntadeandalucia.es/educacion/seneca/', icon: 'S'},
-    {name: 'Intranet', href: '/intranet', icon: 'I'},
+    {name: 'Contacto', href: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
 ];
 ---
 <header class="shadow-md sticky top-0 z-50 bg-white">
@@ -20,8 +18,6 @@ const accessLinks = [
             {accessLinks.map((link) => (
                     <a
                             href={link.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             class="hover:text-blue-200 transition-colors font-medium"
                             aria-label={`Acceso a ${link.name}`}
                     >

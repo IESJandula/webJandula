@@ -1,0 +1,41 @@
+---
+const heroImage = "/images/bg-hero";
+---
+
+<section
+        class="relative w-full h-[600px] flex items-center justify-center overflow-hidden"
+        aria-label="Bienvenida al IES Jándula"
+>
+    <picture>
+        <source
+                srcset={`${heroImage}.avif`} type="image/avif"/>
+        <source srcset={`${heroImage}.webp`} type="image/webp"/>
+        <img src={`${heroImage}.png`} alt="Fachada y estudiantes del IES Jándula"
+             class="absolute inset-0 w-full h-full object-cover" loading="eager"/>
+    </picture>
+    <div class="relative z-10 container mx-auto px-4 h-full flex items-center justify-center">
+
+        <div class="max-w-3xl w-full flex flex-col items-center">
+
+            <div class="w-full bg-gradient-to-r from-jandula-blue/50 to-jandula-green/50 saturate-200 brightness-55 p-8 md:p-12 rounded-3xl shadow-2xl backdrop-blur-sm text-white mb-8">
+
+                <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+                    IES Jándula
+                </h1>
+
+                <p class="text-lg md:text-xl font-medium opacity-90 leading-relaxed">
+                    Formación Profesional, Bachillerato y una apuesta decidida por la internacionalización con Erasmus+. Tu futuro empieza aquí.
+                </p>
+
+            </div>
+
+            <a
+                    href="/oferta"
+                    class="inline-block bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-900 transition-transform transform hover:scale-105 shadow-xl border-2 border-white/20"
+            >
+                Conoce el centro
+            </a>
+
+        </div>
+    </div>
+</section>
