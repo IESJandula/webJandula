@@ -1,6 +1,126 @@
 ---
 import Layout from "@/layouts/Layout.astro"
+
+const projects = [
+  {
+    title: 'Proyecto LINCE',
+    category: 'Innovación Tecnológica',
+    description: 'Participación en la Shell Eco Marathon con nuestro vehículo de alta eficiencia energética diseñado por alumnos.',
+    image: 'https://images.unsplash.com/photo-1532187643603-ba119c7f97e9?q=80&w=1200&auto=format&fit=crop', // Coche / Ingeniería
+    tags: ['Tecnología', 'Competición', 'Ecología']
+  },
+  {
+    title: 'Biblioteca "Pasa Página"',
+    category: 'Cultura y Lectura',
+    description: 'Espacio de encuentro, lectura y actividades culturales. Publicación y redacción de nuestra revista escolar.',
+    image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1200&auto=format&fit=crop', // Biblioteca moderna
+    tags: ['Lectura', 'Revista', 'Cultura']
+  },
+  {
+    title: 'Aula de Jaque y Rubik',
+    category: 'Desarrollo Cognitivo',
+    description: 'Fomento del pensamiento estratégico y matemático a través del ajedrez y la resolución de cubos de Rubik.',
+    image: 'https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=1200&auto=format&fit=crop', // Ajedrez
+    tags: ['Ajedrez', 'Lógica', 'Matemáticas']
+  },
+  {
+    title: 'Semana Cultural',
+    category: 'Evento Anual',
+    description: 'Jornadas dedicadas a talleres, conferencias, exposiciones y convivencia de toda la comunidad educativa.',
+    image: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=1200&auto=format&fit=crop', // Actividad grupal
+    tags: ['Convivencia', 'Arte', 'Ciencia']
+  },
+  {
+    title: 'Escuelas Deportivas',
+    category: 'Salud y Deporte',
+    description: 'Promoción de hábitos saludables y competiciones deportivas escolares en diversas disciplinas.',
+    image: 'https://images.unsplash.com/photo-1576633587382-13ddf37b1fc1?q=80&w=1200&auto=format&fit=crop', // Deporte / Baloncesto
+    tags: ['Deporte', 'Salud', 'Equipo']
+  },
+  {
+    title: 'Erasmus+',
+    category: 'Internacionalización',
+    description: 'Proyectos de movilidad europea para alumnos y profesores, abriendo puertas a nuevas culturas y aprendizajes.',
+    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop', // Viaje / Europa
+    tags: ['Europa', 'Idiomas', 'Movilidad']
+  }
+];
 ---
 
-<Layout title="Proyectos">
+<Layout title="Proyectos - IES Jándula">
+  <!-- Hero Section Minimal -->
+  <div class="relative bg-white pt-24 pb-12 sm:pt-32">
+     <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 opacity-20">
+        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-200 to-emerald-200 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+     </div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8 text-center">
+      <div class="mx-auto max-w-2xl">
+        <h1 class="text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
+           Nuestros <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-500">Proyectos</span>
+        </h1>
+        <p class="mt-6 text-lg leading-8 text-slate-600">
+          En el IES Jándula creemos en una educación que va más allá del aula. Descubre las iniciativas que dan vida a nuestro centro.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Portfolio Grid -->
+  <div class="bg-white pb-24">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {projects.map((project) => (
+          <div class="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-xl hover:-translate-y-1">
+            <!-- Image Container -->
+            <div class="aspect-[4/3] overflow-hidden bg-slate-100 relative">
+               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10 opacity-60 transition-opacity group-hover:opacity-40"></div>
+               <img
+                src={project.image}
+                alt={project.title}
+                class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+               />
+               <!-- Category Badge on Image -->
+               <div class="absolute top-4 left-4 z-20">
+                    <span class="inline-flex items-center rounded-md bg-white/90 backdrop-blur-sm px-2 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-500/10">
+                        {project.category}
+                    </span>
+               </div>
+            </div>
+
+            <!-- Content -->
+            <div class="flex flex-1 flex-col p-6">
+              <h3 class="text-xl font-bold leading-6 text-slate-900 group-hover:text-blue-600 transition-colors">
+                <a href="#">
+                  <span class="absolute inset-0"></span>
+                  {project.title}
+                </a>
+              </h3>
+              <p class="mt-4 flex-1 text-sm leading-6 text-slate-600 line-clamp-3">
+                {project.description}
+              </p>
+
+              <!-- Tags -->
+              <div class="mt-6 flex flex-wrap gap-2">
+                 {project.tags.map(tag => (
+                   <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+                     #{tag}
+                   </span>
+                 ))}
+              </div>
+            </div>
+
+            <!-- Arrow Action -->
+            <div class="px-6 pb-6 pt-0 flex justify-end">
+                <div class="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                    </svg>
+                </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 </Layout>
