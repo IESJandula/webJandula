@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "enlaceexternos",
+  "info": {
+    "singularName": "enlaceexterno",
+    "pluralName": "enlaceexternos",
+    "displayName": "enlaceexterno"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "link": {
+      "type": "text"
+    },
+    "nombre": {
+      "type": "string"
+    }
+  }
+}

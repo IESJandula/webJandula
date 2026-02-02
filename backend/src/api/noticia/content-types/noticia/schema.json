@@ -35,6 +35,9 @@
     },
     "autor": {
       "type": "string"
+    },
+    "categoria": {
+      "type": "string"
     }
   }
 }

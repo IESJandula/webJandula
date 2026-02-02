@@ -16,7 +16,7 @@ const accessLinks = [
     {name: 'Intranet', href: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
 ];
 ---
-<header class="shadow-md sticky top-0 z-50 bg-white">
+<header class="shadow-md bg-white">
     <div class="text-white text-s py-2 hidden md:block bg-gradient-to-r from-jandula-green to-jandula-blue" aria-label="Accesos rápidos">
         <div class="container flex justify-end space-x-6">
             {accessLinks.map((link) => (
@@ -31,10 +31,10 @@ const accessLinks = [
         </div>
     </div>
 
-    <nav class="container py-1 flex items-center justify-between" aria-label="Navegación principal del sitio">
+    <nav class="sticky top-0 container py-1 flex items-center justify-between" aria-label="Navegación principal del sitio">
 
         <a href="/" class="flex items-center text-xl font-extrabold text-blue-900 transition-opacity hover:opacity-80"
-           aria-label="Página de inicio IES Jándula">
+        aria-label="Página de inicio IES Jándula">
             <Logo class="size-20"/>
         </a>
 

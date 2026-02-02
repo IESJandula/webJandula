@@ -430,6 +430,36 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiEnlaceexternoEnlaceexterno
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'enlaceexternos';
+  info: {
+    displayName: 'enlaceexterno';
+    pluralName: 'enlaceexternos';
+    singularName: 'enlaceexterno';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    link: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::enlaceexterno.enlaceexterno'
+    > &
+      Schema.Attribute.Private;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   collectionName: 'noticias';
   info: {
@@ -442,6 +472,7 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   };
   attributes: {
     autor: Schema.Attribute.String;
+    categoria: Schema.Attribute.String;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -976,6 +1007,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::enlaceexterno.enlaceexterno': ApiEnlaceexternoEnlaceexterno;
       'api::noticia.noticia': ApiNoticiaNoticia;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
