@@ -430,6 +430,37 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCicloCiclo extends Struct.CollectionTypeSchema {
+  collectionName: 'ciclos';
+  info: {
+    displayName: 'ciclo';
+    pluralName: 'ciclos';
+    singularName: 'ciclo';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    descripcion: Schema.Attribute.Text;
+    duracion: Schema.Attribute.String;
+    familia: Schema.Attribute.String;
+    imagen: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::ciclo.ciclo'> &
+      Schema.Attribute.Private;
+    nivel: Schema.Attribute.String;
+    nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    turno: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEnlaceexternoEnlaceexterno
   extends Struct.CollectionTypeSchema {
   collectionName: 'enlaceexternos';
@@ -453,6 +484,33 @@ export interface ApiEnlaceexternoEnlaceexterno
     > &
       Schema.Attribute.Private;
     nombre: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiImageImage extends Struct.SingleTypeSchema {
+  collectionName: 'images';
+  info: {
+    displayName: 'image';
+    pluralName: 'images';
+    singularName: 'image';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    bannernuestrocentro: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::image.image'> &
+      Schema.Attribute.Private;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1007,7 +1065,9 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::ciclo.ciclo': ApiCicloCiclo;
       'api::enlaceexterno.enlaceexterno': ApiEnlaceexternoEnlaceexterno;
+      'api::image.image': ApiImageImage;
       'api::noticia.noticia': ApiNoticiaNoticia;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

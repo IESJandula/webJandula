@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "ciclos",
+  "info": {
+    "singularName": "ciclo",
+    "pluralName": "ciclos",
+    "displayName": "ciclo"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "nombre": {
+      "type": "string"
+    },
+    "nivel": {
+      "type": "string"
+    },
+    "familia": {
+      "type": "string"
+    },
+    "duracion": {
+      "type": "string"
+    },
+    "turno": {
+      "type": "string"
+    },
+    "descripcion": {
+      "type": "text"
+    },
+    "imagen": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

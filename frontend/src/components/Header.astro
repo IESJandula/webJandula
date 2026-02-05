@@ -1,84 +1,89 @@
 ---
 import Logo from "@components/Logo.astro";
-const navItems = [
-    {name: 'Nuestro centro', href: '/nuestro_centro'},
-    {name: 'Oferta', href: '/oferta'},
-    {name: 'Proyectos', href: '/proyectos'},
-    {name: 'Internacionalización', href: '/internacionalizacion'},
-    {name: 'Orientación', href: '/orientacion'},
-    {name: 'Secretaría Virtual', href: '/secretaria_virtual'},
-];
 
-const accessLinks = [
-    {name: 'Contacto', href: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
-    {name: 'Acceso Séneca', href: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
-    {name: 'Moodle', href: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
-    {name: 'Intranet', href: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
+const navItems = [
+  { name: "Nuestro centro", href: "/nuestro_centro" },
+  { name: "Oferta", href: "/oferta" },
+  { name: "Proyectos", href: "/proyectos" },
+  { name: "Internacionalización", href: "/internacionalizacion" },
+  { name: "Orientación", href: "/orientacion" },
+  { name: "Secretaría Virtual", href: "/secretaria_virtual" },
 ];
 ---
-<header class="shadow-md bg-white">
-    <div class="text-white text-s py-2 bg-gradient-to-r from-jandula-green to-jandula-blue" aria-label="Accesos rápidos">
-        <div class="container flex justify-center space-x-6 md:justify-end">
-            {accessLinks.map((link) => (
-                    <a
-                            href={link.href}
-                            class="hover:text-blue-200 transition-colors font-normal"
-                            aria-label={`Acceso a ${link.name}`}
-                    >
-                        {link.name}
-                    </a>
-            ))}
-        </div>
-    </div>
 
-    <nav class="sticky top-0 z-50 bg-white container py-2 flex flex-wrap items-center justify-between" aria-label="Navegación principal del sitio">
+<header class="shadow-lg bg-white sticky top-0 z-50">
+  <nav
+    class="bg-white container py-2 flex flex-wrap items-center justify-between"
+    aria-label="Navegación principal del sitio"
+  >
+    <a
+      href="/"
+      class="flex items-center text-xl font-extrabold text-blue-900 transition-opacity hover:opacity-80"
+      aria-label="Página de inicio IES Jándula"
+    >
+      <Logo class="size-20" />
+    </a>
 
-        <a href="/" class="flex items-center text-xl font-extrabold text-blue-900 transition-opacity hover:opacity-80"
-        aria-label="Página de inicio IES Jándula">
-            <Logo class="size-20"/>
-        </a>
+    <button
+      id="menu-toggle"
+      class="md:hidden p-2 rounded-lg text-jandula-blue hover:bg-gray-100 transition-colors"
+      aria-expanded="false"
+      aria-controls="main-menu"
+      aria-label="Abrir menú de navegación"
+    >
+      <svg
+        class="w-8 h-8"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"></path>
+      </svg>
+    </button>
 
-        <button id="menu-toggle" class="md:hidden p-2 rounded-lg text-jandula-blue hover:bg-gray-100 transition-colors"
-                aria-expanded="false" aria-controls="main-menu" aria-label="Abrir menú de navegación">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
-            </svg>
-        </button>
-
-        <ul id="main-menu" class="hidden w-full flex-col mt-2 space-y-2 font-medium text-gray-700 md:mt-0 md:w-auto md:flex md:flex-row md:space-y-0 md:space-x-6">
-            {navItems.map((item) => (
-                    <li key={item.name}>
-                        <a
-                    href={item.href}
-                    class="block py-2 hover:text-blue-600 transition-colors"
-                                aria-current={item.href === Astro.url.pathname ? 'page' : false}
-                        >
-                            {item.name}
-                        </a>
-                    </li>
-            ))}
-        </ul>
-    </nav>
+    <ul
+      id="main-menu"
+      class="hidden w-full flex-col mt-2 space-y-2 font-medium text-gray-700 md:mt-0 md:w-auto md:flex md:flex-row md:space-y-0 md:space-x-6"
+    >
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block py-2 hover:text-blue-600 transition-colors"
+              aria-current={item.href === Astro.url.pathname ? "page" : false}
+            >
+              {item.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const menuToggle = document.getElementById("menu-toggle");
-        const mainMenu = document.getElementById("main-menu");
+  document.addEventListener("DOMContentLoaded", () => {
+    const menuToggle = document.getElementById("menu-toggle");
+    const mainMenu = document.getElementById("main-menu");
 
-        if (!menuToggle || !mainMenu) return;
+    if (!menuToggle || !mainMenu) return;
 
-        menuToggle.addEventListener("click", () => {
-            const isHidden = mainMenu.classList.toggle("hidden");
-            menuToggle.setAttribute("aria-expanded", String(!isHidden));
-            menuToggle.setAttribute(
-                "aria-label",
-                !isHidden ? "Cerrar menú de navegación" : "Abrir menú de navegación"
-            );
-            menuToggle.classList.toggle("bg-blue-800", !isHidden);
-            menuToggle.classList.toggle("text-white", !isHidden);
-            menuToggle.classList.toggle("text-blue-800", isHidden);
-        });
+    menuToggle.addEventListener("click", () => {
+      const isHidden = mainMenu.classList.toggle("hidden");
+      menuToggle.setAttribute("aria-expanded", String(!isHidden));
+      menuToggle.setAttribute(
+        "aria-label",
+        !isHidden ? "Cerrar menú de navegación" : "Abrir menú de navegación",
+      );
+      menuToggle.classList.toggle("bg-blue-800", !isHidden);
+      menuToggle.classList.toggle("text-white", !isHidden);
+      menuToggle.classList.toggle("text-blue-800", isHidden);
     });
+  });
 </script>

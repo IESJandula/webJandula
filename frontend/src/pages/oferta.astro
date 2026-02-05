@@ -1,7 +1,32 @@
 ---
-import Layout from "@/layouts/Layout.astro"
+import Layout from "@/layouts/Layout.astro";
 
-const ciclos = [
+type Ciclo = {
+  nivel: string;
+  nombre: string;
+  familia: string;
+  duracion: string;
+  turno: string;
+  descripcion: string;
+  imagen?: {
+    url?: string;
+    alternativeText?: string | null;
+  };
+};
+
+const { PUBLIC_API_URL } = import.meta.env;
+
+let ciclos: Ciclo[] = [];
+
+try {
+  const response = await fetch(`${PUBLIC_API_URL}/api/ciclos?populate=*`);
+  const { data } = await response.json();
+  ciclos = data as Ciclo[];
+} catch (error) {
+  console.error("Error cargando enlaces desde Strapi:", error);
+}
+
+/* const ciclos = [
   {
     nivel: "Grado Básico",
     nombre: "Informática y Comunicaciones",
@@ -56,47 +81,91 @@ const ciclos = [
     descripcion: "Desarrollar, implantar, y mantener aplicaciones web, con independencia del modelo empleado y utilizando tecnologías específicas.",
     icon: "🌐"
   },
-];
+]; */
 ---
 
 <Layout title="Oferta Educativa - IES Jándula">
   <!-- Modern Hero with Abstract Shapes -->
   <div class="relative isolate overflow-hidden bg-white">
-     <!-- Abstract decorations -->
-     <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" aria-hidden="true">
-        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-emerald-100 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
+    <!-- Abstract decorations -->
+    <div
+      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+      aria-hidden="true"
+    >
+      <div
+        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-emerald-100 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+      >
       </div>
+    </div>
 
-    <div class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40">
-      <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8">
+    <div
+      class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40"
+    >
+      <div
+        class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8"
+      >
         <div class="mt-24 sm:mt-32 lg:mt-16">
           <a href="#" class="inline-flex space-x-6">
-            <span class="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold leading-6 text-blue-700 ring-1 ring-inset ring-blue-700/10">Matrícula Abierta</span>
-            <span class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-slate-600">
+            <span
+              class="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold leading-6 text-blue-700 ring-1 ring-inset ring-blue-700/10"
+              >Matrícula Abierta</span
+            >
+            <span
+              class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-slate-600"
+            >
               <span>Curso 2024-2025</span>
-              <svg class="h-5 w-5 text-slate-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" /></svg>
+              <svg
+                class="h-5 w-5 text-slate-400"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                aria-hidden="true"
+                ><path
+                  fill-rule="evenodd"
+                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                  clip-rule="evenodd"></path></svg
+              >
             </span>
           </a>
         </div>
-        <h1 class="mt-10 text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl">
-          Construye tu futuro <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-emerald-600">hoy mismo</span>
+        <h1
+          class="mt-10 text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl"
+        >
+          Construye tu futuro <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-emerald-600"
+            >hoy mismo</span
+          >
         </h1>
         <p class="mt-6 text-lg leading-8 text-slate-600">
-            En IES Jándula combinamos excelencia académica con innovación práctica. Descubre un entorno donde la tecnología y el talento se encuentran.
+          En IES Jándula combinamos excelencia académica con innovación
+          práctica. Descubre un entorno donde la tecnología y el talento se
+          encuentran.
         </p>
         <div class="mt-10 flex items-center gap-x-6">
-          <a href="#ciclos" class="rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all">Explorar oferta</a>
-          <a href="#contacto" class="text-sm font-semibold leading-6 text-slate-900 flex items-center gap-2">Contactar secretaría <span aria-hidden="true">→</span></a>
+          <a
+            href="#ciclos"
+            class="rounded-full bg-blue-600 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-all"
+            >Explorar oferta</a
+          >
+          <a
+            href="#contacto"
+            class="text-sm font-semibold leading-6 text-slate-900 flex items-center gap-2"
+            >Contactar secretaría <span aria-hidden="true">→</span></a
+          >
         </div>
       </div>
       <!-- Hero Image Composition -->
-      <div class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32">
+      <div
+        class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32"
+      >
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-          <div class="-m-2 rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm">
-             <img
-                src="/images/bg-hero.webp"
-                alt="Estudiantes IES Jandula"
-                class="w-[36rem] rounded-xl shadow-2xl ring-1 ring-slate-900/10 object-cover object-center h-[24rem]"
+          <div
+            class="-m-2 rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm"
+          >
+            <img
+              src="/images/bg-hero.webp"
+              alt="Estudiantes IES Jandula"
+              class="w-[36rem] rounded-xl shadow-2xl ring-1 ring-slate-900/10 object-cover object-center h-[24rem]"
             />
           </div>
         </div>
@@ -104,93 +173,147 @@ const ciclos = [
     </div>
   </div>
 
-  <!-- Stats / Values Section (Visual separator) -->
-    <div class="bg-slate-50 py-12 sm:py-16 border-y border-slate-100">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-            <dl class="grid grid-cols-1 gap-x-8 gap-y-16 text-center lg:grid-cols-3">
-                <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                    <dt class="text-base leading-7 text-gray-600">Estudiantes formados</dt>
-                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">+1,200</dd>
-                </div>
-                <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                    <dt class="text-base leading-7 text-gray-600">Empresas colaboradoras</dt>
-                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">50+</dd>
-                </div>
-                <div class="mx-auto flex max-w-xs flex-col gap-y-4">
-                    <dt class="text-base leading-7 text-gray-600">Inserción laboral</dt>
-                    <dd class="order-first text-3xl font-semibold tracking-tight text-gray-900 sm:text-5xl">90%</dd>
-                </div>
-            </dl>
-        </div>
-    </div>
-
-
   <!-- Modern Grid ESO / Bachillerato -->
   <section id="eso-bachillerato" class="py-24 bg-white">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-2xl text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Itinerario Académico</h2>
-        <p class="mt-4 text-lg leading-8 text-slate-600">La base sólida que necesitas para despegar.</p>
+        <h2
+          class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+        >
+          Itinerario Académico
+        </h2>
+        <p class="mt-4 text-lg leading-8 text-slate-600">
+          La base sólida que necesitas para despegar.
+        </p>
       </div>
 
-      <div class="mt-16 grid grid-cols-1 gap-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2">
-         <!-- Large Card ESO -->
-        <div class="relative lg:col-span-2 lg:row-span-2 overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80">
-             <div class="absolute -right-20 -top-20 z-0 h-64 w-64 rounded-full bg-blue-100 blur-3xl opacity-60"></div>
-             <div class="relative z-10">
-                <div class="flex items-center gap-4 mb-6">
-                    <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm ring-1 ring-slate-100">
-                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                    </span>
-                    <h3 class="text-2xl font-bold text-slate-900">E.S.O.</h3>
-                </div>
-                <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-xl">
-                    La Educación Secundaria Obligatoria es la etapa donde descubres tus pasiones. Ofrecemos un entorno bilingüe, inclusivo y dinámico centrado en el alumno.
-                </p>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                     <div class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm">
-                        <div class="h-2 w-2 rounded-full bg-green-500"></div>
-                        <span class="font-medium text-slate-700">Programa Bilingüe</span>
-                     </div>
-                     <div class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm">
-                        <div class="h-2 w-2 rounded-full bg-purple-500"></div>
-                        <span class="font-medium text-slate-700">Digitalización</span>
-                     </div>
-                     <div class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm">
-                        <div class="h-2 w-2 rounded-full bg-orange-500"></div>
-                        <span class="font-medium text-slate-700">Laboratorios equipados</span>
-                     </div>
-                     <div class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm">
-                         <div class="h-2 w-2 rounded-full bg-blue-500"></div>
-                        <span class="font-medium text-slate-700">Orientación académica</span>
-                     </div>
-                </div>
-             </div>
+      <div
+        class="mt-16 grid grid-cols-1 gap-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2"
+      >
+        <!-- Large Card ESO -->
+        <div
+          class="relative lg:col-span-2 lg:row-span-2 overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
+        >
+          <div
+            class="absolute -right-20 -top-20 z-0 h-64 w-64 rounded-full bg-blue-100 blur-3xl opacity-60"
+          >
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-6">
+              <span
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white text-blue-600 shadow-sm ring-1 ring-slate-100"
+              >
+                <svg
+                  class="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  ><path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  ></path></svg
+                >
+              </span>
+              <h3 class="text-2xl font-bold text-slate-900">E.S.O.</h3>
+            </div>
+            <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-xl">
+              La Educación Secundaria Obligatoria es la etapa donde descubres
+              tus pasiones. Ofrecemos un entorno bilingüe, inclusivo y dinámico
+              centrado en el alumno.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div
+                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
+              >
+                <div class="h-2 w-2 rounded-full bg-green-500"></div>
+                <span class="font-medium text-slate-700">Programa Bilingüe</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
+              >
+                <div class="h-2 w-2 rounded-full bg-purple-500"></div>
+                <span class="font-medium text-slate-700">Digitalización</span>
+              </div>
+              <div
+                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
+              >
+                <div class="h-2 w-2 rounded-full bg-orange-500"></div>
+                <span class="font-medium text-slate-700"
+                  >Laboratorios equipados</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
+              >
+                <div class="h-2 w-2 rounded-full bg-blue-500"></div>
+                <span class="font-medium text-slate-700"
+                  >Orientación académica</span
+                >
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Bachillerato Card 1 -->
-        <div class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 shadow-lg ring-1 ring-white/10 transition-all hover:scale-[1.02] duration-300 group">
-            <div class="absolute -right-10 -top-10 z-0 h-40 w-40 rounded-full bg-indigo-500/20 blur-3xl group-hover:bg-indigo-500/30 transition-colors"></div>
-            <div class="flex items-center justify-between mb-4 relative z-10">
-                 <h3 class="text-xl font-bold text-white">Ciencias y Tecnología</h3>
-                 <svg class="w-6 h-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" /></svg>
-            </div>
+        <div
+          class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 shadow-lg ring-1 ring-white/10 transition-all hover:scale-[1.02] duration-300 group"
+        >
+          <div
+            class="absolute -right-10 -top-10 z-0 h-40 w-40 rounded-full bg-indigo-500/20 blur-3xl group-hover:bg-indigo-500/30 transition-colors"
+          >
+          </div>
+          <div class="flex items-center justify-between mb-4 relative z-10">
+            <h3 class="text-xl font-bold text-white">Ciencias y Tecnología</h3>
+            <svg
+              class="w-6 h-6 text-indigo-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+              ></path></svg
+            >
+          </div>
 
-            <p class="relative z-10 text-slate-300 text-sm leading-relaxed">
-                Para mentes analíticas que buscan comprender el mundo a través de las matemáticas, física, tecnología y el método científico.
-            </p>
+          <p class="relative z-10 text-slate-300 text-sm leading-relaxed">
+            Para mentes analíticas que buscan comprender el mundo a través de
+            las matemáticas, física, tecnología y el método científico.
+          </p>
         </div>
 
         <!-- Bachillerato Card 2 -->
-        <div class="relative overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200 transition-all hover:scale-[1.02] duration-300 hover:ring-slate-300 group">
-             <div class="absolute -left-10 -bottom-10 z-0 h-40 w-40 rounded-full bg-orange-100 blur-3xl opacity-60 group-hover:bg-orange-200/60 transition-colors"></div>
-            <div class="flex items-center justify-between mb-4 relative z-10">
-                 <h3 class="text-xl font-bold text-slate-900">Humanidades y CCSS</h3>
-                 <svg class="w-6 h-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-            </div>
-            <p class="relative z-10 text-slate-600 text-sm leading-relaxed">
-                Enfocado en el estudio de la sociedad, la historia, la economía, literatura y las lenguas clásicas y modernas.
-            </p>
+        <div
+          class="relative overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200 transition-all hover:scale-[1.02] duration-300 hover:ring-slate-300 group"
+        >
+          <div
+            class="absolute -left-10 -bottom-10 z-0 h-40 w-40 rounded-full bg-orange-100 blur-3xl opacity-60 group-hover:bg-orange-200/60 transition-colors"
+          >
+          </div>
+          <div class="flex items-center justify-between mb-4 relative z-10">
+            <h3 class="text-xl font-bold text-slate-900">Humanidades y CCSS</h3>
+            <svg
+              class="w-6 h-6 text-orange-500"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              ><path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+              ></path></svg
+            >
+          </div>
+          <p class="relative z-10 text-slate-600 text-sm leading-relaxed">
+            Enfocado en el estudio de la sociedad, la historia, la economía,
+            literatura y las lenguas clásicas y modernas.
+          </p>
         </div>
       </div>
     </div>
@@ -198,137 +321,199 @@ const ciclos = [
 
   <!-- Seccion Ciclos Moderno -->
   <section id="ciclos" class="py-24 bg-slate-50 relative overflow-hidden">
-        <!-- Decoration background -->
-      <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 opacity-10">
-        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-200 to-emerald-200 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"></div>
+    <!-- Decoration background -->
+    <div
+      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80 opacity-10"
+    >
+      <div
+        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-200 to-emerald-200 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+      >
+      </div>
+    </div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div
+        class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6"
+      >
+        <div class="max-w-2xl">
+          <h2
+            class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+          >
+            Formación Profesional
+          </h2>
+          <p class="mt-4 text-lg text-slate-600">
+            Estudios prácticos especializados con altas tasas de empleabilidad.
+          </p>
+        </div>
+        <!-- Functional Filters -->
+        <div class="flex flex-wrap gap-2" id="filters">
+          <button
+            data-filter="Todos"
+            class="filter-btn px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium transition-all shadow-sm hover:shadow-md border border-transparent"
+          >
+            Todos
+          </button>
+          <button
+            data-filter="Informática"
+            class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+          >
+            Informática
+          </button>
+          <button
+            data-filter="Industrial"
+            class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+          >
+            Industrial
+          </button>
+          <button
+            data-filter="Actividades Físicas"
+            class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+          >
+            Actividades Físicas
+          </button>
+        </div>
       </div>
 
-      <div class="mx-auto max-w-7xl px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
-            <div class="max-w-2xl">
-                <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Formación Profesional</h2>
-                <p class="mt-4 text-lg text-slate-600">Estudios prácticos especializados con altas tasas de empleabilidad.</p>
-            </div>
-             <!-- Functional Filters -->
-             <div class="flex flex-wrap gap-2" id="filters">
-                 <button
-                    data-filter="Todos"
-                    class="filter-btn px-4 py-2 rounded-full bg-slate-900 text-white text-sm font-medium transition-all shadow-sm hover:shadow-md border border-transparent"
-                 >
-                    Todos
-                 </button>
-                 <button
-                    data-filter="Informática"
-                    class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-                 >
-                    Informática
-                 </button>
-                 <button
-                    data-filter="Industrial"
-                    class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-                 >
-                    Industrial
-                 </button>
-                  <button
-                    data-filter="Actividades Físicas"
-                    class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-                 >
-                    Actividades Físicas
-                 </button>
-             </div>
-        </div>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        id="ciclos-grid"
+      >
+        {
+          ciclos.map((dato) => (
+            <div
+              data-familia={dato.familia}
+              class="ciclo-card group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 ring-1 ring-slate-100"
+            >
+              <div>
+                <div class="flex items-center justify-between mb-6">
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="ciclos-grid">
-            {ciclos.map((ciclo) => (
-                <div
-                    data-familia={ciclo.familia}
-                    class="ciclo-card group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-8 transition-all hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 ring-1 ring-slate-100"
-                >
-                    <div>
-                         <div class="flex items-center justify-between mb-6">
-                             <div class={`h-14 w-14 rounded-2xl flex items-center justify-center text-3xl shadow-sm ring-1 ring-inset ring-black/5 ${
-                                ciclo.familia === 'Informática' ? 'bg-blue-50 text-blue-600' :
-                                ciclo.familia === 'Industrial' ? 'bg-slate-100 text-slate-600' :
-                                ciclo.familia === 'Turismo' ? 'bg-orange-50 text-orange-600' :
-                                ciclo.familia === 'Actividades Físicas' ? 'bg-green-50 text-green-600' :
-                                'bg-purple-50 text-purple-600'
-                             }`}>
-                                 {ciclo.icon}
-                             </div>
-                             <span class={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ring-1 ring-inset ${
-                                ciclo.nivel.includes('Superior') 
-                                ? 'bg-purple-50 text-purple-700 ring-purple-600/20' 
-                                : ciclo.nivel.includes('Medio')
-                                ? 'bg-blue-50 text-blue-700 ring-blue-600/20'
-                                : 'bg-green-50 text-green-700 ring-green-600/20'
-                            }`}>
-                              {ciclo.nivel.replace('Grado ', '')}
-                            </span>
-                         </div>
+                    <!--Imagen de ciclo -->
 
-                         <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
-                             {ciclo.nombre}
-                         </h3>
-                         <p class="mt-4 text-sm leading-relaxed text-slate-500">
-                             {ciclo.descripcion}
-                         </p>
+                  <div class="w-full h-44 bg-blue-500">
+                    <img
+                      src={
+                        dato.imagen?.url
+                          ? `${PUBLIC_API_URL}${dato.imagen.url}`
+                          : "/fallback-banner.jpg"
+                      }
+                      alt={dato.imagen?.alternativeText ?? dato.nombre}
+                      class="w-full h-full object-cover"
+                    />
+                  </div>
 
-                         <div class="mt-6 flex flex-wrap gap-2 pt-6 border-t border-slate-50">
-                             <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
-                                 <svg class="h-3.5 w-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                 {ciclo.duracion}
-                             </span>
-                             <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
-                                 <svg class="h-3.5 w-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
-                                 {ciclo.turno}
-                             </span>
-                         </div>
-                    </div>
+                  <span
+                    class={`absolute top-4 right-4 text-white inline-flex items-center rounded-full px-2.5 py-0.5 text-s font-semibold ring-1 ring-inset ${
+                      dato.nivel.includes("Superior")
+                        ? "bg-purple-600 ring-purple-600/20"
+                        : dato.nivel.includes("Medio")
+                          ? "bg-blue-600 ring-blue-600/20"
+                          : "bg-green-600 ring-green-600/20"
+                    }`}
+                  >
+                    {dato.nivel.replace("Grado ", "")}
+                  </span>
                 </div>
-            ))}
-        </div>
+
+                <div class="p-7 bg-white w-full">
+                  <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
+                    {dato.nombre}
+                  </h3>
+                  <p class="mt-4 text-sm leading-relaxed text-slate-500">
+                    {dato.descripcion}
+                  </p>
+
+                  <div class="mt-6 flex flex-wrap gap-2 pt-6 border-t border-slate-50">
+                    <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+                      <svg
+                        class="h-3.5 w-3.5 text-slate-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {dato.duracion}
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
+                      <svg
+                        class="h-3.5 w-3.5 text-slate-400"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                        />
+                      </svg>
+                      {dato.turno}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
       </div>
+    </div>
   </section>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        const cards = document.querySelectorAll('.ciclo-card');
+    document.addEventListener("DOMContentLoaded", () => {
+      const filterButtons = document.querySelectorAll(".filter-btn");
+      const cards = document.querySelectorAll(".ciclo-card");
 
-        filterButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterButtons.forEach(b => {
-                    b.classList.remove('bg-slate-900', 'text-white', 'border-transparent');
-                    b.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
-                });
+      filterButtons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Remove active class from all buttons
+          filterButtons.forEach((b) => {
+            b.classList.remove(
+              "bg-slate-900",
+              "text-white",
+              "border-transparent",
+            );
+            b.classList.add("bg-white", "text-slate-600", "border-slate-200");
+          });
 
-                // Add active class to clicked button
-                btn.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
-                btn.classList.add('bg-slate-900', 'text-white', 'border-transparent');
+          // Add active class to clicked button
+          btn.classList.remove(
+            "bg-white",
+            "text-slate-600",
+            "border-slate-200",
+          );
+          btn.classList.add("bg-slate-900", "text-white", "border-transparent");
 
-                const filterValue = btn.getAttribute('data-filter');
+          const filterValue = btn.getAttribute("data-filter");
 
-                cards.forEach((card: any) => {
-                    const cardFamilia = card.getAttribute('data-familia');
+          cards.forEach((card: any) => {
+            const cardFamilia = card.getAttribute("data-familia");
 
-                    if (filterValue === 'Todos' || filterValue === cardFamilia) {
-                        card.style.display = 'flex';
-                        // Add animation for appearance
-                        card.animate([
-                            { opacity: 0, transform: 'translateY(10px)' },
-                            { opacity: 1, transform: 'translateY(0)' }
-                        ], {
-                            duration: 300,
-                            easing: 'ease-out'
-                        });
-                    } else {
-                        card.style.display = 'none';
-                    }
-                });
-            });
+            if (filterValue === "Todos" || filterValue === cardFamilia) {
+              card.style.display = "flex";
+              // Add animation for appearance
+              card.animate(
+                [
+                  { opacity: 0, transform: "translateY(10px)" },
+                  { opacity: 1, transform: "translateY(0)" },
+                ],
+                {
+                  duration: 300,
+                  easing: "ease-out",
+                },
+              );
+            } else {
+              card.style.display = "none";
+            }
+          });
         });
+      });
     });
   </script>
 </Layout>
-

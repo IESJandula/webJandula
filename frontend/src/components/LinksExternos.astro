@@ -1,0 +1,40 @@
+---
+
+type EnlaceExterno = {
+  nombre: string;
+  link: string;
+  icon?: string;
+};
+
+const { PUBLIC_API_URL } = import.meta.env;
+
+let accessLinks: EnlaceExterno[] = [];
+
+try {
+  const response = await fetch(`${PUBLIC_API_URL}/api/enlaceexternos`);
+  const { data } = await response.json();
+  accessLinks = data;
+  } catch (error) {
+  console.error("Error cargando enlaces desde Strapi:", error);
+  // Opcional: podrías poner enlaces por defecto aquí si falla la API
+  accessLinks = [ {nombre: 'Contacto', link: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
+    {nombre: 'Acceso Séneca', link: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
+    {nombre: 'Moodle', link: 'https://moodle.iesjandula.es/contacto', icon: 'C'},
+    {nombre: 'Intranet', link: 'https://moodle.iesjandula.es/contacto', icon: 'C'},];
+}
+
+
+---
+<div class="text-white text-s py-2 bg-gradient-to-r from-jandula-green to-jandula-blue" aria-label="Accesos rápidos">
+        <div class="container flex justify-center space-x-6 md:justify-end">
+            {accessLinks.map((dato) => (
+                    <a
+                            href={dato.link}
+                            class="hover:text-blue-200 transition-colors font-normal"
+                            aria-label={`Acceso a ${dato.nombre}`}
+                    >
+                        {dato.nombre}
+                    </a>
+            ))}
+        </div>
+    </div>

@@ -1,6 +1,7 @@
 ---
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
+import LinksExternos from '@components/LinksExternos.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -32,9 +33,9 @@ const siteTitle = `${title} | IES Jándula`;
     Saltar a contenido principal
 </a>
 
+<LinksExternos />
 <Header/>
-
-<main id="main-content" class="flex-grow">
+<main id="main-content" class="flex-grow bg-gray-100">
     <slot />
 </main>
 
