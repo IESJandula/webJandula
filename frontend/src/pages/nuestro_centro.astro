@@ -1,32 +1,8 @@
 ---
 import Layout from "@layouts/Layout.astro";
-
-const { PUBLIC_API_URL } = import.meta.env;
-
-const response = await fetch(`${PUBLIC_API_URL}/api/image?populate=*`);
-const { data } = await response.json();
-
-const banner = data ?? {};
-const titulo = banner?.titulo || "Título por defecto";
-const imagenRelativa = banner?.bannernuestrocentro?.url;
-
-const imagenUrl = imagenRelativa
-  ? `${PUBLIC_API_URL}${imagenRelativa}`
-  : "/fallback-banner.jpg";
 ---
 
 <Layout title="Conoce el centro">
-
-    <!-- Banner Nuestro Centro con imagen/video modificable-->
-    <div class="w-full bg-slate-800 h-72 relative">
-        <img
-            src={imagenUrl}
-            alt="Vista panorámica del IES Jándula"
-            class="w-full h-full object-cover object-center opacity-80"
-        />
-        <div class="absolute inset-0 flex items-center justify-center">
-        </div>
-    </div>
 
   <!-- Modern Hero with Abstract Shapes -->
   <div class="relative isolate overflow-hidden bg-white">
@@ -54,13 +30,11 @@ const imagenUrl = imagenRelativa
           <a
             href="#institucional"
             class="rounded-full bg-blue-800 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 transition-all"
-            >Ver Institucional</a
-          >
+          >Ver Institucional</a>
           <a
             href="#documentos"
             class="text-sm font-semibold leading-6 text-gray-900 flex items-center gap-2"
-            >Documentos <span aria-hidden="true">→</span></a
-          >
+          >Documentos <span aria-hidden="true">→</span></a>
         </div>
       </div>
       <!-- Hero Image Composition -->
@@ -69,7 +43,7 @@ const imagenUrl = imagenRelativa
       >
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
           <div
-            class="-m-2 rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm"
+            class="-m-2 rounded-2xl p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm"
           >
             <img
               src="/images/bg-hero.webp"
@@ -132,7 +106,7 @@ const imagenUrl = imagenRelativa
               <p
                 class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
               >
-                [Nombre]
+                Juan Manuel Rubio Jiménez
               </p>
             </div>
             <div
@@ -146,7 +120,7 @@ const imagenUrl = imagenRelativa
               <p
                 class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
               >
-                [Nombre]
+                Ana María López García
               </p>
             </div>
             <div
@@ -160,7 +134,7 @@ const imagenUrl = imagenRelativa
               <p
                 class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
               >
-                [Nombre]
+                Francisco Javier Molina Pérez
               </p>
             </div>
           </div>
@@ -262,15 +236,15 @@ const imagenUrl = imagenRelativa
               <p class="text-xs text-gray-500 uppercase mt-1">Presidencia</p>
             </div>
             <div class="text-center p-4 bg-slate-50 rounded-2xl">
-              <p class="text-2xl font-bold text-gray-900">[N]</p>
+              <p class="text-2xl font-bold text-gray-900">8</p>
               <p class="text-xs text-gray-500 uppercase mt-1">Profesorado</p>
             </div>
             <div class="text-center p-4 bg-slate-50 rounded-2xl">
-              <p class="text-2xl font-bold text-gray-900">[N]</p>
+              <p class="text-2xl font-bold text-gray-900">4</p>
               <p class="text-xs text-gray-500 uppercase mt-1">Familias</p>
             </div>
             <div class="text-center p-4 bg-slate-50 rounded-2xl">
-              <p class="text-2xl font-bold text-gray-900">[N]</p>
+              <p class="text-2xl font-bold text-gray-900">4</p>
               <p class="text-xs text-gray-500 uppercase mt-1">Alumnado</p>
             </div>
             <div class="text-center p-4 bg-slate-50 rounded-2xl">
@@ -306,9 +280,8 @@ const imagenUrl = imagenRelativa
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Doc Card 1 -->
-        <a
-          href="#"
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg hover:-translate-y-1"
+        <div
+          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
         >
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -340,19 +313,14 @@ const imagenUrl = imagenRelativa
               Marco pedagógico y organizativo del instituto.
             </p>
           </div>
-          <div class="mt-4 flex items-center text-sm font-medium text-blue-600">
-            Descargar PDF <span
-              aria-hidden="true"
-              class="ml-1 transition-transform group-hover:translate-x-1"
-              >&rarr;</span
-            >
+          <div class="mt-4 text-sm font-medium text-blue-600">
+            Disponible en Secretaría
           </div>
-        </a>
+        </div>
 
         <!-- Doc Card 2 -->
-        <a
-          href="#"
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg hover:-translate-y-1"
+        <div
+          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
         >
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -384,19 +352,14 @@ const imagenUrl = imagenRelativa
               Medidas para la prevención de la discriminación.
             </p>
           </div>
-          <div class="mt-4 flex items-center text-sm font-medium text-teal-600">
-            Descargar PDF <span
-              aria-hidden="true"
-              class="ml-1 transition-transform group-hover:translate-x-1"
-              >&rarr;</span
-            >
+          <div class="mt-4 text-sm font-medium text-teal-600">
+            Disponible en Secretaría
           </div>
-        </a>
+        </div>
 
         <!-- Doc Card 3 -->
-        <a
-          href="#"
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg hover:-translate-y-1"
+        <div
+          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
         >
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -428,21 +391,14 @@ const imagenUrl = imagenRelativa
               Fomento de la lectura y la comprensión lectora.
             </p>
           </div>
-          <div
-            class="mt-4 flex items-center text-sm font-medium text-emerald-600"
-          >
-            Descargar PDF <span
-              aria-hidden="true"
-              class="ml-1 transition-transform group-hover:translate-x-1"
-              >&rarr;</span
-            >
+          <div class="mt-4 text-sm font-medium text-emerald-600">
+            Disponible en Secretaría
           </div>
-        </a>
+        </div>
 
         <!-- Doc Card 4 -->
-        <a
-          href="#"
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg hover:-translate-y-1"
+        <div
+          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
         >
           <div>
             <div class="flex items-center justify-between mb-4">
@@ -474,14 +430,10 @@ const imagenUrl = imagenRelativa
               Plan de Atención a la Diversidad del alumnado.
             </p>
           </div>
-          <div class="mt-4 flex items-center text-sm font-medium text-sky-600">
-            Descargar PDF <span
-              aria-hidden="true"
-              class="ml-1 transition-transform group-hover:translate-x-1"
-              >&rarr;</span
-            >
+          <div class="mt-4 text-sm font-medium text-sky-600">
+            Disponible en Secretaría
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </section>
