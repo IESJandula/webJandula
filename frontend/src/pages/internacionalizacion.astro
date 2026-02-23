@@ -1,23 +1,14 @@
 ---
 import Layout from '@layouts/Layout.astro';
 
-// TODO: Actualizar con datos reales de movilidades Erasmus+
-const movilidades: Array<{
-  pais: string;
-  ciudad: string;
-  participantes: number;
-  anio: number;
-  tipo: string;
-  bandera: string;
-}> = [
-  // {
-  //   pais: 'País',
-  //   ciudad: 'Ciudad',
-  //   participantes: 0,
-  //   anio: 2025,
-  //   tipo: 'Tipo de movilidad',
-  //   bandera: '🏳️'
-  // }
+// Destinos Erasmus+ — sustituir con datos reales del centro
+const movilidades = [
+  { pais: 'Alemania',    ciudad: 'Berlín',    participantes: 6,  anio: 2024, tipo: 'FP Dual',       bandera: '🇩🇪', lat: 52.52,  lng: 13.405 },
+  { pais: 'Portugal',    ciudad: 'Lisboa',    participantes: 4,  anio: 2024, tipo: 'FP Medio',       bandera: '🇵🇹', lat: 38.717, lng: -9.139 },
+  { pais: 'Italia',      ciudad: 'Roma',      participantes: 5,  anio: 2023, tipo: 'FP Superior',    bandera: '🇮🇹', lat: 41.902, lng: 12.496 },
+  { pais: 'Francia',     ciudad: 'París',     participantes: 3,  anio: 2023, tipo: 'Profesorado',    bandera: '🇫🇷', lat: 48.857, lng: 2.347  },
+  { pais: 'Países Bajos',ciudad: 'Ámsterdam', participantes: 4,  anio: 2025, tipo: 'FP Superior',    bandera: '🇳🇱', lat: 52.370, lng: 4.895  },
+  { pais: 'Polonia',     ciudad: 'Cracovia',  participantes: 6,  anio: 2025, tipo: 'FP Medio',       bandera: '🇵🇱', lat: 50.064, lng: 19.945 },
 ];
 
 // TODO: Actualizar con proyectos eTwinning reales del centro
@@ -39,6 +30,13 @@ const proyectoseTwinning: Array<{
 ---
 
 <Layout title="Internacionalización">
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
 
   <!-- Hero Section -->
   <div class="relative isolate overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
@@ -112,42 +110,50 @@ const proyectoseTwinning: Array<{
         </div>
       </div>
 
-      <!-- Mapa de Movilidades -->
-      <div class="rounded-3xl bg-slate-50 p-8 sm:p-12 shadow-sm ring-1 ring-gray-900/5">
-        <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">
+      <!-- Mapa interactivo de Movilidades -->
+      <div id="mapa" class="rounded-3xl bg-slate-50 p-8 sm:p-12 shadow-sm ring-1 ring-gray-900/5 scroll-mt-24">
+        <h3 class="text-2xl font-bold text-gray-900 mb-2 text-center">
           Destinos de nuestras movilidades
         </h3>
-        {movilidades.length > 0 ? (
-          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {movilidades.map((movilidad) => (
-              <div class="group relative rounded-2xl bg-white p-6 shadow-sm ring-1 ring-gray-900/5 transition-all hover:shadow-lg hover:scale-105">
-                <div class="flex items-start justify-between mb-4">
-                  <div class="text-5xl">{movilidad.bandera}</div>
-                  <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                    {movilidad.anio}
-                  </span>
-                </div>
-                <h4 class="text-xl font-bold text-gray-900 mb-1">
-                  {movilidad.pais}
-                </h4>
-                <p class="text-sm text-gray-600 mb-4">{movilidad.ciudad}</p>
-                <div class="flex items-center justify-between pt-4 border-t border-gray-100">
-                  <div class="flex items-center gap-2 text-sm text-gray-600">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                    </svg>
-                    {movilidad.participantes} participantes
-                  </div>
-                  <span class="text-xs font-medium text-indigo-600">{movilidad.tipo}</span>
-                </div>
+        <p class="text-center text-gray-500 text-sm mb-8">Haz clic en los marcadores para ver los detalles de cada destino</p>
+
+        <!-- Mapa -->
+        <div
+          id="erasmus-map"
+          class="w-full rounded-2xl overflow-hidden ring-1 ring-gray-200 shadow-md"
+          style="height: 420px;"
+          role="img"
+          aria-label="Mapa interactivo con los destinos Erasmus+ del IES Jándula"
+        ></div>
+
+        <!-- Leyenda accesible (fallback + complemento visual) -->
+        <div class="mt-6 flex flex-wrap gap-3 justify-center" aria-hidden="true">
+          {['FP Dual','FP Medio','FP Superior','Profesorado'].map(tipo => (
+            <span class="inline-flex items-center gap-1.5 text-xs font-medium text-gray-600 bg-white px-3 py-1.5 rounded-full ring-1 ring-gray-200">
+              <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>{tipo}
+            </span>
+          ))}
+        </div>
+
+        <!-- Tarjetas de destinos -->
+        <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 mt-10">
+          {movilidades.map((m) => (
+            <div class="group relative rounded-2xl bg-white p-5 shadow-sm ring-1 ring-gray-100 transition-all hover:shadow-lg hover:-translate-y-0.5">
+              <div class="flex items-start justify-between mb-3">
+                <span class="text-4xl" role="img" aria-label={m.pais}>{m.bandera}</span>
+                <span class="rounded-full bg-blue-50 px-2.5 py-0.5 text-xs font-semibold text-blue-700 ring-1 ring-blue-100">{m.anio}</span>
               </div>
-            ))}
-          </div>
-        ) : (
-          <div class="text-center py-12">
-            <p class="text-gray-500">No hay movilidades registradas. Actualiza el archivo con datos reales.</p>
-          </div>
-        )}
+              <h4 class="text-lg font-bold text-gray-900">{m.pais}</h4>
+              <p class="text-sm text-gray-500 mb-3">{m.ciudad}</p>
+              <div class="flex items-center justify-between pt-3 border-t border-gray-50">
+                <span class="text-xs text-gray-600">
+                  <strong class="text-gray-800">{m.participantes}</strong> participantes
+                </span>
+                <span class="text-xs font-semibold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full">{m.tipo}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <!-- TODO: Reemplazar con testimonios reales (con permiso) o eliminar esta sección -->
@@ -424,3 +430,95 @@ const proyectoseTwinning: Array<{
   </section>
 
 </Layout>
+
+<!-- Leaflet JS — mapa interactivo de destinos Erasmus+ -->
+<script
+  is:inline
+  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs="
+  crossorigin=""
+></script>
+
+<script is:inline>
+(function initMap() {
+  const mapEl = document.getElementById('erasmus-map');
+  if (!mapEl) return;
+
+  // Si Leaflet aún no cargó, reintentamos hasta que esté disponible
+  if (typeof L === 'undefined') {
+    setTimeout(initMap, 50);
+    return;
+  }
+
+  // Evitar doble inicialización
+  if (mapEl._leaflet_id) return;
+
+  const movilidades = [
+    { pais:'Alemania',     ciudad:'Berlín',    participantes:6, anio:2024, tipo:'FP Dual',    bandera:'🇩🇪', lat:52.52,  lng:13.405 },
+    { pais:'Portugal',     ciudad:'Lisboa',    participantes:4, anio:2024, tipo:'FP Medio',   bandera:'🇵🇹', lat:38.717, lng:-9.139 },
+    { pais:'Italia',       ciudad:'Roma',      participantes:5, anio:2023, tipo:'FP Superior',bandera:'🇮🇹', lat:41.902, lng:12.496 },
+    { pais:'Francia',      ciudad:'París',     participantes:3, anio:2023, tipo:'Profesorado',bandera:'🇫🇷', lat:48.857, lng:2.347  },
+    { pais:'Países Bajos', ciudad:'Ámsterdam', participantes:4, anio:2025, tipo:'FP Superior',bandera:'🇳🇱', lat:52.370, lng:4.895  },
+    { pais:'Polonia',      ciudad:'Cracovia',  participantes:6, anio:2025, tipo:'FP Medio',   bandera:'🇵🇱', lat:50.064, lng:19.945 },
+  ];
+
+  const map = L.map('erasmus-map', {
+    center: [50, 10],
+    zoom: 4,
+    scrollWheelZoom: false,
+    attributionControl: true,
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  function createIcon(emoji) {
+    return L.divIcon({
+      className: '',
+      html: '<div style="background:#1D829B;color:white;width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);font-size:16px"><span style="transform:rotate(45deg)">' + emoji + '</span></div>',
+      iconSize: [36, 36],
+      iconAnchor: [18, 36],
+      popupAnchor: [0, -38],
+    });
+  }
+
+  movilidades.forEach(function(m) {
+    L.marker([m.lat, m.lng], { icon: createIcon(m.bandera) })
+      .bindPopup(
+        '<div style="font-family:system-ui,sans-serif;min-width:180px">' +
+        '<div style="font-size:1.5rem;margin-bottom:6px">' + m.bandera + '</div>' +
+        '<strong style="font-size:1rem;color:#111">' + m.pais + '</strong>' +
+        '<p style="color:#555;margin:2px 0 6px;font-size:0.85rem">' + m.ciudad + '</p>' +
+        '<hr style="border:none;border-top:1px solid #eee;margin:6px 0">' +
+        '<div style="display:flex;justify-content:space-between;font-size:0.8rem">' +
+        '<span style="color:#444">👥 ' + m.participantes + ' participantes</span>' +
+        '<span style="color:#1D829B;font-weight:600">' + m.anio + '</span>' +
+        '</div>' +
+        '<span style="display:inline-block;margin-top:6px;background:#EFF6FF;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-size:0.75rem;font-weight:600">' + m.tipo + '</span>' +
+        '</div>',
+        { maxWidth: 220 }
+      )
+      .addTo(map);
+  });
+
+  // Ajustar vista
+  var bounds = L.latLngBounds(movilidades.map(function(m){ return [m.lat, m.lng]; }));
+  map.fitBounds(bounds, { padding: [40, 40] });
+
+  // Marcador IES Jándula (origen)
+  var homeIcon = L.divIcon({
+    className: '',
+    html: '<div style="background:#A3CC2A;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid white;box-shadow:0 2px 10px rgba(0,0,0,0.4);font-size:18px">🏫</div>',
+    iconSize: [40, 40],
+    iconAnchor: [20, 20],
+    popupAnchor: [0, -24],
+  });
+
+  L.marker([38.095, -3.634], { icon: homeIcon })
+    .bindPopup('<strong>IES Jándula</strong><br>Linares, Jaén (España)')
+    .addTo(map);
+})();
+</script>
+

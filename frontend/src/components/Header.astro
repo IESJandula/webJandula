@@ -1,89 +1,304 @@
 ---
 import Logo from "@components/Logo.astro";
 
-const navItems = [
-  { name: "Nuestro centro", href: "/nuestro_centro" },
-  { name: "Oferta", href: "/oferta" },
-  { name: "Proyectos", href: "/proyectos" },
-  { name: "Internacionalización", href: "/internacionalizacion" },
-  { name: "Orientación", href: "/orientacion" },
-  { name: "Secretaría Virtual", href: "/secretaria_virtual" },
+const megaMenu = [
+  {
+    name: "Nuestro Centro",
+    href: "/nuestro_centro",
+    items: [
+      { name: "Equipo Directivo", href: "/nuestro_centro#institucional", desc: "Dirección, jefatura y secretaría" },
+      { name: "Consejo Escolar", href: "/nuestro_centro#institucional", desc: "Órgano de participación" },
+      { name: "Documentación Oficial", href: "/nuestro_centro#documentos", desc: "Planes y proyectos del centro" },
+      { name: "Horarios", href: "/nuestro_centro#institucional", desc: "Jornada lectiva y atención" },
+    ],
+  },
+  {
+    name: "Oferta Educativa",
+    href: "/oferta",
+    items: [
+      { name: "Bachillerato", href: "/oferta#eso-bachillerato", desc: "Ciencias, Tecnología y Humanidades" },
+      { name: "FP Grado Básico", href: "/oferta#ciclos", desc: "Ciclos de iniciación profesional" },
+      { name: "FP Grado Medio", href: "/oferta#ciclos", desc: "SMR, Electromecánica y más" },
+      { name: "FP Grado Superior", href: "/oferta#ciclos", desc: "DAM, DAW, Mecatrónica..." },
+    ],
+  },
+  {
+    name: "Proyectos",
+    href: "/proyectos",
+    items: [
+      { name: "Proyecto LINCE", href: "/proyectos", desc: "Shell Eco Marathon" },
+      { name: "Biblioteca Pasa Página", href: "/proyectos", desc: "Lectura y revista escolar" },
+      { name: "Aula Jaque & Rubik", href: "/proyectos", desc: "Pensamiento lógico" },
+      { name: "Escuelas Deportivas", href: "/proyectos", desc: "Deporte y salud" },
+    ],
+  },
+  {
+    name: "Internacional",
+    href: "/internacionalizacion",
+    items: [
+      { name: "Erasmus+", href: "/internacionalizacion#erasmus", desc: "Movilidad europea FP" },
+      { name: "EPAS", href: "/internacionalizacion#embajadoras", desc: "Escuela Embajadora del PE" },
+      { name: "eTwinning", href: "/internacionalizacion#etwinning", desc: "Proyectos digitales europeos" },
+      { name: "Mapa de destinos", href: "/internacionalizacion#mapa", desc: "Todos nuestros destinos" },
+    ],
+  },
+  {
+    name: "Orientación",
+    href: "/orientacion",
+    items: [
+      { name: "Acción Tutorial", href: "/orientacion#orientacion", desc: "Tutorías y seguimiento" },
+      { name: "Atención a la Diversidad", href: "/orientacion#orientacion", desc: "Medidas inclusivas" },
+      { name: "Comunidad Educativa", href: "/orientacion#comunidad", desc: "AMPA y Consejo de Estudiantes" },
+    ],
+  },
+  {
+    name: "Secretaría Virtual",
+    href: "/secretaria_virtual",
+    items: [
+      { name: "Trámites", href: "/secretaria_virtual#tramites", desc: "Admisión, matrícula y becas" },
+      { name: "Certificados", href: "/secretaria_virtual#certificados", desc: "Solicitud de títulos" },
+      { name: "Cita Previa", href: "/secretaria_virtual#cita-previa", desc: "Reserva tu cita" },
+    ],
+  },
 ];
+
+const currentPath = Astro.url.pathname;
 ---
 
-<header class="shadow-lg bg-white sticky top-0 z-50">
-  <nav
-    class="bg-white container py-2 flex flex-wrap items-center justify-between"
-    aria-label="Navegación principal del sitio"
-  >
+<header class="bg-white shadow-sm sticky top-0 z-50" role="banner">
+  <nav class="container py-0 flex items-center justify-between h-16" aria-label="Navegación principal">
+
+    <!-- Logo -->
     <a
       href="/"
-      class="flex items-center text-xl font-extrabold text-blue-900 transition-opacity hover:opacity-80"
-      aria-label="Página de inicio IES Jándula"
+      class="flex items-center font-extrabold text-blue-900 transition-opacity hover:opacity-80 flex-shrink-0"
+      aria-label="Inicio — IES Jándula"
     >
-      <Logo class="size-20" />
+      <Logo class="size-14" />
     </a>
 
+    <!-- Desktop Mega Menu -->
+    <ul class="hidden lg:flex items-center gap-1 h-full" role="menubar" aria-label="Menú principal">
+      {megaMenu.map((section) => (
+        <li class="relative h-full flex items-center group" role="none">
+          <!-- Trigger -->
+          <button
+            class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1
+              ${currentPath === section.href
+                ? 'text-blue-700 bg-blue-50'
+                : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'}
+            `}
+            aria-haspopup="true"
+            aria-expanded="false"
+            role="menuitem"
+            data-mega-trigger
+          >
+            {section.name}
+            <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-desktop-chevron>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Dropdown Panel — controlado por JS (hover + focus) -->
+          <div
+            class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible transition-all duration-200 ease-out"
+            role="menu"
+            aria-label={`Submenú de ${section.name}`}
+            data-mega-panel
+          >
+            <div class="bg-white rounded-2xl shadow-xl ring-1 ring-gray-900/5 p-4 w-72 overflow-hidden">
+              <!-- Header link to section -->
+              <a
+                href={section.href}
+                class="flex items-center justify-between mb-3 pb-3 border-b border-gray-100 group/header focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
+                role="menuitem"
+              >
+                <span class="text-sm font-semibold text-gray-900 group-hover/header:text-blue-700 transition-colors">{section.name}</span>
+                <svg class="w-4 h-4 text-gray-400 group-hover/header:text-blue-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
+              <!-- Sub-items -->
+              <ul class="space-y-1">
+                {section.items.map((item) => (
+                  <li role="none">
+                    <a
+                      href={item.href}
+                      class="flex flex-col px-3 py-2 rounded-xl hover:bg-blue-50 transition-colors group/item focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                      role="menuitem"
+                    >
+                      <span class="text-sm font-medium text-gray-800 group-hover/item:text-blue-700 transition-colors">{item.name}</span>
+                      <span class="text-xs text-gray-500 mt-0.5">{item.desc}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </li>
+      ))}
+    </ul>
+
+    <!-- Hamburger Button (mobile) -->
     <button
       id="menu-toggle"
-      class="md:hidden p-2 rounded-lg text-jandula-blue hover:bg-gray-100 transition-colors"
+      class="lg:hidden p-2 rounded-xl text-gray-600 hover:bg-gray-100 transition-colors"
       aria-expanded="false"
-      aria-controls="main-menu"
+      aria-controls="mobile-menu"
       aria-label="Abrir menú de navegación"
     >
-      <svg
-        class="w-8 h-8"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16m-7 6h7"></path>
+      <svg id="icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <svg id="icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
-
-    <ul
-      id="main-menu"
-      class="hidden w-full flex-col mt-2 space-y-2 font-medium text-gray-700 md:mt-0 md:w-auto md:flex md:flex-row md:space-y-0 md:space-x-6"
-    >
-      {
-        navItems.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class="block py-2 hover:text-blue-600 transition-colors"
-              aria-current={item.href === Astro.url.pathname ? "page" : false}
-            >
-              {item.name}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
   </nav>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden border-t border-gray-100 bg-white max-h-[80vh] overflow-y-auto"
+    aria-label="Menú móvil"
+  >
+    <ul class="container py-3 space-y-1">
+      {megaMenu.map((section, idx) => (
+        <li>
+          <!-- Accordion trigger -->
+          <button
+            class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
+            aria-expanded="false"
+            aria-controls={`mobile-sub-${idx}`}
+            data-mobile-trigger
+          >
+            <span>{section.name}</span>
+            <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-chevron>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+
+          <!-- Accordion content -->
+          <ul
+            id={`mobile-sub-${idx}`}
+            class="hidden pl-4 pb-2 space-y-1"
+            aria-label={`Submenú de ${section.name}`}
+          >
+            <li>
+              <a
+                href={section.href}
+                class="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-blue-700 hover:bg-blue-50 transition-colors"
+              >
+                Ver todo — {section.name}
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                </svg>
+              </a>
+            </li>
+            {section.items.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="flex flex-col px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <span class="text-sm font-medium text-gray-800">{item.name}</span>
+                  <span class="text-xs text-gray-500">{item.desc}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))}
+    </ul>
+  </div>
 </header>
 
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const menuToggle = document.getElementById("menu-toggle");
-    const mainMenu = document.getElementById("main-menu");
+  // ── Helpers ──────────────────────────────────────────────────
+  function openPanel(btn: HTMLButtonElement) {
+    const panel   = btn.nextElementSibling as HTMLElement | null;
+    const chevron = btn.querySelector<SVGElement>('[data-desktop-chevron]');
+    if (!panel) return;
+    panel.classList.remove('opacity-0', 'invisible');
+    panel.classList.add('opacity-100', 'visible');
+    btn.setAttribute('aria-expanded', 'true');
+    chevron?.classList.add('rotate-180');
+  }
 
-    if (!menuToggle || !mainMenu) return;
+  function closePanel(btn: HTMLButtonElement) {
+    const panel   = btn.nextElementSibling as HTMLElement | null;
+    const chevron = btn.querySelector<SVGElement>('[data-desktop-chevron]');
+    if (!panel) return;
+    panel.classList.add('opacity-0', 'invisible');
+    panel.classList.remove('opacity-100', 'visible');
+    btn.setAttribute('aria-expanded', 'false');
+    chevron?.classList.remove('rotate-180');
+  }
 
-    menuToggle.addEventListener("click", () => {
-      const isHidden = mainMenu.classList.toggle("hidden");
-      menuToggle.setAttribute("aria-expanded", String(!isHidden));
-      menuToggle.setAttribute(
-        "aria-label",
-        !isHidden ? "Cerrar menú de navegación" : "Abrir menú de navegación",
-      );
-      menuToggle.classList.toggle("bg-blue-800", !isHidden);
-      menuToggle.classList.toggle("text-white", !isHidden);
-      menuToggle.classList.toggle("text-blue-800", isHidden);
+  function closeAllPanels() {
+    document.querySelectorAll<HTMLButtonElement>('[data-mega-trigger]').forEach(closePanel);
+  }
+
+  // ── Desktop: hover + focus ────────────────────────────────────
+  document.querySelectorAll<HTMLElement>('.group[role="none"]').forEach((li) => {
+    const btn = li.querySelector<HTMLButtonElement>('[data-mega-trigger]');
+    if (!btn) return;
+
+    // Hover
+    li.addEventListener('mouseenter', () => openPanel(btn));
+    li.addEventListener('mouseleave', () => closePanel(btn));
+
+    // Foco (teclado Tab/clic)
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      closeAllPanels();
+      if (!isOpen) openPanel(btn);
+    });
+
+    // Cuando el foco sale del li completo (Tab fuera), cerrar
+    li.addEventListener('focusout', (e) => {
+      if (!li.contains(e.relatedTarget as Node)) {
+        closePanel(btn);
+      }
+    });
+  });
+
+  // ── Cerrar al pulsar Escape ───────────────────────────────────
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAllPanels();
+  });
+
+  // ── Cerrar al clicar fuera ────────────────────────────────────
+  document.addEventListener('click', (e) => {
+    const target = e.target as Node;
+    const inMenu = (target as Element).closest('[role="none"]');
+    if (!inMenu) closeAllPanels();
+  });
+
+  // ── Hamburger toggle ──────────────────────────────────────────
+  const menuToggle = document.getElementById('menu-toggle') as HTMLButtonElement | null;
+  const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
+  const iconOpen   = document.getElementById('icon-open')   as SVGElement | null;
+  const iconClose  = document.getElementById('icon-close')  as SVGElement | null;
+
+  menuToggle?.addEventListener('click', () => {
+    const isOpen = mobileMenu?.classList.toggle('hidden') === false;
+    menuToggle.setAttribute('aria-expanded', String(isOpen));
+    iconOpen?.classList.toggle('hidden', isOpen);
+    iconClose?.classList.toggle('hidden', !isOpen);
+  });
+
+  // ── Mobile accordion ─────────────────────────────────────────
+  document.querySelectorAll<HTMLButtonElement>('[data-mobile-trigger]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('aria-controls');
+      if (!targetId) return;
+      const panel   = document.getElementById(targetId);
+      const chevron = btn.querySelector<SVGElement>('[data-chevron]');
+      const isOpen  = panel?.classList.toggle('hidden') === false;
+      btn.setAttribute('aria-expanded', String(isOpen));
+      chevron?.classList.toggle('rotate-180', isOpen);
     });
   });
 </script>

@@ -7,10 +7,54 @@ import '../styles/global.css';
 interface Props {
     title: string;
     description?: string;
+    ogImage?: string;
 }
 
-const { title, description = "Web oficial del IES Jándula: FP, Bachillerato, Erasmus y más." } = Astro.props;
-const siteTitle = `${title} | IES Jándula`;
+const {
+    title,
+    description = "Web oficial del IES Jándula (Linares, Jaén): FP, Bachillerato, Erasmus+ y más.",
+    ogImage = "/images/bg-hero.webp",
+} = Astro.props;
+
+const siteTitle  = `${title} | IES Jándula`;
+const siteUrl    = "https://www.iesjandula.es";
+const canonical  = new URL(Astro.url.pathname, siteUrl).href;
+const ogImageAbs = new URL(ogImage, siteUrl).href;
+
+// JSON-LD — Organization
+const orgSchema = {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    name: "IES Jándula",
+    url: siteUrl,
+    logo: `${siteUrl}/favicon.svg`,
+    address: {
+        "@type": "PostalAddress",
+        streetAddress: "C/ Arquitecto Berges, s/n",
+        addressLocality: "Linares",
+        addressRegion: "Jaén",
+        postalCode: "23700",
+        addressCountry: "ES",
+    },
+    telephone: "+34953690227",
+    email: "23700462.edu@juntadeandalucia.es",
+    sameAs: [
+        "https://www.facebook.com/IESJandula.es/",
+        "https://www.instagram.com/iesjandula.es/",
+        "https://www.youtube.com/@iesjandula4043",
+        "https://www.linkedin.com/company/ies-j%C3%A1ndula",
+    ],
+};
+
+// JSON-LD — WebPage
+const pageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: siteTitle,
+    description,
+    url: canonical,
+    isPartOf: { "@type": "WebSite", url: siteUrl, name: "IES Jándula" },
+};
 ---
 
 <!doctype html>
@@ -19,23 +63,52 @@ const siteTitle = `${title} | IES Jándula`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
     <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <meta name="robots" content="index, follow">
-    <title>{siteTitle}</title>
 
+    <!-- SEO primario -->
+    <title>{siteTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph -->
+    <meta property="og:type"        content="website" />
+    <meta property="og:site_name"   content="IES Jándula" />
+    <meta property="og:title"       content={siteTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url"         content={canonical} />
+    <meta property="og:image"       content={ogImageAbs} />
+    <meta property="og:image:alt"   content={`Imagen de portada — ${siteTitle}`} />
+    <meta property="og:locale"      content="es_ES" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content={siteTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image"       content={ogImageAbs} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(orgSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+
+    <!-- Slot para recursos adicionales por página (CSS, preloads, etc.) -->
+    <slot name="head" />
 </head>
 
 <body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen antialiased">
 
-<a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-0 focus:left-0 focus:z-50 focus:p-3 focus:bg-blue-600 focus:text-white rounded">
-    Saltar a contenido principal
+<!-- Skip to content — accesibilidad -->
+<a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-blue-700 focus:text-white focus:rounded-lg focus:shadow-lg focus:outline-none focus:ring-2 focus:ring-white text-sm font-semibold"
+>
+    Saltar al contenido principal
 </a>
 
 <LinksExternos />
-<Header/>
-<main id="main-content" class="flex-grow bg-gray-100">
+<Header />
+<main id="main-content" class="flex-grow bg-gray-100" tabindex="-1">
     <slot />
 </main>
 
@@ -43,3 +116,4 @@ const siteTitle = `${title} | IES Jándula`;
 
 </body>
 </html>
+

@@ -396,12 +396,15 @@ try {
                           ? `${PUBLIC_API_URL}${dato.imagen.url}`
                           : "/fallback-banner.jpg"
                       }
-                      alt={dato.imagen?.alternativeText ?? dato.nombre}
+                      alt={dato.imagen?.alternativeText ?? `Imagen del ciclo formativo: ${dato.nombre}`}
                       class="w-full h-full object-cover"
+                      loading="lazy"
+                      decoding="async"
                     />
                   </div>
 
                   <span
+                    aria-hidden="true"
                     class={`absolute top-4 right-4 text-white inline-flex items-center rounded-full px-2.5 py-0.5 text-s font-semibold ring-1 ring-inset ${
                       dato.nivel.includes("Superior")
                         ? "bg-purple-600 ring-purple-600/20"

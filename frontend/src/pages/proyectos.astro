@@ -74,15 +74,17 @@ const projects = [
           <div class="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-xl hover:-translate-y-1">
             <!-- Image Container -->
             <div class="aspect-[4/3] overflow-hidden bg-slate-100 relative">
-               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10 opacity-60 transition-opacity group-hover:opacity-40"></div>
+               <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10 opacity-60 transition-opacity group-hover:opacity-40" aria-hidden="true"></div>
                <img
                 src={project.image}
-                alt={project.title}
+                alt={`Imagen del proyecto: ${project.title} — ${project.category}`}
                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+                decoding="async"
                />
                <!-- Category Badge on Image -->
                <div class="absolute top-4 left-4 z-20">
-                    <span class="inline-flex items-center rounded-md bg-white/90 backdrop-blur-sm px-2 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-500/10">
+                    <span class="inline-flex items-center rounded-md bg-white/90 backdrop-blur-sm px-2 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-500/10" aria-hidden="true">
                         {project.category}
                     </span>
                </div>
@@ -91,8 +93,8 @@ const projects = [
             <!-- Content -->
             <div class="flex flex-1 flex-col p-6">
               <h3 class="text-xl font-bold leading-6 text-slate-900 group-hover:text-blue-600 transition-colors">
-                <a href="#">
-                  <span class="absolute inset-0"></span>
+                <a href="#" aria-label={`Ver proyecto: ${project.title}`} class="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded">
+                  <span class="absolute inset-0" aria-hidden="true"></span>
                   {project.title}
                 </a>
               </h3>
@@ -101,7 +103,7 @@ const projects = [
               </p>
 
               <!-- Tags -->
-              <div class="mt-6 flex flex-wrap gap-2">
+              <div class="mt-6 flex flex-wrap gap-2" aria-label="Etiquetas del proyecto">
                  {project.tags.map(tag => (
                    <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
                      #{tag}
@@ -112,8 +114,8 @@ const projects = [
 
             <!-- Arrow Action -->
             <div class="px-6 pb-6 pt-0 flex justify-end">
-                <div class="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-all">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                <div class="h-8 w-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-400 group-hover:bg-blue-600 group-hover:text-white transition-all" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4" aria-hidden="true">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
                     </svg>
                 </div>
