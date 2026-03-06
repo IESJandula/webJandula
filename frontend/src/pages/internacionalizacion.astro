@@ -1,6 +1,14 @@
 ---
 import Layout from '@layouts/Layout.astro';
 
+
+//PARTICIPANTES, PAÍSES DE DESTINO Y AÑOS DE ACTIVIDAD(Sustituir con datos reales del centro)
+const estadisticasErasmus = {
+  participantes: 124,
+  paisesDestino: 6,
+  anosActivos: 5,
+};
+
 // Destinos Erasmus+ — sustituir con datos reales del centro
 const movilidades = [
   { pais: 'Alemania',    ciudad: 'Berlín',    participantes: 6,  anio: 2024, tipo: 'FP Dual',       bandera: '🇩🇪', lat: 52.52,  lng: 13.405 },
@@ -27,6 +35,12 @@ const proyectoseTwinning: Array<{
   //   sello: 'Estado del proyecto'
   // }
 ];
+
+
+
+
+  //
+
 ---
 
 <Layout title="Internacionalización">
@@ -91,23 +105,20 @@ const proyectoseTwinning: Array<{
 
       <!-- Estadísticas Erasmus+ -->
       <!-- TODO: Actualizar con estadísticas reales -->
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-4 mb-16">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 mb-16">
         <div class="rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-6 text-center ring-1 ring-blue-100">
-          <div class="text-4xl font-bold text-blue-700">[N]</div>
+          <div class="text-4xl font-bold text-blue-700">{estadisticasErasmus.participantes}</div>
           <div class="mt-2 text-sm font-medium text-gray-600">Participantes</div>
         </div>
         <div class="rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-6 text-center ring-1 ring-green-100">
-          <div class="text-4xl font-bold text-green-700">[N]</div>
+          <div class="text-4xl font-bold text-green-700">{estadisticasErasmus.paisesDestino}</div>
           <div class="mt-2 text-sm font-medium text-gray-600">Países destino</div>
         </div>
         <div class="rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-6 text-center ring-1 ring-purple-100">
-          <div class="text-4xl font-bold text-purple-700">[N]</div>
+          <div class="text-4xl font-bold text-purple-700">{estadisticasErasmus.anosActivos}</div>
           <div class="mt-2 text-sm font-medium text-gray-600">Años activos</div>
         </div>
-        <div class="rounded-2xl bg-gradient-to-br from-orange-50 to-amber-50 p-6 text-center ring-1 ring-orange-100">
-          <div class="text-4xl font-bold text-orange-700">[%]</div>
-          <div class="mt-2 text-sm font-medium text-gray-600">Satisfacción</div>
-        </div>
+
       </div>
 
       <!-- Mapa interactivo de Movilidades -->
@@ -429,96 +440,95 @@ const proyectoseTwinning: Array<{
     </div>
   </section>
 
-</Layout>
+  <!-- Leaflet JS — mapa interactivo de destinos Erasmus+ -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
 
-<!-- Leaflet JS — mapa interactivo de destinos Erasmus+ -->
-<script
-  is:inline
-  src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-  integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLs="
-  crossorigin=""
-></script>
+  <script is:inline>
+  (function initMap() {
+    const mapEl = document.getElementById('erasmus-map');
+    if (!mapEl) return;
 
-<script is:inline>
-(function initMap() {
-  const mapEl = document.getElementById('erasmus-map');
-  if (!mapEl) return;
+    // Si Leaflet aún no cargó, reintentamos hasta que esté disponible
+    if (typeof L === 'undefined') {
+      setTimeout(initMap, 50);
+      return;
+    }
 
-  // Si Leaflet aún no cargó, reintentamos hasta que esté disponible
-  if (typeof L === 'undefined') {
-    setTimeout(initMap, 50);
-    return;
-  }
+    // Evitar doble inicialización
+    if (mapEl._leaflet_id) return;
 
-  // Evitar doble inicialización
-  if (mapEl._leaflet_id) return;
+    const movilidades = [
+      { pais:'Alemania',     ciudad:'Berlín',    participantes:6, anio:2024, tipo:'FP Dual',    bandera:'🇩🇪', lat:52.52,  lng:13.405 },
+      { pais:'Portugal',     ciudad:'Lisboa',    participantes:4, anio:2024, tipo:'FP Medio',   bandera:'🇵🇹', lat:38.717, lng:-9.139 },
+      { pais:'Italia',       ciudad:'Roma',      participantes:5, anio:2023, tipo:'FP Superior',bandera:'🇮🇹', lat:41.902, lng:12.496 },
+      { pais:'Francia',      ciudad:'París',     participantes:3, anio:2023, tipo:'Profesorado',bandera:'🇫🇷', lat:48.857, lng:2.347  },
+      { pais:'Países Bajos', ciudad:'Ámsterdam', participantes:4, anio:2025, tipo:'FP Superior',bandera:'🇳🇱', lat:52.370, lng:4.895  },
+      { pais:'Polonia',      ciudad:'Cracovia',  participantes:6, anio:2025, tipo:'FP Medio',   bandera:'🇵🇱', lat:50.064, lng:19.945 },
+    ];
 
-  const movilidades = [
-    { pais:'Alemania',     ciudad:'Berlín',    participantes:6, anio:2024, tipo:'FP Dual',    bandera:'🇩🇪', lat:52.52,  lng:13.405 },
-    { pais:'Portugal',     ciudad:'Lisboa',    participantes:4, anio:2024, tipo:'FP Medio',   bandera:'🇵🇹', lat:38.717, lng:-9.139 },
-    { pais:'Italia',       ciudad:'Roma',      participantes:5, anio:2023, tipo:'FP Superior',bandera:'🇮🇹', lat:41.902, lng:12.496 },
-    { pais:'Francia',      ciudad:'París',     participantes:3, anio:2023, tipo:'Profesorado',bandera:'🇫🇷', lat:48.857, lng:2.347  },
-    { pais:'Países Bajos', ciudad:'Ámsterdam', participantes:4, anio:2025, tipo:'FP Superior',bandera:'🇳🇱', lat:52.370, lng:4.895  },
-    { pais:'Polonia',      ciudad:'Cracovia',  participantes:6, anio:2025, tipo:'FP Medio',   bandera:'🇵🇱', lat:50.064, lng:19.945 },
-  ];
-
-  const map = L.map('erasmus-map', {
-    center: [50, 10],
-    zoom: 4,
-    scrollWheelZoom: false,
-    attributionControl: true,
-  });
-
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    maxZoom: 18,
-  }).addTo(map);
-
-  function createIcon(emoji) {
-    return L.divIcon({
-      className: '',
-      html: '<div style="background:#1D829B;color:white;width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);font-size:16px"><span style="transform:rotate(45deg)">' + emoji + '</span></div>',
-      iconSize: [36, 36],
-      iconAnchor: [18, 36],
-      popupAnchor: [0, -38],
+    const map = L.map('erasmus-map', {
+      center: [50, 10],
+      zoom: 4,
+      scrollWheelZoom: false,
+      attributionControl: true,
     });
-  }
 
-  movilidades.forEach(function(m) {
-    L.marker([m.lat, m.lng], { icon: createIcon(m.bandera) })
-      .bindPopup(
-        '<div style="font-family:system-ui,sans-serif;min-width:180px">' +
-        '<div style="font-size:1.5rem;margin-bottom:6px">' + m.bandera + '</div>' +
-        '<strong style="font-size:1rem;color:#111">' + m.pais + '</strong>' +
-        '<p style="color:#555;margin:2px 0 6px;font-size:0.85rem">' + m.ciudad + '</p>' +
-        '<hr style="border:none;border-top:1px solid #eee;margin:6px 0">' +
-        '<div style="display:flex;justify-content:space-between;font-size:0.8rem">' +
-        '<span style="color:#444">👥 ' + m.participantes + ' participantes</span>' +
-        '<span style="color:#1D829B;font-weight:600">' + m.anio + '</span>' +
-        '</div>' +
-        '<span style="display:inline-block;margin-top:6px;background:#EFF6FF;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-size:0.75rem;font-weight:600">' + m.tipo + '</span>' +
-        '</div>',
-        { maxWidth: 220 }
-      )
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 18,
+    }).addTo(map);
+
+    function createIcon(emoji) {
+      return L.divIcon({
+        className: '',
+        html: '<div style="background:#1D829B;color:white;width:36px;height:36px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);display:flex;align-items:center;justify-content:center;border:2px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);font-size:16px"><span style="transform:rotate(45deg)">' + emoji + '</span></div>',
+        iconSize: [36, 36],
+        iconAnchor: [18, 36],
+        popupAnchor: [0, -38],
+      });
+    }
+
+    movilidades.forEach(function(m) {
+      L.marker([m.lat, m.lng], { icon: createIcon(m.bandera) })
+        .bindPopup(
+          '<div style="font-family:system-ui,sans-serif;min-width:180px">' +
+          '<div style="font-size:1.5rem;margin-bottom:6px">' + m.bandera + '</div>' +
+          '<strong style="font-size:1rem;color:#111">' + m.pais + '</strong>' +
+          '<p style="color:#555;margin:2px 0 6px;font-size:0.85rem">' + m.ciudad + '</p>' +
+          '<hr style="border:none;border-top:1px solid #eee;margin:6px 0">' +
+          '<div style="display:flex;justify-content:space-between;font-size:0.8rem">' +
+          '<span style="color:#444">👥 ' + m.participantes + ' participantes</span>' +
+          '<span style="color:#1D829B;font-weight:600">' + m.anio + '</span>' +
+          '</div>' +
+          '<span style="display:inline-block;margin-top:6px;background:#EFF6FF;color:#1d4ed8;padding:2px 8px;border-radius:999px;font-size:0.75rem;font-weight:600">' + m.tipo + '</span>' +
+          '</div>',
+          { maxWidth: 220 }
+        )
+        .addTo(map);
+    });
+
+    // Ajustar vista
+    var bounds = L.latLngBounds(movilidades.map(function(m){ return [m.lat, m.lng]; }));
+    map.fitBounds(bounds, { padding: [40, 40] });
+
+    // Marcador IES Jándula (origen)
+    var homeIcon = L.divIcon({
+      className: '',
+      html: '<div style="background:#A3CC2A;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid white;box-shadow:0 2px 10px rgba(0,0,0,0.4);font-size:18px">🏫</div>',
+      iconSize: [40, 40],
+      iconAnchor: [20, 20],
+      popupAnchor: [0, -24],
+    });
+
+    L.marker([38.095, -3.634], { icon: homeIcon })
+      .bindPopup('<strong>IES Jándula</strong><br>Linares, Jaén (España)')
       .addTo(map);
-  });
+  })();
+  </script>
 
-  // Ajustar vista
-  var bounds = L.latLngBounds(movilidades.map(function(m){ return [m.lat, m.lng]; }));
-  map.fitBounds(bounds, { padding: [40, 40] });
-
-  // Marcador IES Jándula (origen)
-  var homeIcon = L.divIcon({
-    className: '',
-    html: '<div style="background:#A3CC2A;color:white;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:3px solid white;box-shadow:0 2px 10px rgba(0,0,0,0.4);font-size:18px">🏫</div>',
-    iconSize: [40, 40],
-    iconAnchor: [20, 20],
-    popupAnchor: [0, -24],
-  });
-
-  L.marker([38.095, -3.634], { icon: homeIcon })
-    .bindPopup('<strong>IES Jándula</strong><br>Linares, Jaén (España)')
-    .addTo(map);
-})();
-</script>
+</Layout>
 
