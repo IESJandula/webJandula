@@ -20,15 +20,22 @@ const socialLinks = [
     {name: 'LinkedIn', href: 'https://www.linkedin.com/company/ies-j%C3%A1ndula', component: LinkedIn},
 ];
 
+const logosfooter = [
+    {name: 'Andalucía se mueve con Europa', href: 'images/AndaluaciaEuropa.webp'},
+    {name: 'Junta de Andalucía', href: 'images/logo-ced.png'},
+];
+
 const year = new Date().getFullYear();
 ---
 
 <footer class="mt-8" role="contentinfo" aria-label="Información y navegación secundaria del IES Jándula">
 
-    <div class="text-white py-6">
-        <div class="container flex flex-col items-center justify-between space-y-4 md:space-y-0">
-            <LogoJuntaDeAndalucia class="w-40 h-auto"/>
-        </div>
+    <div class="text-white py-6 flex flex-row items-center justify-between gap-8 container">
+            {logosfooter.map((logo) => (
+                        <img src={logo.href} alt={`Logo de ${logo.name}`} class="h-16 w-auto no-select-img"/>
+    
+            ))}
+
     </div>
 
     <div class="bg-gradient-to-r from-jandula-blue to-jandula-green text-white py-8">

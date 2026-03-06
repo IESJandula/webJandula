@@ -38,19 +38,7 @@ let accessLinks: EnlaceExterno[] = [
   },
   ]
 
-try {
-  const response = await fetch(`${PUBLIC_API_URL}/api/enlaceexternos`);
-  const { data } = await response.json();
-  accessLinks = data;
-} catch (error) {
-  console.error("Error cargando enlaces desde Strapi:", error);
-  accessLinks = [
-    { nombre: 'Contacto',      link: 'https://moodle.iesjandula.es/contacto' },
-    { nombre: 'Acceso Séneca', link: 'https://www.juntadeandalucia.es/educacion/seneca' },
-    { nombre: 'Moodle',        link: 'https://moodle.iesjandula.es' },
-    { nombre: 'Intranet',      link: 'https://intranet.iesjandula.es' },
-  ];
-}
+
 ---
 
 <div
