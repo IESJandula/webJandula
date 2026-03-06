@@ -13,6 +13,7 @@ type Ciclo = {
     alternativeText?: string | null;
   };
   enlace?: string;
+  bilingue?:string;
 };
 
 const { PUBLIC_API_URL } = import.meta.env;
@@ -24,7 +25,7 @@ const ciclos = [
     nivel: "Grado Básico",
     nombre: "Informática y Comunicaciones",
     familia: "Informática",
-    duracion: "2000 horas",
+    duracion: "2 años",
     turno: "Mañana",
     descripcion: "Realizar operaciones auxiliares de montaje y mantenimiento de sistemas microinformáticos, periféricos y redes de comunicación de datos.",
     imagen: {
@@ -37,33 +38,35 @@ const ciclos = [
     nivel: "Grado Medio",
     nombre: "Sistemas Microinformáticos y Redes (SMR)",
     familia: "Informática",
-    duracion: "2000 horas",
+    duracion: "2 años",
     turno: "Mañana/Tarde",
     descripcion: "Instalación, configuración y mantenimiento de sistemas microinformáticos, aislados o en red, así como redes locales en pequeños entornos.",
     imagen: {
       url: "/images/redes.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Sistemas Microinformáticos y Redes"
     },
-    enlace:"https://www.todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/sistemas-microniformaticos-redes.html"
+    enlace:"https://www.todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/sistemas-microniformaticos-redes.html",
+    bilingue: "Inglés"
   },
   {
     nivel: "Grado Medio",
     nombre: "Guía en el Medio Natural y de Tiempo Libre",
     familia: "Actividades Físicas",
-    duracion: "2000 horas",
+    duracion: "2 años",
     turno: "Mañana",
     descripcion: "Organizar itinerarios y guiar grupos por entornos naturales, medio acuático e instalaciones de ocio y aventura.",
     imagen: {
       url: "/images/med.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Guía en el Medio Natural y de Tiempo Libre"
     },
-    enlace:"https://todofp.es/que-estudiar/familias-profesionales/actividades-fisicas-deportivas/guia-medio-natural-tiempo-libre.html"
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/actividades-fisicas-deportivas/guia-medio-natural-tiempo-libre.html",
+    bilingue: "Inglés"
   },
   {
     nivel: "Grado Superior",
     nombre: "Mecatrónica Industrial",
     familia: "Industrial",
-    duracion: "2000 horas",
+    duracion: "2 años",
     turno: "Mañana/Tarde",
     descripcion: "Configurar y optimizar sistemas mecatrónicos industriales, así como planificar, supervisar y ejecutar su montaje y mantenimiento.",
     imagen: {
@@ -76,20 +79,21 @@ const ciclos = [
     nivel: "Grado Superior",
     nombre: "Desarrollo de Aplicaciones Multiplataforma (DAM)",
     familia: "Informática",
-    duracion: "2000 horas",
+    duracion: "2 años",
     turno: "Tarde/Dual",
     descripcion: "Desarrollar, implantar, documentar y mantener aplicaciones informáticas multiplataforma, utilizando tecnologías y entornos de desarrollo específicos.",
     imagen: {
       url: "/images/dam.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma"
     },
-    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-multiplataforma.html"
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-multiplataforma.html",
+    bilingue: "Inglés"
   },
   {
     nivel: "Grado Superior",
     nombre: "Desarrollo de Aplicaciones Web (DAW)",
     familia: "Informática",
-    duracion: "2000 horas",
+    duracion: "2 años",
     turno: "Tarde/Dual",
     descripcion: "Desarrollar, implantar, y mantener aplicaciones web, con independencia del modelo empleado y utilizando tecnologías específicas.",
     imagen: {
@@ -103,26 +107,14 @@ const ciclos = [
 
 <Layout title="Oferta Educativa - IES Jándula">
   <!-- Modern Hero with Abstract Shapes -->
-  <div class="relative isolate overflow-hidden bg-white">
-    <!-- Abstract decorations -->
-    <div
-      class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
-      aria-hidden="true"
-    >
-      <div
-        class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-blue-100 to-emerald-100 opacity-40 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
-        style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
-      >
-      </div>
-    </div>
 
     <div
-      class="mx-auto max-w-7xl px-6 pb-24 pt-10 sm:pb-32 lg:flex lg:px-8 lg:py-40"
+      class="mx-auto max-w-7xl px-6 pb-24 pt-4 sm:pb-32 lg:flex lg:px-8 lg:py-10"
     >
       <div
-        class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0 lg:pt-8"
+        class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0"
       >
-        <div class="mt-24 sm:mt-32 lg:mt-16">
+        <div class="mt-15 lg:mt-5">
           <a href="#" class="inline-flex space-x-6">
             <span
               class="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold leading-6 text-blue-700 ring-1 ring-inset ring-blue-700/10"
@@ -131,32 +123,19 @@ const ciclos = [
             <span
               class="inline-flex items-center space-x-2 text-sm font-medium leading-6 text-slate-600"
             >
-              <span>Curso 2024-2025</span>
-              <svg
-                class="h-5 w-5 text-slate-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-                ><path
-                  fill-rule="evenodd"
-                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                  clip-rule="evenodd"></path></svg
-              >
-            </span>
+
           </a>
         </div>
         <h1
-          class="mt-10 text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl"
-        >
-          Construye tu futuro <span
+          class="mt-2 mb-2 text-4xl font-bold tracking-tight text-slate-900 sm:text-6xl"
+        >Construye tu futuro <span
             class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-emerald-600"
-            >hoy mismo</span
-          >
+            >hoy mismo</span>
         </h1>
         <p class="mt-6 text-lg leading-8 text-slate-600">
-          En IES Jándula combinamos excelencia académica con innovación
-          práctica. Descubre un entorno donde la tecnología y el talento se
-          encuentran.
+En el IES Jándula ofrecemos una formación integral, equitativa y orientada a la adquisición
+de competencias clave. Nuestras metodologías están adaptadas a diferentes ritmos de
+aprendizaje y orientadas a la inclusión
         </p>
         <div class="mt-10 flex items-center gap-x-6">
           <a
@@ -171,16 +150,17 @@ const ciclos = [
           >
         </div>
       </div>
-      <!-- Hero Image Composition -->
+
+
       <div
         class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32"
       >
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
           <div
-            class="-m-2 rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm"
+            class="-m-2 rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm w-[90vw] md:w-[80vw] lg:w-[60vw] transition-all hover:shadow-xl hover:shadow-slate-200/50"
           >
             <img
-              src="/images/bg-hero.webp"
+              src="https://images.pexels.com/photos/3380743/pexels-photo-3380743.jpeg"
               alt="Estudiantes IES Jandula"
               class="w-[36rem] rounded-xl shadow-2xl ring-1 ring-slate-900/10 object-cover object-center h-[24rem]"
             />
@@ -189,6 +169,59 @@ const ciclos = [
       </div>
     </div>
   </div>
+
+  <section class="relative overflow-hidden py-14 sm:py-16">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-b from-slate-100 via-slate-50 to-white"></div>
+    <div class="absolute -top-16 left-1/2 -z-10 h-48 w-48 -translate-x-1/2 rounded-full bg-blue-200/50 blur-3xl"></div>
+
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">Características destacadas</p>
+        <h2 class="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
+          Un entorno pensado para aprender, crecer y decidir tu futuro
+        </h2>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <article class="group rounded-2xl bg-gradient-to-br from-blue-50 via-white to-sky-50 p-6 shadow-sm ring-1 ring-blue-100/80 backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-md">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-700 ring-1 ring-blue-100">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 5a2 2 0 012-2h6a2 2 0 012 2v14a1 1 0 01-1.447.894L8 18l-3.553 1.894A1 1 0 013 19V5zm12 0a2 2 0 012-2h2a2 2 0 012 2v14a1 1 0 01-1.447.894L18 18l-1.553.829A1 1 0 0115 17.999V5z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900">Enseñanza Bilingüe</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Grupos bilingües (inglés) a lo largo de toda la etapa.
+          </p>
+        </article>
+
+        <article class="group rounded-2xl bg-gradient-to-br from-emerald-50 via-white to-teal-50 p-6 shadow-sm ring-1 ring-emerald-100/80 backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-md">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900">Atención a la Diversidad</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Oferta de Programas de Diversificación Curricular en 3º y 4º de la ESO.
+          </p>
+        </article>
+
+        <article class="group rounded-2xl bg-gradient-to-br from-amber-50 via-white to-orange-50 p-6 shadow-sm ring-1 ring-amber-100/80 backdrop-blur transition-all hover:-translate-y-0.5 hover:shadow-md sm:col-span-2 lg:col-span-1">
+          <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-700 ring-1 ring-amber-100">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 8c-1.657 0-3 1.343-3 3 0 1.306.835 2.417 2 2.83V16a1 1 0 102 0v-2.17a3.001 3.001 0 001-5.83A2.994 2.994 0 0012 8z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6.343 6.343l1.414 1.414M17.657 6.343l-1.414 1.414M12 3v2m0 14v2M3 12h2m14 0h2M6.343 17.657l1.414-1.414M17.657 17.657l-1.414-1.414" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold text-slate-900">Innovación</h3>
+          <p class="mt-2 text-sm leading-relaxed text-slate-600">
+            Materias optativas orientadas al futuro, como Computación y Robótica, Proyecto de Educación Plástica y Audiovisual e Introducción a la Tecnología.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
 
   <!-- Modern Grid ESO / Bachillerato -->
   <section id="eso-bachillerato" class="py-24 bg-white">
@@ -204,12 +237,10 @@ const ciclos = [
         </p>
       </div>
 
-      <div
-        class="mt-16 grid grid-cols-1 gap-4 sm:mt-20 md:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2"
-      >
-        <!-- Large Card ESO -->
+      <div class="mt-16 space-y-8 sm:mt-20">
+        <!-- ESO -->
         <div
-          class="relative lg:col-span-2 lg:row-span-2 overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
+          class="relative overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
         >
           <div
             class="absolute -right-20 -top-20 z-0 h-64 w-64 rounded-full bg-blue-100 blur-3xl opacity-60"
@@ -235,102 +266,140 @@ const ciclos = [
               </span>
               <h3 class="text-2xl font-bold text-slate-900">E.S.O.</h3>
             </div>
-            <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-xl">
-              La Educación Secundaria Obligatoria es la etapa donde descubres
-              tus pasiones. Ofrecemos un entorno bilingüe, inclusivo y dinámico
-              centrado en el alumno.
+            <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-2xl">
+              En 4º de la ESO ofrecemos itinerarios de carácter orientador para
+              preparar al alumnado hacia su futuro académico o laboral.
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div
-                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
-              >
-                <div class="h-2 w-2 rounded-full bg-green-500"></div>
-                <span class="font-medium text-slate-700">Programa Bilingüe</span
-                >
-              </div>
-              <div
-                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
-              >
-                <div class="h-2 w-2 rounded-full bg-purple-500"></div>
-                <span class="font-medium text-slate-700">Digitalización</span>
-              </div>
-              <div
-                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
-              >
-                <div class="h-2 w-2 rounded-full bg-orange-500"></div>
-                <span class="font-medium text-slate-700"
-                  >Laboratorios equipados</span
-                >
-              </div>
-              <div
-                class="flex items-center gap-3 rounded-xl bg-white p-4 ring-1 ring-slate-200/50 shadow-sm"
-              >
-                <div class="h-2 w-2 rounded-full bg-blue-500"></div>
-                <span class="font-medium text-slate-700"
-                  >Orientación académica</span
-                >
-              </div>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                <h4 class="text-base font-semibold text-slate-900">Opción 1 · Ciencias</h4>
+                <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                    Matemáticas académicas
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                    Biología y Geología
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
+                    Física y Química
+                  </li>
+                </ul>
+              </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                <h4 class="text-base font-semibold text-slate-900">Opción 2 · Humanidades y Ciencias Sociales</h4>
+                <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                    Matemáticas académicas o aplicadas
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                    Latín
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                    Economía
+                  </li>
+                </ul>
+              </article>
+              <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                <h4 class="text-base font-semibold text-slate-900">Opción 3 · Aplicadas</h4>
+                <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+                    Matemáticas aplicadas
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+                    Tecnología
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
+                    Formación y Orientación Personal y Profesional
+                  </li>
+                </ul>
+              </article>
             </div>
           </div>
         </div>
 
-        <!-- Bachillerato Card 1 -->
+        <!-- Bachillerato debajo de ESO -->
         <div
-          class="relative overflow-hidden rounded-3xl bg-slate-900 p-8 shadow-lg ring-1 ring-white/10 transition-all hover:scale-[1.02] duration-300 group"
+          class="relative overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
         >
           <div
-            class="absolute -right-10 -top-10 z-0 h-40 w-40 rounded-full bg-indigo-500/20 blur-3xl group-hover:bg-indigo-500/30 transition-colors"
+            class="absolute -left-20 -top-20 z-0 h-56 w-56 rounded-full bg-indigo-100 blur-3xl opacity-60"
           >
           </div>
-          <div class="flex items-center justify-between mb-4 relative z-10">
-            <h3 class="text-xl font-bold text-white">Ciencias y Tecnología</h3>
-            <svg
-              class="w-6 h-6 text-indigo-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              ><path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-              ></path></svg
-            >
-          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-6">
+              <span
+                class="flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-50 text-indigo-600 shadow-sm ring-1 ring-slate-100"
+              >
+                <svg
+                  class="h-8 w-8"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                  ></path>
+                </svg>
+              </span>
+              <h3 class="text-2xl font-bold text-slate-900">Bachillerato</h3>
+            </div>
 
-          <p class="relative z-10 text-slate-300 text-sm leading-relaxed">
-            Para mentes analíticas que buscan comprender el mundo a través de
-            las matemáticas, física, tecnología y el método científico.
-          </p>
-        </div>
+            <p class="text-slate-600 text-lg leading-relaxed mb-3 max-w-4xl">
+              Ofrecemos una preparación especializada, exigente y completa,
+              diseñada para orientar a nuestro alumnado hacia estudios
+              universitarios o Ciclos Formativos de Grado Superior, con un
+              fuerte componente de internacionalización.
+            </p>
+            <p class="text-sm font-semibold text-indigo-700 mb-8">
+              Modalidades ofertadas: ambas con grupos bilingües en inglés.
+            </p>
 
-        <!-- Bachillerato Card 2 -->
-        <div
-          class="relative overflow-hidden rounded-3xl bg-white p-8 shadow-sm ring-1 ring-slate-200 transition-all hover:scale-[1.02] duration-300 hover:ring-slate-300 group"
-        >
-          <div
-            class="absolute -left-10 -bottom-10 z-0 h-40 w-40 rounded-full bg-orange-100 blur-3xl opacity-60 group-hover:bg-orange-200/60 transition-colors"
-          >
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <article class="rounded-2xl bg-slate-900 p-6 shadow-lg ring-1 ring-white/10">
+                <h4 class="text-base font-semibold text-white">Ciencias y Tecnología</h4>
+                <ul class="mt-3 space-y-2 text-sm text-slate-200">
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+                    Biosanitario: Biología y Química
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+                    Ciencias: Química y Física
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
+                    Ingeniería/Tecnología: Física, Tecnología e Ingeniería, y Dibujo Técnico
+                  </li>
+                </ul>
+              </article>
+
+              <article class="rounded-2xl bg-white p-6 ring-1 ring-slate-200/70 shadow-sm">
+                <h4 class="text-base font-semibold text-slate-900">Humanidades y Ciencias Sociales</h4>
+                <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                    Humanidades: Latín y Griego
+                  </li>
+                  <li class="flex items-start gap-2">
+                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
+                    Ciencias Sociales: Matemáticas Aplicadas y Economía
+                  </li>
+                </ul>
+              </article>
+            </div>
           </div>
-          <div class="flex items-center justify-between mb-4 relative z-10">
-            <h3 class="text-xl font-bold text-slate-900">Humanidades y CCSS</h3>
-            <svg
-              class="w-6 h-6 text-orange-500"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              ><path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-              ></path></svg
-            >
-          </div>
-          <p class="relative z-10 text-slate-600 text-sm leading-relaxed">
-            Enfocado en el estudio de la sociedad, la historia, la economía,
-            literatura y las lenguas clásicas y modernas.
-          </p>
         </div>
       </div>
     </div>
@@ -431,7 +500,8 @@ const ciclos = [
                     {dato.descripcion}
                   </p>
 
-                  <div class="mt-6 flex flex-wrap gap-2 pt-6 border-t border-slate-50">
+                  <div class="mt-6 w-full border-t border-slate-100 pt-6">
+                    <div class="flex flex-wrap items-start gap-2">
                     <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
                       <svg
                         class="h-3.5 w-3.5 text-slate-400"
@@ -464,6 +534,19 @@ const ciclos = [
                       </svg>
                       {dato.turno}
                     </span>
+
+                    {
+                      dato.bilingue && (
+                        <span class="inline-flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200/80">
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
+  <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
+</svg>
+
+                          Bilingue: {dato.bilingue}
+                        </span>
+                      )
+                    }
+                  </div>
                   </div>
                 </div>
               </div>
