@@ -12,21 +12,14 @@ type Ciclo = {
     url?: string;
     alternativeText?: string | null;
   };
+  enlace?: string;
 };
 
 const { PUBLIC_API_URL } = import.meta.env;
 
-let ciclos: Ciclo[] = [];
 
-try {
-  const response = await fetch(`${PUBLIC_API_URL}/api/ciclos?populate=*`);
-  const { data } = await response.json();
-  ciclos = data as Ciclo[];
-} catch (error) {
-  console.error("Error cargando enlaces desde Strapi:", error);
-}
 
-/* const ciclos = [
+const ciclos = [
   {
     nivel: "Grado Básico",
     nombre: "Informática y Comunicaciones",
@@ -34,7 +27,11 @@ try {
     duracion: "2000 horas",
     turno: "Mañana",
     descripcion: "Realizar operaciones auxiliares de montaje y mantenimiento de sistemas microinformáticos, periféricos y redes de comunicación de datos.",
-    icon: "💻"
+    imagen: {
+      url: "/images/ciclo-informatica-basico.jpg",
+      alternativeText: "Imagen representativa del ciclo formativo de Grado Básico en Informática y Comunicaciones"
+    },
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/informatica-comunicaciones.html"
   },
   {
     nivel: "Grado Medio",
@@ -43,7 +40,11 @@ try {
     duracion: "2000 horas",
     turno: "Mañana/Tarde",
     descripcion: "Instalación, configuración y mantenimiento de sistemas microinformáticos, aislados o en red, así como redes locales en pequeños entornos.",
-    icon: "🔌"
+    imagen: {
+      url: "/images/ciclo-smr.jpg",
+      alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Sistemas Microinformáticos y Redes"
+    },
+    enlace:"https://www.todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/sistemas-microniformaticos-redes.html"
   },
   {
     nivel: "Grado Medio",
@@ -52,7 +53,11 @@ try {
     duracion: "2000 horas",
     turno: "Mañana",
     descripcion: "Organizar itinerarios y guiar grupos por entornos naturales, medio acuático e instalaciones de ocio y aventura.",
-    icon: "🌲"
+    imagen: {
+      url: "/images/ciclo-guia-natural.jpg",
+      alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Guía en el Medio Natural y de Tiempo Libre"
+    },
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/actividades-fisicas-deportivas/guia-medio-natural-tiempo-libre.html"
   },
   {
     nivel: "Grado Superior",
@@ -61,7 +66,11 @@ try {
     duracion: "2000 horas",
     turno: "Mañana/Tarde",
     descripcion: "Configurar y optimizar sistemas mecatrónicos industriales, así como planificar, supervisar y ejecutar su montaje y mantenimiento.",
-    icon: "⚙️"
+    imagen: {
+      url: "/images/ciclo-mecatronica.jpg",
+      alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Mecatrónica Industrial",
+    },
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/instalacion-mantenimiento/mecatronica-industrial.html"
   },
   {
     nivel: "Grado Superior",
@@ -70,7 +79,11 @@ try {
     duracion: "2000 horas",
     turno: "Tarde/Dual",
     descripcion: "Desarrollar, implantar, documentar y mantener aplicaciones informáticas multiplataforma, utilizando tecnologías y entornos de desarrollo específicos.",
-    icon: "📱"
+    imagen: {
+      url: "/images/ciclo-dam.jpg",
+      alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma"
+    },
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-multiplataforma.html"
   },
   {
     nivel: "Grado Superior",
@@ -79,9 +92,13 @@ try {
     duracion: "2000 horas",
     turno: "Tarde/Dual",
     descripcion: "Desarrollar, implantar, y mantener aplicaciones web, con independencia del modelo empleado y utilizando tecnologías específicas.",
-    icon: "🌐"
+    imagen: {
+      url: "/images/imagenweb.jpg",
+      alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Web"
+    },
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-web.html"
   },
-]; */
+]; 
 ---
 
 <Layout title="Oferta Educativa - IES Jándula">
@@ -380,6 +397,7 @@ try {
       >
         {
           ciclos.map((dato) => (
+            <a href={dato.enlace} target="_blank" rel="noopener noreferrer">
             <div
               data-familia={dato.familia}
               class="ciclo-card group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 ring-1 ring-slate-100"
@@ -391,11 +409,7 @@ try {
 
                   <div class="w-full h-44 bg-blue-500">
                     <img
-                      src={
-                        dato.imagen?.url
-                          ? `${PUBLIC_API_URL}${dato.imagen.url}`
-                          : "/fallback-banner.jpg"
-                      }
+                      src={dato.imagen?.url ?? "/fallback-banner.jpg"}
                       alt={dato.imagen?.alternativeText ?? `Imagen del ciclo formativo: ${dato.nombre}`}
                       class="w-full h-full object-cover"
                       loading="lazy"
@@ -462,6 +476,7 @@ try {
                 </div>
               </div>
             </div>
+            </a>
           ))
         }
       </div>
