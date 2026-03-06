@@ -66,7 +66,7 @@ const currentPath = Astro.url.pathname;
 ---
 
 <header class="bg-white shadow-sm sticky top-0 z-50" role="banner">
-  <nav class="container py-0 flex items-center justify-between h-16" aria-label="Navegación principal">
+  <nav class="container py-0 flex items-center justify-between h-20" aria-label="Navegación principal">
 
     <!-- Logo -->
     <a
@@ -74,7 +74,7 @@ const currentPath = Astro.url.pathname;
       class="flex items-center font-extrabold text-blue-900 transition-opacity hover:opacity-80 flex-shrink-0"
       aria-label="Inicio — IES Jándula"
     >
-      <Logo class="size-14" />
+      <Logo class="size-20" />
     </a>
 
     <!-- Desktop Mega Menu -->
@@ -82,7 +82,8 @@ const currentPath = Astro.url.pathname;
       {megaMenu.map((section) => (
         <li class="relative h-full flex items-center group" role="none">
           <!-- Trigger -->
-          <button
+          <a
+            href={section.href}
             class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1
               ${currentPath === section.href
                 ? 'text-blue-700 bg-blue-50'
@@ -97,7 +98,7 @@ const currentPath = Astro.url.pathname;
             <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-desktop-chevron>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
-          </button>
+          </a>
 
           <!-- Dropdown Panel — controlado por JS (hover + focus) -->
           <div
@@ -107,17 +108,7 @@ const currentPath = Astro.url.pathname;
             data-mega-panel
           >
             <div class="bg-white rounded-2xl shadow-xl ring-1 ring-gray-900/5 p-4 w-72 overflow-hidden">
-              <!-- Header link to section -->
-              <a
-                href={section.href}
-                class="flex items-center justify-between mb-3 pb-3 border-b border-gray-100 group/header focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded-lg"
-                role="menuitem"
-              >
-                <span class="text-sm font-semibold text-gray-900 group-hover/header:text-blue-700 transition-colors">{section.name}</span>
-                <svg class="w-4 h-4 text-gray-400 group-hover/header:text-blue-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
+
               <!-- Sub-items -->
               <ul class="space-y-1">
                 {section.items.map((item) => (
@@ -215,51 +206,46 @@ const currentPath = Astro.url.pathname;
 
 <script>
   // ── Helpers ──────────────────────────────────────────────────
-  function openPanel(btn: HTMLButtonElement) {
-    const panel   = btn.nextElementSibling as HTMLElement | null;
-    const chevron = btn.querySelector<SVGElement>('[data-desktop-chevron]');
+  function openPanel(trigger: HTMLElement) {
+    const panel   = trigger.nextElementSibling as HTMLElement | null;
+    const chevron = trigger.querySelector<SVGElement>('[data-desktop-chevron]');
     if (!panel) return;
     panel.classList.remove('opacity-0', 'invisible');
     panel.classList.add('opacity-100', 'visible');
-    btn.setAttribute('aria-expanded', 'true');
+    trigger.setAttribute('aria-expanded', 'true');
     chevron?.classList.add('rotate-180');
   }
 
-  function closePanel(btn: HTMLButtonElement) {
-    const panel   = btn.nextElementSibling as HTMLElement | null;
-    const chevron = btn.querySelector<SVGElement>('[data-desktop-chevron]');
+  function closePanel(trigger: HTMLElement) {
+    const panel   = trigger.nextElementSibling as HTMLElement | null;
+    const chevron = trigger.querySelector<SVGElement>('[data-desktop-chevron]');
     if (!panel) return;
     panel.classList.add('opacity-0', 'invisible');
     panel.classList.remove('opacity-100', 'visible');
-    btn.setAttribute('aria-expanded', 'false');
+    trigger.setAttribute('aria-expanded', 'false');
     chevron?.classList.remove('rotate-180');
   }
 
   function closeAllPanels() {
-    document.querySelectorAll<HTMLButtonElement>('[data-mega-trigger]').forEach(closePanel);
+    document.querySelectorAll<HTMLElement>('[data-mega-trigger]').forEach(closePanel);
   }
 
   // ── Desktop: hover + focus ────────────────────────────────────
   document.querySelectorAll<HTMLElement>('.group[role="none"]').forEach((li) => {
-    const btn = li.querySelector<HTMLButtonElement>('[data-mega-trigger]');
-    if (!btn) return;
+    const trigger = li.querySelector<HTMLElement>('[data-mega-trigger]');
+    if (!trigger) return;
 
     // Hover
-    li.addEventListener('mouseenter', () => openPanel(btn));
-    li.addEventListener('mouseleave', () => closePanel(btn));
+    li.addEventListener('mouseenter', () => openPanel(trigger));
+    li.addEventListener('mouseleave', () => closePanel(trigger));
 
-    // Foco (teclado Tab/clic)
-    btn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = btn.getAttribute('aria-expanded') === 'true';
-      closeAllPanels();
-      if (!isOpen) openPanel(btn);
-    });
+    // Foco (teclado Tab)
+    trigger.addEventListener('focusin', () => openPanel(trigger));
 
     // Cuando el foco sale del li completo (Tab fuera), cerrar
     li.addEventListener('focusout', (e) => {
       if (!li.contains(e.relatedTarget as Node)) {
-        closePanel(btn);
+        closePanel(trigger);
       }
     });
   });
