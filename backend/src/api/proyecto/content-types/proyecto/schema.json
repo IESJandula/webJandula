@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "noticias",
+  "collectionName": "proyectos",
   "info": {
-    "singularName": "noticia",
-    "pluralName": "noticias",
-    "displayName": "noticia"
+    "singularName": "proyecto",
+    "pluralName": "proyectos",
+    "displayName": "proyecto"
   },
   "options": {
     "draftAndPublish": true
@@ -14,46 +14,13 @@
     "titulo": {
       "type": "string"
     },
-    "subtitulo": {
+    "resumen": {
       "type": "text"
     },
-    "imagen": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
+    "descripcion": {
+      "type": "text"
     },
-    "cuerpo": {
-      "type": "richtext"
-    },
-    "fecha": {
-      "type": "date"
-    },
-    "autor": {
-      "type": "string"
-    },
-    "categoria": {
-      "type": "string"
-    },
-    "slug": {
-      "type": "uid",
-      "targetField": "titulo"
-    },
-    "galeria": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ]
-    },
-    "cartel": {
+    "imagenprincipal": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [
@@ -62,6 +29,23 @@
         "videos",
         "audios"
       ]
+    },
+    "slug": {
+      "type": "uid",
+      "targetField": "titulo"
+    },
+    "imagenes": {
+      "type": "media",
+      "multiple": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "categoria": {
+      "type": "string"
     }
   }
 }
