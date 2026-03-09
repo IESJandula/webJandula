@@ -28,11 +28,11 @@ const logosfooter = [
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-8 bg-white" role="contentinfo" aria-label="Información y navegación secundaria del IES Jándula">
+<footer class="bg-white" role="contentinfo" aria-label="Información y navegación secundaria del IES Jándula">
 
     <div class="text-white py-6 flex flex-row items-center justify-between gap-8 container">
             {logosfooter.map((logo) => (
-                        <img src={logo.href} alt={`Logo de ${logo.name}`} class="h-16 w-auto no-select-img"/>
+                        <img src={logo.href} alt={`Logo de ${logo.name}`} class="h-12 md:h-18 w-auto no-select-img"/>
     
             ))}
 

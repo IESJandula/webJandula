@@ -24,3 +24,74 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
+
+/* Richtext styles for noticia detail pages */
+.news-richtext p {
+    margin: 0 0 1rem;
+}
+
+.news-richtext h1,
+.news-richtext h2,
+.news-richtext h3 {
+    color: #0f172a;
+    font-weight: 700;
+    line-height: 1.25;
+    margin: 1.5rem 0 0.75rem;
+}
+
+.news-richtext h1 {
+    font-size: 1.75rem;
+}
+
+.news-richtext h2 {
+    font-size: 1.4rem;
+}
+
+.news-richtext h3 {
+    font-size: 1.2rem;
+}
+
+.news-richtext ul,
+.news-richtext ol {
+    margin: 0 0 1.1rem 1.25rem;
+}
+
+.news-richtext ul {
+    list-style: disc;
+}
+
+.news-richtext ol {
+    list-style: decimal;
+}
+
+.news-richtext li {
+    margin: 0.3rem 0;
+}
+
+.news-richtext blockquote {
+    border-left: 4px solid #93c5fd;
+    padding: 0.5rem 0 0.5rem 1rem;
+    margin: 1.25rem 0;
+    color: #334155;
+    background: #f8fafc;
+    border-radius: 0.25rem;
+}
+
+.news-richtext a {
+    color: #1d4ed8;
+    text-decoration: underline;
+}
+
+.news-richtext img {
+    border-radius: 0.9rem;
+    max-width: 100%;
+    height: auto;
+    margin: 1rem 0;
+}
+
+.news-richtext code {
+    background: #e2e8f0;
+    border-radius: 0.25rem;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.9em;
+}

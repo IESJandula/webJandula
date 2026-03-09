@@ -50,9 +50,9 @@ let accessLinks: EnlaceExterno[] = [
     {accessLinks.map((dato, i) => (
       <>
         {i > 0 && (
-          <span class="text-white/20 select-none px-0.5" aria-hidden="true">|</span>
+          <span class="text-white/20 select-none px-0.3" aria-hidden="true">|</span>
         )}
-        <a
+        <a 
           href={dato.link}
           target={dato.link.startsWith('http') ? '_blank' : undefined}
           rel={dato.link.startsWith('http') ? 'noopener noreferrer' : undefined}
