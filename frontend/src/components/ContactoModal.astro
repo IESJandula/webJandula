@@ -1,0 +1,190 @@
+---
+import Facebook from "@components/Facebook.astro";
+import Instagram from "@components/Instagram.astro";
+import Youtube from "@components/Youtube.astro";
+import LinkedIn from "@components/Linkedin.astro";
+
+interface Props {
+  id?: string;
+  triggerText?: string;
+  triggerClass?: string;
+}
+
+const {
+  id = "contacto-secretaria",
+  triggerText = "Contactar",
+  triggerClass = "text-sm font-semibold leading-6 text-slate-900 flex items-center gap-2",
+} = Astro.props;
+
+const titulo = "Contacto";
+const email = "secretaria@iesjandula.es";
+const telefono = "953 60 90 20";
+const horario = "Lunes a viernes, 09:00 - 14:00";
+const direccion = "C. San Vicente Paul, 32, 23740 Andújar, Jaén";
+
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/IESJandula.es/",
+    component: Facebook,
+  },
+  {
+    name: "Instagram",
+    href: "https://www.instagram.com/iesjandula.es/",
+    component: Instagram,
+  },
+  {
+    name: "YouTube",
+    href: "https://www.youtube.com/@iesjandula4043",
+    component: Youtube,
+  },
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/company/ies-j%C3%A1ndula",
+    component: LinkedIn,
+  },
+];
+
+const openId = `${id}-open`;
+const modalId = `${id}-modal`;
+const overlayId = `${id}-overlay`;
+const closeId = `${id}-close`;
+---
+
+<button id={openId} type="button" class={triggerClass}>
+  {triggerText}
+  <span aria-hidden="true">→</span>
+</button>
+
+<div
+  id={modalId}
+  class="fixed inset-0 z-[70] hidden"
+  aria-hidden="true"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby={`${id}-title`}
+>
+  <div id={overlayId} class="absolute inset-0 bg-slate-900/60"></div>
+  <div
+    class="relative mx-auto mt-12 w-[92%] max-w-lg rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 sm:mt-20"
+  >
+    <div
+      class="flex items-start justify-between border-b border-slate-200 px-6 py-4"
+    >
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">
+          IES Jándula
+        </p>
+        <h3 id={`${id}-title`} class="mt-1 text-lg font-bold text-slate-900">
+          {titulo}
+        </h3>
+      </div>
+      <button
+        id={closeId}
+        type="button"
+        class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+        aria-label="Cerrar modal de contacto"
+      >
+        <svg
+          class="h-5 w-5"
+          viewBox="0 0 20 20"
+          fill="currentColor"
+          aria-hidden="true"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="space-y-4 p-6">
+      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Email
+        </p>
+        <a
+          class="mt-1 block text-sm font-medium text-blue-700 hover:underline"
+          href={`mailto:${email}`}>{email}</a
+        >
+      </div>
+
+      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Teléfono
+        </p>
+        <a
+          class="mt-1 block text-sm font-medium text-slate-800 hover:underline"
+          href={`tel:${telefono.replace(/\s+/g, "")}`}>{telefono}</a
+        >
+      </div>
+
+      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Horario de atención
+        </p>
+        <p class="mt-1 text-sm font-medium text-slate-800">{horario}</p>
+      </div>
+
+      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Dirección
+        </p>
+        <p class="mt-1 text-sm font-medium text-slate-800">{direccion}</p>
+      </div>
+
+
+<div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+        <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
+          Redes sociales
+        </p>
+      <div class="flex space-x-4 mb-4 md:mb-0">
+        {
+          socialLinks.map((link) => {
+            const Icon = link.component;
+            return (
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Síguenos en ${link.name}`}
+                class="text-slate-500 hover:text-blue-600 transition-colors hover:scale-110 transform duration-300"
+              >
+                <Icon />
+              </a>
+            );
+          })
+        }
+      </div>
+</div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ openId, modalId, overlayId, closeId }}>
+  const openButton = document.getElementById(openId);
+  const modal = document.getElementById(modalId);
+  const overlay = document.getElementById(overlayId);
+  const closeButton = document.getElementById(closeId);
+
+  const openModal = () => {
+    if (!modal) return;
+    modal.classList.remove("hidden");
+    modal.setAttribute("aria-hidden", "false");
+  };
+
+  const closeModal = () => {
+    if (!modal) return;
+    modal.classList.add("hidden");
+    modal.setAttribute("aria-hidden", "true");
+  };
+
+  openButton?.addEventListener("click", openModal);
+  closeButton?.addEventListener("click", closeModal);
+  overlay?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeModal();
+  });
+</script>
