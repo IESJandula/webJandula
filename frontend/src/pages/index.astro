@@ -15,77 +15,12 @@ const secondaryNews = sortedNews.slice(2, 5);
 <Layout title="Inicio">
 
 	<Hero />
-
-	<!-- Nuestro Centro -->
-	<section class="py-20 bg-white">
-		<div class="container mx-auto px-4">
-			<div class="grid lg:grid-cols-2 gap-12 items-center">
-				<div>
-					<span class="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-4">
-						Nuestro Centro
-					</span>
-					<h2 class="text-4xl font-bold text-gray-900 mb-6">
-						Tu comunidad educativa
-					</h2>
-					<p class="text-lg text-gray-600 mb-6 leading-relaxed">
-						Conoce la organización, los órganos de participación y accede a toda la documentación oficial
-						de nuestro instituto. Transparencia y compromiso educativo son nuestros pilares fundamentales.
-					</p>
-					<div class="space-y-4 mb-8">
-						<div class="flex items-start gap-3">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-							<div>
-								<h3 class="font-semibold text-gray-900">Equipo Directivo</h3>
-								<p class="text-gray-600 text-sm">Conoce a los responsables de la gestión del centro</p>
-							</div>
-						</div>
-						<div class="flex items-start gap-3">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-							<div>
-								<h3 class="font-semibold text-gray-900">Consejo Escolar</h3>
-								<p class="text-gray-600 text-sm">Órgano de participación de toda la comunidad</p>
-							</div>
-						</div>
-						<div class="flex items-start gap-3">
-							<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-blue-600 flex-shrink-0 mt-0.5">
-								<path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-							</svg>
-							<div>
-								<h3 class="font-semibold text-gray-900">Documentación Oficial</h3>
-								<p class="text-gray-600 text-sm">Acceso a planes y proyectos del centro</p>
-							</div>
-						</div>
-					</div>
-					<a href="/nuestro_centro" class="inline-block bg-blue-700 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-800 transition-colors">
-						Descubre más
-					</a>
-				</div>
-				<div class="relative">
-					<div class="rounded-3xl overflow-hidden shadow-2xl">
-						<img src="/images/bg-hero.webp" alt="Instalaciones IES Jándula" class="w-full h-[400px] object-cover" />
-					</div>
-					<!-- TODO: Confirmar año de fundación del centro -->
-					<div class="absolute -bottom-6 -left-6 bg-blue-700 text-white p-6 rounded-2xl shadow-xl max-w-xs">
-						<p class="text-3xl font-bold">[Año]</p>
-						<p class="text-blue-100 text-sm">Años de historia educativa</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
-
+	
 		<!-- Noticias -->
 	{sortedNews.length > 0 && (
 	<section class="container mx-auto px-4 py-20">
 		<div class="flex flex-col md:flex-row justify-between items-end mb-8">
 			<div>
-				<span class="inline-block px-4 py-2 rounded-full bg-red-50 text-red-700 text-sm font-semibold mb-4">
-					Actualidad
-				</span>
 				<h2 class="text-3xl font-bold text-gray-900">Últimas noticias</h2>
 				<p class="text-gray-600 mt-2">Mantente al día con las noticias de nuestro centro</p>
 			</div>

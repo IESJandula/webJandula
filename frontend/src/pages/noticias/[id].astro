@@ -1,6 +1,7 @@
 ---
 import Layout from '@/layouts/Layout.astro';
 import { getNoticiaById, getNoticiasIds } from '@/lib/api';
+import CardNoticiaRelacionada from '@/components/CardNoticiaRelacionada.astro';
 
 function formatSpanishDate(dateInput: string): string {
   const date = new Date(dateInput);
@@ -38,6 +39,35 @@ const noticia = id ? await getNoticiaById(id) : null;
 const formattedDate = noticia ? formatSpanishDate(noticia.date) : '';
 const sidePoster = noticia?.poster ?? null;
 const bottomGallery = noticia?.gallery ?? [];
+
+
+
+type NoticiaData = NonNullable<Awaited<ReturnType<typeof getNoticiaById>>>;
+type RelatedNoticia = NoticiaData & { id: string };
+
+// ...existing code...
+
+
+const relatedPool: RelatedNoticia[] = noticia
+  ? (
+      await Promise.all(
+        (await getNoticiasIds(200))
+          .filter((newsId) => newsId !== id)
+          .map(async (newsId) => {
+            const item = await getNoticiaById(newsId);
+            return item ? ({ ...item, id: newsId } as RelatedNoticia) : null;
+          })
+      )
+    ).filter((item): item is RelatedNoticia => item !== null)
+  : [];
+
+const sameCategory = noticia
+  ? relatedPool.filter((item) => item.category === noticia.category)
+  : [];
+
+const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).slice(0, 4);
+
+
 ---
 
 <Layout title={noticia?.title ?? 'Noticia no disponible'}>
@@ -95,84 +125,115 @@ const bottomGallery = noticia?.gallery ?? [];
     </header>
 
     <div class="container mx-auto px-4 py-10 md:py-14">
-      <div class="mx-auto">
-        <img
-          src={noticia.image}
-          alt={`Imagen principal de la noticia: ${noticia.title}`}
-          class="w-full max-h-[520px] object-cover shadow-xl ring-1 ring-slate-200"
-          loading="eager"
-          decoding="async"
-        />
+      <div
+        class:list={[
+          'mx-auto grid grid-cols-1 gap-8 items-start',
+          relatedNoticias.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_340px]',
+        ]}
+      >
+        <div class="min-w-0">
+          <figure class="mx-auto w-full overflow-hidden rounded-lg shadow-xl ring-1 ring-slate-200 bg-white">
+            <img
+              src={noticia.image}
+              alt={`Imagen principal de la noticia: ${noticia.title}`}
+              class="w-full max-h-[460px] object-cover"
+              loading="eager"
+              decoding="async"
+            />
+          </figure>
 
-        <section class="mt-10">
-          <h2 class="sr-only">Contenido de la noticia</h2>
-          <div
-            class:list={[
-              'grid grid-cols-1 gap-8 items-start',
-              sidePoster && 'lg:grid-cols-[minmax(0,1fr)_340px]',
-            ]}
-          >
+          <section class="mt-10">
+            <h2 class="sr-only">Contenido de la noticia</h2>
+
             <div
               class="news-richtext text-base md:text-lg text-slate-700 leading-relaxed"
               set:html={noticia.body}
             ></div>
 
-            {sidePoster && (
-              <aside class="lg:sticky lg:top-24">
-                <figure class="overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-md">
+                        {sidePoster && (
+              <figure class="mx-auto mb-6 w-full max-w-xl lg:max-w-sm overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-md">
+                <button
+                  class="gallery-image-trigger block w-full"
+                  data-image={sidePoster}
+                  data-alt={`Cartel del evento: ${noticia.title}`}
+                  aria-label="Abrir cartel en grande"
+                >
                   <img
                     src={sidePoster}
                     alt={`Cartel del evento: ${noticia.title}`}
-                    class="w-full h-auto object-contain bg-white"
+                    class="w-full h-auto object-contain bg-white hover:scale-[1.01] transition-transform duration-300"
                     loading="lazy"
                     decoding="async"
                   />
-                </figure>
-              </aside>
+                </button>
+              </figure>
             )}
-          </div>
-        </section>
-
-        {bottomGallery.length > 0 && (
-          <section class="mt-10">
-            <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-5">Galeria</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {bottomGallery.map((src, index) => (
-                <figure class="overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-sm">
-                  <button
-                    class="gallery-image-trigger block w-full"
-                    data-image={src}
-                    data-alt={`Imagen ${index + 1} de la noticia: ${noticia.title}`}
-                    aria-label={`Abrir imagen ${index + 1} en grande`}
-                  >
-                    <img
-                      src={src}
-                      alt={`Imagen ${index + 1} de la noticia: ${noticia.title}`}
-                      class="w-full h-56 object-cover hover:scale-[1.02] transition-transform duration-300"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </button>
-                </figure>
-              ))}
-            </div>
           </section>
-        )}
 
-        <div class="mt-8 flex justify-between items-center">
-          <a
-            href="/noticias"
-            class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
-          >
-            <span aria-hidden="true">←</span>
-            Todas las noticias
-          </a>
+          {bottomGallery.length > 0 && (
+            <section class="mt-10">
+              <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-5">Galeria</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {bottomGallery.map((src, index) => (
+                  <figure class="overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-sm">
+                    <button
+                      class="gallery-image-trigger block w-full"
+                      data-image={src}
+                      data-alt={`Imagen ${index + 1} de la noticia: ${noticia.title}`}
+                      aria-label={`Abrir imagen ${index + 1} en grande`}
+                    >
+                      <img
+                        src={src}
+                        alt={`Imagen ${index + 1} de la noticia: ${noticia.title}`}
+                        class="w-full h-56 object-cover hover:scale-[1.02] transition-transform duration-300"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </button>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          )}
+
+          <div class="mt-8 flex justify-between items-center">
+            <a
+              href="/noticias"
+              class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+            >
+              <span aria-hidden="true">←</span>
+              Todas las noticias
+            </a>
+          </div>
         </div>
+
+        {relatedNoticias.length > 0 && (
+          <aside class="lg:sticky lg:top-24 space-y-6">
+            {relatedNoticias.length > 0 && (
+              <section class=" p-4">
+                <h3 class="text-base font-bold text-slate-900">Noticias relacionadas</h3>
+                <div class="mt-4 space-y-4">
+                  {relatedNoticias.map((item) => (
+                    <CardNoticiaRelacionada
+                      title={item.title}
+                      summary={item.summary}
+                      date={formatSpanishDate(item.date)}
+                      image={item.image}
+                      category={item.category}
+                      link={`/noticias/${item.id}`}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+          </aside>
+        )}
       </div>
     </div>
   </article>
 
-  <div id="gallery-lightbox" class="fixed inset-0 z-[9999] hidden bg-black/85 p-4 md:p-8">
+
+          <div id="gallery-lightbox" class="fixed inset-0 z-[9999] hidden bg-black/85 p-4 md:p-8">
     <button
       id="gallery-lightbox-close"
       class="absolute top-4 right-4 rounded-full bg-white/15 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/25"
@@ -184,6 +245,8 @@ const bottomGallery = noticia?.gallery ?? [];
       <img id="gallery-lightbox-image" src="" alt="" class="max-h-full max-w-full object-contain" />
     </div>
   </div>
+
+
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {

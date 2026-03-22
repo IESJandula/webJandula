@@ -1,64 +1,254 @@
 ---
 import Layout from "@layouts/Layout.astro";
 
+const departamentos = [
+  { nombre: 'Biología y Geología', jefe: 'Francisco Bejarano Casado' },
+  { nombre: 'Geografía e Historia', jefe: 'Isabel María Ruiz González' },
+  { nombre: 'Cultura Clásica', jefe: 'Santiago Guijarro Cano' },
+  { nombre: 'Formación, Evaluación e Innovación Educativa (FEIE)', jefe: 'Manuel Amaro Parrado' },
+  { nombre: 'Dibujo', jefe: 'Ana Navarro Frías' },
+  { nombre: 'Economía', jefe: 'José Luis Meco Benítez' },
+  { nombre: 'Educación Física', jefe: 'Antonio José Ortiz Muñoz' },
+  { nombre: 'Extraescolares', jefe: 'Ana Belén Mauro Cledera' },
+  { nombre: 'Filosofía', jefe: 'Sonia Racionero Rubio' },
+  { nombre: 'Física y Química', jefe: 'María Aránzazu González Mármol' },
+  { nombre: 'Francés', jefe: 'Yésica Pasadas Campos' },
+  { nombre: 'Informática', jefe: 'Vicente Serrano Martínez' },
+  { nombre: 'Inglés', jefe: 'Segundo Catalán Cubillas' },
+  { nombre: 'Lengua Castellana y Literatura', jefe: 'María Dolores Solís Perales' },
+  { nombre: 'Matemáticas', jefe: 'José María Luque Arias' },
+  { nombre: 'Orientación', jefe: 'Inmaculada Relaño Gutiérrez' },
+  { nombre: 'Proyectos Internacionales', jefe: 'Pedro J. Jurado Santiago' },
+  { nombre: 'Tecnología', jefe: 'Manuel Barbero Alcalde' }
+]
 
 
+const equipodirectivo = [
+  { cargo: 'Directora', nombre: 'Encarnación Perálvarez Aguilera'},
+  { cargo: 'Vicedirectora', nombre: 'Mercedes Casuso Quesada'},
+  { cargo: 'Jefe de Estudios', nombre: 'José Antonio Sánchez García'},
+  { cargo: 'Secretario', nombre: 'Rafael Delgado Cubilla'},
+  { cargo: 'Jefe de Estudios Adjunto', nombre: 'Inmaculada Relaño Gutiérrez'},
+  { cargo: 'Jefe de Estudios Adjunto', nombre: 'Francisco Martínez Ruiz'}
+];
+
+const horariosCentro = [
+  {
+    turno: 'Turno de Mañana',
+    horario: '08:00 - 14:30',
+    detalle: 'Recreo: 11:00 - 11:30'
+  },
+  {
+    turno: 'Turno de Tarde',
+    horario: '15:00 - 21:00'
+  }
+];
+
+const calendarioEscolar = {
+  curso: '2025-26',
+  descripcion: 'El calendario se ajusta a la normativa de la Junta de Andalucía.',
+  url: 'https://www.juntadeandalucia.es/educacion'
+};
+
+const documentosEstrategicos = [
+  {
+    titulo: 'Proyecto Educativo de Centro (PEC)',
+    descripcion: [
+      'Define la identidad, valores y lineas pedagogicas del centro.',
+      'Establece los objetivos de mejora educativa.',
+      'Aprobado por el Consejo Escolar (aspectos pedagogicos por el Claustro).'
+    ]
+  },
+  {
+    titulo: 'Reglamento de Organizacion y Funcionamiento (ROF)',
+    descripcion: [
+      'Regula la estructura organizativa del centro.',
+      'Establece derechos y deberes de la comunidad educativa.',
+      'Define procedimientos de convivencia y disciplina.',
+      'Garantiza el cumplimiento de la normativa vigente.'
+    ]
+  },
+  {
+    titulo: 'Plan de Centro',
+    descripcion: [
+      'Integra el Proyecto Educativo, ROF y Proyecto de Gestion.',
+      'Documento oficial aprobado por el Consejo Escolar.',
+      'Publicado en la pagina web del centro.'
+    ]
+  },
+  {
+    titulo: 'Plan de Mejora y Memoria de Autoevaluacion',
+    descripcion: [
+      'Establece objetivos anuales de mejora.',
+      'Recoge resultados de evaluaciones internas y externas.',
+      'Propone actuaciones de seguimiento y evaluacion.'
+    ]
+  },
+  {
+    titulo: 'Programaciones Didacticas',
+    descripcion: [
+      'Elaboradas por cada departamento.',
+      'Definen objetivos, contenidos, metodologia y criterios de evaluacion.'
+    ]
+  },
+  {
+    titulo: 'Plan de Accion Tutorial (PAT)',
+    descripcion: [
+      'Organiza las actividades de tutoria.',
+      'Propone lineas de intervencion en orientacion, convivencia y atencion a la diversidad.'
+    ]
+  },
+  {
+    titulo: 'Plan de Convivencia',
+    descripcion: [
+      'Define estrategias de prevencion de conflictos.',
+      'Establece protocolos de actuacion ante conductas inadecuadas.',
+      'Promueve la educacion en valores y la resolucion pacifica de conflictos.'
+    ]
+  },
+  {
+    titulo: 'Plan de Igualdad de Genero',
+    descripcion: [
+      'Trabaja por la igualdad efectiva entre hombres y mujeres.',
+      'Coordina actuaciones de coeducacion y prevencion de violencia de genero.'
+    ]
+  },
+  {
+    titulo: 'Plan de Bienestar y Proteccion de la Infancia',
+    descripcion: [
+      'Garantiza el cumplimiento de la normativa en proteccion de menores.'
+    ]
+  },
+  {
+    titulo: 'Plan Digital de Centro (PAD)',
+    descripcion: [
+      'Responsable: Coordinador de Transformacion Digital Educativa (TDE).',
+      'Define objetivos de digitalizacion y competencia digital.',
+      'Propone proyectos de innovacion tecnologica.'
+    ]
+  },
+  {
+    titulo: 'Plan Lector y Biblioteca Escolar',
+    descripcion: [
+      'Responsable: Coordinacion de Biblioteca.',
+      'Promueve el habito de lectura y el uso de la biblioteca escolar.'
+    ]
+  },
+  {
+    titulo: 'Plan de Formacion del Profesorado',
+    descripcion: [
+      'Coordinado por el Departamento de Formacion, Evaluacion e Innovacion Educativa (FEIE).',
+      'Propone acciones de formacion permanente vinculadas al Plan de Mejora.'
+    ]
+  }
+];
 
 ---
 
 <Layout title="Conoce el centro">
 
-  <!-- Modern Hero with Abstract Shapes -->
-  <div class="relative isolate overflow-hidden bg-white">
+  <!-- Hero Presentacion Centro -->
+  <section class="relative isolate overflow-hidden bg-white">
+    <div class="absolute inset-x-0 -top-24 -z-10 flex justify-center blur-3xl" aria-hidden="true">
+      <div class="h-48 w-[36rem] bg-gradient-to-r from-blue-200 to-emerald-200 opacity-60"></div>
+    </div>
 
-    <div class="mx-auto max-w-7xl px-6 pb-12 pt-2 sm:pb-32 lg:flex lg:px-8 lg:py-40" >
-        <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-xl lg:flex-shrink-0">
-            <div class="hidden sm:mb-8 sm:flex sm:justify-normal">
-            <span
-            class="rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold leading-6 text-blue-700 ring-1 ring-inset ring-blue-700/10"
-            >IES Jándula</span
-            >
+    <div class="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
+        <div>
+          <span class="inline-flex rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10">
+            IES Jándula
+          </span>
+
+          <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
+            Nuestro centro educativo en Andújar
+          </h1>
+
+          <p class="mt-6 text-lg leading-8 text-slate-600">
+            El IES Jándula es un centro educativo público situado en Andújar (Jaén) que lleva más de 40 años formando a estudiantes en la provincia. Ubicado en la calle San Vicente de Paúl, nuestro instituto se ha convertido en un referente educativo que combina tradición, innovación y compromiso con la inclusión.
+          </p>
+
+          <p class="mt-4 text-lg leading-8 text-slate-600">
+            Inaugurado en el curso 1982-1983, el IES Jándula ha evolucionado de forma constante para adaptarse a las necesidades educativas de la sociedad. Aunque inicialmente fue diseñado como Instituto de Bachillerato con capacidad para 500 personas, actualmente acoge a más de 750 estudiantes en sus tres etapas educativas: Educación Secundaria Obligatoria, Bachillerato y Formación Profesional.
+          </p>
+
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="#caracteristicas-centro"
+              class="rounded-full bg-blue-800 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
+            >Ver características</a>
+            <a
+              href="#datos-centro"
+              class="text-sm font-semibold text-slate-700 hover:text-slate-900"
+            >Ver datos del centro <span aria-hidden="true">→</span></a>
+          </div>
         </div>
-        <h1 class="mt-10 text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-          Nuestro centro, <span
-            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-emerald-600"
-            >tu comunidad</span
-          >
-        </h1>
-        <p class="mt-6 text-lg leading-8 text-gray-600">
-          Conoce la organización, los órganos de participación y accede a toda
-          la documentación oficial de nuestro instituto. Transparencia y
-          compromiso educativo.
-        </p>
-        <div class="mt-10 flex items-center gap-x-6">
-          <a
-            href="#institucional"
-            class="rounded-full bg-blue-800 px-8 py-3.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800 transition-all"
-          >Ver Institucional</a>
-          <a
-            href="#documentos"
-            class="text-sm font-semibold leading-6 text-gray-900 flex items-center gap-2"
-          >Documentos <span aria-hidden="true">→</span></a>
-        </div>
-      </div>
-      <!-- Hero Image Composition -->
-      <div
-        class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32"
-      >
-        <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
-          <div
-            class="-m-2 rounded-2xl p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm"
-          >
+
+        <div>
+          <figure class="overflow-hidden rounded-3xl bg-white p-2 shadow-2xl ring-1 ring-slate-900/10">
             <img
               src="/images/bg-hero.webp"
-              alt="Instalaciones IES Jandula"
-              class="w-[36rem] rounded-xl shadow-2xl ring-1 ring-slate-900/10 object-cover object-center h-[24rem]"
+              alt="Instalaciones del IES Jándula"
+              class="h-[23rem] w-full rounded-2xl object-cover object-center"
             />
-          </div>
+          </figure>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Caracteristicas del Centro -->
+  <section id="caracteristicas-centro" class="py-20 bg-slate-50">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+          Nuestro centro se caracteriza por
+        </h2>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <h3 class="text-lg font-semibold text-slate-900">Compromiso con la excelencia educativa</h3>
+          <p class="mt-2 text-slate-600">Mantenemos una calidad académica contrastada con resultados superiores a los de centros de contexto similar.</p>
+        </article>
+        <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <h3 class="text-lg font-semibold text-slate-900">Educación inclusiva</h3>
+          <p class="mt-2 text-slate-600">Atendemos a alumnado con necesidades diversas, garantizando su permanencia y éxito escolar.</p>
+        </article>
+        <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <h3 class="text-lg font-semibold text-slate-900">Proyección internacional</h3>
+          <p class="mt-2 text-slate-600">Participamos en proyectos Erasmus+, e-Twinning y Escuelas Embajadoras del Parlamento Europeo.</p>
+        </article>
+        <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
+          <h3 class="text-lg font-semibold text-slate-900">Innovación metodológica</h3>
+          <p class="mt-2 text-slate-600">Impartimos educación bilingüe en inglés, utilizamos metodologías activas y contamos con infraestructuras tecnológicas modernas.</p>
+        </article>
+        <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 md:col-span-2">
+          <h3 class="text-lg font-semibold text-slate-900">Comunicación y proximidad</h3>
+          <p class="mt-2 text-slate-600">Trabajamos colaborativamente con familias, empresas y entidades locales para ofrecer una educación contextualizada.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Datos del Centro -->
+  <section id="datos-centro" class="py-20 bg-white">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-3xl text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Datos del Centro</h2>
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Denominación:</span> <p class="mt-1 text-slate-700">IES JÁNDULA</p></div>
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Código:</span> <p class="mt-1 text-slate-700">23005694</p></div>
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">CIF:</span> <p class="mt-1 text-slate-700">S-4111001-F</p></div>
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 sm:col-span-2 lg:col-span-3"><span class="text-sm font-semibold text-slate-900">Dirección:</span> <p class="mt-1 text-slate-700">c/ San Vicente de Paúl, s/n, 23740 Andújar - Jaén</p></div>
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Teléfono:</span> <p class="mt-1 text-slate-700">953 53 95 08</p></div>
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Web:</span> <p class="mt-1"><a href="https://www.iesjandula.es" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 underline">www.iesjandula.es</a></p></div>
+        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Email:</span> <p class="mt-1"><a href="mailto:iesjandula@gmail.com" class="text-blue-700 hover:text-blue-800 underline">iesjandula@gmail.com</a></p></div>
+      </div>
+    </div>
+  </section>
 
   <!-- Institucional Section (Bento Grid Style) -->
   <section id="institucional" class="py-24 bg-white">
@@ -99,57 +289,41 @@ import Layout from "@layouts/Layout.astro";
             Equipo Directivo
           </h3>
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div
-              class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 group hover:border-blue-200 transition-colors"
-            >
-              <p
-                class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1"
+            {equipodirectivo.map((persona) => (
+              <div
+                class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 group hover:border-blue-200 transition-colors"
               >
-                Dirección
+                <p
+                  class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1"
+                >
+                  {persona.cargo}
+                </p>
+                <p
+                  class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
+                >
+                  {persona.nombre}
+                </p>
+              </div>
+            ))}
+          </div>
+          <p class="mt-6 text-sm text-gray-500 leading-relaxed">
+            El Equipo Directivo del IES Jándula es el órgano responsable de la gestión, organización y coordinación del centro. Trabaja de forma colegiada para garantizar el cumplimiento del Proyecto Educativo y la mejora continua de la calidad educativa.
+          </p>
+
+          <div class="mt-6 rounded-2xl">
+            <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Telefonos de contacto</p>
+            <div class="mt-3 grid gap-2 sm:grid-cols-2">
+              <p class="rounded-xl bg-white px-3 py-2 text-sm text-slate-700 ring-1 ring-slate-200">
+                <span class="font-semibold text-slate-900">Conserjeria:</span> 953 53 95 08
               </p>
-              <p
-                class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
-              >
-                Juan Manuel Rubio Jiménez
-              </p>
-            </div>
-            <div
-              class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 group hover:border-blue-200 transition-colors"
-            >
-              <p
-                class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1"
-              >
-                Jefatura de Estudios
-              </p>
-              <p
-                class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
-              >
-                Ana María López García
-              </p>
-            </div>
-            <div
-              class="bg-white p-5 rounded-2xl shadow-sm border border-slate-100 group hover:border-blue-200 transition-colors"
-            >
-              <p
-                class="text-xs text-gray-500 uppercase font-bold tracking-wider mb-1"
-              >
-                Secretaría
-              </p>
-              <p
-                class="font-medium text-gray-900 group-hover:text-blue-700 transition-colors"
-              >
-                Francisco Javier Molina Pérez
+              <p class="rounded-xl bg-white px-3 py-2 text-sm text-slate-700 ring-1 ring-slate-200">
+                <span class="font-semibold text-slate-900">Fax:</span> 953 53 95 11
               </p>
             </div>
           </div>
-          <p class="mt-6 text-sm text-gray-500 leading-relaxed">
-            El equipo directivo coordina y dinamiza la actividad educativa del
-            centro, garantizando el cumplimiento de las normas y fomentando la
-            convivencia.
-          </p>
         </div>
 
-        <!-- Horarios (Card Vertical Dark) -->
+        <!-- Horarios -->
         <div
           class="rounded-3xl bg-blue-900 p-8 shadow-xl text-white flex flex-col justify-between"
         >
@@ -173,34 +347,41 @@ import Layout from "@layouts/Layout.astro";
               Horarios
             </h3>
             <ul class="space-y-6">
-              <li class="relative pl-4 border-l-2 border-emerald-400">
-                <p
-                  class="text-blue-200 text-xs uppercase font-bold tracking-wide mb-1"
-                >
-                  Jornada Lectiva
-                </p>
-                <p class="font-semibold text-lg">08:15 - 14:45</p>
-              </li>
-              <li class="relative pl-4 border-l-2 border-emerald-400">
-                <p
-                  class="text-blue-200 text-xs uppercase font-bold tracking-wide mb-1"
-                >
-                  Secretaría / Administración
-                </p>
-                <p class="font-semibold text-lg">09:00 - 14:00</p>
-                <span class="text-xs text-blue-200 block mt-1"
-                  >Lunes a Viernes</span
-                >
-              </li>
+              {horariosCentro.map((item) => (
+                <li class="relative pl-4 border-l-2 border-emerald-400">
+                  <p
+                    class="text-blue-200 text-xs uppercase font-bold tracking-wide mb-1"
+                  >
+                    {item.turno}
+                  </p>
+                  <p class="font-semibold text-lg">{item.horario}</p>
+                  {item.detalle && (
+                    <span class="text-xs text-blue-200 block mt-1">{item.detalle}</span>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
-          <div class="mt-8 pt-6 border-t border-blue-800">
-            <p class="text-sm text-blue-100">
-              Para tutorías con profesorado, consultar directamente a través de
-              iPasen.
+          <div class="pt-6 border-t border-blue-800">
+            <p class="text-m text-blue-100 font-semibold">
+              Calendario oficial del curso {calendarioEscolar.curso}
             </p>
+            <p class="mt-2 text-sm text-blue-100">
+              {calendarioEscolar.descripcion}
+            </p>
+            <a
+              href={calendarioEscolar.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="mt-3 inline-flex items-center gap-2 text-sm font-semibold text-emerald-300 hover:text-emerald-200 transition-colors"
+            >
+              Consultar calendario oficial
+              <span aria-hidden="true">↗</span>
+            </a>
           </div>
         </div>
+
+
 
         <!-- Consejo Escolar (Full width) -->
         <div
@@ -235,7 +416,8 @@ import Layout from "@layouts/Layout.astro";
             >
             </div>
 
-            <p class="mt-2 text-sm text-gray-500 leading-relaxed w-full justify-start">Es nuestro máximo órgano de representación y decisión, garantizando la participación de toda la comunidad educativa</p>
+            <p class="mt-2 text-sm text-gray-500 leading-relaxed w-full justify-start">El <strong>Consejo Escolar</strong> es el máximo órgano de representación y decisión del centro. Está compuesto por representantes de todos los sectores de la comunidad educativa (equipo directivo, profesorado, alumnado, familias, personal de administración y servicios y ayuntamiento) y se reúne regularmente para analizar y tomar decisiones sobre aspectos fundamentales de la vida del centro.
+</p>
 
           </div>
 
@@ -262,9 +444,94 @@ import Layout from "@layouts/Layout.astro";
             </div>
           </div>
         </div>
+
+        <!-- Departamentos Didácticos -->
+        <div id="departamentos-didacticos" class="md:col-span-3 rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-gray-900/5">
+          <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+            <h3 class="text-xl font-bold text-gray-900">Departamentos Didácticos</h3>
+            <p class="text-m text-gray-500">
+              El IES Jándula cuenta con <strong>15 departamentos de coordinación didáctica</strong> que organizan la docencia, elaboran programaciones y coordinan la innovación educativa. Además, dispone de departamentos no didácticos para áreas transversales y proyectos estratégicos.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {departamentos.map((departamento) => (
+              <article class="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200 hover:shadow-md transition-shadow">
+                <p class="text-m font-bold text-blue-600">{departamento.nombre}</p>
+                <p class="mt-2 text-sm text-slate-600">{departamento.jefe}</p>
+              </article>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </section>
+
+  <section id="tutorias" class="py-24 bg-white">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,1fr)_360px] items-start">
+        <div class="rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-200">
+          <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Tutorías</h2>
+
+          <p class="mt-5 text-base leading-8 text-slate-700">
+            La tutoría es una función fundamental en el IES Jándula, orientada al desarrollo integral del alumnado, la prevención de dificultades de aprendizaje y la promoción de la convivencia positiva. Cada grupo cuenta con un tutor o tutora responsable de coordinar el equipo educativo y mantener el contacto personalizado con el alumnado y sus familias.
+          </p>
+
+          <div class="mt-8 rounded-2xl bg-white p-6 ring-1 ring-slate-200">
+            <h3 class="text-xl font-semibold text-slate-900">Horario de Tutorías</h3>
+            <ul class="mt-4 space-y-3 text-slate-700">
+              <li><strong>Atención a familias</strong>: Miércoles de 17:00 a 18:00 horas (presencial)</li>
+              <li><strong>Reuniones tutoriales</strong>: Según convocatoria (generalmente al principio de cada trimestre)</li>
+              <li><strong>Entrevistas individuales</strong>: Previa cita (disponible a través de PASEN o llamada a conserjería)</li>
+            </ul>
+          </div>
+
+          <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+            <article class="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
+              <h3 class="text-lg font-semibold text-slate-900">Funciones del Tutor/a</h3>
+              <ul class="mt-4 space-y-2 text-sm text-slate-700">
+                <li>Coordinar el equipo educativo de su grupo</li>
+                <li>Realizar el seguimiento del proceso de aprendizaje</li>
+                <li>Detectar necesidades educativas especiales</li>
+                <li>Facilitar la orientación académica y profesional</li>
+                <li>Promover la convivencia y resolución de conflictos</li>
+                <li>Mantener contacto permanente con familias</li>
+                <li>Elaborar documentación oficial de evaluación</li>
+              </ul>
+            </article>
+
+            <article class="rounded-2xl bg-white p-6 ring-1 ring-slate-200">
+              <h3 class="text-lg font-semibold text-slate-900">Líneas de Acción Tutorial</h3>
+              <p class="mt-2 text-sm text-slate-600">El Programa de Acción Tutorial (PAT) del centro aborda:</p>
+              <ul class="mt-3 space-y-2 text-sm text-slate-700">
+                <li><strong>Acogida e integración</strong> del nuevo alumnado</li>
+                <li><strong>Desarrollo de técnicas de estudio</strong> y hábitos de trabajo</li>
+                <li><strong>Educación emocional</strong> y habilidades sociales</li>
+                <li><strong>Orientación académica y profesional</strong></li>
+                <li><strong>Prevención de conductas de riesgo</strong> (absentismo, abandono, etc.)</li>
+                <li><strong>Educación en valores</strong>: igualdad, respeto, tolerancia y convivencia</li>
+                <li><strong>Atención a la diversidad</strong> con especial énfasis en alumnado vulnerable</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+
+        <aside class="lg:sticky lg:top-24">
+          <figure class="overflow-hidden rounded-3xl bg-white p-2 shadow-xl ring-1 ring-slate-200">
+            <img
+              src="/images/bg-hero.webp"
+              alt="Acompañamiento tutorial en el IES Jándula"
+              class="h-[420px] w-full rounded-2xl object-cover object-center"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+
 
   <!-- Documentos Section (Grid Clean) -->
   <section id="documentos" class="py-24 bg-slate-50 relative overflow-hidden">
@@ -278,171 +545,41 @@ import Layout from "@layouts/Layout.astro";
     </div>
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-2xl text-center mb-16">
+      <div class="mx-auto max-w-3xl text-center mb-16">
         <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-          Documentación Oficial
+          Documentos del Centro
         </h2>
         <p class="mt-4 text-lg leading-8 text-gray-600">
-          Accede a los planes y proyectos que rigen nuestro centro.
+          El IES Jandula dispone de una serie de documentos oficiales que regulan su organizacion, funcionamiento y accion educativa. Estos documentos constituyen el marco de referencia para toda la comunidad educativa.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <!-- Doc Card 1 -->
-        <div
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
-        >
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div
-                class="p-2 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 006 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25"
-                  ></path>
-                </svg>
-              </div>
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+        {documentosEstrategicos.map((documento, index) => (
+          <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-md">
+            <div class="flex items-start gap-3">
+              <span class="mt-0.5 inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-blue-100 text-xs font-bold text-blue-700">
+                {index + 1}
+              </span>
+              <h3 class="text-lg font-semibold text-slate-900">{documento.titulo}</h3>
             </div>
-            <h3
-              class="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors"
-            >
-              Proyecto de Centro
-            </h3>
-            <p class="mt-2 text-sm text-gray-500">
-              Marco pedagógico y organizativo del instituto.
-            </p>
-          </div>
-          <div class="mt-4 text-sm font-medium text-blue-600">
-            Disponible en Secretaría
-          </div>
-        </div>
+            <ul class="mt-4 space-y-2 text-sm text-slate-600">
+              {documento.descripcion.map((linea) => (
+                <li class="flex gap-2">
+                  <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500"></span>
+                  <span>{linea}</span>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
 
-        <!-- Doc Card 2 -->
-        <div
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
-        >
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div
-                class="p-2 bg-teal-50 text-teal-600 rounded-lg group-hover:bg-teal-600 group-hover:text-white transition-colors"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <h3
-              class="text-lg font-semibold text-gray-900 group-hover:text-teal-600 transition-colors"
-            >
-              Plan de Igualdad
-            </h3>
-            <p class="mt-2 text-sm text-gray-500">
-              Medidas para la prevención de la discriminación.
-            </p>
-          </div>
-          <div class="mt-4 text-sm font-medium text-teal-600">
-            Disponible en Secretaría
-          </div>
-        </div>
-
-        <!-- Doc Card 3 -->
-        <div
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
-        >
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div
-                class="p-2 bg-emerald-50 text-emerald-600 rounded-lg group-hover:bg-emerald-600 group-hover:text-white transition-colors"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.627 48.627 0 0112 20.904a48.627 48.627 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.57 50.57 0 00-2.658-.813A59.905 59.905 0 0112 3.493a59.902 59.902 0 0110.499 5.24 50.533 50.533 0 00-2.658.814m-15.482 0A50.697 50.697 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <h3
-              class="text-lg font-semibold text-gray-900 group-hover:text-emerald-600 transition-colors"
-            >
-              Plan de Lectura
-            </h3>
-            <p class="mt-2 text-sm text-gray-500">
-              Fomento de la lectura y la comprensión lectora.
-            </p>
-          </div>
-          <div class="mt-4 text-sm font-medium text-emerald-600">
-            Disponible en Secretaría
-          </div>
-        </div>
-
-        <!-- Doc Card 4 -->
-        <div
-          class="group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-lg"
-        >
-          <div>
-            <div class="flex items-center justify-between mb-4">
-              <div
-                class="p-2 bg-sky-50 text-sky-600 rounded-lg group-hover:bg-sky-600 group-hover:text-white transition-colors"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke-width="1.5"
-                  stroke="currentColor"
-                  class="w-6 h-6"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <h3
-              class="text-lg font-semibold text-gray-900 group-hover:text-sky-600 transition-colors"
-            >
-              PAD
-            </h3>
-            <p class="mt-2 text-sm text-gray-500">
-              Plan de Atención a la Diversidad del alumnado.
-            </p>
-          </div>
-          <div class="mt-4 text-sm font-medium text-sky-600">
-            Disponible en Secretaría
-          </div>
-        </div>
+      <div class="mt-10 rounded-2xl bg-blue-900 p-6 text-white shadow-xl ring-1 ring-blue-800">
+        <h3 class="text-xl font-bold">Consulta de Documentos</h3>
+        <p class="mt-3 text-blue-100 leading-7">
+          La mayoria de estos documentos estan disponibles en el <strong>Portal de SENECA</strong> del centro o pueden solicitarse en <strong>Secretaria</strong>. Algunos documentos tambien se encuentran publicados en la pagina web.
+        </p>
       </div>
     </div>
   </section>

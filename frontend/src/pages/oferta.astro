@@ -1,30 +1,12 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 
-type Ciclo = {
-  nivel: string;
-  nombre: string;
-  familia: string;
-  duracion: string;
-  turno: string;
-  descripcion: string;
-  imagen?: {
-    url?: string;
-    alternativeText?: string | null;
-  };
-  enlace?: string;
-  bilingue?:string;
-};
-
-const { PUBLIC_API_URL } = import.meta.env;
-
-
 
 const ciclos = [
-  {
+{
     nivel: "Grado Básico",
-    nombre: "Informática y Comunicaciones",
-    familia: "Informática",
+    nombre: "Técnico Básico en Informática de Oficina",
+    familia: "Administración y Gestión",
     duracion: "2 años",
     turno: "Mañana",
     descripcion: "Realizar operaciones auxiliares de montaje y mantenimiento de sistemas microinformáticos, periféricos y redes de comunicación de datos.",
@@ -32,7 +14,25 @@ const ciclos = [
       url: "/images/basica.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Básico en Informática y Comunicaciones"
     },
-    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/informatica-comunicaciones.html"
+    enlace: "https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/informatica-comunicaciones.html",
+    asignaturas: {
+      primero: [
+        "Montaje y mantenimiento de sistemas y componentes informáticos",
+        "Operaciones auxiliares para la configuración y la explotación",
+        "Itinerario personal para la empleabilidad I",
+        "Comunicación y Ciencias Sociales I ",
+        "Ciencias Aplicadas I",
+        "Tutoría"
+      ],
+      segundo: [
+        "Instalación y mantenimiento de redes para transmisión de datos",
+        "Ofimática y archivo de documentos",
+        "Proyecto intermodular de aprendizaje colaborativo",
+        "Comunicación y Ciencias Sociales II",
+        "Ciencias Aplicadas II",
+        "Tutoría"
+      ]
+    }
   },
   {
     nivel: "Grado Medio",
@@ -46,7 +46,31 @@ const ciclos = [
       alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Sistemas Microinformáticos y Redes"
     },
     enlace:"https://www.todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/sistemas-microniformaticos-redes.html",
-    bilingue: "Inglés"
+    bilingue: "Inglés",
+    asignaturas: {
+      primero: [
+        "Técnicas de equitación",
+        "Guía ecuestre",
+        "Guía de baja y media montaña",
+        "Guía de bicicleta",
+        "Técnicas de tiempo libre",
+        "Técnicas de natación",
+        "Itinerario personal para la empleabilidad I",
+        "Digitalización aplicada al sistema productivo",
+        "Sostenibilidad aplicada al sistema productivo"
+      ],
+      segundo: [
+        "Atención a grupos",
+        "Organización de itinerarios",
+        "Socorrismo en el medio natural",
+        "Guía en el medio natural acuático",
+        "Maniobras con cuerdas",
+        "Itinerario personal para la empleabilidad II",
+        "Inglés profesional (GM)",
+        "Proyecto intermodular",
+        "Optativa"
+      ]
+    }
   },
   {
     nivel: "Grado Medio",
@@ -60,7 +84,31 @@ const ciclos = [
       alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Guía en el Medio Natural y de Tiempo Libre"
     },
     enlace:"https://todofp.es/que-estudiar/familias-profesionales/actividades-fisicas-deportivas/guia-medio-natural-tiempo-libre.html",
-    bilingue: "Inglés"
+    bilingue: "Inglés",
+    asignaturas: {
+      primero: [
+        "Técnicas de equitación",
+        "Guía ecuestre",
+        "Guía de baja y media montaña",
+        "Guía de bicicleta",
+        "Técnicas de tiempo libre",
+        "Técnicas de natación",
+        "Itinerario personal para la empleabilidad I",
+        "Digitalización aplicada al sistema productivo",
+        "Sostenibilidad aplicada al sistema productivo"
+      ],
+      segundo: [
+        "Atención a grupos",
+        "Organización de itinerarios",
+        "Socorrismo en el medio natural",
+        "Guía en el medio natural acuático",
+        "Maniobras con cuerdas",
+        "Itinerario personal para la empleabilidad II",
+        "Inglés profesional (GM)",
+        "Proyecto intermodular",
+        "Optativa"
+      ]
+    }
   },
   {
     nivel: "Grado Superior",
@@ -73,7 +121,30 @@ const ciclos = [
       url: "/images/meca.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Mecatrónica Industrial",
     },
-    enlace:"https://todofp.es/que-estudiar/familias-profesionales/instalacion-mantenimiento/mecatronica-industrial.html"
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/instalacion-mantenimiento/mecatronica-industrial.html",
+    asignaturas: {
+      primero: [
+        "Sistemas mecánicos",
+        "Sistemashidráulicos y neumáticos",
+        "Sistemas eléctricos y electrónicos",
+        "Elementos de máquinas",
+        "Procesos de fabricación",
+        "Representación gráfica de sistemas mecatrónicos",
+        "Itinerario personal para la empleabilidad I",
+        "Digitalización aplicada al sistema productivo",
+        "Sostenibilidad aplicada al sistema productivo"
+      ],
+      segundo: [
+        "Configuración de sistemas mecatrónicos",
+        "Procesos y gestión de mantenimiento y calidad",
+        "Integración de sistemas",
+        "Simulación de sistemas mecatrónicos",
+        "Itinerario personal para la empleabilidad II",
+        "Inglés profesional (GS)",
+        "Proyecto intermodular",
+        "Optativa"
+      ]
+    }
   },
   {
     nivel: "Grado Superior",
@@ -87,7 +158,30 @@ const ciclos = [
       alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Multiplataforma"
     },
     enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-multiplataforma.html",
-    bilingue: "Inglés"
+    bilingue: "Inglés",
+        asignaturas: {
+      primero: [
+        "Lenguajes de marcas y sistemas de gestión de la información",
+        "Sistemas informáticos",
+        "Bases de datos",
+        "Entornos de desarrollo",
+        "Programación",
+        "Itinerario personal para la empleabilidad I",
+        "Digitalización aplicada al sistema productivo",
+        "Sostenibilidad aplicada al sistema productivo"
+      ],
+      segundo: [
+        "Acceso a datos",
+        "Desarrollo de interfaces",
+        "Programación multimedia y de dispositivos móviles",
+        "Programación de servicios y procesos",
+        "Sistemas de gestión empresarial",
+        "Itinerario personal para la empleabilidad II",
+        "Inglés profesional (GS)",
+        "Proyecto intermodular",
+        "Optativa"
+      ]
+    }
   },
   {
     nivel: "Grado Superior",
@@ -100,13 +194,34 @@ const ciclos = [
       url: "/images/daw.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Superior en Desarrollo de Aplicaciones Web"
     },
-    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-web.html"
+    enlace:"https://todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/des-aplicaciones-web.html",
+        asignaturas: {
+      primero: [
+        "Lenguajes de marcas y sistemas de gestión de la información",
+        "Sistemas informáticos",
+        "Bases de datos",
+        "Entornos de desarrollo",
+        "Programación",
+        "Itinerario personal para la empleabilidad I",
+        "Digitalización aplicada al sistema productivo",
+        "Sostenibilidad aplicada al sistema productivo"
+      ],
+      segundo: [
+        "Desarrollo web en entorno cliente",
+        "Desarrollo web en entorno servidor",
+        "Despliegue de aplicaciones web",
+        "Diseño de interfaces web",
+        "Itinerario personal para la empleabilidad II",
+        "Inglés profesional (GS)",
+        "Proyecto intermodular",
+        "Optativa"
+      ]
+    }
   },
 ]; 
 ---
 
 <Layout title="Oferta Educativa - IES Jándula">
-  <!-- Modern Hero with Abstract Shapes -->
 
     <div
       class="mx-auto max-w-7xl px-6 pb-24 pt-4 sm:pb-32 lg:flex lg:px-8 lg:py-10"
@@ -133,9 +248,7 @@ const ciclos = [
             >hoy mismo</span>
         </h1>
         <p class="mt-6 text-lg leading-8 text-slate-600">
-En el IES Jándula ofrecemos una formación integral, equitativa y orientada a la adquisición
-de competencias clave. Nuestras metodologías están adaptadas a diferentes ritmos de
-aprendizaje y orientadas a la inclusión
+El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que abarca la Educación Secundaria Obligatoria, Bachillerato y Formación Profesional en sus distintos niveles. Esta variedad permite al alumnado acceder a itinerarios formativos ajustados a sus capacidades, intereses y expectativas.
         </p>
         <div class="mt-10 flex items-center gap-x-6">
           <a
@@ -176,7 +289,6 @@ aprendizaje y orientadas a la inclusión
 
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mx-auto max-w-3xl text-center">
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-blue-700">Características destacadas</p>
         <h2 class="mt-3 text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl">
           Un entorno pensado para aprender, crecer y decidir tu futuro
         </h2>
@@ -240,6 +352,7 @@ aprendizaje y orientadas a la inclusión
       <div class="mt-16 space-y-8 sm:mt-20">
         <!-- ESO -->
         <div
+          
           class="relative overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
         >
           <div
@@ -264,70 +377,146 @@ aprendizaje y orientadas a la inclusión
                   ></path></svg
                 >
               </span>
-              <h3 class="text-2xl font-bold text-slate-900">E.S.O.</h3>
+              <h3 class="text-2xl font-bold text-slate-900">Educación Secundaria Obligatoria (E.S.O)</h3>
             </div>
-            <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-2xl">
-              En 4º de la ESO ofrecemos itinerarios de carácter orientador para
-              preparar al alumnado hacia su futuro académico o laboral.
+            <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-4xl">
+              La <strong>Educación Secundaria Obligatoria (ESO)</strong> en el IES Jándula se articula en cuatro cursos organizados en dos ciclos, siguiendo el marco de la LOMLOE. Nuestro enfoque combina la excelencia académica con una atención personalizada para garantizar el éxito escolar de todo el alumnado.
             </p>
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
-              <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
-                <h4 class="text-base font-semibold text-slate-900">Opción 1 · Ciencias</h4>
-                <ul class="mt-3 space-y-2 text-sm text-slate-700">
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
-                    Matemáticas académicas
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
-                    Biología y Geología
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
-                    Física y Química
-                  </li>
-                </ul>
-              </article>
-              <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
-                <h4 class="text-base font-semibold text-slate-900">Opción 2 · Humanidades y Ciencias Sociales</h4>
-                <ul class="mt-3 space-y-2 text-sm text-slate-700">
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-                    Matemáticas académicas o aplicadas
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-                    Latín
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-                    Economía
-                  </li>
-                </ul>
-              </article>
-              <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
-                <h4 class="text-base font-semibold text-slate-900">Opción 3 · Aplicadas</h4>
-                <ul class="mt-3 space-y-2 text-sm text-slate-700">
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
-                    Matemáticas aplicadas
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
-                    Tecnología
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600"></span>
-                    Formación y Orientación Personal y Profesional
-                  </li>
-                </ul>
-              </article>
+
+            <!-- Estructura y Materias -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-slate-900 mb-4">Estructura y Materias</h4>
+              <p class="text-slate-600 text-base leading-relaxed mb-4">
+                La formación se divide en materias comunes que garantizan la base de conocimientos y materias optativas que permiten al alumno explorar sus intereses:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 text-sm mb-3">Materias Comunes (Troncales)</h5>
+                  <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Lengua Castellana y Literatura
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Matemáticas (académico o aplicado)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Inglés (reforzado como centro bilingüe)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Geografía e Historia
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Biología y Geología
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Física y Química (segundo ciclo)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Educación Física
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Educación Plástica/Música
+                    </li>
+                  </ul>
+                </article>
+
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 text-sm mb-3">Materias Optativas</h5>
+                  <p class="text-sm text-slate-600 mb-3">Ofrecemos una variada selección que incluye:</p>
+                  <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Francés (Segunda Lengua Extranjera)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Cultura Clásica
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Computación y Robótica
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Talleres de Matemáticas
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Talleres de Literatura
+                    </li>
+                  </ul>
+                </article>
+              </div>
+
+              <!-- Enfoque Bilingüe -->
+              <div class="rounded-2xl bg-blue-50 border-l-4 border-blue-600 p-5 mb-6">
+                <h5 class="font-semibold text-blue-900 text-base mb-2">Enfoque Bilingüe</h5>
+                <p class="text-blue-800 text-sm">
+                  Como centro bilingüe, impartimos materias en inglés en grupos específicos, reforzando la competencia lingüística desde el primer curso. Esto prepara a nuestro alumnado para un mundo cada vez más globalizado.
+                </p>
+              </div>
+            </div>
+
+            <!-- Itinerarios en 4º -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-slate-900 mb-4">Itinerarios en 4º de ESO</h4>
+              <p class="text-slate-600 text-base leading-relaxed mb-4">
+                En el último curso, el alumnado puede orientar sus estudios según sus expectativas futuras:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                    <svg class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Enseñanzas Académicas
+                  </h5>
+                  <p class="text-sm text-slate-600">Orientada fundamentalmente hacia el acceso a Bachillerato.</p>
+                </article>
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                    <svg class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                    </svg>
+                    Enseñanzas Aplicadas
+                  </h5>
+                  <p class="text-sm text-slate-600">Enfocada hacia el acceso a Ciclos Formativos de Grado Medio.</p>
+                </article>
+              </div>
+            </div>
+
+            <!-- Programas de Diversificación -->
+            <div>
+              <h4 class="text-lg font-semibold text-slate-900 mb-4">Programas de Diversificación y Apoyo</h4>
+              <p class="text-slate-600 text-base leading-relaxed mb-4">
+                Para el alumnado que requiere una metodología adaptada, contamos con:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <article class="rounded-2xl bg-amber-50 p-5 ring-1 ring-amber-200/60 shadow-sm">
+                  <h5 class="font-semibold text-amber-900 mb-2 text-base">Programas de Diversificación Curricular</h5>
+                  <p class="text-sm text-amber-800 mb-3"><span class="font-semibold">Cursos:</span> 3º y 4º ESO</p>
+                  <p class="text-sm text-amber-800">Organizados por ámbitos (Científico-Tecnológico y Lingüístico-Social) para facilitar la obtención del título de Graduado en ESO.</p>
+                </article>
+                <article class="rounded-2xl bg-slate-100 p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 mb-2 text-base">Programa ZTS</h5>
+                  <p class="text-sm text-slate-700 mb-3"><span class="font-semibold">Cursos:</span> 1º y 2º ESO</p>
+                  <p class="text-sm text-slate-700">Atención socioeducativa específica en los primeros cursos para apoyar la adaptación y el desarrollo integral del alumnado.</p>
+                </article>
+              </div>
             </div>
           </div>
         </div>
 
         <!-- Bachillerato debajo de ESO -->
-        <div
+        <div id="bachillerato"
           class="relative overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
         >
           <div
@@ -356,48 +545,151 @@ aprendizaje y orientadas a la inclusión
               <h3 class="text-2xl font-bold text-slate-900">Bachillerato</h3>
             </div>
 
-            <p class="text-slate-600 text-lg leading-relaxed mb-3 max-w-4xl">
-              Ofrecemos una preparación especializada, exigente y completa,
-              diseñada para orientar a nuestro alumnado hacia estudios
-              universitarios o Ciclos Formativos de Grado Superior, con un
-              fuerte componente de internacionalización.
-            </p>
-            <p class="text-sm font-semibold text-indigo-700 mb-8">
-              Modalidades ofertadas: ambas con grupos bilingües en inglés.
+            <p class="text-slate-600 text-lg leading-relaxed mb-8 max-w-4xl">
+              El <strong>Bachillerato</strong> en el IES Jándula tiene como objetivo proporcionar formación científica, humanística y tecnológica, así como las competencias necesarias para la educación superior. Ofrecemos dos modalidades principales en un entorno con refuerzo bilingüe.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <article class="rounded-2xl bg-slate-900 p-6 shadow-lg ring-1 ring-white/10">
-                <h4 class="text-base font-semibold text-white">Ciencias y Tecnología</h4>
-                <ul class="mt-3 space-y-2 text-sm text-slate-200">
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-                    Biosanitario: Biología y Química
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-                    Ciencias: Química y Física
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400"></span>
-                    Ingeniería/Tecnología: Física, Tecnología e Ingeniería, y Dibujo Técnico
-                  </li>
-                </ul>
-              </article>
+            <!-- Modalidades Disponibles -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-slate-900 mb-4">Modalidades Disponibles</h4>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <!-- Ciencias y Tecnología -->
+                <article class="rounded-2xl bg-slate-900 p-6 shadow-lg ring-1 ring-white/10">
+                  <h5 class="text-base font-semibold text-white mb-3">Modalidad de Ciencias y Tecnología</h5>
+                  <p class="text-sm text-slate-300 mb-4">Dirigida a estudiantes con interés en campos como la Ingeniería, Salud, Ciencias Puras y Arquitectura.</p>
+                  <p class="text-xs font-semibold text-indigo-300 mb-3">Materias de Modalidad:</p>
+                  <ul class="space-y-2 text-sm text-slate-200">
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                      Matemáticas I/II
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                      Física
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                      Química
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                      Biología y Geología
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                      Dibujo Técnico
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
+                      Tecnología Industrial
+                    </li>
+                  </ul>
+                </article>
 
-              <article class="rounded-2xl bg-white p-6 ring-1 ring-slate-200/70 shadow-sm">
-                <h4 class="text-base font-semibold text-slate-900">Humanidades y Ciencias Sociales</h4>
-                <ul class="mt-3 space-y-2 text-sm text-slate-700">
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-                    Humanidades: Latín y Griego
-                  </li>
-                  <li class="flex items-start gap-2">
-                    <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500"></span>
-                    Ciencias Sociales: Matemáticas Aplicadas y Economía
-                  </li>
-                </ul>
-              </article>
+                <!-- Humanidades y Ciencias Sociales -->
+                <article class="rounded-2xl bg-white p-6 ring-1 ring-slate-200/70 shadow-sm">
+                  <h5 class="text-base font-semibold text-slate-900 mb-3">Modalidad de Humanidades y Ciencias Sociales</h5>
+                  <p class="text-sm text-slate-600 mb-4">Orientada a estudiantes de Derecho, Economía, Periodismo, Filología, Traducción e Historia.</p>
+                  <p class="text-xs font-semibold text-slate-700 mb-3">Materias de Modalidad:</p>
+                  <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                      Latín I/II
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                      Matemáticas Aplicadas a las CCSS I/II
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                      Griego
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                      Economía
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                      Historia del Mundo Contemporáneo
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
+                      Geografía
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <!-- Materias Comunes y Optativas -->
+            <div class="mb-8">
+              <h4 class="text-lg font-semibold text-slate-900 mb-4">Materias Comunes y Optativas</h4>
+              <p class="text-slate-600 text-base leading-relaxed mb-4">
+                Todos los alumnos cursan materias transversales:
+              </p>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 text-sm mb-3">Materias Comunes</h5>
+                  <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                      Lengua Castellana y Literatura I/II
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                      Inglés I/II
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                      Filosofía (1º)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                      Historia de la Filosofía (2º)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                      Historia de España (2º)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
+                      Educación Física (1º)
+                    </li>
+                  </ul>
+                </article>
+
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 text-sm mb-3">Materias Optativas</h5>
+                  <p class="text-sm text-slate-600 mb-3">Alto interés académico:</p>
+                  <ul class="space-y-2 text-sm text-slate-700">
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Francés (Segunda Lengua Extranjera)
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Psicología
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Cultura Audiovisual
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Tecnologías de la Información
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </div>
+
+            <!-- Preparación para la Universidad -->
+            <div class="rounded-2xl bg-indigo-50 border-l-4 border-indigo-600 p-6">
+              <h4 class="font-semibold text-indigo-900 text-base mb-2">Preparación para la Universidad</h4>
+              <p class="text-indigo-800 text-sm leading-relaxed">
+                El centro mantiene una estrecha coordinación con la <strong>Universidad de Jaén (UJA)</strong> y ofrece orientación específica para las pruebas de acceso (PAU), manteniendo resultados académicos que sitúan a nuestro alumnado en una posición competitiva para acceder a los grados deseados.
+              </p>
             </div>
           </div>
         </div>
@@ -419,8 +711,8 @@ aprendizaje y orientadas a la inclusión
           >
             Formación Profesional
           </h2>
-          <p class="mt-4 text-lg text-slate-600">
-            Estudios prácticos especializados con altas tasas de empleabilidad.
+          <p class="mt-4 text-md text-slate-600">
+            La <strong>Formación Profesional (FP)</strong> del IES Jándula se distribuye en tres niveles: Grado Básico, Grado Medio y Grado Superior.<br>Ofrece una formación práctica y orientada al empleo en sectores estratégicos de la economía local, comarcal y provincial.
           </p>
         </div>
         <!-- Functional Filters -->
@@ -458,7 +750,6 @@ aprendizaje y orientadas a la inclusión
       >
         {
           ciclos.map((dato) => (
-            <a href={dato.enlace} target="_blank" rel="noopener noreferrer">
             <div
               data-familia={dato.familia}
               class="ciclo-card group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 ring-1 ring-slate-100"
@@ -549,19 +840,122 @@ aprendizaje y orientadas a la inclusión
                   </div>
                   </div>
                 </div>
+
+                <div class="px-7 pb-7 pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <a
+                    href={dato.enlace}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500"
+                  >
+                    Ver ciclo
+                  </a>
+                  <button
+                    type="button"
+                    class="open-asignaturas-modal inline-flex items-center justify-center rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 transition hover:bg-slate-200"
+                    data-ciclo={dato.nombre}
+                    data-asignaturas={JSON.stringify(dato.asignaturas ?? { primero: [], segundo: [] })}
+                  >
+                    Ver asignaturas
+                  </button>
+                </div>
               </div>
             </div>
-            </a>
           ))
         }
       </div>
     </div>
   </section>
 
+  <div id="asignaturas-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
+    <div id="asignaturas-overlay" class="absolute inset-0 bg-slate-900/60"></div>
+    <div class="relative mx-auto mt-12 w-[92%] max-w-2xl rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 sm:mt-20">
+      <div class="flex items-start justify-between border-b border-slate-200 px-6 py-4">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">Plan de estudios</p>
+          <h3 id="modal-title" class="mt-1 text-lg font-bold text-slate-900">Asignaturas del ciclo</h3>
+        </div>
+        <button id="close-asignaturas-modal" type="button" class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700" aria-label="Cerrar modal">
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+      <div class="grid grid-cols-1 gap-5 p-6 md:grid-cols-2">
+        <section class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+          <h4 class="text-sm font-semibold text-slate-900">1º curso</h4>
+          <ul id="modal-primero" class="mt-3 space-y-2 text-sm text-slate-700"></ul>
+        </section>
+        <section class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+          <h4 class="text-sm font-semibold text-slate-900">2º curso</h4>
+          <ul id="modal-segundo" class="mt-3 space-y-2 text-sm text-slate-700"></ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const filterButtons = document.querySelectorAll(".filter-btn");
       const cards = document.querySelectorAll(".ciclo-card");
+      const modal = document.getElementById("asignaturas-modal");
+      const modalTitle = document.getElementById("modal-title");
+      const modalPrimero = document.getElementById("modal-primero");
+      const modalSegundo = document.getElementById("modal-segundo");
+      const openModalButtons = document.querySelectorAll(".open-asignaturas-modal");
+      const closeModalButton = document.getElementById("close-asignaturas-modal");
+      const overlay = document.getElementById("asignaturas-overlay");
+
+      const renderList = (container: Element | null, items: string[]) => {
+        if (!container) return;
+        container.innerHTML = "";
+        const materias = items.length ? items : ["No disponible por el momento."];
+
+        materias.forEach((materia) => {
+          const li = document.createElement("li");
+          li.className = "flex items-start gap-2";
+          li.innerHTML = '<span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>' + materia;
+          container.appendChild(li);
+        });
+      };
+
+      const openModal = (name: string, asignaturas: { primero?: string[]; segundo?: string[] }) => {
+        if (!modal) return;
+        if (modalTitle) modalTitle.textContent = `Asignaturas - ${name}`;
+        renderList(modalPrimero, asignaturas.primero ?? []);
+        renderList(modalSegundo, asignaturas.segundo ?? []);
+        modal.classList.remove("hidden");
+        modal.setAttribute("aria-hidden", "false");
+      };
+
+      const closeModal = () => {
+        if (!modal) return;
+        modal.classList.add("hidden");
+        modal.setAttribute("aria-hidden", "true");
+      };
+
+      openModalButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const ciclo = button.getAttribute("data-ciclo") ?? "Ciclo formativo";
+          const raw = button.getAttribute("data-asignaturas") ?? '{"primero":[],"segundo":[]}';
+          let asignaturas = { primero: [], segundo: [] };
+
+          try {
+            asignaturas = JSON.parse(raw);
+          } catch {
+            asignaturas = { primero: [], segundo: [] };
+          }
+
+          openModal(ciclo, asignaturas);
+        });
+      });
+
+      closeModalButton?.addEventListener("click", closeModal);
+      overlay?.addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape") closeModal();
+      });
 
       filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
