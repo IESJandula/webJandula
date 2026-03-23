@@ -1,65 +1,30 @@
 ---
 import Logo from "@components/Logo.astro";
 
-const megaMenu = [
+const menuItems = [
   {
     name: "Nuestro Centro",
     href: "/nuestro_centro",
-    items: [
-      { name: "Equipo Directivo", href: "/nuestro_centro#institucional", desc: "Dirección, jefatura y secretaría" },
-      { name: "Consejo Escolar", href: "/nuestro_centro#institucional", desc: "Órgano de participación" },
-      { name: "Tutorías", href: "/nuestro_centro#tutorias", desc: "Atención a familias y PAT" },
-      { name: "Departamentos Didácticos", href: "/nuestro_centro#departamentos-didacticos", desc: "Coordinación por áreas" },
-      { name: "Documentación Oficial", href: "/nuestro_centro#documentos", desc: "Planes y proyectos del centro" },
-      { name: "Horarios", href: "/nuestro_centro#institucional", desc: "Jornada lectiva y atención" },
-    ],
   },
   {
     name: "Oferta Educativa",
     href: "/oferta",
-    items: [
-      { name: "ESO", href: "/oferta#eso-bachillerato", desc: "Educación Secundaria Obligatoria" },
-      { name: "Bachillerato", href: "/oferta#bachillerato", desc: "Ciencias, Tecnología y Humanidades" },
-      { name: "Formación Profesional", href: "/oferta#ciclos", desc: "Grado Básico, Medio y Superior" },
-    ],
   },
   {
     name: "Proyectos",
     href: "/proyectos",
-    items: [
-      { name: "Proyecto LINCE", href: "/proyectos", desc: "Shell Eco Marathon" },
-      { name: "Biblioteca Pasa Página", href: "/proyectos", desc: "Lectura y revista escolar" },
-      { name: "Aula Jaque & Rubik", href: "/proyectos", desc: "Pensamiento lógico" },
-      { name: "Escuelas Deportivas", href: "/proyectos", desc: "Deporte y salud" },
-    ],
   },
   {
     name: "Internacional",
     href: "/internacionalizacion",
-    items: [
-      { name: "Erasmus+", href: "/internacionalizacion#erasmus", desc: "Movilidad europea FP" },
-      { name: "EPAS", href: "/internacionalizacion#embajadoras", desc: "Escuela Embajadora del PE" },
-      { name: "eTwinning", href: "/internacionalizacion#etwinning", desc: "Proyectos digitales europeos" },
-      { name: "Mapa de destinos", href: "/internacionalizacion#mapa", desc: "Todos nuestros destinos" },
-    ],
   },
   {
     name: "Orientación",
     href: "/orientacion",
-    items: [
-      { name: "Acción Tutorial", href: "/orientacion#orientacion", desc: "Tutorías y seguimiento" },
-      { name: "Atención a la Diversidad", href: "/orientacion#orientacion", desc: "Medidas inclusivas" },
-      { name: "Comunidad Educativa", href: "/orientacion#comunidad", desc: "AMPA y Consejo de Estudiantes" },
-    ],
   },
   {
     name: "Secretaría Virtual",
     href: "/secretaria_virtual",
-    items: [
-      { name: "Trámites", href: "/secretaria_virtual#tramites", desc: "Admisión, matrícula y becas" },
-      { name: "Certificados", href: "/secretaria_virtual#certificados", desc: "Solicitud de títulos" },
-      { name: "Cita Previa", href: "/secretaria_virtual#cita-previa", desc: "Reserva tu cita" },
-    ],
   },
 ];
 
@@ -78,55 +43,21 @@ const currentPath = Astro.url.pathname;
       <Logo class="size-20" />
     </a>
 
-    <!-- Desktop Mega Menu -->
+    <!-- Desktop menu -->
     <ul class="hidden lg:flex items-center gap-1 h-full" role="menubar" aria-label="Menú principal">
-      {megaMenu.map((section) => (
-        <li class="relative h-full flex items-center group" role="none">
-          <!-- Trigger -->
+      {menuItems.map((item) => (
+        <li class="h-full flex items-center" role="none">
           <a
-            href={section.href}
-            class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1
-              ${currentPath === section.href
+            href={item.href}
+            class={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1
+              ${currentPath === item.href
                 ? 'text-blue-700 bg-blue-50'
                 : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'}
             `}
-            aria-haspopup="true"
-            aria-expanded="false"
             role="menuitem"
-            data-mega-trigger
           >
-            {section.name}
-            <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-desktop-chevron>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-            </svg>
+            {item.name}
           </a>
-
-          <!-- Dropdown Panel — controlado por JS (hover + focus) -->
-          <div
-            class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible transition-all duration-200 ease-out"
-            role="menu"
-            aria-label={`Submenú de ${section.name}`}
-            data-mega-panel
-          >
-            <div class="bg-white rounded-2xl shadow-xl ring-1 ring-gray-900/5 p-4 w-72 overflow-hidden">
-
-              <!-- Sub-items -->
-              <ul class="space-y-1">
-                {section.items.map((item) => (
-                  <li role="none">
-                    <a
-                      href={item.href}
-                      class="flex flex-col px-3 py-2 rounded-xl hover:bg-blue-50 transition-colors group/item focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
-                      role="menuitem"
-                    >
-                      <span class="text-sm font-medium text-gray-800 group-hover/item:text-blue-700 transition-colors">{item.name}</span>
-                      <span class="text-xs text-gray-500 mt-0.5">{item.desc}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
         </li>
       ))}
     </ul>
@@ -155,40 +86,19 @@ const currentPath = Astro.url.pathname;
     aria-label="Menú móvil"
   >
     <ul class="container py-3 space-y-1">
-      {megaMenu.map((section, idx) => (
+      {menuItems.map((item) => (
         <li>
-          <!-- Accordion trigger -->
-          <button
-            class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
-            aria-expanded="false"
-            aria-controls={`mobile-sub-${idx}`}
-            data-mobile-trigger
+          <a
+            href={item.href}
+            class={`block px-4 py-3 rounded-xl text-sm font-semibold transition-colors
+              ${currentPath === item.href
+                ? 'text-blue-700 bg-blue-50'
+                : 'text-gray-800 hover:bg-gray-50'}
+            `}
+            data-mobile-link
           >
-            <span>{section.name}</span>
-            <svg class="w-4 h-4 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-chevron>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-
-          <!-- Accordion content -->
-          <ul
-            id={`mobile-sub-${idx}`}
-            class="hidden pl-4 pb-2 space-y-1"
-            aria-label={`Submenú de ${section.name}`}
-          >
-            
-            {section.items.map((item) => (
-              <li>
-                <a
-                  href={item.href}
-                  class="flex flex-col px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  <span class="text-sm font-medium text-gray-800">{item.name}</span>
-                  <span class="text-xs text-gray-500">{item.desc}</span>
-                </a>
-              </li>
-            ))}
-          </ul>
+            {item.name}
+          </a>
         </li>
       ))}
     </ul>
@@ -196,63 +106,6 @@ const currentPath = Astro.url.pathname;
 </header>
 
 <script>
-  // ── Helpers ──────────────────────────────────────────────────
-  function openPanel(trigger: HTMLElement) {
-    const panel   = trigger.nextElementSibling as HTMLElement | null;
-    const chevron = trigger.querySelector<SVGElement>('[data-desktop-chevron]');
-    if (!panel) return;
-    panel.classList.remove('opacity-0', 'invisible');
-    panel.classList.add('opacity-100', 'visible');
-    trigger.setAttribute('aria-expanded', 'true');
-    chevron?.classList.add('rotate-180');
-  }
-
-  function closePanel(trigger: HTMLElement) {
-    const panel   = trigger.nextElementSibling as HTMLElement | null;
-    const chevron = trigger.querySelector<SVGElement>('[data-desktop-chevron]');
-    if (!panel) return;
-    panel.classList.add('opacity-0', 'invisible');
-    panel.classList.remove('opacity-100', 'visible');
-    trigger.setAttribute('aria-expanded', 'false');
-    chevron?.classList.remove('rotate-180');
-  }
-
-  function closeAllPanels() {
-    document.querySelectorAll<HTMLElement>('[data-mega-trigger]').forEach(closePanel);
-  }
-
-  // ── Desktop: hover + focus ────────────────────────────────────
-  document.querySelectorAll<HTMLElement>('.group[role="none"]').forEach((li) => {
-    const trigger = li.querySelector<HTMLElement>('[data-mega-trigger]');
-    if (!trigger) return;
-
-    // Hover
-    li.addEventListener('mouseenter', () => openPanel(trigger));
-    li.addEventListener('mouseleave', () => closePanel(trigger));
-
-    // Foco (teclado Tab)
-    trigger.addEventListener('focusin', () => openPanel(trigger));
-
-    // Cuando el foco sale del li completo (Tab fuera), cerrar
-    li.addEventListener('focusout', (e) => {
-      if (!li.contains(e.relatedTarget as Node)) {
-        closePanel(trigger);
-      }
-    });
-  });
-
-  // ── Cerrar al pulsar Escape ───────────────────────────────────
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAllPanels();
-  });
-
-  // ── Cerrar al clicar fuera ────────────────────────────────────
-  document.addEventListener('click', (e) => {
-    const target = e.target as Node;
-    const inMenu = (target as Element).closest('[role="none"]');
-    if (!inMenu) closeAllPanels();
-  });
-
   // ── Hamburger toggle ──────────────────────────────────────────
   const menuToggle = document.getElementById('menu-toggle') as HTMLButtonElement | null;
   const mobileMenu = document.getElementById('mobile-menu') as HTMLElement | null;
@@ -266,16 +119,13 @@ const currentPath = Astro.url.pathname;
     iconClose?.classList.toggle('hidden', !isOpen);
   });
 
-  // ── Mobile accordion ─────────────────────────────────────────
-  document.querySelectorAll<HTMLButtonElement>('[data-mobile-trigger]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const targetId = btn.getAttribute('aria-controls');
-      if (!targetId) return;
-      const panel   = document.getElementById(targetId);
-      const chevron = btn.querySelector<SVGElement>('[data-chevron]');
-      const isOpen  = panel?.classList.toggle('hidden') === false;
-      btn.setAttribute('aria-expanded', String(isOpen));
-      chevron?.classList.toggle('rotate-180', isOpen);
+  // Cierra el menú móvil tras navegar a una sección.
+  document.querySelectorAll<HTMLAnchorElement>('[data-mobile-link]').forEach((link) => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
     });
   });
 </script>
