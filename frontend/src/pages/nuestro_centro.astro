@@ -1,7 +1,6 @@
 ---
 import Layout from "@layouts/Layout.astro";
 import { departamentos, equipodirectivo, horariosCentro, calendarioEscolar, documentos } from "@lib/content";
-
 ---
 
 <Layout title="Conoce el centro">
@@ -15,12 +14,12 @@ import { departamentos, equipodirectivo, horariosCentro, calendarioEscolar, docu
     <div class="mx-auto max-w-7xl px-6 py-14 lg:px-8 lg:py-20">
       <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2">
         <div>
-          <span class="inline-flex rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-blue-700 ring-1 ring-inset ring-blue-700/10">
-            IES Jándula
-          </span>
 
           <h1 class="mt-6 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">
-            Nuestro centro educativo en Andújar
+            Conoce el
+            <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-emerald-600"
+            >I.E.S Jándula</span>
           </h1>
 
           <p class="mt-6 text-lg leading-8 text-slate-600">
@@ -31,16 +30,6 @@ import { departamentos, equipodirectivo, horariosCentro, calendarioEscolar, docu
             Inaugurado en el curso 1982-1983, el IES Jándula ha evolucionado de forma constante para adaptarse a las necesidades educativas de la sociedad. Aunque inicialmente fue diseñado como Instituto de Bachillerato con capacidad para 500 personas, actualmente acoge a más de 750 estudiantes en sus tres etapas educativas: Educación Secundaria Obligatoria, Bachillerato y Formación Profesional.
           </p>
 
-          <div class="mt-8 flex flex-wrap items-center gap-4">
-            <a
-              href="#caracteristicas-centro"
-              class="rounded-full bg-blue-800 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-700 transition-colors"
-            >Ver características</a>
-            <a
-              href="#datos-centro"
-              class="text-sm font-semibold text-slate-700 hover:text-slate-900"
-            >Ver datos del centro <span aria-hidden="true">→</span></a>
-          </div>
         </div>
 
         <div>
@@ -59,13 +48,8 @@ import { departamentos, equipodirectivo, horariosCentro, calendarioEscolar, docu
   <!-- Caracteristicas del Centro -->
   <section id="caracteristicas-centro" class="py-20 bg-slate-50">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-      <div class="mx-auto max-w-3xl text-center">
-        <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-          Nuestro centro se caracteriza por
-        </h2>
-      </div>
 
-      <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+      <div class=" grid grid-cols-1 gap-5 md:grid-cols-2">
         <article class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
           <h3 class="text-lg font-semibold text-slate-900">Compromiso con la excelencia educativa</h3>
           <p class="mt-2 text-slate-600">Mantenemos una calidad académica contrastada con resultados superiores a los de centros de contexto similar.</p>
@@ -97,14 +81,27 @@ import { departamentos, equipodirectivo, horariosCentro, calendarioEscolar, docu
         <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Datos del Centro</h2>
       </div>
 
-      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Denominación:</span> <p class="mt-1 text-slate-700">IES JÁNDULA</p></div>
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Código:</span> <p class="mt-1 text-slate-700">23005694</p></div>
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">CIF:</span> <p class="mt-1 text-slate-700">S-4111001-F</p></div>
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 sm:col-span-2 lg:col-span-3"><span class="text-sm font-semibold text-slate-900">Dirección:</span> <p class="mt-1 text-slate-700">c/ San Vicente de Paúl, s/n, 23740 Andújar - Jaén</p></div>
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Teléfono:</span> <p class="mt-1 text-slate-700">953 53 95 08</p></div>
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Web:</span> <p class="mt-1"><a href="https://www.iesjandula.es" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 underline">www.iesjandula.es</a></p></div>
-        <div class="rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Email:</span> <p class="mt-1"><a href="mailto:iesjandula@gmail.com" class="text-blue-700 hover:text-blue-800 underline">iesjandula@gmail.com</a></p></div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div class="mt-10 h-56 sm:h-64 md:h-72 overflow-hidden rounded-2xl bg-slate-100 ring-1 ring-slate-200">
+          <img
+            src="/images/no_image.png"
+            alt="Logo del IES Jándula"
+            class="h-full w-full object-cover object-center"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Denominación:</span> <p class="mt-1 text-slate-700">IES JÁNDULA</p></div>
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Código:</span> <p class="mt-1 text-slate-700">23005694</p></div>
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">CIF:</span> <p class="mt-1 text-slate-700">S-4111001-F</p></div>
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200 sm:col-span-2 lg:col-span-3"><span class="text-sm font-semibold text-slate-900">Dirección:</span> <p class="mt-1 text-slate-700">c/ San Vicente de Paúl, s/n, 23740 Andújar - Jaén</p></div>
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Teléfono:</span> <p class="mt-1 text-slate-700">953 53 95 08</p></div>
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Web:</span> <p class="mt-1"><a href="https://www.iesjandula.es" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 underline">www.iesjandula.es</a></p></div>
+          <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200"><span class="text-sm font-semibold text-slate-900">Email:</span> <p class="mt-1"><a href="mailto:iesjandula@gmail.com" class="text-blue-700 hover:text-blue-800 underline">iesjandula@gmail.com</a></p></div>
+        </div>
       </div>
     </div>
   </section>
