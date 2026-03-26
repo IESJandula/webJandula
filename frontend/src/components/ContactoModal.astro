@@ -1,8 +1,5 @@
 ---
-import Facebook from "@components/Facebook.astro";
-import Instagram from "@components/Instagram.astro";
-import Youtube from "@components/Youtube.astro";
-import LinkedIn from "@components/Linkedin.astro";
+import { socialLinks, contacto } from "@/lib/content";
 
 interface Props {
   id?: string;
@@ -16,35 +13,7 @@ const {
   triggerClass = "text-sm font-semibold leading-6 text-slate-900 flex items-center gap-2",
 } = Astro.props;
 
-const titulo = "Contacto";
-const email = "iesjandula@gmail.com";
-const telefono = "953 53 95 08";
-const horario = "Lunes a viernes, 09:00 - 14:00";
-const direccion = "c/ San Vicente de Paúl, s/n, 23740 Andújar (Jaén)";
-const mapaUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1173.2632267711915!2d-4.042029490604833!3d38.035557813658876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd6c3111d9f50ab7%3A0x38480c8b0a73be65!2sInstituto%20de%20Educaci%C3%B3n%20Secundaria%20%22J%C3%A1ndula%22!5e0!3m2!1ses!2ses!4v1774342903927!5m2!1ses!2ses";
 
-const socialLinks = [
-  {
-    name: "Facebook",
-    href: "https://www.facebook.com/IESJandula.es/",
-    component: Facebook,
-  },
-  {
-    name: "Instagram",
-    href: "https://www.instagram.com/iesjandula.es/",
-    component: Instagram,
-  },
-  {
-    name: "YouTube",
-    href: "https://www.youtube.com/@iesjandula4043",
-    component: Youtube,
-  },
-  {
-    name: "LinkedIn",
-    href: "https://www.linkedin.com/company/ies-j%C3%A1ndula",
-    component: LinkedIn,
-  },
-];
 
 const openId = `${id}-open`;
 const modalId = `${id}-modal`;
@@ -77,7 +46,7 @@ const closeId = `${id}-close`;
           IES Jándula
         </p>
         <h3 id={`${id}-title`} class="mt-1 text-lg font-bold text-slate-900">
-          {titulo}
+          {contacto.titulo}
         </h3>
       </div>
       <button
@@ -101,13 +70,16 @@ const closeId = `${id}-close`;
     </div>
 
     <div class="space-y-4 p-6">
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
       <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Email
         </p>
         <a
           class="mt-1 block text-sm font-medium text-blue-700 hover:underline"
-          href={`mailto:${email}`}>{email}</a
+          href={`mailto:${contacto.email}`}>{contacto.email}</a
         >
       </div>
 
@@ -117,26 +89,27 @@ const closeId = `${id}-close`;
         </p>
         <a
           class="mt-1 block text-sm font-medium text-slate-800 hover:underline"
-          href={`tel:${telefono.replace(/\s+/g, "")}`}>{telefono}</a
+          href={`tel:${contacto.telefono.replace(/\s+/g, "")}`}>{contacto.telefono}</a
         >
+      </div>
       </div>
 
       <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Horario de atención
         </p>
-        <p class="mt-1 text-sm font-medium text-slate-800">{horario}</p>
+        <p class="mt-1 text-sm font-medium text-slate-800">{contacto.horario}</p>
       </div>
 
       <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Dirección
         </p>
-        <p class="mt-1 text-sm font-medium text-slate-800">{direccion}</p>
+        <p class="mt-1 text-sm font-medium text-slate-800">{contacto.direccion}</p>
         <iframe
           class="mt-2 w-full rounded-lg border-0"
           height="200"
-          src={mapaUrl}
+          src={contacto.mapaUrl}
           allowfullscreen=""
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"

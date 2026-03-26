@@ -1,9 +1,6 @@
 ---
 import LogoJuntaDeAndalucia from "@components/LogoJuntaDeAndalucia.astro";
-import Facebook from "@components/Facebook.astro";
-import Instagram from "@components/Instagram.astro";
-import Youtube from "@components/Youtube.astro";
-import LinkedIn from "@components/Linkedin.astro";
+import { socialLinks } from "@/lib/content";
 
 const quickLinks = [
     {name: 'Aviso Legal', href: '/aviso-legal'},
@@ -13,12 +10,6 @@ const quickLinks = [
     {name: 'Contacto', href: '/contacto'},
 ];
 
-const socialLinks = [
-    {name: 'Facebook', href: 'https://www.facebook.com/IESJandula.es/', component: Facebook},
-    {name: 'Instagram', href: 'https://www.instagram.com/iesjandula.es/', component: Instagram},
-    {name: 'YouTube', href: 'https://www.youtube.com/@iesjandula4043', component: Youtube},
-    {name: 'LinkedIn', href: 'https://www.linkedin.com/company/ies-j%C3%A1ndula', component: LinkedIn},
-];
 
 const logosfooter = [
     {name: 'Andalucía se mueve con Europa', href: 'images/AndaluaciaEuropa.webp'},

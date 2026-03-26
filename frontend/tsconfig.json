@@ -15,6 +15,9 @@
       "@components/*": [
         "components/*"
       ],
+      "@lib/*": [
+        "lib/*"
+      ],
       // Definimos un alias específico para layouts
       "@layouts/*": [
         "layouts/*"
