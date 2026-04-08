@@ -95,3 +95,80 @@ body {
     padding: 0.1rem 0.3rem;
     font-size: 0.9em;
 }
+
+/* Responsividad mejorada para modales */
+@media (max-width: 640px) {
+    /* Prevenir overflow en móvil */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Modales más accesibles en móvil */
+    [role="dialog"] {
+        padding: 1rem;
+    }
+
+    /* Mejorar legibilidad en títulos pequeños */
+    h1, h2, h3 {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    /* Buttons más grandes en móvil (área táctil mínima 44x44px) */
+    button, a[role="button"], input[type="button"], input[type="submit"] {
+        min-height: 44px;
+        min-width: 44px;
+        padding: 0.75rem 1rem;
+    }
+
+    /* Grid responsive mejorado */
+    .grid {
+        gap: 0.75rem;
+    }
+
+    /* Imágenes responsive */
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Iframe responsive */
+    iframe {
+        max-width: 100%;
+    }
+
+    /* Mejorar legibilidad de texto */
+    p, li, span {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Tablets (640px a 1024px) */
+@media (min-width: 640px) and (max-width: 1024px) {
+    .container {
+        @apply px-4 sm:px-6;
+    }
+}
+
+/* Prevenir problemas con zoom en formularios */
+@media (max-width: 767px) {
+    input, textarea, select, button {
+        font-size: 16px !important;
+    }
+}
+
+/* Asegurar que el contenido no se corte */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+}
+
+/* Mejorar accesibilidad en móvil */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -22,13 +22,14 @@ const closeId = `${id}-close`;
 ---
 
 <button id={openId} type="button" class={triggerClass}>
-  {triggerText}
-  <span aria-hidden="true">→</span>
+  <slot>
+    {triggerText}
+  </slot>
 </button>
 
 <div
   id={modalId}
-  class="fixed inset-0 z-[70] hidden"
+  class="fixed inset-0 z-[70] hidden flex items-center justify-center p-4 sm:p-0"
   aria-hidden="true"
   role="dialog"
   aria-modal="true"
@@ -36,23 +37,23 @@ const closeId = `${id}-close`;
 >
   <div id={overlayId} class="absolute inset-0 bg-slate-900/60"></div>
   <div
-    class="relative mx-auto mt-12 w-[92%] max-w-lg rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 sm:mt-20"
+    class="relative w-full max-w-lg rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 max-h-[90vh] overflow-y-auto"
   >
     <div
-      class="flex items-start justify-between border-b border-slate-200 px-6 py-4"
+      class="flex items-start justify-between border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4"
     >
       <div>
         <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">
           IES Jándula
         </p>
-        <h3 id={`${id}-title`} class="mt-1 text-lg font-bold text-slate-900">
+        <h3 id={`${id}-title`} class="mt-1 text-base sm:text-lg font-bold text-slate-900">
           {contacto.titulo}
         </h3>
       </div>
       <button
         id={closeId}
         type="button"
-        class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700"
+        class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 flex-shrink-0"
         aria-label="Cerrar modal de contacto"
       >
         <svg
@@ -69,46 +70,46 @@ const closeId = `${id}-close`;
       </button>
     </div>
 
-    <div class="space-y-4 p-6">
+    <div class="space-y-3 sm:space-y-4 p-4 sm:p-6">
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
 
-      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+      <div class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Email
         </p>
         <a
-          class="mt-1 block text-sm font-medium text-blue-700 hover:underline"
+          class="mt-1 block text-xs sm:text-sm font-medium text-blue-700 hover:underline break-all"
           href={`mailto:${contacto.email}`}>{contacto.email}</a
         >
       </div>
 
-      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+      <div class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Teléfono
         </p>
         <a
-          class="mt-1 block text-sm font-medium text-slate-800 hover:underline"
+          class="mt-1 block text-xs sm:text-sm font-medium text-slate-800 hover:underline"
           href={`tel:${contacto.telefono.replace(/\s+/g, "")}`}>{contacto.telefono}</a
         >
       </div>
       </div>
 
-      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+      <div class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Horario de atención
         </p>
-        <p class="mt-1 text-sm font-medium text-slate-800">{contacto.horario}</p>
+        <p class="mt-1 text-xs sm:text-sm font-medium text-slate-800">{contacto.horario}</p>
       </div>
 
-      <div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+      <div class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Dirección
         </p>
-        <p class="mt-1 text-sm font-medium text-slate-800">{contacto.direccion}</p>
+        <p class="mt-1 text-xs sm:text-sm font-medium text-slate-800">{contacto.direccion}</p>
         <iframe
           class="mt-2 w-full rounded-lg border-0"
-          height="200"
+          height="180"
           src={contacto.mapaUrl}
           allowfullscreen=""
           loading="lazy"
@@ -117,11 +118,11 @@ const closeId = `${id}-close`;
       </div>
 
 
-<div class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
+<div class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
         <p class="text-xs font-semibold uppercase tracking-wide text-slate-500">
           Redes sociales
         </p>
-      <div class="flex space-x-4 mb-4 md:mb-0">
+      <div class="flex space-x-3 sm:space-x-4 mb-4 md:mb-0 mt-2">
         {
           socialLinks.map((link) => {
             const Icon = link.component;
@@ -133,7 +134,7 @@ const closeId = `${id}-close`;
                 aria-label={`Síguenos en ${link.name}`}
                 class="text-slate-500 hover:text-blue-600 transition-colors hover:scale-110 transform duration-300"
               >
-                <Icon />
+                <Icon class="w-6 h-6 sm:w-7 sm:h-7" />
               </a>
             );
           })
