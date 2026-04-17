@@ -4,6 +4,7 @@ import Hero from '@components/Hero.astro';
 import QuickAccess from '@components/QuickAccess.astro';
 import CardNoticia from '@components/CardNoticia.astro';
 import { getNoticias } from '@/lib/api';
+import Chat from '@/components/Chat.astro';
 
 const news = await getNoticias(5);
 
@@ -12,7 +13,13 @@ const featuredNews = sortedNews.slice(0, 2);
 const secondaryNews = sortedNews.slice(2, 5);
 ---
 
+
+	<Chat>
+
+	</Chat>
+
 <Layout title="Inicio">
+
 
 	<Hero />
 	

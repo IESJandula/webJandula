@@ -1,6 +1,7 @@
 ---
 import Layout from "@/layouts/Layout.astro"
-import { projects } from "@/lib/content";
+import ProyectModal from "@/components/ProyectModal.astro";
+import {proyectos} from "@/lib/proyects";
 
 ---
 
@@ -23,18 +24,33 @@ import { projects } from "@/lib/content";
     </div>
   </div>
 
-  <!-- Portfolio Grid -->
-  <div class="bg-white pb-24">
+  
+
+<div class="bg-white pb-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project) => (
+        {proyectos.map((pro) => (
           <div class="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-xl hover:-translate-y-1">
+            <button
+              type="button"
+              class="absolute inset-0 z-20 rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+              data-proyecto-open
+              data-proyecto-title={pro.nombre}
+              data-proyecto-category={pro.categoria}
+              data-proyecto-description={pro.descripcion}
+              data-proyecto-summary={pro.resumen}
+              data-proyecto-tags={JSON.stringify(pro.etiquetas ?? [])}
+              data-proyecto-features={JSON.stringify(pro.caracteristicas ?? [])}
+              data-proyecto-image={pro.portada}
+              data-proyecto-images={JSON.stringify(pro.images ?? [])}
+              aria-label={`Ver proyecto: ${pro.nombre}`}
+            ></button>
             <!-- Image Container -->
             <div class="aspect-[4/3] overflow-hidden bg-slate-100 relative">
                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10 opacity-60 transition-opacity group-hover:opacity-40" aria-hidden="true"></div>
                <img
-                src={project.image}
-                alt={`Imagen del proyecto: ${project.title} — ${project.category}`}
+                src={pro.portada}
+                alt={`Imagen del proyecto: ${pro.nombre} — ${pro.categoria}`}
                 class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                 loading="lazy"
                 decoding="async"
@@ -42,7 +58,7 @@ import { projects } from "@/lib/content";
                <!-- Category Badge on Image -->
                <div class="absolute top-4 left-4 z-20">
                     <span class="inline-flex items-center rounded-md bg-white/90 backdrop-blur-sm px-2 py-1 text-xs font-medium text-slate-700 ring-1 ring-inset ring-slate-500/10" aria-hidden="true">
-                        {project.category}
+                        {pro.categoria}
                     </span>
                </div>
             </div>
@@ -50,20 +66,20 @@ import { projects } from "@/lib/content";
             <!-- Content -->
             <div class="flex flex-1 flex-col p-6">
               <h3 class="text-xl font-bold leading-6 text-slate-900 group-hover:text-blue-600 transition-colors">
-                <a href="#" aria-label={`Ver proyecto: ${project.title}`} class="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded">
+                <a href="#" aria-label={`Ver proyecto: ${pro.nombre}`} class="focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 rounded">
                   <span class="absolute inset-0" aria-hidden="true"></span>
-                  {project.title}
+                  {pro.nombre}
                 </a>
               </h3>
               <p class="mt-4 flex-1 text-sm leading-6 text-slate-600 line-clamp-3">
-                {project.description}
+                {pro.resumen}
               </p>
 
               <!-- Tags -->
               <div class="mt-6 flex flex-wrap gap-2" aria-label="Etiquetas del proyecto">
-                 {project.tags.map(tag => (
+                 {pro.etiquetas.map((etiqueta, index) => (
                    <span class="inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
-                     #{tag}
+                     {etiqueta}
                    </span>
                  ))}
               </div>
@@ -82,4 +98,6 @@ import { projects } from "@/lib/content";
       </div>
     </div>
   </div>
+
+  <ProyectModal id="proyectos" />
 </Layout>

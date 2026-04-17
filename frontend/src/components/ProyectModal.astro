@@ -1,0 +1,202 @@
+---
+interface Props {
+	id?: string;
+}
+
+const {
+	id = "proyecto",
+} = Astro.props;
+
+const modalId = `${id}-modal`;
+const overlayId = `${id}-overlay`;
+const closeId = `${id}-close`;
+const titleId = `${id}-title`;
+const categoryId = `${id}-category`;
+const descriptionId = `${id}-description`;
+const heroId = `${id}-hero`;
+const featuresWrapId = `${id}-features-wrap`;
+const featuresId = `${id}-features`;
+const tagsId = `${id}-tags`;
+const galleryId = `${id}-gallery`;
+
+---
+
+<div
+	id={modalId}
+	class="fixed inset-0 z-[80] hidden flex items-center justify-center p-4 sm:p-6"
+	aria-hidden="true"
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby={titleId}
+>
+	<div id={overlayId} class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div>
+
+	<div class="relative w-full max-w-3xl rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 max-h-[90vh] overflow-y-auto">
+		<div class="flex items-start justify-between border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4">
+			<div>
+				<p id={categoryId} class="text-xs font-semibold uppercase tracking-wide text-blue-700"></p>
+				<h3 id={titleId} class="mt-1 text-base sm:text-lg font-bold text-slate-900"></h3>
+			</div>
+			<button
+				id={closeId}
+				type="button"
+				class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 flex-shrink-0"
+				aria-label="Cerrar modal del proyecto"
+			>
+				<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+					<path
+						fill-rule="evenodd"
+						d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+						clip-rule="evenodd"
+					></path>
+				</svg>
+			</button>
+		</div>
+
+		<div class="space-y-4 sm:space-y-6 p-4 sm:p-6">
+			<img
+				id={heroId}
+				class="w-full rounded-xl bg-slate-100 object-cover max-h-[320px]"
+				alt="Imagen del proyecto"
+				loading="lazy"
+				decoding="async"
+			/>
+
+			<p id={descriptionId} class="text-sm sm:text-base leading-6 text-slate-700"></p>
+
+			<div id={featuresWrapId} class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
+				<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Detalles</p>
+				<ul id={featuresId} class="mt-2 grid gap-2 text-sm text-slate-700"></ul>
+			</div>
+            			<div id={galleryId} class="grid grid-cols-2 gap-4"></div>
+
+			<div id={tagsId} class="flex flex-wrap gap-2"></div>
+
+
+		</div>
+	</div>
+</div>
+
+<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, featuresWrapId, featuresId, tagsId, galleryId }}>
+	const modal = document.getElementById(modalId);
+	const overlay = document.getElementById(overlayId);
+	const closeButton = document.getElementById(closeId);
+	const titleEl = document.getElementById(titleId);
+	const categoryEl = document.getElementById(categoryId);
+	const descriptionEl = document.getElementById(descriptionId);
+	const heroEl = document.getElementById(heroId);
+	const featuresWrap = document.getElementById(featuresWrapId);
+	const featuresEl = document.getElementById(featuresId);
+	const tagsEl = document.getElementById(tagsId);
+	const galleryEl = document.getElementById(galleryId);
+
+	const openButtons = document.querySelectorAll("[data-proyecto-open]");
+
+	const parseJson = (value) => {
+		if (!value) return [];
+		try {
+			return JSON.parse(value);
+		} catch {
+			return [];
+		}
+	};
+
+	const setHidden = (element, hidden) => {
+		if (!element) return;
+		element.classList.toggle("hidden", hidden);
+	};
+
+	const openModal = (data) => {
+		if (!modal) return;
+
+		const title = data.proyectoTitle || data.title || "";
+		const category = data.proyectoCategory || data.category || "";
+		const description = data.proyectoDescription || data.description || data.proyectoSummary || data.summary || "";
+		const tags = parseJson(data.proyectoTags || data.tags);
+		const features = parseJson(data.proyectoFeatures || data.features);
+		const images = parseJson(data.proyectoImages || data.images);
+		const hero = data.proyectoImage || data.image || images[0] || "";
+
+		if (titleEl) titleEl.textContent = title;
+		if (categoryEl) categoryEl.textContent = category;
+		if (descriptionEl) descriptionEl.innerHTML = description.replace(/\n/g, "<br />");
+
+		if (heroEl) {
+			if (hero) {
+				heroEl.setAttribute("src", hero);
+				heroEl.setAttribute("alt", `Imagen del proyecto: ${title}`);
+				setHidden(heroEl, false);
+			} else {
+				setHidden(heroEl, true);
+			}
+		}
+
+		if (featuresEl && featuresWrap) {
+			featuresEl.innerHTML = "";
+			if (features.length > 0) {
+				features.forEach((feature) => {
+					const item = document.createElement("li");
+					item.className = "flex items-start gap-2";
+					item.textContent = feature;
+					featuresEl.appendChild(item);
+				});
+				setHidden(featuresWrap, false);
+			} else {
+				setHidden(featuresWrap, true);
+			}
+		}
+
+		if (tagsEl) {
+			tagsEl.innerHTML = "";
+			tags.forEach((tag) => {
+				const badge = document.createElement("span");
+				badge.className = "inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10";
+				badge.textContent = tag.startsWith("#") ? tag : `#${tag}`;
+				tagsEl.appendChild(badge);
+			});
+		}
+
+		if (galleryEl) {
+			galleryEl.innerHTML = "";
+			const galleryImages = images.filter((img) => img && img !== hero).slice(0, 3);
+			galleryImages.forEach((img) => {
+				const figure = document.createElement("div");
+				figure.className = "aspect-[4/3] overflow-hidden rounded-xl bg-slate-100";
+				const image = document.createElement("img");
+				image.className = "h-full w-full object-cover";
+				image.setAttribute("src", img);
+				image.setAttribute("alt", `Galeria del proyecto: ${title}`);
+				image.setAttribute("loading", "lazy");
+				image.setAttribute("decoding", "async");
+				figure.appendChild(image);
+				galleryEl.appendChild(figure);
+			});
+			setHidden(galleryEl, galleryImages.length === 0);
+		}
+
+		modal.classList.remove("hidden");
+		modal.setAttribute("aria-hidden", "false");
+	};
+
+	const closeModal = () => {
+		if (!modal) return;
+		modal.classList.add("hidden");
+		modal.setAttribute("aria-hidden", "true");
+	};
+
+	openButtons.forEach((button) => {
+		button.addEventListener("click", (event) => {
+			event.preventDefault();
+			openModal(button.dataset);
+		});
+	});
+
+	closeButton?.addEventListener("click", closeModal);
+	overlay?.addEventListener("click", closeModal);
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") closeModal();
+	});
+</script>
+
+
