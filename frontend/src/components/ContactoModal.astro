@@ -10,7 +10,7 @@ interface Props {
 const {
   id = "contacto-secretaria",
   triggerText = "Contactar",
-  triggerClass = "text-sm font-semibold leading-6 text-slate-900 flex items-center gap-2",
+  triggerClass = " font-semibold leading-6 text-slate-900 flex items-center gap-2",
 } = Astro.props;
 
 
@@ -21,7 +21,7 @@ const overlayId = `${id}-overlay`;
 const closeId = `${id}-close`;
 ---
 
-<button id={openId} type="button" class={triggerClass}>
+<button id={openId} type="button" class={triggerClass} data-contacto-trigger>
   <slot>
     {triggerText}
   </slot>
@@ -171,3 +171,9 @@ const closeId = `${id}-close`;
     if (event.key === "Escape") closeModal();
   });
 </script>
+
+<style>
+  button[data-contacto-trigger] svg {
+    display: none;
+  }
+</style>
