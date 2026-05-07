@@ -14,6 +14,7 @@ export const socialLinks = [
 export const contacto = {
     titulo: "Contacto",
     email: "iesjandula@gmail.com",
+    emailsecretaria:"secretaria@iesjandula.es",
     telefono: "953 53 95 08",
     horario: "Lunes a viernes, 09:00 - 14:00",
     direccion: "c/ San Vicente de Paúl, s/n, 23740 Andújar (Jaén)",

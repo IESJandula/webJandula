@@ -7,14 +7,15 @@ const noticias = await getNoticias(24);
 const destacadas = noticias.slice(0, 2);
 const listado = noticias.slice(2);
 const categorias = [...new Set(noticias.map((n) => n.category).filter(Boolean))].slice(0, 6);
+const years = [...new Set(noticias.map((n) => n.date?.slice(0, 4)).filter(Boolean))].sort((a, b) => b.localeCompare(a));
 ---
 
 <Layout title="Noticias">
 	<section class="relative overflow-hidden bg-gradient-to-b from-slate-950 via-slate-900 to-slate-800 text-white">
 		<div class="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl"></div>
-		<div class="absolute -bottom-24 right-10 h-64 w-64 rounded-full bg-cyan-400/10 blur-3xl"></div>
+		<div class="absolute -bottom-24 right-10 h-34 w-64 rounded-full bg-cyan-400/10 blur-3xl"></div>
 
-		<div class="container mx-auto px-4 py-20 md:py-24 relative">
+		<div class="container mx-auto px-4 py-10 md:py-10 relative">
 			<span class="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-blue-100">
 				Actualidad
 			</span>
@@ -24,39 +25,122 @@ const categorias = [...new Set(noticias.map((n) => n.category).filter(Boolean))]
 			<p class="mt-4 max-w-2xl text-base text-slate-200 md:text-lg">
 				Toda la informacion del centro en un solo espacio: proyectos, convocatorias, actividades y novedades.
 			</p>
-
-		
 		</div>
 	</section>
+
+	{noticias.length > 0 && (
+		<div class="bg-slate-50">
+			<div class="container mx-auto px-4 pt-5 relative z-10">
+				<div>
+					<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+						<div>
+							<label for="noticias-search" class="block text-sm font-semibold text-slate-800">
+								Buscar
+							</label>
+							<input
+								id="noticias-search"
+								type="search"
+								name="q"
+								placeholder="Título, categoría o resumen…"
+								autocomplete="off"
+								class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+							/>
+						</div>
+
+						<div>
+							<label for="noticias-year" class="block text-sm font-semibold text-slate-800">
+								Año
+							</label>
+							<select
+								id="noticias-year"
+								name="year"
+								class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+							>
+								<option value="">Todos</option>
+								{years.map((y) => (
+									<option value={y}>{y}</option>
+								))}
+							</select>
+						</div>
+
+						<div>
+							<label for="noticias-month" class="block text-sm font-semibold text-slate-800">
+								Mes
+							</label>
+							<select
+								id="noticias-month"
+								name="month"
+								class="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+							>
+								<option value="">Todos</option>
+								<option value="01">Enero</option>
+								<option value="02">Febrero</option>
+								<option value="03">Marzo</option>
+								<option value="04">Abril</option>
+								<option value="05">Mayo</option>
+								<option value="06">Junio</option>
+								<option value="07">Julio</option>
+								<option value="08">Agosto</option>
+								<option value="09">Septiembre</option>
+								<option value="10">Octubre</option>
+								<option value="11">Noviembre</option>
+								<option value="12">Diciembre</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<p id="noticias-empty" class="hidden mt-6 text-center text-sm text-slate-600">
+					No se han encontrado noticias con esos filtros.
+				</p>
+			</div>
+		</div>
+	)}
 
 	<section class="bg-slate-50 py-16 md:py-20">
 		<div class="container mx-auto px-4">
 			{noticias.length > 0 ? (
 				<>
-					<div class="mb-8 md:mb-10">
-						<h2 class="text-2xl md:text-3xl font-bold text-slate-900">Últimas noticias</h2>
+					<div id="noticias-default-view">
+						<div class="mb-8 md:mb-10">
+							<h2 class="text-2xl md:text-3xl font-bold text-slate-900">Últimas noticias</h2>
+						</div>
+
+						<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+							{destacadas.map((item) => (
+								<CardNoticia {...item} variant="featured" />
+							))}
+						</div>
+
+						{listado.length > 0 && (
+							<>
+								<div class="mb-8 md:mb-10">
+									<h2 class="text-2xl md:text-3xl font-bold text-slate-900">Mas noticias</h2>
+									<p class="mt-2 text-slate-600">Historico reciente de noticias y comunicados.</p>
+								</div>
+
+								<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+									{listado.map((item) => (
+										<CardNoticia {...item} />
+									))}
+								</div>
+							</>
+						)}
 					</div>
 
-					<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-						{destacadas.map((item) => (
-							<CardNoticia {...item} variant="featured" />
-						))}
-					</div>
-
-					{listado.length > 0 && (
-						<>
-							<div class="mb-8 md:mb-10">
-								<h2 class="text-2xl md:text-3xl font-bold text-slate-900">Mas noticias</h2>
-								<p class="mt-2 text-slate-600">Historico reciente de noticias y comunicados.</p>
-							</div>
-
-							<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-								{listado.map((item) => (
+					<div id="noticias-filter-view" class="hidden">
+						<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+							{noticias.map((item) => (
+								<div
+									data-noticia
+									data-search={`${item.title} ${item.summary} ${item.category}`}
+									data-year={item.date?.slice(0, 4)}
+									data-month={item.date?.slice(5, 7)}
+								>
 									<CardNoticia {...item} />
-								))}
-							</div>
-						</>
-					)}
+								</div>
+							))}
+						</div>
+					</div>
 				</>
 			) : (
 				<div class="rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm">
@@ -68,6 +152,60 @@ const categorias = [...new Set(noticias.map((n) => n.category).filter(Boolean))]
 			)}
 		</div>
 	</section>
+
+	{noticias.length > 0 && (
+		<script is:inline>
+			const input = document.getElementById('noticias-search');
+			const yearSelect = document.getElementById('noticias-year');
+			const monthSelect = document.getElementById('noticias-month');
+			const empty = document.getElementById('noticias-empty');
+			const defaultView = document.getElementById('noticias-default-view');
+			const filterView = document.getElementById('noticias-filter-view');
+			const items = Array.from(filterView?.querySelectorAll('[data-noticia]') ?? []);
+
+			const normalize = (value) =>
+				(value ?? '')
+					.toString()
+					.toLowerCase()
+					.normalize('NFD')
+					.replace(/[\u0300-\u036f]/g, '');
+
+			function applyFilter() {
+				const query = normalize(input?.value?.trim());
+				const year = yearSelect?.value ?? '';
+				const month = monthSelect?.value ?? '';
+				const isFiltering = Boolean(query || year || month);
+				let visibleCount = 0;
+
+				defaultView?.classList.toggle('hidden', isFiltering);
+				filterView?.classList.toggle('hidden', !isFiltering);
+				empty?.classList.toggle('hidden', !isFiltering);
+
+				if (!isFiltering) {
+					for (const el of items) el.classList.remove('hidden');
+					return;
+				}
+
+				for (const el of items) {
+					const haystack = normalize(el.dataset.search);
+					const matchText = !query || haystack.includes(query);
+					const matchYear = !year || el.dataset.year === year;
+					const matchMonth = !month || el.dataset.month === month;
+					const isVisible = matchText && matchYear && matchMonth;
+					el.classList.toggle('hidden', !isVisible);
+
+					if (isVisible) visibleCount++;
+				}
+
+				empty?.classList.toggle('hidden', visibleCount !== 0);
+			}
+
+			input?.addEventListener('input', applyFilter);
+			yearSelect?.addEventListener('change', applyFilter);
+			monthSelect?.addEventListener('change', applyFilter);
+			applyFilter();
+		</script>
+	)}
 
 
 </Layout>
