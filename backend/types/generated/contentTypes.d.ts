@@ -473,45 +473,6 @@ export interface ApiNoticiaNoticia extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiProyectoProyecto extends Struct.CollectionTypeSchema {
-  collectionName: 'proyectos';
-  info: {
-    displayName: 'proyecto';
-    pluralName: 'proyectos';
-    singularName: 'proyecto';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    categoria: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    descripcion: Schema.Attribute.Text;
-    imagenes: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios',
-      true
-    >;
-    imagenprincipal: Schema.Attribute.Media<
-      'images' | 'files' | 'videos' | 'audios'
-    >;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::proyecto.proyecto'
-    > &
-      Schema.Attribute.Private;
-    publishedAt: Schema.Attribute.DateTime;
-    resumen: Schema.Attribute.Text;
-    slug: Schema.Attribute.UID<'titulo'>;
-    titulo: Schema.Attribute.String;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1023,7 +984,6 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::noticia.noticia': ApiNoticiaNoticia;
-      'api::proyecto.proyecto': ApiProyectoProyecto;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
