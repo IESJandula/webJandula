@@ -1,0 +1,1 @@
+export { caminosindex } from './content';

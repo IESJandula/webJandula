@@ -11,6 +11,29 @@ export const socialLinks = [
     {name: 'LinkedIn', href: 'https://www.linkedin.com/company/ies-j%C3%A1ndula', component: LinkedIn},
 ];
 
+export const caminosindex = [
+
+{ nombre: "ESO",
+  descripcion: "Educación Secundaria Obligatoria (ESO) es la etapa educativa que proporciona una base sólida para su futuro académico y profesional.",
+  image:"/images/eso.jpg",
+  color: "blue-500",
+  url: "/oferta#eso"
+},
+{ nombre: "Bachillerato",
+  descripcion: "El Bachillerato es la etapa educativa que sigue a la Educación Secundaria Obligatoria y precede a la Educación Superior.",
+  image:"/images/bachillerato.jpg",
+  color: "green-500",
+  url: "/oferta#bachillerato"
+},
+{ nombre: "Ciclos Formativos",
+  descripcion: "Los Ciclos Formativos son programas de formación profesional que preparan a los estudiantes para el mercado laboral.",
+  image:"/images/ciclos.jpg",
+  color: "purple-500",
+  url: "/oferta#ciclos"
+}
+
+]
+
 export const contacto = {
     titulo: "Contacto",
     email: "iesjandula@gmail.com",
@@ -238,6 +261,7 @@ export const ciclos = [
       ]
     }
   },
+  
 ]; 
 
 export const departamentos = [

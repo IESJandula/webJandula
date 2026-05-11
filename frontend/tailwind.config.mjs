@@ -13,7 +13,11 @@ export default {
                 // Paleta IES Jándula
                 'jandula-green': '#A3CC2A',
                 'jandula-blue': '#1D829B',
-            },        },
+            },
+            spacing: {
+                '50': '12.5rem',
+            },
+        },
     },
     plugins: [],
 }

@@ -2,6 +2,11 @@
 import Layout from "@/layouts/Layout.astro";
 import { ciclos } from "@/lib/content";
 
+const familiasCiclosSet = new Set(ciclos.map((ciclo) => ciclo.familia));
+const familiasCiclos = Array.from(familiasCiclosSet).sort((a, b) =>
+  a.localeCompare(b, "es"),
+);
+
 ---
 
 <Layout title="Oferta Educativa - IES Jándula">
@@ -38,7 +43,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
       >
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
           <div
-            class="-m-2 rounded-2xl bg-slate-900/5 p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm w-[90vw] md:w-[80vw] lg:w-[60vw] transition-all hover:shadow-xl hover:shadow-slate-200/50"
+            class="-m-2 rounded-2xl p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm w-[90vw] md:w-[80vw] lg:w-[60vw] transition-all hover:shadow-xl hover:shadow-slate-200/50"
           >
             <img
               src="https://images.pexels.com/photos/3380743/pexels-photo-3380743.jpeg"
@@ -104,7 +109,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
   </section>
 
   <!-- Modern Grid ESO / Bachillerato -->
-  <section id="eso-bachillerato" class="py-24 bg-white">
+  <section id="eso" class="py-24 bg-white">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
       <div class="mt-16 space-y-8 sm:mt-20">
         <!-- ESO -->
@@ -280,7 +285,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
         </div>
 
         <!-- Bachillerato debajo de ESO -->
-        <div 
+        <div id="bachillerato" 
           class="relative overflow-hidden rounded-3xl bg-slate-50 p-8 shadow-sm ring-1 ring-slate-900/5 transition-all hover:shadow-md hover:bg-slate-100/80"
         >
           <div
@@ -487,24 +492,14 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
           >
             Todos
           </button>
-          <button
-            data-filter="Informática"
-            class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-          >
-            Informática
-          </button>
-          <button
-            data-filter="Industrial"
-            class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-          >
-            Industrial
-          </button>
-          <button
-            data-filter="Actividades Físicas"
-            class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
-          >
-            Actividades Físicas
-          </button>
+          {familiasCiclos.map((familia) => (
+            <button
+              data-filter={familia}
+              class="filter-btn px-4 py-2 rounded-full bg-white border border-slate-200 text-slate-600 text-sm font-medium hover:border-slate-300 hover:bg-slate-50 transition-all cursor-pointer"
+            >
+              {familia}
+            </button>
+          ))}
         </div>
       </div>
 
