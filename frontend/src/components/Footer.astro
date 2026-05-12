@@ -50,11 +50,11 @@ const year = new Date().getFullYear();
                     })}
                 </div>
 
-                <nav class="flex flex-wrap justify-center space-x-4 text-sm font-medium">
+                <nav class="flex flex-wrap justify-center gap-x-1 text-sm font-medium">
                     {quickLinks.map((link) => (
                             <a
                                     href={link.href}
-                                    class="hover:text-black transition-colors py-1 px-2"
+                                    class="hover:text-white transition-colors duration-200 py-1 px-2.5 rounded-full hover:bg-white/15 text-white/80"
                             >
                                 {link.name}
                             </a>
@@ -62,9 +62,9 @@ const year = new Date().getFullYear();
                 </nav>
             </div>
 
-            <div class="text-center text-xs text-white border-t border-gray-700 pt-4 mt-4">
-                <p>&copy; {year} IES Jándula. Todos los derechos reservados.</p>
-                <p class="mt-1">
+            <div class="text-center text-xs text-white/60 border-t border-white/15 pt-4 mt-4">
+                <p class="font-medium">&copy; {year} IES Jándula. Todos los derechos reservados.</p>
+                <p class="mt-1 text-white/40">
                     Centro acogido a la Ley Orgánica de Protección de Datos (RGPD) y regulaciones de la Junta de
                     Andalucía.
                 </p>

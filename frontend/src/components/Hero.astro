@@ -3,40 +3,68 @@ const heroImage = "/images/bg-hero";
 ---
 
 <section
-        class="relative w-full h-[600px] flex items-center justify-center overflow-hidden"
-        aria-label="Bienvenida al IES Jándula"
+  class="relative w-full min-h-[580px] flex items-center overflow-hidden"
+  aria-label="Bienvenida al IES Jándula"
 >
-    <picture>
-        <source
-                srcset={`${heroImage}.avif`} type="image/avif"/>
-        <source srcset={`${heroImage}.webp`} type="image/webp"/>
-        <img src={`${heroImage}.png`} alt="Fachada y estudiantes del IES Jándula"
-             class="absolute inset-0 w-full h-full object-cover" loading="eager"/>
-    </picture>
-    <div class="relative z-10 container mx-auto px-4 h-full flex items-center justify-center">
+  <!-- Imagen de fondo -->
+  <picture>
+    <source srcset={`${heroImage}.avif`} type="image/avif" />
+    <source srcset={`${heroImage}.webp`} type="image/webp" />
+    <img
+      src={`${heroImage}.png`}
+      alt="Fachada y estudiantes del IES Jándula"
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+  </picture>
 
-        <div class="max-w-3xl w-full flex flex-col items-center">
+  <!-- Gradiente oscuro izquierda → transparente derecha -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-slate-900/92 via-slate-900/60 to-slate-900/10 pointer-events-none"
+    aria-hidden="true"
+  ></div>
+  <!-- Gradiente abajo para suavizar -->
+  <div
+    class="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none"
+    aria-hidden="true"
+  ></div>
 
-            <div class="w-full bg-gradient-to-r from-jandula-blue/50 to-jandula-green/50 saturate-200 brightness-55 p-8 md:p-12 rounded-3xl shadow-2xl backdrop-blur-sm text-white mb-8">
+  <!-- Contenido alineado a la izquierda -->
+  <div class="relative z-10 container mx-auto px-4 py-24 md:py-28">
+    <div class="max-w-xl">
 
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                    IES Jándula
-                </h1>
+      <!-- Etiqueta eyebrow -->
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-jandula-green/15 border border-jandula-green/30 text-jandula-green text-xs font-semibold uppercase tracking-widest mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-jandula-green" aria-hidden="true"></span>
+        Andújar, Jaén
+      </div>
 
-                <p class="text-lg md:text-xl font-medium opacity-90 leading-relaxed">
-                    Formación Profesional, Bachillerato y una apuesta decidida por la internacionalización con Erasmus+. Tu futuro empieza aquí.
-                </p>
+      <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-[1.05] tracking-tight mb-5">
+        IES Jándula
+      </h1>
 
-                <a href="/oferta"
-                    class="inline-block bg-black text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-900 transition-transform transform hover:scale-105 shadow-xl border-2 border-white/20"
-            >
-                Conoce el centro
-            </a>
+      <p class="text-lg md:text-xl text-white/75 leading-relaxed mb-8 max-w-[50ch]">
+        Formación Profesional, Bachillerato y una apuesta decidida por la internacionalización con Erasmus+. Tu futuro empieza aquí.
+      </p>
 
-            </div>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href="/oferta"
+          class="inline-flex items-center gap-2 bg-jandula-green text-slate-900 px-6 py-3.5 rounded-full font-bold text-sm hover:bg-jandula-green/90 transition-all duration-300 active:scale-[0.97] shadow-lg"
+        >
+          Conoce el centro
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+        <a
+          href="/noticias"
+          class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/25 text-white px-6 py-3.5 rounded-full font-bold text-sm hover:bg-white/20 transition-all duration-300 active:scale-[0.97]"
+        >
+          Últimas noticias
+        </a>
+      </div>
 
-
-
-        </div>
     </div>
+  </div>
 </section>

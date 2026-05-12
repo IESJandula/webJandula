@@ -9,11 +9,15 @@ export default {
     ],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            },
             colors: {
                 // Paleta IES Jándula
                 'jandula-green': '#A3CC2A',
                 'jandula-blue': '#1D829B',
-            },        },
+            },
+        },
     },
     plugins: [],
 }

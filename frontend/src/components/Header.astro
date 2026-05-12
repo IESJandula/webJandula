@@ -85,10 +85,10 @@ const currentPath = Astro.url.pathname;
           <!-- Trigger -->
           <a
             href={section.href}
-            class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1
+            class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-semibold transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-jandula-blue focus-visible:ring-offset-1
               ${currentPath === section.href
-                ? 'text-blue-700 bg-blue-50'
-                : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'}
+                ? 'text-jandula-blue bg-jandula-blue/10'
+                : 'text-slate-700 hover:text-jandula-blue hover:bg-jandula-blue/5'}
             `}
             aria-haspopup="true"
             aria-expanded="false"
@@ -116,10 +116,10 @@ const currentPath = Astro.url.pathname;
                   <li role="none">
                     <a
                       href={item.href}
-                      class="flex flex-col px-3 py-2 rounded-xl hover:bg-blue-50 transition-colors group/item focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                      class="flex flex-col px-3 py-2 rounded-xl hover:bg-jandula-blue/5 transition-colors group/item focus:outline-none focus-visible:ring-2 focus-visible:ring-jandula-blue"
                       role="menuitem"
                     >
-                      <span class="text-sm font-medium text-gray-800 group-hover/item:text-blue-700 transition-colors">{item.name}</span>
+                      <span class="text-sm font-semibold text-slate-800 group-hover/item:text-jandula-blue transition-colors">{item.name}</span>
                       <span class="text-xs text-gray-500 mt-0.5">{item.desc}</span>
                     </a>
                   </li>
@@ -278,4 +278,18 @@ const currentPath = Astro.url.pathname;
       chevron?.classList.toggle('rotate-180', isOpen);
     });
   });
+  // ── Scroll glassmorphism ──────────────────────────────────────
+  const siteHeader = document.querySelector('header');
+  if (siteHeader) {
+    const onScroll = () => {
+      if (window.scrollY > 30) {
+        siteHeader.classList.remove('bg-white', 'shadow-sm');
+        siteHeader.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-md');
+      } else {
+        siteHeader.classList.add('bg-white', 'shadow-sm');
+        siteHeader.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-md');
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 </script>

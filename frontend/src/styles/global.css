@@ -1,7 +1,7 @@
 /* src/st
 pnpm run devyles/global.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -12,7 +12,18 @@ html {
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4 {
+    text-wrap: balance;
+}
+
+::selection {
+    background-color: #1D829B;
+    color: #ffffff;
 }
 
 .container {
@@ -69,7 +80,7 @@ body {
 }
 
 .news-richtext blockquote {
-    border-left: 4px solid #93c5fd;
+    border-left: 4px solid #1D829B;
     padding: 0.5rem 0 0.5rem 1rem;
     margin: 1.25rem 0;
     color: #334155;
@@ -78,7 +89,7 @@ body {
 }
 
 .news-richtext a {
-    color: #1d4ed8;
+    color: #1D829B;
     text-decoration: underline;
 }
 
