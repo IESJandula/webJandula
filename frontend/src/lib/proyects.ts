@@ -14,7 +14,7 @@ export const proyectos = [
         ],
         etiquetas: ["Eficiencia Energética", "Innovación Educativa"],
         categoria: "Innovación Tecnológica",
-        portada: "/images/proyects/pilota_lince_miriam-31.jpeg",
+        portada: "/images/proyects/PortadaLince.jpg",
         images: [
             "/images/proyects/T2M3DY7SIJHWFCBABLZ6QXZTDI.jpg",
             "/images/proyects/fotonoticia_20230523144928_1200.jpg",
