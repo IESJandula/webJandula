@@ -60,8 +60,8 @@ export const proyectos = [
         caracteristicas: [],
         etiquetas: ["Literatura", "Creatividad", "Expresión Escrita"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/relato_corto.png",
-        images: []
+        portada: "/images/proyects/relatocorto.jpg",
+        images: ["/images/proyects/relatocorto1.jpg"]
     },
     {
         nombre: `Revista "Pasa Página"`,
