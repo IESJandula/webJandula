@@ -12,6 +12,36 @@ const news = await getNoticias(5);
 const sortedNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 const featuredNews = sortedNews.slice(0, 2);
 const secondaryNews = sortedNews.slice(2, 5);
+
+const getCaminoTheme = (color: string) => {
+	// Tailwind necesita clases estáticas (no `text-${...}`), por eso este mapeo.
+	switch (color) {
+		case 'blue-500':
+			return {
+				badge: 'bg-blue-50 text-blue-700',
+				title: 'text-blue-700',
+				ring: 'group-hover:ring-blue-500/20',
+			};
+		case 'green-500':
+			return {
+				badge: 'bg-emerald-50 text-emerald-700',
+				title: 'text-emerald-700',
+				ring: 'group-hover:ring-emerald-500/20',
+			};
+		case 'purple-500':
+			return {
+				badge: 'bg-purple-50 text-purple-700',
+				title: 'text-purple-700',
+				ring: 'group-hover:ring-purple-500/20',
+			};
+		default:
+			return {
+				badge: 'bg-slate-50 text-slate-700',
+				title: 'text-slate-900',
+				ring: 'group-hover:ring-slate-400/20',
+			};
+	}
+};
 ---
 
 
@@ -73,17 +103,35 @@ const secondaryNews = sortedNews.slice(2, 5);
 			</div>
 
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-					{caminosindex.map((camino) => (
-						<a href={camino.url} class="block">
-						<div class={`bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl hover:shadow-${camino.color} transition-all group`}>
-							<div class="w-full rounded-full overflow-hidden bg-purple-800 flex items-center justify-center mb-6">
-								<img src={camino.image} alt={camino.nombre} class="w-full hover:scale-110 object-cover object-center transition-all" loading="lazy" decoding="async" />
- 							</div>
-							<h3 class={`text-xl font-bold text-${camino.color} mb-3`}>{camino.nombre}</h3>
-							<p class="text-gray-600 mb-4 text-sm">{camino.descripcion}</p>
-						</div>
+				{caminosindex.map((camino) => {
+					const theme = getCaminoTheme(camino.color);
+					return (
+						<a
+							href={camino.url}
+							class={`group block h-full rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-jandula-blue/60 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50`}
+						>
+							<div class={`h-full rounded-2xl bg-white/90 backdrop-blur border border-slate-200 shadow-sm ring-1 ring-slate-100 transition-all duration-300 hover:shadow-lg ${theme.ring}`}>
+								<div class="p-9 md:p-8 flex h-full flex-col">
+									<div class="h-500 w-500 overflow-hidden rounded-full bg-slate-100 mb-6">
+										<img
+											src={camino.image}
+											alt={camino.nombre}
+											class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+											loading="lazy"
+											decoding="async"
+										/>
+									</div>
+
+									<div class="flex items-center justify-between gap-3 mb-3">
+										<h3 class={`text-xl font-bold ${theme.title}`}>{camino.nombre}</h3>
+										<span class={`shrink-0 inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${theme.badge}`}>Ver</span>
+									</div>
+									<p class="text-gray-600 text-sm leading-relaxed">{camino.descripcion}</p>
+								</div>
+							</div>
 						</a>
-					))}
+					);
+				})}
 			</div>
 
 			<div class="text-center mt-12">
