@@ -7,14 +7,21 @@ let initialized = false;
 export function initFirebase() {
   if (initialized || admin.apps.length > 0) return;
 
-  const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
-  if (!serviceAccountPath) {
-    throw new Error('FIREBASE_SERVICE_ACCOUNT_PATH no está definido en .env');
-  }
+  let serviceAccount;
 
-  const serviceAccount = JSON.parse(
-    readFileSync(resolve(serviceAccountPath), 'utf8')
-  );
+  // Producción (Dokploy): pega el JSON entero como variable de entorno
+  if (process.env.FIREBASE_SERVICE_ACCOUNT_JSON) {
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT_JSON);
+  // Desarrollo local: ruta al fichero
+  } else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
+    serviceAccount = JSON.parse(
+      readFileSync(resolve(process.env.FIREBASE_SERVICE_ACCOUNT_PATH), 'utf8')
+    );
+  } else {
+    throw new Error(
+      'Define FIREBASE_SERVICE_ACCOUNT_JSON (producción) o FIREBASE_SERVICE_ACCOUNT_PATH (desarrollo local)'
+    );
+  }
 
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
