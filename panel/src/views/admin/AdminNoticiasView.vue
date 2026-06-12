@@ -2,6 +2,7 @@
   <div class="page-content">
     <div class="page-header">
       <h1 class="page-title">Administración de noticias</h1>
+      <router-link to="/noticias/nueva" class="btn btn-primary">+ Nueva noticia</router-link>
     </div>
 
     <!-- Tabs de filtro -->

@@ -28,6 +28,10 @@ export const editarNoticia = (id, data) => apiClient.put(`/api/noticias/${id}`, 
 // Admin
 export const getAdminNoticias = (estado) =>
   apiClient.get('/api/admin/noticias', { params: estado ? { estado } : {} });
+export const getAdminNoticiaById = (id) =>
+  apiClient.get('/api/admin/noticias', { params: {} }).then(({ data }) => ({
+    data: { data: data.data.find((n) => String(n.id) === String(id)) ?? null },
+  }));
 export const aprobarNoticia = (id) => apiClient.post(`/api/admin/noticias/${id}/aprobar`);
 export const rechazarNoticia = (id, motivo) =>
   apiClient.post(`/api/admin/noticias/${id}/rechazar`, { motivo });

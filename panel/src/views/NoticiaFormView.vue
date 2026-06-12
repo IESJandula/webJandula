@@ -69,7 +69,9 @@
 import { ref, reactive, onMounted, computed } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import RichEditor from '@/components/RichEditor.vue';
-import { crearNoticia, editarNoticia, subirImagen, getMisNoticias } from '@/services/api';
+import { crearNoticia, editarNoticia, subirImagen, getMisNoticias, getAdminNoticiaById } from '@/services/api';
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -92,8 +94,14 @@ const galeriaInput = ref(null);
 
 onMounted(async () => {
   if (isEditing.value) {
-    const { data } = await getMisNoticias();
-    const noticia = data.data.find((n) => String(n.id) === String(route.params.id));
+    let noticia = null;
+    if (authStore.isAdmin) {
+      const { data } = await getAdminNoticiaById(route.params.id);
+      noticia = data.data;
+    } else {
+      const { data } = await getMisNoticias();
+      noticia = data.data.find((n) => String(n.id) === String(route.params.id));
+    }
     if (noticia) {
       form.titulo = noticia.titulo;
       form.subtitulo = noticia.subtitulo ?? '';

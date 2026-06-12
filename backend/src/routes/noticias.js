@@ -92,7 +92,8 @@ export default async function noticiasRoutes(fastify) {
           galeria: JSON.stringify(Array.isArray(galeria) ? galeria : []),
           autor: request.user.name,
           autorEmail: request.user.email,
-          estado: 'pendiente',
+          // Admin publica directamente, profesor queda pendiente de aprobación
+          estado: request.user.role === 'admin' ? 'publicada' : 'pendiente',
         },
       });
 

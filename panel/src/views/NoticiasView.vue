@@ -2,8 +2,16 @@
   <div class="page-content">
     <div class="page-header">
       <h1 class="page-title">Mis noticias</h1>
-      <router-link to="/noticias/nueva" class="btn btn-primary">+ Nueva noticia</router-link>
+      <div style="display:flex; gap:10px; align-items:center">
+        <router-link v-if="authStore.isAdmin" to="/admin/noticias" class="btn btn-secondary">
+          Panel de administración →
+        </router-link>
+        <router-link to="/noticias/nueva" class="btn btn-primary">+ Nueva noticia</router-link>
+      </div>
     </div>
+    <p v-if="authStore.isAdmin" class="admin-hint">
+      Como administrador, las noticias que crees se publican directamente en la web.
+    </p>
 
     <div v-if="loading" class="empty-state"><span class="spinner"></span></div>
 
@@ -43,6 +51,8 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getMisNoticias } from '@/services/api';
+import { useAuthStore } from '@/stores/auth';
+const authStore = useAuthStore();
 
 const noticias = ref([]);
 const loading = ref(true);
@@ -70,4 +80,5 @@ function formatFecha(fecha) {
 .noticia-meta { font-size: 12px; color: var(--seneca-gris-medio); margin: 0; }
 .motivo-rechazo { font-size: 12px; color: var(--seneca-peligro); margin: 6px 0 0; font-style: italic; }
 .text-muted { font-size: 13px; color: var(--seneca-gris-medio); }
+.admin-hint { font-size: 13px; color: var(--seneca-azul-medio); background: var(--seneca-azul-claro); padding: 8px 14px; border-radius: 6px; margin-bottom: 16px; }
 </style>
