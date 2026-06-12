@@ -1,0 +1,233 @@
+/* Variables del sistema de diseño Séneca – IES Jándula */
+:root {
+  --seneca-azul-oscuro: #2c3e50;
+  --seneca-azul-principal: #004a70;
+  --seneca-azul-medio: #00698c;
+  --seneca-azul-claro: #e6f3fa;
+  --seneca-azul-muy-claro: #f0f7fc;
+
+  --seneca-exito: #28a745;
+  --seneca-exito-hover: #218838;
+  --seneca-info: #17a2b8;
+  --seneca-info-hover: #138496;
+  --seneca-advertencia: #ffc107;
+  --seneca-advertencia-hover: #e0a800;
+  --seneca-peligro: #dc3545;
+  --seneca-peligro-hover: #c82333;
+
+  --seneca-gris-muy-oscuro: #333333;
+  --seneca-gris-oscuro: #555555;
+  --seneca-gris-medio: #888888;
+  --seneca-gris-claro: #dddddd;
+  --seneca-gris-muy-claro: #eeeeee;
+  --seneca-fondo-gris: #f4f4f4;
+  --seneca-blanco: #ffffff;
+  --seneca-negro: #0f172a;
+
+  --seneca-sombra-suave: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --seneca-sombra-media: 0 4px 8px rgba(0, 0, 0, 0.1);
+  --seneca-sombra-fuerte: 0 8px 16px rgba(0, 0, 0, 0.15);
+  --seneca-borde: #ced4da;
+  --seneca-borde-focus: #004a70;
+  --seneca-transition: all 0.3s ease;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--seneca-fondo-gris);
+  color: var(--seneca-gris-muy-oscuro);
+}
+
+/* Botones */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--seneca-transition);
+  text-decoration: none;
+}
+.btn-primary { background: var(--seneca-azul-principal); color: var(--seneca-blanco); }
+.btn-primary:hover { background: var(--seneca-azul-medio); }
+.btn-success { background: var(--seneca-exito); color: var(--seneca-blanco); }
+.btn-success:hover { background: var(--seneca-exito-hover); }
+.btn-danger { background: var(--seneca-peligro); color: var(--seneca-blanco); }
+.btn-danger:hover { background: var(--seneca-peligro-hover); }
+.btn-secondary { background: var(--seneca-gris-claro); color: var(--seneca-gris-muy-oscuro); }
+.btn-secondary:hover { background: var(--seneca-gris-medio); color: var(--seneca-blanco); }
+.btn-warning { background: var(--seneca-advertencia); color: var(--seneca-negro); }
+.btn-warning:hover { background: var(--seneca-advertencia-hover); }
+.btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Badges de estado */
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.badge-pendiente { background: #fff3cd; color: #856404; }
+.badge-publicada { background: #d4edda; color: #155724; }
+.badge-rechazada { background: #f8d7da; color: #721c24; }
+
+/* Cards */
+.card {
+  background: var(--seneca-blanco);
+  border-radius: 10px;
+  box-shadow: var(--seneca-sombra-suave);
+  padding: 20px;
+  transition: var(--seneca-transition);
+}
+.card:hover { box-shadow: var(--seneca-sombra-media); }
+
+/* Formularios */
+.form-group { margin-bottom: 16px; }
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--seneca-gris-oscuro);
+  margin-bottom: 6px;
+}
+.form-control {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid var(--seneca-borde);
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 14px;
+  transition: var(--seneca-transition);
+  background: var(--seneca-blanco);
+}
+.form-control:focus {
+  outline: none;
+  border-color: var(--seneca-borde-focus);
+  box-shadow: 0 0 0 3px rgba(0, 74, 112, 0.12);
+}
+select.form-control { cursor: pointer; }
+
+/* Layout principal */
+.page-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.page-content {
+  flex: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  width: 100%;
+}
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.page-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--seneca-azul-principal);
+  margin: 0;
+}
+
+/* Tabla */
+.table-wrapper { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th {
+  background: var(--seneca-azul-principal);
+  color: var(--seneca-blanco);
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+}
+td { padding: 10px 14px; border-bottom: 1px solid var(--seneca-gris-muy-claro); }
+tr:hover td { background: var(--seneca-azul-muy-claro); }
+.actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Tabs */
+.tabs { display: flex; gap: 4px; margin-bottom: 20px; flex-wrap: wrap; }
+.tab {
+  padding: 8px 18px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--seneca-blanco);
+  color: var(--seneca-gris-oscuro);
+  transition: var(--seneca-transition);
+}
+.tab:hover { border-color: var(--seneca-azul-medio); color: var(--seneca-azul-medio); }
+.tab.active { background: var(--seneca-azul-principal); color: var(--seneca-blanco); border-color: var(--seneca-azul-principal); }
+
+/* Tiptap editor */
+.tiptap-editor {
+  border: 1px solid var(--seneca-borde);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.tiptap-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  background: var(--seneca-azul-muy-claro);
+  border-bottom: 1px solid var(--seneca-borde);
+}
+.tiptap-toolbar button {
+  padding: 4px 8px;
+  border: 1px solid var(--seneca-borde);
+  border-radius: 4px;
+  background: var(--seneca-blanco);
+  cursor: pointer;
+  font-size: 13px;
+  transition: var(--seneca-transition);
+}
+.tiptap-toolbar button:hover,
+.tiptap-toolbar button.is-active { background: var(--seneca-azul-principal); color: var(--seneca-blanco); border-color: var(--seneca-azul-principal); }
+.ProseMirror {
+  min-height: 220px;
+  padding: 14px;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.ProseMirror p { margin: 0 0 10px; }
+.ProseMirror ul, .ProseMirror ol { padding-left: 20px; margin: 0 0 10px; }
+.ProseMirror img { max-width: 100%; border-radius: 6px; margin: 8px 0; }
+.ProseMirror.ProseMirror-focused { box-shadow: inset 0 0 0 2px rgba(0,74,112,0.2); }
+
+/* Utilidades */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+  color: var(--seneca-gris-medio);
+}
+.empty-state p { font-size: 15px; margin: 8px 0 0; }
+.spinner {
+  display: inline-block;
+  width: 20px; height: 20px;
+  border: 3px solid var(--seneca-gris-claro);
+  border-top-color: var(--seneca-azul-principal);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

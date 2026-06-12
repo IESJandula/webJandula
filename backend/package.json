@@ -1,42 +1,28 @@
 {
-  "name": "backend",
-  "version": "0.1.0",
-  "private": true,
-  "description": "A Strapi application",
+  "name": "webjandula-backend",
+  "version": "1.0.0",
+  "description": "API backend para noticias del IES Jándula",
+  "type": "module",
+  "main": "src/server.js",
   "scripts": {
-    "build": "strapi build",
-    "console": "strapi console",
-    "deploy": "strapi deploy",
-    "dev": "strapi develop",
-    "develop": "strapi develop",
-    "start": "strapi start",
-    "strapi": "strapi",
-    "upgrade": "npx @strapi/upgrade latest",
-    "upgrade:dry": "npx @strapi/upgrade latest --dry"
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "db:migrate": "prisma migrate deploy",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:studio": "prisma studio"
   },
   "dependencies": {
-    "@strapi/plugin-cloud": "5.33.4",
-    "@strapi/plugin-users-permissions": "5.33.4",
-    "@strapi/strapi": "5.33.4",
-    "better-sqlite3": "11.3.0",
-    "pg": "^8.20.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-router-dom": "^6.0.0",
-    "styled-components": "^6.0.0"
+    "@fastify/cors": "^9.0.1",
+    "@fastify/multipart": "^8.3.0",
+    "@fastify/static": "^7.0.4",
+    "@prisma/client": "^5.22.0",
+    "dotenv": "^16.6.1",
+    "fastify": "^4.28.1",
+    "firebase-admin": "^12.7.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "typescript": "^5"
-  },
-  "engines": {
-    "node": ">=18.0.0 <=22.x.x",
-    "npm": ">=6.0.0"
-  },
-  "strapi": {
-    "uuid": "09e4f2fe-7d31-4784-ba2e-d9c266e60e26",
-    "installId": "9e5f17296f3e734015d62713b22e95ac44393acfd0578b1f6204df741326ded9"
+    "prisma": "^5.22.0"
   }
 }

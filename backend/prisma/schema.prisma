@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./jandula-noticias.db"
+}
+
+model Noticia {
+  id             Int      @id @default(autoincrement())
+  titulo         String
+  subtitulo      String?
+  cuerpo         String
+  categoria      String   @default("Centro")
+  portada        String?
+  galeria        String   @default("[]") // JSON array de rutas
+  fecha          DateTime @default(now())
+  autor          String
+  autorEmail     String
+  estado         String   @default("pendiente") // pendiente | publicada | rechazada
+  motivoRechazo  String?
+  orden          Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
