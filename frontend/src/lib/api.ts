@@ -228,17 +228,27 @@ function getItemId(item: UnknownRecord): string {
     return 'sin-id';
 }
 
+function stripHtml(html: string): string {
+    return html
+        .replace(/<[^>]*>/g, ' ')
+        .replace(/&nbsp;/g, ' ')
+        .replace(/&amp;/g, '&')
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
 function mapToCard(item: UnknownRecord): NoticiaCard {
     const id = getItemId(item);
+    const subtitulo = (item.subtitulo as string)?.trim();
+    const cuerpoPlano = subtitulo ? '' : stripHtml(((item.cuerpo as string) ?? '').toString());
 
     return {
         id,
         title: (item.titulo as string) ?? 'Sin titulo',
         summary:
-            ((item.subtitulo as string) ??
-                (item.cuerpo as string) ??
-                'Consulta la noticia completa para conocer todos los detalles.')
-                .toString()
+            (subtitulo || cuerpoPlano || 'Consulta la noticia completa para conocer todos los detalles.')
                 .slice(0, 180),
         date: (item.fecha as string) ?? new Date().toISOString().slice(0, 10),
         image: getImageUrl(item),

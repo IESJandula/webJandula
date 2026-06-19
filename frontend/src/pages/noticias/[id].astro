@@ -1,7 +1,9 @@
 ---
 import Layout from '@/layouts/Layout.astro';
-import { getNoticiaById, getNoticiasIds } from '@/lib/api';
+import { getNoticiaById, getNoticiasIds, getNoticias } from '@/lib/api';
 import CardNoticiaRelacionada from '@/components/CardNoticiaRelacionada.astro';
+import CardNoticia from '@/components/CardNoticia.astro';
+import { getCategoriaStyle } from '@/lib/categorias';
 
 function formatSpanishDate(dateInput: string): string {
   const date = new Date(dateInput);
@@ -67,6 +69,15 @@ const sameCategory = noticia
 
 const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).slice(0, 4);
 
+// "Te puede interesar" — fila inferior estilo periódico digital, distinta de la sidebar
+const relatedIds = new Set(relatedNoticias.map((item) => item.id));
+const recientes = noticia ? await getNoticias(8) : [];
+const recomendadas = recientes
+  .filter((item) => item.id !== id && !relatedIds.has(item.id))
+  .slice(0, 3);
+
+const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
+
 
 ---
 
@@ -103,10 +114,10 @@ const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).s
         </a>
 
         <div class="mt-6 flex flex-wrap items-center gap-3">
-          <span class="rounded-full border border-jandula-blue px-3 py-1 text-xs font-semibold uppercase tracking-wide text-jandula-blue">
+          <span class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1 ${categoriaStyle?.badge}`}>
+            <span class={`h-1.5 w-1.5 rounded-full ${categoriaStyle?.dot}`}></span>
             {noticia.category}
           </span>
-
         </div>
 
         <h1 class="mt-6 max-w-4xl font-bold text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-slate-950 via-slate-600 to-blue-700">
@@ -175,7 +186,7 @@ const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).s
               <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-5">Galeria</h2>
               <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {bottomGallery.map((src, index) => (
-                  <figure class="overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-sm">
+                  <figure class="group relative overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-sm">
                     <button
                       class="gallery-image-trigger block w-full"
                       data-image={src}
@@ -185,10 +196,17 @@ const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).s
                       <img
                         src={src}
                         alt={`Imagen ${index + 1} de la noticia: ${noticia.title}`}
-                        class="w-full h-56 object-cover hover:scale-[1.02] transition-transform duration-300"
+                        class="w-full h-56 object-cover group-hover:scale-[1.04] transition-transform duration-300"
                         loading="lazy"
                         decoding="async"
                       />
+                      <span class="absolute inset-0 flex items-center justify-center bg-black/0 group-hover:bg-black/25 transition-colors duration-300" aria-hidden="true">
+                        <span class="opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full bg-white/90 p-2.5 shadow-md">
+                          <svg class="w-4 h-4 text-slate-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zM11 8v6m-3-3h6"/>
+                          </svg>
+                        </span>
+                      </span>
                     </button>
                   </figure>
                 ))}
@@ -229,6 +247,24 @@ const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).s
           </aside>
         )}
       </div>
+
+      {recomendadas.length > 0 && (
+        <section class="mt-16 pt-12 border-t border-slate-200">
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-8">Te puede interesar</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {recomendadas.map((item) => (
+              <CardNoticia
+                title={item.title}
+                summary={item.summary}
+                date={formatSpanishDate(item.date)}
+                image={item.image}
+                category={item.category}
+                link={`/noticias/${item.id}`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   </article>
 
@@ -285,5 +321,73 @@ const relatedNoticias = (sameCategory.length > 0 ? sameCategory : relatedPool).s
       });
     });
   </script>
+
+  <style>
+    .news-richtext :global(h2) {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: theme('colors.slate.900');
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .news-richtext :global(h3) {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: theme('colors.slate.900');
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .news-richtext :global(p) {
+      margin-bottom: 1.1rem;
+    }
+    .news-richtext :global(ul),
+    .news-richtext :global(ol) {
+      margin: 1rem 0 1.25rem;
+      padding-left: 1.5rem;
+    }
+    .news-richtext :global(ul) {
+      list-style-type: disc;
+    }
+    .news-richtext :global(ol) {
+      list-style-type: decimal;
+    }
+    .news-richtext :global(li) {
+      margin-bottom: 0.4rem;
+    }
+    .news-richtext :global(blockquote) {
+      border-left: 4px solid theme('colors.blue.400');
+      background: theme('colors.blue.50');
+      padding: 0.9rem 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: theme('colors.slate.700');
+    }
+    .news-richtext :global(a) {
+      color: theme('colors.blue.600');
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: theme('colors.blue.200');
+    }
+    .news-richtext :global(a:hover) {
+      text-decoration-color: theme('colors.blue.500');
+    }
+    .news-richtext :global(strong) {
+      color: theme('colors.slate.900');
+    }
+    .news-richtext :global(img) {
+      border-radius: 0.75rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .news-richtext :global(code) {
+      background: theme('colors.slate.100');
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.3rem;
+      font-size: 0.9em;
+    }
+  </style>
   )}
 </Layout>
