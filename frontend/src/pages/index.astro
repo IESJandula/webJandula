@@ -170,7 +170,7 @@ const getCaminoTheme = (color: string) => {
 
 				<div class="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 p-8 text-white hover:scale-105 transition-transform">
 					<div class="relative z-10">
-						<h3 class="text-2xl font-bold mb-3">Biblioteca "Pasa Página"</h3>
+						<h3 class="text-2xl font-bold mb-3">Revista "Pasa Página"</h3>
 						<p class="text-purple-100 mb-4">Espacio de lectura, cultura y publicación de revista escolar</p>
 						<span class="inline-flex items-center text-sm font-medium">
 							Descubre más
@@ -204,57 +204,89 @@ const getCaminoTheme = (color: string) => {
 	</section>
 
 	<!-- Internacionalización -->
-	<section class="py-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white">
-		<div class="container mx-auto px-4">
-			<div class="grid lg:grid-cols-2 gap-12 items-center">
-				<div>
-					<span class="inline-block px-4 py-2 rounded-full bg-blue-700 text-blue-100 text-sm font-semibold mb-4">
-						Internacionalización
+	<section class="relative py-20 bg-gradient-to-br from-blue-900 to-indigo-900 text-white overflow-hidden">
+		<div class="absolute -top-24 -right-24 w-96 h-96 rounded-full bg-blue-500/20 blur-3xl pointer-events-none" aria-hidden="true"></div>
+		<div class="container mx-auto px-4 relative">
+			<div class="max-w-2xl mb-12">
+				<span class="inline-block px-4 py-2 rounded-full bg-blue-700 text-blue-100 text-sm font-semibold mb-4">
+					Internacionalización
+				</span>
+				<h2 class="text-4xl font-bold mb-6">
+					Abriendo fronteras, construyendo futuro
+				</h2>
+				<p class="text-lg text-blue-100 leading-relaxed">
+					Un centro abierto al mundo. Derribamos las barreras del aula tradicional participando en
+					redes europeas e iniciativas internacionales que convierten el aprendizaje en una experiencia global
+					para nuestro alumnado y profesorado.
+				</p>
+			</div>
+
+			<div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+				<!-- Erasmus+ -->
+				<a href="/internacionalizacion#erasmus" class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 transition-all duration-300 hover:bg-white/15 hover:-translate-y-1 flex flex-col">
+					<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+						<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9 9 0 100-18 9 9 0 000 18zm0 0c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3M3.6 9h16.8M3.6 15h16.8" />
+						</svg>
+					</div>
+					<h3 class="font-bold text-lg mb-2">Erasmus+</h3>
+					<p class="text-blue-100 text-sm leading-relaxed flex-grow">Movilidades, intercambio cultural y aprendizaje lingüístico real por toda Europa.</p>
+					<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+						Saber más
+						<svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
 					</span>
-					<h2 class="text-4xl font-bold mb-6">
-						Abriendo fronteras, construyendo futuro
-					</h2>
-					<p class="text-lg text-blue-100 mb-8 leading-relaxed">
-						Nuestro compromiso con la dimensión europea de la educación a través de programas de movilidad,
-						proyectos eTwinning y como Escuela Embajadora del Parlamento Europeo.
-					</p>
-					<!-- TODO: Actualizar con datos reales de movilidades Erasmus+ -->
-					<div class="grid grid-cols-2 gap-6 mb-8">
-						<div class="bg-blue-800/50 rounded-xl p-4 backdrop-blur-sm">
-							<p class="text-3xl font-bold mb-1">[N]</p>
-							<p class="text-blue-200 text-sm">Participantes Erasmus+</p>
-						</div>
-						<div class="bg-blue-800/50 rounded-xl p-4 backdrop-blur-sm">
-							<p class="text-3xl font-bold mb-1">[N]</p>
-							<p class="text-blue-200 text-sm">Países destino</p>
-						</div>
+				</a>
+
+				<!-- Erasmus+ FP -->
+				<a href="/internacionalizacion#erasmus" class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 transition-all duration-300 hover:bg-white/15 hover:-translate-y-1 flex flex-col">
+					<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+						<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" />
+						</svg>
 					</div>
-					<a href="/internacionalizacion" class="inline-block bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors">
-						Conoce más
-					</a>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-						<div class="text-4xl mb-3">🇪🇺</div>
-						<h3 class="font-bold text-lg mb-2">Erasmus+</h3>
-						<p class="text-blue-100 text-sm">Movilidad europea</p>
+					<h3 class="font-bold text-lg mb-2">Erasmus+ FP</h3>
+					<p class="text-blue-100 text-sm leading-relaxed flex-grow">Prácticas profesionales en empresas extranjeras que impulsan la empleabilidad de nuestros técnicos.</p>
+					<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+						Saber más
+						<svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+					</span>
+				</a>
+
+				<!-- eTwinning -->
+				<a href="/internacionalizacion#etwinning" class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 transition-all duration-300 hover:bg-white/15 hover:-translate-y-1 flex flex-col">
+					<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+						<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M9 17.25v1.007a3 3 0 01-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0115 18.257V17.25m6-12V15a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 15V5.25m18 0A2.25 2.25 0 0018.75 3H5.25A2.25 2.25 0 003 5.25m18 0V12a2.25 2.25 0 01-2.25 2.25H5.25A2.25 2.25 0 013 12V5.25" />
+						</svg>
 					</div>
-					<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 mt-8">
-						<div class="text-4xl mb-3">⭐</div>
-						<h3 class="font-bold text-lg mb-2">EPAS</h3>
-						<p class="text-blue-100 text-sm">Escuela Embajadora</p>
+					<h3 class="font-bold text-lg mb-2">eTwinning</h3>
+					<p class="text-blue-100 text-sm leading-relaxed flex-grow">Colaboración digital y proyectos hermanados en tiempo real con aulas de toda Europa.</p>
+					<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+						Saber más
+						<svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+					</span>
+				</a>
+
+				<!-- Escuela Embajadora del Parlamento Europeo -->
+				<a href="/internacionalizacion#embajadoras" class="group bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 transition-all duration-300 hover:bg-white/15 hover:-translate-y-1 flex flex-col">
+					<div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-5">
+						<svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+							<path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+						</svg>
 					</div>
-					<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 -mt-4">
-						<div class="text-4xl mb-3">💻</div>
-						<h3 class="font-bold text-lg mb-2">eTwinning</h3>
-						<p class="text-blue-100 text-sm">Proyectos digitales</p>
-					</div>
-					<div class="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 mt-4">
-						<div class="text-4xl mb-3">🌍</div>
-						<h3 class="font-bold text-lg mb-2">Global</h3>
-						<p class="text-blue-100 text-sm">Ciudadanía europea</p>
-					</div>
-				</div>
+					<h3 class="font-bold text-lg mb-2">Escuela Embajadora</h3>
+					<p class="text-blue-100 text-sm leading-relaxed flex-grow">Del Parlamento Europeo: formamos ciudadanía viviendo de cerca los valores y la democracia de la UE.</p>
+					<span class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-white">
+						Saber más
+						<svg class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+					</span>
+				</a>
+			</div>
+
+			<div class="mt-12">
+				<a href="/internacionalizacion" class="inline-block bg-white text-blue-900 px-8 py-3 rounded-full font-semibold hover:bg-blue-50 transition-colors">
+					Conoce nuestro programa internacional
+				</a>
 			</div>
 		</div>
 	</section>
@@ -283,7 +315,7 @@ const getCaminoTheme = (color: string) => {
 						</svg>
 					</div>
 					<h3 class="text-xl font-bold text-gray-900 mb-3">Acción Tutorial</h3>
-					<p class="text-gray-600 mb-4">Acompañamiento personalizado, técnicas de estudio y orientación profesional</p>
+					<p class="text-gray-600 mb-4">Seguimiento personalizado del alumnado, técnicas de estudio y orientación académica y profesional para decidir su futuro.</p>
 				</div>
 
 				<!-- Atención a la Diversidad -->
@@ -294,7 +326,7 @@ const getCaminoTheme = (color: string) => {
 						</svg>
 					</div>
 					<h3 class="text-xl font-bold text-gray-900 mb-3">Atención a la Diversidad</h3>
-					<p class="text-gray-600 mb-4">Educación inclusiva con medidas específicas y recursos especializados</p>
+					<p class="text-gray-600 mb-4">Educación inclusiva con medidas y recursos específicos que se adaptan a las necesidades de cada estudiante.</p>
 				</div>
 
 				<!-- Comunidad -->
@@ -305,7 +337,7 @@ const getCaminoTheme = (color: string) => {
 						</svg>
 					</div>
 					<h3 class="text-xl font-bold text-gray-900 mb-3">Comunidad Educativa</h3>
-					<p class="text-gray-600 mb-4">AMPA, Consejo de Estudiantes y acceso Zona Profesorado</p>
+					<p class="text-gray-600 mb-4">Familias, AMPA y Consejo de Estudiantes: una comunidad que participa y construye el centro día a día.</p>
 				</div>
 			</div>
 
