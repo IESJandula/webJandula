@@ -1,41 +1,48 @@
 ---
 const heroImage = "/images/portadaJandula.jpg";
+const serif = "'Newsreader', Georgia, 'Times New Roman', serif";
 ---
 
 <section
-        class="relative w-full h-[600px] flex items-center justify-center overflow-hidden"
-        aria-label="Bienvenida al IES Jándula"
+  class="relative w-full min-h-[68svh] md:min-h-[72svh] max-h-[640px] flex items-end overflow-hidden"
+  aria-label="Bienvenida al IES Jándula"
 >
-    <img
-        src={heroImage}
-        alt="Fachada y estudiantes del IES Jándula"
-        class="absolute inset-0 w-full h-full object-cover"
-        loading="eager"
-    />
-    <div class="relative z-10 container mx-auto px-4 h-full flex items-center justify-center">
+  <img
+    src={heroImage}
+    alt="Fachada del IES Jándula"
+    class="absolute inset-0 w-full h-full object-cover"
+    loading="eager"
+  />
 
-        <div class="max-w-3xl w-full flex flex-col items-center">
+  <!-- Overlay oscuro uniforme -->
+  <div class="absolute inset-0 bg-black/55" aria-hidden="true"></div>
 
-            <div class="w-full bg-gradient-to-r from-jandula-blue/60 to-jandula-green/60 saturate-150 p-8 md:p-12 rounded-3xl shadow-2xl backdrop-blur-md text-white mb-8">
+  <!-- Texto alineado abajo-izquierda: editorial y limpio -->
+  <div class="relative z-10 container mx-auto px-4 pb-20 md:pb-24">
+    <div class="max-w-2xl">
+      <span class="inline-block text-[11px] font-semibold tracking-widest uppercase text-white/50 mb-5">
+        Andújar, Jaén — Instituto de Educación Secundaria
+      </span>
 
-                <h1 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
-                    IES Jándula
-                </h1>
+      <h1
+        class="text-5xl sm:text-6xl text-white mb-5"
+        style={`font-family: ${serif}; letter-spacing: -0.03em; line-height: 1.08;`}
+      >
+        IES Jándula
+      </h1>
 
-                <p class="text-lg md:text-xl font-medium opacity-90 leading-relaxed">
-                    Formación Profesional, Bachillerato y una apuesta decidida por la internacionalización con Erasmus+. <b>Tu futuro empieza aquí.</b>
-                </p>
+      <p class="text-base md:text-lg text-white/75 mb-8 leading-relaxed max-w-lg">
+        Formación Profesional, Bachillerato e internacionalización Erasmus+.
+        Formamos personas preparadas para el mundo real.
+      </p>
 
-                <a href="/nuestro_centro"
-                       class="block w-fit mx-auto bg-blue-700/60 mt-9 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-900 transition-transform transform hover:scale-105 shadow-xl border-2 border-white/20"
-            >
-                Conoce el centro
-            </a>
-
-            </div>
-
-
-
-        </div>
+      <a
+        href="/nuestro_centro"
+        class="inline-block bg-white text-[#1e3a8a] px-7 py-3 text-sm font-semibold hover:bg-[#F8F7F4] transition-colors duration-200"
+        style="border-radius: 6px;"
+      >
+        Conoce el centro
+      </a>
     </div>
+  </div>
 </section>
