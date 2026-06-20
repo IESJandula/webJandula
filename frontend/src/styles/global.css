@@ -2,6 +2,7 @@
 pnpm run devyles/global.css */
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -121,9 +122,26 @@ body {
         padding: 0.75rem 1rem;
     }
 
+    /* Enlaces de navegación (barra superior y footer): área táctil mínima */
+    [aria-label="Accesos rápidos institucionales"] a,
+    [aria-label="Accesos rápidos institucionales"] button,
+    footer nav a,
+    footer nav button {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     /* Grid responsive mejorado */
     .grid {
         gap: 0.75rem;
+    }
+
+    /* Desactiva blobs decorativos difuminados en móvil (coste de render) */
+    [class*="blur-3xl"],
+    [class*="blur-2xl"] {
+        display: none !important;
     }
 
     /* Imágenes responsive */
