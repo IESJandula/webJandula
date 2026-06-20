@@ -85,7 +85,9 @@ const currentPath = Astro.url.pathname;
 
     <!-- Desktop Mega Menu -->
     <ul class="hidden lg:flex items-center gap-1 h-full" role="menubar" aria-label="Menú principal">
-      {megaMenu.map((section) => (
+      {megaMenu.map((section, i) => {
+        const alignRight = i >= megaMenu.length - 2;
+        return (
         <li class="relative h-full flex items-center group" role="none">
           <!-- Trigger -->
           <a
@@ -108,7 +110,9 @@ const currentPath = Astro.url.pathname;
 
           <!-- Dropdown Panel — controlado por JS (hover + focus) -->
           <div
-            class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible transition-all duration-200 ease-out"
+            class={`absolute top-full pt-2 opacity-0 invisible transition-all duration-200 ease-out ${
+              alignRight ? 'right-0' : 'left-1/2 -translate-x-1/2'
+            }`}
             role="menu"
             aria-label={`Submenú de ${section.name}`}
             data-mega-panel
@@ -133,7 +137,8 @@ const currentPath = Astro.url.pathname;
             </div>
           </div>
         </li>
-      ))}
+        );
+      })}
     </ul>
 
     <!-- Hamburger Button (mobile) -->
