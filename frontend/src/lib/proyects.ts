@@ -78,7 +78,7 @@ export const proyectos = [
         images: []
     },
     {
-        nombre: "Competiciones Matemáticas",
+        nombre: "IES Jándula – SAEM Thales",
         resumen: "Participación en competiciones matemáticas para fomentar el interés por las matemáticas y el desarrollo del pensamiento lógico.",
         descripcion: `El IES Jándula participa en diversas competiciones matemáticas a nivel local, regional y nacional para fomentar el interés por las matemáticas y el desarrollo del pensamiento lógico entre el alumnado.\n\nTiene como objetivo estimular el interés por las matemáticas, desarrollar estrategias de resolución de problemas e identificar talento matemático precoz`,
         caracteristicas: [
