@@ -33,7 +33,7 @@ export const proyectos = [
         ],
         etiquetas: ["Biblioteca", "Lectura", "Investigación"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/bibliojandula.png",
+        portada: "/images/proyects/bibliojandula.webp",
         images: [
 
         ]
@@ -50,7 +50,7 @@ export const proyectos = [
         ],
         etiquetas: ["Ajedrez", "Lógica", "Matemáticas"],
         categoria: "Deportes y Juegos",
-        portada: "/images/proyects/Aula_de_Jaque.png",
+        portada: "/images/proyects/Aula_de_Jaque.webp",
         images: []
     },
     {
@@ -74,7 +74,7 @@ export const proyectos = [
             "Noticias de actualidad escolar"],
         etiquetas: ["Literatura", "Cultura", "Expresión Escrita"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/pasa_pagina.png",
+        portada: "/images/proyects/pasa_pagina.webp",
         images: []
     },
     {
@@ -88,7 +88,7 @@ export const proyectos = [
         ],
         etiquetas: ["Matemáticas", "Lógica", "Resolución de Problemas"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/competicionesMatematicas.png",
+        portada: "/images/proyects/competicionesMatematicas.webp",
         images: []
     },
     {
@@ -103,7 +103,7 @@ export const proyectos = [
         ],
         etiquetas: ["Deporte", "Actividad Física", "Trabajo en Equipo"],
         categoria: "Deportes y Juegos",
-        portada: "/images/proyects/escuelasDeportivas.png",
+        portada: "/images/proyects/escuelasDeportivas.webp",
         images: []
     },
     {
@@ -118,7 +118,7 @@ export const proyectos = [
         ],
         etiquetas: ["Inclusión", "Convivencia", "Habilidades Sociales"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/recreosInclusivos.png",
+        portada: "/images/proyects/recreosInclusivos.webp",
         images: []
     }
 
