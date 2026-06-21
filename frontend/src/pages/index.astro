@@ -56,32 +56,37 @@ const getCaminoTheme = (color: string) => {
 	
 		<!-- Noticias -->
 	{sortedNews.length > 0 && (
-	<section class="container mx-auto px-4 py-20">
-		<div class="flex flex-col md:flex-row justify-between items-end mb-8">
-			<div>
-				<h2 class="text-3xl font-bold text-gray-900">Últimas noticias</h2>
+	<section class="py-20 bg-white">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-12">
+				<span class="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-4">
+					Actualidad
+				</span>
+				<h2 class="text-4xl font-bold text-gray-900 mb-4">
+					Últimas noticias
+				</h2>
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+					Mantente al día de la vida, los eventos y las actividades de nuestro centro
+				</p>
 			</div>
-			<a href="/noticias" class="hidden md:inline-block text-blue-600 font-bold hover:underline">
-				Ver todas las noticias &rarr;
-			</a>
-		</div>
 
-		<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-			{featuredNews.map((item) => (
-				<CardNoticia {...item} variant="featured" />
-			))}
-		</div>
+			<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 max-w-6xl mx-auto">
+				{featuredNews.map((item) => (
+					<CardNoticia {...item} variant="featured" />
+				))}
+			</div>
 
-		<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
-			{secondaryNews.map((item) => (
-				<CardNoticia {...item} />
-			))}
-		</div>
+			<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
+				{secondaryNews.map((item) => (
+					<CardNoticia {...item} />
+				))}
+			</div>
 
-		<div class="mt-8 text-center md:hidden">
-			<a href="/noticias" class="btn-secondary inline-block border border-blue-600 text-blue-600 px-6 py-2 rounded-full font-bold">
-				Ver todo
-			</a>
+			<div class="text-center mt-12">
+				<a href="/noticias" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+					Ver todas las noticias
+				</a>
+			</div>
 		</div>
 	</section>
 	)}
@@ -96,6 +101,9 @@ const getCaminoTheme = (color: string) => {
 				<h2 class="text-4xl font-bold text-gray-900 mb-4">
 					Encuentra tu camino
 				</h2>
+				<p class="text-lg text-gray-600 max-w-2xl mx-auto">
+					ESO, Bachillerato y Formación Profesional para construir tu futuro
+				</p>
 			</div>
 
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
@@ -272,7 +280,7 @@ const getCaminoTheme = (color: string) => {
 				</p>
 			</div>
 
-			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
 				<!-- Acción Tutorial -->
 				<div class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border border-emerald-100">
 					<div class="w-12 h-12 bg-emerald-600 rounded-xl flex items-center justify-center mb-6">
@@ -322,7 +330,7 @@ const getCaminoTheme = (color: string) => {
 				<span class="inline-block px-4 py-2 rounded-full bg-blue-50 text-blue-700 text-sm font-semibold mb-4">
 					Secretaría
 				</span>
-				<h2 class="text-4xl font-bold text-gray-900 mb-6">
+				<h2 class="text-4xl font-bold text-gray-900 mb-4">
 					Gestión online al alcance de todos
 				</h2>
 				<p class="text-lg text-gray-600 mb-12">
