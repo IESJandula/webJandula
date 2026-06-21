@@ -1,6 +1,6 @@
 ---
 import Layout from '@layouts/Layout.astro';
-
+import PageHero from '@components/PageHero.astro';
 
 // Destinos Erasmus+ — sustituir con datos reales del centro
 const movilidades = [
@@ -34,7 +34,6 @@ const proyectoseTwinning: Array<{
 
   //
 
----
 
 <Layout title="Internacionalización">
   <link
@@ -45,38 +44,20 @@ const proyectoseTwinning: Array<{
     crossorigin=""
   />
 
-  <!-- Hero Section -->
-  <div class="relative isolate overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
-    <div class="absolute inset-0 bg-[url('/images/bg-hero.webp')] bg-cover bg-center opacity-10"></div>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
-      <div class="mx-auto max-w-2xl text-center">
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-white">
-          Internacionalización
-        </h1>
-        <p class="mt-4 sm:mt-6 text-base sm:text-lg lg:text-xl leading-relaxed sm:leading-8 text-blue-100">
-          Abriendo fronteras, construyendo futuro. Nuestro compromiso con la dimensión europea de la educación.
-        </p>
-        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="#erasmus"
-            class="w-full sm:w-auto rounded-full bg-white px-6 py-2.5 sm:py-3 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50 transition-all"
-          >
-            Ver Erasmus+
-          </a>
-          <a
-            href="#etwinning"
-            class="w-full sm:w-auto text-sm font-semibold leading-6 text-white flex items-center justify-center gap-2 hover:text-blue-100 transition-colors"
-          >
-            Proyectos eTwinning <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- Decorative gradient blob -->
-    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-      <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-blue-400 to-indigo-300 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
-    </div>
-  </div>
+  <PageHero
+    title="Internacionalización"
+    subtitle="Abriendo fronteras, construyendo futuro. Nuestro compromiso con la dimensión europea de la educación."
+    gradientClass="from-blue-900 via-blue-800 to-indigo-900"
+  >
+    <Fragment slot="ctas">
+      <a href="#erasmus" class="w-full sm:w-auto rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50 transition-all">
+        Ver Erasmus+
+      </a>
+      <a href="#etwinning" class="w-full sm:w-auto text-sm font-semibold text-white flex items-center justify-center gap-2 hover:text-blue-100 transition-colors">
+        Proyectos eTwinning <span aria-hidden="true">→</span>
+      </a>
+    </Fragment>
+  </PageHero>
 
   <!-- Erasmus+ Section -->
   <section id="erasmus" class="py-12 sm:py-16 lg:py-24 bg-white">

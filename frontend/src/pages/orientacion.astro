@@ -1,41 +1,26 @@
 ---
 import Layout from '@layouts/Layout.astro';
+import PageHero from '@components/PageHero.astro';
 ---
 
 <Layout title="Orientación y Comunidad">
 
-  <!-- Hero Section -->
-  <div class="relative isolate overflow-hidden bg-gradient-to-br from-emerald-900 via-teal-800 to-cyan-900">
-    <div class="absolute inset-0 bg-[url('/images/bg-hero.webp')] bg-cover bg-center opacity-10"></div>
-    <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32 lg:px-8 relative z-10">
-      <div class="mx-auto max-w-2xl text-center">
-        <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
-          Orientación y Comunidad
-        </h1>
-        <p class="mt-6 text-lg leading-8 text-emerald-100">
-          Acompañamiento educativo, atención personalizada y participación activa de toda la comunidad escolar.
-        </p>
-        <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-x-6">
-          <a
-            href="#orientacion"
-            class="w-full sm:w-auto text-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-900 shadow-sm hover:bg-emerald-50 transition-all whitespace-nowrap"
-          >
-            Ver Orientación
-          </a>
-          <a
-            href="#comunidad"
-            class="text-sm font-semibold leading-6 text-white flex items-center gap-2 whitespace-nowrap"
-          >
-            Comunidad Educativa <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- Decorative gradient blob -->
-    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-      <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-emerald-400 to-cyan-300 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
-    </div>
-  </div>
+  <PageHero
+    title="Orientación y Comunidad"
+    subtitle="Acompañamiento educativo, atención personalizada y participación activa de toda la comunidad escolar."
+    gradientClass="from-emerald-900 via-teal-800 to-cyan-900"
+    blobGradient="from-emerald-400 to-cyan-300"
+    subtitleClass="text-emerald-100"
+  >
+    <Fragment slot="ctas">
+      <a href="#orientacion" class="w-full sm:w-auto text-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-emerald-900 shadow-sm hover:bg-emerald-50 transition-all">
+        Ver Orientación
+      </a>
+      <a href="#comunidad" class="text-sm font-semibold text-white flex items-center gap-2">
+        Comunidad Educativa <span aria-hidden="true">→</span>
+      </a>
+    </Fragment>
+  </PageHero>
 
   <!-- Orientación Section -->
   <section id="orientacion" class="py-24 bg-white">
