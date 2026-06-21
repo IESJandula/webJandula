@@ -1,0 +1,40 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  gradientClass: string;
+  blobGradient?: string;
+  subtitleClass?: string;
+}
+
+const {
+  title,
+  subtitle,
+  gradientClass,
+  blobGradient = 'from-blue-400 to-indigo-300',
+  subtitleClass = 'text-blue-100',
+} = Astro.props;
+---
+
+<div class={`relative isolate overflow-hidden bg-gradient-to-br ${gradientClass}`}>
+  <div class="absolute inset-0 bg-[url('/images/bg-hero.webp')] bg-cover bg-center opacity-10"></div>
+
+  <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32 lg:px-8 relative z-10">
+    <div class="mx-auto max-w-2xl text-center">
+      <slot name="eyebrow" />
+      <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+        {title}
+      </h1>
+      <p class={`mt-6 text-lg leading-8 ${subtitleClass}`}>
+        {subtitle}
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <slot name="ctas" />
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
+    <div class={`relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr ${blobGradient} opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]`}></div>
+  </div>
+</div>

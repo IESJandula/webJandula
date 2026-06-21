@@ -1,5 +1,3 @@
-import { deselectScripts } from "astro/virtual-modules/transitions-swap-functions.js";
-
 export const proyectos = [
 
     {
@@ -33,7 +31,7 @@ export const proyectos = [
         ],
         etiquetas: ["Biblioteca", "Lectura", "Investigación"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/bibliojandula.png",
+        portada: "/images/proyects/bibliojandula.webp",
         images: [
 
         ]
@@ -50,7 +48,7 @@ export const proyectos = [
         ],
         etiquetas: ["Ajedrez", "Lógica", "Matemáticas"],
         categoria: "Deportes y Juegos",
-        portada: "/images/proyects/Aula_de_Jaque.png",
+        portada: "/images/proyects/Aula_de_Jaque.webp",
         images: []
     },
     {
@@ -74,11 +72,11 @@ export const proyectos = [
             "Noticias de actualidad escolar"],
         etiquetas: ["Literatura", "Cultura", "Expresión Escrita"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/pasa_pagina.png",
+        portada: "/images/proyects/pasa_pagina.webp",
         images: []
     },
     {
-        nombre: "Competiciones Matemáticas",
+        nombre: "IES Jándula – SAEM Thales",
         resumen: "Participación en competiciones matemáticas para fomentar el interés por las matemáticas y el desarrollo del pensamiento lógico.",
         descripcion: `El IES Jándula participa en diversas competiciones matemáticas a nivel local, regional y nacional para fomentar el interés por las matemáticas y el desarrollo del pensamiento lógico entre el alumnado.\n\nTiene como objetivo estimular el interés por las matemáticas, desarrollar estrategias de resolución de problemas e identificar talento matemático precoz`,
         caracteristicas: [
@@ -88,7 +86,7 @@ export const proyectos = [
         ],
         etiquetas: ["Matemáticas", "Lógica", "Resolución de Problemas"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/competicionesMatematicas.png",
+        portada: "/images/proyects/competicionesMatematicas.webp",
         images: []
     },
     {
@@ -103,7 +101,7 @@ export const proyectos = [
         ],
         etiquetas: ["Deporte", "Actividad Física", "Trabajo en Equipo"],
         categoria: "Deportes y Juegos",
-        portada: "/images/proyects/escuelasDeportivas.png",
+        portada: "/images/proyects/escuelasDeportivas.webp",
         images: []
     },
     {
@@ -118,7 +116,7 @@ export const proyectos = [
         ],
         etiquetas: ["Inclusión", "Convivencia", "Habilidades Sociales"],
         categoria: "Cultura y Educación",
-        portada: "/images/proyects/recreosInclusivos.png",
+        portada: "/images/proyects/recreosInclusivos.webp",
         images: []
     }
 

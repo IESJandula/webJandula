@@ -1,13 +1,6 @@
 ---
 import Layout from '@layouts/Layout.astro';
-
-
-//PARTICIPANTES, PAÍSES DE DESTINO Y AÑOS DE ACTIVIDAD(Sustituir con datos reales del centro)
-const estadisticasErasmus = {
-  participantes: 124,
-  paisesDestino: 6,
-  anosActivos: 5,
-};
+import PageHero from '@components/PageHero.astro';
 
 // Destinos Erasmus+ — sustituir con datos reales del centro
 const movilidades = [
@@ -41,7 +34,6 @@ const proyectoseTwinning: Array<{
 
   //
 
----
 
 <Layout title="Internacionalización">
   <link
@@ -52,38 +44,20 @@ const proyectoseTwinning: Array<{
     crossorigin=""
   />
 
-  <!-- Hero Section -->
-  <div class="relative isolate overflow-hidden bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900">
-    <div class="absolute inset-0 bg-[url('/images/bg-hero.webp')] bg-cover bg-center opacity-10"></div>
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24 lg:py-32 relative z-10">
-      <div class="mx-auto max-w-2xl text-center">
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-white">
-          Internacionalización
-        </h1>
-        <p class="mt-4 sm:mt-6 text-base sm:text-lg lg:text-xl leading-relaxed sm:leading-8 text-blue-100">
-          Abriendo fronteras, construyendo futuro. Nuestro compromiso con la dimensión europea de la educación.
-        </p>
-        <div class="mt-8 sm:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="#erasmus"
-            class="w-full sm:w-auto rounded-full bg-white px-6 py-2.5 sm:py-3 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50 transition-all"
-          >
-            Ver Erasmus+
-          </a>
-          <a
-            href="#etwinning"
-            class="w-full sm:w-auto text-sm font-semibold leading-6 text-white flex items-center justify-center gap-2 hover:text-blue-100 transition-colors"
-          >
-            Proyectos eTwinning <span aria-hidden="true">→</span>
-          </a>
-        </div>
-      </div>
-    </div>
-    <!-- Decorative gradient blob -->
-    <div class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]">
-      <div class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-blue-400 to-indigo-300 opacity-20 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"></div>
-    </div>
-  </div>
+  <PageHero
+    title="Internacionalización"
+    subtitle="Abriendo fronteras, construyendo futuro. Nuestro compromiso con la dimensión europea de la educación."
+    gradientClass="from-blue-900 via-blue-800 to-indigo-900"
+  >
+    <Fragment slot="ctas">
+      <a href="#erasmus" class="w-full sm:w-auto rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50 transition-all">
+        Ver Erasmus+
+      </a>
+      <a href="#etwinning" class="w-full sm:w-auto text-sm font-semibold text-white flex items-center justify-center gap-2 hover:text-blue-100 transition-colors">
+        Proyectos eTwinning <span aria-hidden="true">→</span>
+      </a>
+    </Fragment>
+  </PageHero>
 
   <!-- Erasmus+ Section -->
   <section id="erasmus" class="py-12 sm:py-16 lg:py-24 bg-white">
@@ -103,22 +77,20 @@ const proyectoseTwinning: Array<{
         </p>
       </div>
 
-      <!-- Estadísticas Erasmus+ -->
-      <!-- TODO: Actualizar con estadísticas reales -->
+      <!-- Qué ofrece Erasmus+ en nuestro centro -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-16">
-        <div class="rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-4 sm:p-6 text-center ring-1 ring-blue-100">
-          <div class="text-3xl sm:text-4xl font-bold text-blue-700">{estadisticasErasmus.participantes}</div>
-          <div class="mt-1 sm:mt-2 text-xs sm:text-sm font-medium text-gray-600">Participantes</div>
+        <div class="rounded-xl sm:rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 p-5 sm:p-6 ring-1 ring-blue-100">
+          <h3 class="text-base sm:text-lg font-bold text-blue-900">Movilidad europea</h3>
+          <p class="mt-1.5 text-xs sm:text-sm leading-relaxed text-gray-600">Estancias formativas para alumnado y profesorado de FP en distintos países de Europa.</p>
         </div>
-        <div class="rounded-xl sm:rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-4 sm:p-6 text-center ring-1 ring-green-100">
-          <div class="text-3xl sm:text-4xl font-bold text-green-700">{estadisticasErasmus.paisesDestino}</div>
-          <div class="mt-1 sm:mt-2 text-xs sm:text-sm font-medium text-gray-600">Países destino</div>
+        <div class="rounded-xl sm:rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 p-5 sm:p-6 ring-1 ring-green-100">
+          <h3 class="text-base sm:text-lg font-bold text-green-900">Prácticas en empresas</h3>
+          <p class="mt-1.5 text-xs sm:text-sm leading-relaxed text-gray-600">Experiencia laboral real en entornos profesionales internacionales que mejora la empleabilidad.</p>
         </div>
-        <div class="rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-4 sm:p-6 text-center ring-1 ring-purple-100">
-          <div class="text-3xl sm:text-4xl font-bold text-purple-700">{estadisticasErasmus.anosActivos}</div>
-          <div class="mt-1 sm:mt-2 text-xs sm:text-sm font-medium text-gray-600">Años activos</div>
+        <div class="rounded-xl sm:rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 ring-1 ring-purple-100 sm:col-span-2 lg:col-span-1">
+          <h3 class="text-base sm:text-lg font-bold text-purple-900">Reconocimiento académico</h3>
+          <p class="mt-1.5 text-xs sm:text-sm leading-relaxed text-gray-600">Competencias adquiridas certificadas y validadas dentro del marco europeo.</p>
         </div>
-
       </div>
 
       <!-- Mapa interactivo de Movilidades -->
@@ -181,7 +153,7 @@ const proyectoseTwinning: Array<{
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Alemania.png" 
+              src="/images/Alemania.webp" 
               alt="Experiencia Erasmus Colonia, Alemania 2026" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -199,7 +171,7 @@ const proyectoseTwinning: Array<{
           
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Alemania1.png" 
+              src="/images/Alemania1.webp" 
               alt="Experiencia Erasmus Colonia, Alemania 2025" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -217,7 +189,7 @@ const proyectoseTwinning: Array<{
           
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Alemania2.png" 
+              src="/images/Alemania2.webp" 
               alt="Experiencia Erasmus Colonia, Alemania 2025" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -235,7 +207,7 @@ const proyectoseTwinning: Array<{
           
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Francia.png" 
+              src="/images/Francia.webp" 
               alt="Experiencia Erasmus Tours 2024" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -253,7 +225,7 @@ const proyectoseTwinning: Array<{
 
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Italia.png" 
+              src="/images/Italia.webp" 
               alt="Experiencia Erasmus Italia" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -271,7 +243,7 @@ const proyectoseTwinning: Array<{
 
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Finlandia.png" 
+              src="/images/Finlandia.webp" 
               alt="Experiencia Erasmus Finlandia" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -289,7 +261,7 @@ const proyectoseTwinning: Array<{
 
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/Eslovaquia.png" 
+              src="/images/Eslovaquia.webp" 
               alt="Experiencia Erasmus Eslovaquia" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -307,7 +279,7 @@ const proyectoseTwinning: Array<{
 
           <div class="group relative aspect-square overflow-hidden rounded-2xl bg-gray-100 shadow-sm ring-1 ring-gray-900/5">
             <img 
-              src="/images/polonia.png" 
+              src="/images/polonia.webp" 
               alt="Experiencia Erasmus Arkadia, Polonia" 
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" 
               loading="lazy" 
@@ -407,18 +379,21 @@ const proyectoseTwinning: Array<{
         <div class="relative mt-8 lg:mt-0">
           <div class="rounded-2xl sm:rounded-3xl bg-gradient-to-br from-blue-600 to-indigo-800 p-6 sm:p-8 lg:p-12 shadow-2xl">
             <div class="text-center text-white space-y-4 sm:space-y-6">
-              <div class="text-5xl sm:text-6xl mb-2 sm:mb-4">🇪🇺</div>
-              <h3 class="text-xl sm:text-2xl font-bold">Centro Embajador 2024-2026</h3>
+              <div class="flex justify-center mb-2 sm:mb-4">
+                <svg class="h-14 w-14 sm:h-16 sm:w-16 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5" />
+                </svg>
+              </div>
+              <h3 class="text-xl sm:text-2xl font-bold">Escuela Embajadora del Parlamento Europeo</h3>
               <div class="h-px bg-white/20 my-4 sm:my-6"></div>
-              <!-- TODO: Actualizar con datos reales del programa EPAS -->
-              <div class="grid grid-cols-2 gap-4 sm:gap-6 text-center">
-                <div>
-                  <div class="text-3xl sm:text-4xl font-bold">[N]</div>
-                  <div class="text-xs sm:text-sm text-blue-200 mt-1">Alumnos embajadores</div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 text-left">
+                <div class="flex items-start gap-2.5">
+                  <svg class="h-5 w-5 text-white/70 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <span class="text-xs sm:text-sm text-blue-100">Alumnado embajador que difunde los valores democráticos europeos</span>
                 </div>
-                <div>
-                  <div class="text-3xl sm:text-4xl font-bold">[N]</div>
-                  <div class="text-xs sm:text-sm text-blue-200 mt-1">Actividades anuales</div>
+                <div class="flex items-start gap-2.5">
+                  <svg class="h-5 w-5 text-white/70 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                  <span class="text-xs sm:text-sm text-blue-100">Actividades de educación para la ciudadanía y la democracia</span>
                 </div>
               </div>
               <div class="pt-4 sm:pt-6">

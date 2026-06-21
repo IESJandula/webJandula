@@ -1,6 +1,8 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import { ciclos } from "@/lib/content";
+import CicloCard from "@components/CicloCard.astro";
+import AsignaturasModal from "@components/AsignaturasModal.astro";
 
 const familiasCiclosSet = new Set(ciclos.map((ciclo) => ciclo.familia));
 const familiasCiclos = Array.from(familiasCiclosSet).sort((a, b) =>
@@ -119,7 +121,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
         <!--Imagen "banner" de ESO -->
   <div class="relative z-10">
       <img
-        src="images/Gemini_Generated_Image_om6cjvom6cjvom6c.png"
+        src="images/Gemini_Generated_Image_om6cjvom6cjvom6c.webp"
         alt="Estudiantes en clase"
         class="w-full h-64 object-cover object-center rounded-tl-md rounded-tr-md shadow-lg ring-1 ring-slate-200 mb-10 transition-all hover:shadow-xl hover:ring-slate-300"
     >
@@ -514,215 +516,30 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         id="ciclos-grid"
       >
-        {
-          ciclos.map((dato) => (
-            <div
-              data-familia={dato.familia}
-              class="ciclo-card group relative flex flex-col justify-between overflow-hidden rounded-2xl bg-white transition-all hover:shadow-xl hover:shadow-slate-200/50 hover:-translate-y-1 ring-1 ring-slate-100"
-            >
-              <div>
-                <div class="flex items-center justify-between mb-6">
-
-                    <!--Imagen de ciclo -->
-
-                  <div class="w-full h-44 bg-blue-500">
-                    <img
-                      src={dato.imagen?.url ?? "/fallback-banner.jpg"}
-                      alt={dato.imagen?.alternativeText ?? `Imagen del ciclo formativo: ${dato.nombre}`}
-                      class="w-full h-full object-cover"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-
-                  <span
-                    aria-hidden="true"
-                    class={`absolute top-4 right-4 text-white inline-flex items-center rounded-full px-2.5 py-0.5 text-s font-semibold ring-1 ring-inset ${
-                      dato.nivel.includes("Superior")
-                        ? "bg-purple-600 ring-purple-600/20"
-                        : dato.nivel.includes("Medio")
-                          ? "bg-blue-600 ring-blue-600/20"
-                          : "bg-green-600 ring-green-600/20"
-                    }`}
-                  >
-                    {dato.nivel.replace("Grado ", "")}
-                  </span>
-                </div>
-
-                <div class="p-7 bg-white w-full">
-                  <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition-colors duration-300 leading-tight">
-                    {dato.nombre}
-                  </h3>
-                  <p class="mt-4 text-sm leading-relaxed text-slate-500">
-                    {dato.descripcion}
-                  </p>
-
-                  <div class="mt-6 w-full border-t border-slate-100 pt-6">
-                    <div class="flex flex-wrap items-start gap-2">
-                    <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
-                      <svg
-                        class="h-3.5 w-3.5 text-slate-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                      {dato.duracion}
-                    </span>
-                    <span class="inline-flex items-center gap-1.5 rounded-md bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10">
-                      <svg
-                        class="h-3.5 w-3.5 text-slate-400"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                        />
-                      </svg>
-                      {dato.turno}
-                    </span>
-
-                    {
-                      dato.bilingue && (
-                        <span class="inline-flex items-center gap-1.5 rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-200/80">
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802" />
-</svg>
-
-                          Bilingue: {dato.bilingue}
-                        </span>
-                      )
-                    }
-                  </div>
-                  </div>
-                </div>
-
-                <div class="px-7 pb-7 pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  <a
-                    href={dato.enlace}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-500"
-                  >
-                    Ver ciclo
-                  </a>
-                  <button
-                    type="button"
-                    class="open-asignaturas-modal inline-flex items-center justify-center rounded-xl bg-slate-100 px-4 py-2.5 text-sm font-semibold text-slate-700 ring-1 ring-slate-200 transition hover:bg-slate-200"
-                    data-ciclo={dato.nombre}
-                    data-asignaturas={JSON.stringify(dato.asignaturas ?? { primero: [], segundo: [] })}
-                  >
-                    Ver asignaturas
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))
-        }
+        {ciclos.map((dato) => (
+          <CicloCard
+            nombre={dato.nombre}
+            nivel={dato.nivel}
+            familia={dato.familia}
+            descripcion={dato.descripcion}
+            duracion={dato.duracion}
+            turno={dato.turno}
+            enlace={dato.enlace}
+            bilingue={dato.bilingue}
+            imagen={dato.imagen}
+            asignaturas={dato.asignaturas}
+          />
+        ))}
       </div>
     </div>
   </section>
 
-  <div id="asignaturas-modal" class="fixed inset-0 z-50 hidden" aria-hidden="true">
-    <div id="asignaturas-overlay" class="absolute inset-0 bg-slate-900/60"></div>
-    <div class="relative mx-auto mt-12 w-[92%] max-w-2xl rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 sm:mt-20">
-      <div class="flex items-start justify-between border-b border-slate-200 px-6 py-4">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">Plan de estudios</p>
-          <h3 id="modal-title" class="mt-1 text-lg font-bold text-slate-900">Asignaturas del ciclo</h3>
-        </div>
-        <button id="close-asignaturas-modal" type="button" class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700" aria-label="Cerrar modal">
-          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-          </svg>
-        </button>
-      </div>
-      <div class="grid grid-cols-1 gap-5 p-6 md:grid-cols-2">
-        <section class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
-          <h4 class="text-sm font-semibold text-slate-900">1º curso</h4>
-          <ul id="modal-primero" class="mt-3 space-y-2 text-sm text-slate-700"></ul>
-        </section>
-        <section class="rounded-xl bg-slate-50 p-4 ring-1 ring-slate-200/80">
-          <h4 class="text-sm font-semibold text-slate-900">2º curso</h4>
-          <ul id="modal-segundo" class="mt-3 space-y-2 text-sm text-slate-700"></ul>
-        </section>
-      </div>
-    </div>
-  </div>
+  <AsignaturasModal />
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const filterButtons = document.querySelectorAll(".filter-btn");
       const cards = document.querySelectorAll(".ciclo-card");
-      const modal = document.getElementById("asignaturas-modal");
-      const modalTitle = document.getElementById("modal-title");
-      const modalPrimero = document.getElementById("modal-primero");
-      const modalSegundo = document.getElementById("modal-segundo");
-      const openModalButtons = document.querySelectorAll(".open-asignaturas-modal");
-      const closeModalButton = document.getElementById("close-asignaturas-modal");
-      const overlay = document.getElementById("asignaturas-overlay");
-
-      const renderList = (container: Element | null, items: string[]) => {
-        if (!container) return;
-        container.innerHTML = "";
-        const materias = items.length ? items : ["No disponible por el momento."];
-
-        materias.forEach((materia) => {
-          const li = document.createElement("li");
-          li.className = "flex items-start gap-2";
-          li.innerHTML = '<span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>' + materia;
-          container.appendChild(li);
-        });
-      };
-
-      const openModal = (name: string, asignaturas: { primero?: string[]; segundo?: string[] }) => {
-        if (!modal) return;
-        if (modalTitle) modalTitle.textContent = `Asignaturas - ${name}`;
-        renderList(modalPrimero, asignaturas.primero ?? []);
-        renderList(modalSegundo, asignaturas.segundo ?? []);
-        modal.classList.remove("hidden");
-        modal.setAttribute("aria-hidden", "false");
-      };
-
-      const closeModal = () => {
-        if (!modal) return;
-        modal.classList.add("hidden");
-        modal.setAttribute("aria-hidden", "true");
-      };
-
-      openModalButtons.forEach((button) => {
-        button.addEventListener("click", () => {
-          const ciclo = button.getAttribute("data-ciclo") ?? "Ciclo formativo";
-          const raw = button.getAttribute("data-asignaturas") ?? '{"primero":[],"segundo":[]}';
-          let asignaturas = { primero: [], segundo: [] };
-
-          try {
-            asignaturas = JSON.parse(raw);
-          } catch {
-            asignaturas = { primero: [], segundo: [] };
-          }
-
-          openModal(ciclo, asignaturas);
-        });
-      });
-
-      closeModalButton?.addEventListener("click", closeModal);
-      overlay?.addEventListener("click", closeModal);
-
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape") closeModal();
-      });
-
       filterButtons.forEach((btn) => {
         btn.addEventListener("click", () => {
           // Remove active class from all buttons

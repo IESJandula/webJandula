@@ -29,12 +29,7 @@ const megaMenu = [
   {
     name: "Proyectos",
     href: "/proyectos",
-    items: [
-      { name: "Proyecto LINCE", href: "/proyectos", desc: "Shell Eco Marathon" },
-      { name: "Biblioteca Pasa Página", href: "/proyectos", desc: "Lectura y revista escolar" },
-      { name: "Aula Jaque & Rubik", href: "/proyectos", desc: "Pensamiento lógico" },
-      { name: "Escuelas Deportivas", href: "/proyectos", desc: "Deporte y salud" },
-    ],
+    items: [],
   },
   {
     name: "Internacional",
@@ -58,7 +53,7 @@ const megaMenu = [
     ],
   },
   {
-    name: "Secretaría Virtual",
+    name: "Secretaría",
     href: "/secretaria_virtual",
     items: [
       { name: "Trámites", href: "/secretaria_virtual#tramites", desc: "Admisión, matrícula y becas" },
@@ -87,6 +82,7 @@ const currentPath = Astro.url.pathname;
     <ul class="hidden lg:flex items-center gap-1 h-full" role="menubar" aria-label="Menú principal">
       {megaMenu.map((section, i) => {
         const alignRight = i >= megaMenu.length - 2;
+        const hasItems = section.items && section.items.length > 0;
         return (
         <li class="relative h-full flex items-center group" role="none">
           <!-- Trigger -->
@@ -97,17 +93,20 @@ const currentPath = Astro.url.pathname;
                 ? 'text-blue-700 bg-blue-50'
                 : 'text-gray-700 hover:text-blue-700 hover:bg-gray-50'}
             `}
-            aria-haspopup="true"
-            aria-expanded="false"
+            aria-haspopup={hasItems ? "true" : undefined}
+            aria-expanded={hasItems ? "false" : undefined}
             role="menuitem"
-            data-mega-trigger
+            data-mega-trigger={hasItems ? "" : undefined}
           >
             {section.name}
-            <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-desktop-chevron>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
-            </svg>
+            {hasItems && (
+              <svg class="w-3.5 h-3.5 text-gray-400 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" data-desktop-chevron>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+            )}
           </a>
 
+          {hasItems && (
           <!-- Dropdown Panel — controlado por JS (hover + focus) -->
           <div
             class={`absolute top-full pt-2 opacity-0 invisible transition-all duration-200 ease-out ${
@@ -136,6 +135,7 @@ const currentPath = Astro.url.pathname;
               </ul>
             </div>
           </div>
+          )}
         </li>
         );
       })}
@@ -165,8 +165,12 @@ const currentPath = Astro.url.pathname;
     aria-label="Menú móvil"
   >
     <ul class="container py-3 space-y-1">
-      {megaMenu.map((section, idx) => (
+      {megaMenu.map((section, idx) => {
+        const hasItems = section.items && section.items.length > 0;
+        return (
         <li>
+          {hasItems ? (
+          <>
           <!-- Accordion trigger -->
           <button
             class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
@@ -186,7 +190,7 @@ const currentPath = Astro.url.pathname;
             class="hidden pl-4 pb-2 space-y-1"
             aria-label={`Submenú de ${section.name}`}
           >
-            
+
             {section.items.map((item) => (
               <li>
                 <a
@@ -199,8 +203,18 @@ const currentPath = Astro.url.pathname;
               </li>
             ))}
           </ul>
+          </>
+          ) : (
+          <a
+            href={section.href}
+            class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
+          >
+            {section.name}
+          </a>
+          )}
         </li>
-      ))}
+        );
+      })}
     </ul>
   </div>
 </header>
