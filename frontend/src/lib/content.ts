@@ -287,12 +287,12 @@ export const departamentos = [
 
 
 export const equipodirectivo = [
-  { cargo: 'Directora', nombre: 'Encarnación Perálvarez Aguilera'},
-  { cargo: 'Vicedirectora', nombre: 'Mercedes Casuso Quesada'},
-  { cargo: 'Jefe de Estudios', nombre: 'José Antonio Sánchez García'},
-  { cargo: 'Secretario', nombre: 'Rafael Delgado Cubilla'},
-  { cargo: 'Jefe de Estudios Adjunto', nombre: 'Inmaculada Relaño Gutiérrez'},
-  { cargo: 'Jefe de Estudios Adjunto', nombre: 'Francisco Martínez Ruiz'}
+  { cargo: 'Directora', nombre: 'María Aránzazu González Mármol' },
+  { cargo: 'Vicedirector', nombre: 'Manuel Arroyo Juan' },
+  { cargo: 'Secretario', nombre: 'Rafael Delgado Cubilla' },
+  { cargo: 'Jefe de Estudios', nombre: 'Francisco Martínez Ruiz' },
+  { cargo: 'Jefe de Estudios Adjunto', nombre: 'José María Luque Alias' },
+  { cargo: 'Jefa de Estudios Adjunta', nombre: 'Irene Juárez Ruiz' },
 ];
 
 export const horariosCentro = [
@@ -308,9 +308,9 @@ export const horariosCentro = [
 ];
 
 export const calendarioEscolar = {
-  curso: '2025-26',
+  curso: '2026-27',
   descripcion: 'El calendario se ajusta a la normativa de la Junta de Andalucía.',
-  url: 'https://www.juntadeandalucia.es/educacion'
+  url: 'https://www.juntadeandalucia.es/educacion/portals/web/ced/calendario-escolar'
 };
 
 export const documentos = [
