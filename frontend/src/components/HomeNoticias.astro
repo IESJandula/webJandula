@@ -1,0 +1,41 @@
+---
+import SectionHeader from './SectionHeader.astro';
+import CardNoticia from './CardNoticia.astro';
+import { getNoticias } from '@/lib/api';
+
+const news = await getNoticias(5);
+const sortedNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+const featuredNews = sortedNews.slice(0, 2);
+const secondaryNews = sortedNews.slice(2, 5);
+---
+
+{sortedNews.length > 0 && (
+<section class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <SectionHeader
+      eyebrow="Actualidad"
+      eyebrowClass="bg-blue-50 text-blue-700"
+      title="Últimas noticias"
+      subtitle="Mantente al día de la vida, los eventos y las actividades de nuestro centro"
+    />
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 max-w-6xl mx-auto">
+      {featuredNews.map((item) => (
+        <CardNoticia {...item} variant="featured" />
+      ))}
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
+      {secondaryNews.map((item) => (
+        <CardNoticia {...item} />
+      ))}
+    </div>
+
+    <div class="text-center mt-12">
+      <a href="/noticias" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-700 transition-colors">
+        Ver todas las noticias
+      </a>
+    </div>
+  </div>
+</section>
+)}

@@ -1,5 +1,3 @@
-import { deselectScripts } from "astro/virtual-modules/transitions-swap-functions.js";
-
 export const proyectos = [
 
     {
