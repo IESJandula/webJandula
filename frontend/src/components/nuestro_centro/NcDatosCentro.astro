@@ -1,0 +1,66 @@
+---
+import { contacto } from '@lib/content';
+---
+
+<section id="datos-centro" class="py-20 bg-white">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="mx-auto max-w-3xl text-center">
+      <h2 class="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Datos del Centro</h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="mt-10 h-56 sm:h-64 md:h-auto overflow-hidden rounded-2xl bg-slate-100 ring-1 ring-slate-200">
+        <img
+          src="/images/portadaJandula.webp"
+          alt="Logo del IES Jándula"
+          class="block h-full w-full object-cover object-center"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+
+      <div class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <span class="text-sm font-semibold text-slate-900">Denominación:</span>
+          <p class="mt-1 text-slate-700">IES JÁNDULA</p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <span class="text-sm font-semibold text-slate-900">Código:</span>
+          <p class="mt-1 text-slate-700">23005694</p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <span class="text-sm font-semibold text-slate-900">CIF:</span>
+          <p class="mt-1 text-slate-700">S-4111001-F</p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200 sm:col-span-2 lg:col-span-3">
+          <span class="text-sm font-semibold text-slate-900">Dirección:</span>
+          <p class="mt-1 text-slate-700">c/ San Vicente de Paúl, s/n, 23740 Andújar - Jaén</p>
+          <iframe
+            class="mt-2 w-full rounded-lg border-0"
+            height="180"
+            src={contacto.mapaUrl}
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <span class="text-sm font-semibold text-slate-900">Teléfono:</span>
+          <p class="mt-1 text-slate-700">953 53 95 08</p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <span class="text-sm font-semibold text-slate-900">Web:</span>
+          <p class="mt-1">
+            <a href="https://www.iesjandula.es" target="_blank" rel="noopener noreferrer" class="text-blue-700 hover:text-blue-800 underline">www.iesjandula.es</a>
+          </p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
+          <span class="text-sm font-semibold text-slate-900">Email:</span>
+          <p class="mt-1">
+            <a href="mailto:iesjandula@gmail.com" class="text-blue-700 hover:text-blue-800 underline">iesjandula@gmail.com</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

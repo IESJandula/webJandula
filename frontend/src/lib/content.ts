@@ -48,8 +48,8 @@ export const contacto = {
 export const ciclos = [
 {
     nivel: "Grado Básico",
-    nombre: "Técnico Básico en Informática de Oficina",
-    familia: "Administración y Gestión",
+    nombre: "Técnico Básico en Informática y Comunicaciones",
+    familia: "Informática",
     duracion: "2 años",
     turno: "Mañana",
     descripcion: "Realizar operaciones auxiliares de montaje y mantenimiento de sistemas microinformáticos, periféricos y redes de comunicación de datos.",
@@ -82,14 +82,13 @@ export const ciclos = [
     nombre: "Sistemas Microinformáticos y Redes (SMR)",
     familia: "Informática",
     duracion: "2 años",
-    turno: "Mañana/Tarde",
+    turno: "Mañana",
     descripcion: "Instalación, configuración y mantenimiento de sistemas microinformáticos, aislados o en red, así como redes locales en pequeños entornos.",
     imagen: {
       url: "/images/redes.jpg",
       alternativeText: "Imagen representativa del ciclo formativo de Grado Medio en Sistemas Microinformáticos y Redes"
     },
     enlace:"https://www.todofp.es/que-estudiar/familias-profesionales/informatica-comunicaciones/sistemas-microniformaticos-redes.html",
-    bilingue: "Inglés",
     asignaturas: {
       primero: [
         "Técnicas de equitación",
@@ -158,7 +157,7 @@ export const ciclos = [
     nombre: "Mecatrónica Industrial",
     familia: "Industrial",
     duracion: "2 años",
-    turno: "Mañana/Tarde",
+    turno: "Mañana",
     descripcion: "Configurar y optimizar sistemas mecatrónicos industriales, así como planificar, supervisar y ejecutar su montaje y mantenimiento.",
     imagen: {
       url: "/images/meca.jpg",
@@ -194,7 +193,7 @@ export const ciclos = [
     nombre: "Desarrollo de Aplicaciones Multiplataforma (DAM)",
     familia: "Informática",
     duracion: "2 años",
-    turno: "Tarde/Dual",
+    turno: "Mañana",
     descripcion: "Desarrollar, implantar, documentar y mantener aplicaciones informáticas multiplataforma, utilizando tecnologías y entornos de desarrollo específicos.",
     imagen: {
       url: "/images/dam.jpg",
@@ -231,7 +230,7 @@ export const ciclos = [
     nombre: "Desarrollo de Aplicaciones Web (DAW)",
     familia: "Informática",
     duracion: "2 años",
-    turno: "Tarde/Dual",
+    turno: "Tarde",
     descripcion: "Desarrollar, implantar, y mantener aplicaciones web, con independencia del modelo empleado y utilizando tecnologías específicas.",
     imagen: {
       url: "/images/daw.jpg",
@@ -315,26 +314,9 @@ export const calendarioEscolar = {
 
 export const documentos = [
   {
-    titulo: 'Proyecto Educativo de Centro (PEC)',
-    descripcion: [
-      'Define la identidad, valores y lineas pedagogicas del centro.',
-      'Establece los objetivos de mejora educativa.',
-      'Aprobado por el Consejo Escolar (aspectos pedagogicos por el Claustro).'
-    ]
-  },
-  {
-    titulo: 'Reglamento de Organizacion y Funcionamiento (ROF)',
-    descripcion: [
-      'Regula la estructura organizativa del centro.',
-      'Establece derechos y deberes de la comunidad educativa.',
-      'Define procedimientos de convivencia y disciplina.',
-      'Garantiza el cumplimiento de la normativa vigente.'
-    ]
-  },
-  {
     titulo: 'Plan de Centro',
     descripcion: [
-      'Integra el Proyecto Educativo, ROF y Proyecto de Gestion.',
+      'Integra el Proyecto Educativo de Centro (PEC), el Reglamento de Organizacion y Funcionamiento (ROF) y el Proyecto de Gestion.',
       'Documento oficial aprobado por el Consejo Escolar.',
       'Publicado en la pagina web del centro.'
     ]
@@ -355,13 +337,6 @@ export const documentos = [
     ]
   },
   {
-    titulo: 'Plan de Accion Tutorial (PAT)',
-    descripcion: [
-      'Organiza las actividades de tutoria.',
-      'Propone lineas de intervencion en orientacion, convivencia y atencion a la diversidad.'
-    ]
-  },
-  {
     titulo: 'Plan de Convivencia',
     descripcion: [
       'Define estrategias de prevencion de conflictos.',
@@ -377,12 +352,6 @@ export const documentos = [
     ]
   },
   {
-    titulo: 'Plan de Bienestar y Proteccion de la Infancia',
-    descripcion: [
-      'Garantiza el cumplimiento de la normativa en proteccion de menores.'
-    ]
-  },
-  {
     titulo: 'Plan Digital de Centro (PAD)',
     descripcion: [
       'Responsable: Coordinador de Transformacion Digital Educativa (TDE).',
@@ -391,19 +360,12 @@ export const documentos = [
     ]
   },
   {
-    titulo: 'Plan Lector y Biblioteca Escolar',
+    titulo: 'Biblioteca Escolar',
     descripcion: [
       'Responsable: Coordinacion de Biblioteca.',
       'Promueve el habito de lectura y el uso de la biblioteca escolar.'
     ]
   },
-  {
-    titulo: 'Plan de Formacion del Profesorado',
-    descripcion: [
-      'Coordinado por el Departamento de Formacion, Evaluacion e Innovacion Educativa (FEIE).',
-      'Propone acciones de formacion permanente vinculadas al Plan de Mejora.'
-    ]
-  }
 ];
 
 

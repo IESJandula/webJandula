@@ -1,0 +1,42 @@
+---
+const caracteristicas = [
+  {
+    titulo: 'Compromiso con la excelencia educativa',
+    descripcion: 'Mantenemos una calidad académica contrastada con resultados superiores a los de centros de contexto similar.',
+    span: false,
+  },
+  {
+    titulo: 'Educación inclusiva',
+    descripcion: 'Atendemos a alumnado con necesidades diversas, garantizando su permanencia y éxito escolar.',
+    span: false,
+  },
+  {
+    titulo: 'Proyección internacional',
+    descripcion: 'Participamos en proyectos Erasmus+, e-Twinning y Escuelas Embajadoras del Parlamento Europeo.',
+    span: false,
+  },
+  {
+    titulo: 'Innovación metodológica',
+    descripcion: 'Impartimos educación bilingüe en inglés, utilizamos metodologías activas y contamos con infraestructuras tecnológicas modernas.',
+    span: false,
+  },
+  {
+    titulo: 'Comunicación y proximidad',
+    descripcion: 'Trabajamos colaborativamente con familias, empresas y entidades locales para ofrecer una educación contextualizada.',
+    span: true,
+  },
+];
+---
+
+<section id="caracteristicas-centro" class="py-20 bg-slate-50">
+  <div class="mx-auto max-w-7xl px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+      {caracteristicas.map((item) => (
+        <article class:list={['rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200', { 'md:col-span-2': item.span }]}>
+          <h3 class="text-lg font-semibold text-slate-900">{item.titulo}</h3>
+          <p class="mt-2 text-slate-600">{item.descripcion}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
