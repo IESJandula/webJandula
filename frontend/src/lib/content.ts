@@ -69,7 +69,7 @@ export const ciclos = [
       ],
       segundo: [
         "Instalación y mantenimiento de redes para transmisión de datos",
-        "Ofimática y archivo de documentos",
+        "Equipos eléctricos y electrónicos",
         "Proyecto intermodular de aprendizaje colaborativo",
         "Comunicación y Ciencias Sociales II",
         "Ciencias Aplicadas II",
