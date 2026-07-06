@@ -14,6 +14,7 @@ const titleId = `${id}-title`;
 const categoryId = `${id}-category`;
 const descriptionId = `${id}-description`;
 const heroId = `${id}-hero`;
+const statsId = `${id}-stats`;
 const featuresWrapId = `${id}-features-wrap`;
 const featuresId = `${id}-features`;
 const tagsId = `${id}-tags`;
@@ -62,6 +63,8 @@ const galleryId = `${id}-gallery`;
 				decoding="async"
 			/>
 
+			<div id={statsId} class="grid grid-cols-2 gap-3"></div>
+
 			<p id={descriptionId} class="text-sm sm:text-base leading-6 text-slate-700"></p>
 
 			<div id={featuresWrapId} class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
@@ -77,7 +80,7 @@ const galleryId = `${id}-gallery`;
 	</div>
 </div>
 
-<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, featuresWrapId, featuresId, tagsId, galleryId }}>
+<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, statsId, featuresWrapId, featuresId, tagsId, galleryId }}>
 	const modal = document.getElementById(modalId);
 	const overlay = document.getElementById(overlayId);
 	const closeButton = document.getElementById(closeId);
@@ -85,6 +88,7 @@ const galleryId = `${id}-gallery`;
 	const categoryEl = document.getElementById(categoryId);
 	const descriptionEl = document.getElementById(descriptionId);
 	const heroEl = document.getElementById(heroId);
+	const statsEl = document.getElementById(statsId);
 	const featuresWrap = document.getElementById(featuresWrapId);
 	const featuresEl = document.getElementById(featuresId);
 	const tagsEl = document.getElementById(tagsId);
@@ -114,6 +118,7 @@ const galleryId = `${id}-gallery`;
 		const description = data.proyectoDescription || data.description || data.proyectoSummary || data.summary || "";
 		const tags = parseJson(data.proyectoTags || data.tags);
 		const features = parseJson(data.proyectoFeatures || data.features);
+		const stats = parseJson(data.proyectoStats || data.stats);
 		const images = parseJson(data.proyectoImages || data.images);
 		const hero = data.proyectoImage || data.image || images[0] || "";
 
@@ -129,6 +134,25 @@ const galleryId = `${id}-gallery`;
 			} else {
 				setHidden(heroEl, true);
 			}
+		}
+
+		if (statsEl) {
+			statsEl.innerHTML = "";
+			stats.forEach((stat) => {
+				if (!stat || !stat.valor) return;
+				const box = document.createElement("div");
+				box.className = "rounded-xl bg-blue-50 px-4 py-3 text-center ring-1 ring-blue-100";
+				const valor = document.createElement("p");
+				valor.className = "text-2xl font-bold text-blue-700";
+				valor.textContent = stat.valor;
+				const detalle = document.createElement("p");
+				detalle.className = "mt-1 text-xs text-slate-600";
+				detalle.textContent = stat.detalle || "";
+				box.appendChild(valor);
+				box.appendChild(detalle);
+				statsEl.appendChild(box);
+			});
+			setHidden(statsEl, stats.length === 0);
 		}
 
 		if (featuresEl && featuresWrap) {
