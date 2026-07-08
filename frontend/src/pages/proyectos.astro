@@ -3,10 +3,6 @@ import Layout from "@/layouts/Layout.astro"
 import PageHero from "@/components/PageHero.astro";
 import ProyectModal from "@/components/ProyectModal.astro";
 import {proyectos} from "@/lib/proyects";
-
-const categorias = [...new Set(proyectos.map((p) => p.categoria))];
-const contarPorCategoria = (cat: string) =>
-  proyectos.filter((p) => p.categoria === cat).length;
 ---
 
 <Layout title="Proyectos - IES Jándula">
@@ -16,43 +12,16 @@ const contarPorCategoria = (cat: string) =>
     gradientClass="from-indigo-900 via-blue-800 to-sky-900"
     blobGradient="from-sky-400 to-indigo-300"
     subtitleClass="text-blue-100"
-  >
-    <Fragment slot="ctas">
-      <a href="#proyectos" class="w-full sm:w-auto text-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-blue-900 shadow-sm hover:bg-blue-50 transition-all">
-        Explorar proyectos
-      </a>
-    </Fragment>
-  </PageHero>
+    compact
+  />
 
   <div id="proyectos" class="bg-white py-16 sm:py-24 scroll-mt-24">
     <div class="mx-auto max-w-7xl px-6 lg:px-8">
-
-      <!-- Filtros por categoría -->
-      <div class="mb-12 flex flex-wrap items-center justify-center gap-2" role="group" aria-label="Filtrar proyectos por categoría">
-        <button
-          type="button"
-          data-filter="todos"
-          class="proyecto-filtro rounded-full px-4 py-2 text-sm font-semibold transition-all bg-blue-600 text-white shadow-sm"
-        >
-          Todos <span class="opacity-70 font-normal">({proyectos.length})</span>
-        </button>
-        {categorias.map((cat) => (
-          <button
-            type="button"
-            data-filter={cat}
-            class="proyecto-filtro rounded-full px-4 py-2 text-sm font-semibold transition-all bg-slate-100 text-slate-600 hover:bg-slate-200"
-          >
-            {cat} <span class="opacity-70 font-normal">({contarPorCategoria(cat)})</span>
-          </button>
-        ))}
-      </div>
 
       <div id="proyectos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {proyectos.map((pro) => (
           <div
             class="group relative flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 transition-all hover:shadow-xl hover:-translate-y-1"
-            data-proyecto-card
-            data-categoria={pro.categoria}
           >
             <button
               type="button"
@@ -102,77 +71,8 @@ const contarPorCategoria = (cat: string) =>
           </div>
         ))}
       </div>
-
-      <p id="proyectos-vacio" class="hidden mt-12 text-center text-slate-500">
-        No hay proyectos en esta categoría por el momento.
-      </p>
     </div>
   </div>
 
   <ProyectModal id="proyectos" />
-
-  <style>
-    [data-proyecto-card] {
-      transition: opacity 0.25s ease, transform 0.25s ease, box-shadow 0.15s ease;
-    }
-    [data-proyecto-card].saliendo {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-  </style>
-
-  <script>
-    const filtros = document.querySelectorAll<HTMLButtonElement>(".proyecto-filtro");
-    const cards = document.querySelectorAll<HTMLElement>("[data-proyecto-card]");
-    const mensajeVacio = document.getElementById("proyectos-vacio");
-
-    const activo = ["bg-blue-600", "text-white", "shadow-sm"];
-    const inactivo = ["bg-slate-100", "text-slate-600", "hover:bg-slate-200"];
-
-    filtros.forEach((btn) => {
-      btn.addEventListener("click", () => {
-        filtros.forEach((b) => {
-          b.classList.remove(...activo);
-          b.classList.add(...inactivo);
-        });
-        btn.classList.remove(...inactivo);
-        btn.classList.add(...activo);
-
-        const filtro = btn.dataset.filter;
-        let visibles = 0;
-
-        cards.forEach((card) => {
-          const visible = filtro === "todos" || card.dataset.categoria === filtro;
-          if (visible) visibles++;
-
-          const timeoutPendiente = Number(card.dataset.ocultarTimeout ?? 0);
-          if (timeoutPendiente) {
-            clearTimeout(timeoutPendiente);
-            delete card.dataset.ocultarTimeout;
-          }
-
-          if (visible) {
-            // Entrada: mostrar y desvanecer hacia dentro
-            if (card.classList.contains("hidden") || card.classList.contains("saliendo")) {
-              card.classList.remove("hidden");
-              card.classList.add("saliendo");
-              requestAnimationFrame(() => {
-                requestAnimationFrame(() => card.classList.remove("saliendo"));
-              });
-            }
-          } else if (!card.classList.contains("hidden")) {
-            // Salida: desvanecer y ocultar al terminar
-            card.classList.add("saliendo");
-            card.dataset.ocultarTimeout = String(setTimeout(() => {
-              card.classList.add("hidden");
-              card.classList.remove("saliendo");
-              delete card.dataset.ocultarTimeout;
-            }, 250));
-          }
-        });
-
-        mensajeVacio?.classList.toggle("hidden", visibles > 0);
-      });
-    });
-  </script>
 </Layout>

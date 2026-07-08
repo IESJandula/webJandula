@@ -5,6 +5,7 @@ interface Props {
   gradientClass: string;
   blobGradient?: string;
   subtitleClass?: string;
+  compact?: boolean;
 }
 
 const {
@@ -13,22 +14,23 @@ const {
   gradientClass,
   blobGradient = 'from-blue-400 to-indigo-300',
   subtitleClass = 'text-blue-100',
+  compact = false,
 } = Astro.props;
 ---
 
 <div class={`relative isolate overflow-hidden bg-gradient-to-br ${gradientClass}`}>
   <div class="absolute inset-0 bg-[url('/images/bg-hero.webp')] bg-cover bg-center opacity-10"></div>
 
-  <div class="mx-auto max-w-7xl px-6 py-16 sm:py-24 lg:py-32 lg:px-8 relative z-10">
+  <div class={`mx-auto max-w-7xl px-6 lg:px-8 relative z-10 ${compact ? 'py-10 sm:py-14' : 'py-16 sm:py-24 lg:py-32'}`}>
     <div class="mx-auto max-w-2xl text-center">
       <slot name="eyebrow" />
-      <h1 class="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+      <h1 class={`font-bold tracking-tight text-white ${compact ? 'text-3xl sm:text-4xl' : 'text-4xl sm:text-6xl'}`}>
         {title}
       </h1>
-      <p class={`mt-6 text-lg leading-8 ${subtitleClass}`}>
+      <p class={`leading-7 ${compact ? 'mt-3 text-base' : 'mt-6 text-lg leading-8'} ${subtitleClass}`}>
         {subtitle}
       </p>
-      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class={`flex flex-col sm:flex-row items-center justify-center gap-4 ${compact ? 'mt-6' : 'mt-10'}`}>
         <slot name="ctas" />
       </div>
     </div>

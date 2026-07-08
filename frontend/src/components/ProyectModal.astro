@@ -14,17 +14,20 @@ const titleId = `${id}-title`;
 const categoryId = `${id}-category`;
 const descriptionId = `${id}-description`;
 const heroId = `${id}-hero`;
+const galleryWrapId = `${id}-gallery-wrap`;
+const galleryPrevId = `${id}-gallery-prev`;
+const galleryNextId = `${id}-gallery-next`;
+const galleryDotsId = `${id}-gallery-dots`;
 const statsId = `${id}-stats`;
 const featuresWrapId = `${id}-features-wrap`;
 const featuresId = `${id}-features`;
 const tagsId = `${id}-tags`;
-const galleryId = `${id}-gallery`;
 
 ---
 
 <div
 	id={modalId}
-	class="fixed inset-0 z-[80] hidden flex items-center justify-center p-4 sm:p-6"
+	class="fixed inset-0 z-[80] hidden flex items-end sm:items-center justify-center"
 	aria-hidden="true"
 	role="dialog"
 	aria-modal="true"
@@ -32,8 +35,12 @@ const galleryId = `${id}-gallery`;
 >
 	<div id={overlayId} class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div>
 
-	<div class="relative w-full max-w-3xl rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 max-h-[90vh] overflow-y-auto">
-		<div class="flex items-start justify-between border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4">
+	<div class="relative flex w-full sm:max-w-3xl sm:m-6 flex-col rounded-t-2xl sm:rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 max-h-[92dvh] sm:max-h-[90vh]">
+		<div class="flex justify-center pt-2 pb-1 sm:hidden flex-shrink-0" aria-hidden="true">
+			<div class="h-1.5 w-10 rounded-full bg-slate-300"></div>
+		</div>
+
+		<div class="flex items-start justify-between border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4 flex-shrink-0">
 			<div>
 				<p id={categoryId} class="text-xs font-semibold uppercase tracking-wide text-blue-700"></p>
 				<h3 id={titleId} class="mt-1 text-base sm:text-lg font-bold text-slate-900"></h3>
@@ -54,14 +61,39 @@ const galleryId = `${id}-gallery`;
 			</button>
 		</div>
 
-		<div class="space-y-4 sm:space-y-6 p-4 sm:p-6">
-			<img
-				id={heroId}
-				class="w-full rounded-xl bg-slate-100 object-cover max-h-[320px]"
-				alt="Imagen del proyecto"
-				loading="lazy"
-				decoding="async"
-			/>
+		<div class="modal-scroll space-y-4 sm:space-y-6 overflow-y-auto p-4 sm:p-6">
+			<div id={galleryWrapId} class="relative overflow-hidden rounded-xl bg-slate-100">
+				<img
+					id={heroId}
+					class="w-full aspect-[4/3] sm:aspect-[16/10] object-cover max-h-[220px] sm:max-h-[320px]"
+					alt="Imagen del proyecto"
+					loading="lazy"
+					decoding="async"
+				/>
+
+				<button
+					id={galleryPrevId}
+					type="button"
+					class="hidden absolute left-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-slate-700 shadow-sm backdrop-blur transition hover:bg-white"
+					aria-label="Imagen anterior"
+				>
+					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+						<path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd"></path>
+					</svg>
+				</button>
+				<button
+					id={galleryNextId}
+					type="button"
+					class="hidden absolute right-2 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-white/80 text-slate-700 shadow-sm backdrop-blur transition hover:bg-white"
+					aria-label="Imagen siguiente"
+				>
+					<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+						<path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"></path>
+					</svg>
+				</button>
+
+				<div id={galleryDotsId} class="hidden absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5"></div>
+			</div>
 
 			<div id={statsId} class="grid grid-cols-2 gap-3"></div>
 
@@ -71,16 +103,33 @@ const galleryId = `${id}-gallery`;
 				<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Detalles</p>
 				<ul id={featuresId} class="mt-2 grid gap-2 text-sm text-slate-700"></ul>
 			</div>
-            			<div id={galleryId} class="grid grid-cols-2 gap-4"></div>
 
 			<div id={tagsId} class="flex flex-wrap gap-2"></div>
-
-
 		</div>
 	</div>
 </div>
 
-<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, statsId, featuresWrapId, featuresId, tagsId, galleryId }}>
+<style>
+	.modal-scroll {
+		scrollbar-width: thin;
+		scrollbar-color: rgb(203 213 225) transparent;
+	}
+	.modal-scroll::-webkit-scrollbar {
+		width: 6px;
+	}
+	.modal-scroll::-webkit-scrollbar-track {
+		background: transparent;
+	}
+	.modal-scroll::-webkit-scrollbar-thumb {
+		background-color: rgb(203 213 225);
+		border-radius: 9999px;
+	}
+	.modal-scroll::-webkit-scrollbar-thumb:hover {
+		background-color: rgb(148 163 184);
+	}
+</style>
+
+<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, galleryPrevId, galleryNextId, galleryDotsId, statsId, featuresWrapId, featuresId, tagsId }}>
 	const modal = document.getElementById(modalId);
 	const overlay = document.getElementById(overlayId);
 	const closeButton = document.getElementById(closeId);
@@ -88,11 +137,37 @@ const galleryId = `${id}-gallery`;
 	const categoryEl = document.getElementById(categoryId);
 	const descriptionEl = document.getElementById(descriptionId);
 	const heroEl = document.getElementById(heroId);
+	const galleryPrevEl = document.getElementById(galleryPrevId);
+	const galleryNextEl = document.getElementById(galleryNextId);
+	const galleryDotsEl = document.getElementById(galleryDotsId);
 	const statsEl = document.getElementById(statsId);
 	const featuresWrap = document.getElementById(featuresWrapId);
 	const featuresEl = document.getElementById(featuresId);
 	const tagsEl = document.getElementById(tagsId);
-	const galleryEl = document.getElementById(galleryId);
+
+	let galleryImages = [];
+	let galleryIndex = 0;
+
+	const renderGalleryImage = () => {
+		if (!heroEl || galleryImages.length === 0) return;
+		heroEl.setAttribute("src", galleryImages[galleryIndex]);
+		heroEl.setAttribute("alt", `Imagen ${galleryIndex + 1} de ${galleryImages.length} del proyecto: ${titleEl?.textContent ?? ""}`);
+		if (galleryDotsEl) {
+			Array.from(galleryDotsEl.children).forEach((dot, i) => {
+				dot.classList.toggle("bg-white", i === galleryIndex);
+				dot.classList.toggle("bg-white/50", i !== galleryIndex);
+			});
+		}
+	};
+
+	const goToGalleryImage = (index) => {
+		if (galleryImages.length === 0) return;
+		galleryIndex = (index + galleryImages.length) % galleryImages.length;
+		renderGalleryImage();
+	};
+
+	galleryPrevEl?.addEventListener("click", () => goToGalleryImage(galleryIndex - 1));
+	galleryNextEl?.addEventListener("click", () => goToGalleryImage(galleryIndex + 1));
 
 	const openButtons = document.querySelectorAll("[data-proyecto-open]");
 
@@ -126,14 +201,32 @@ const galleryId = `${id}-gallery`;
 		if (categoryEl) categoryEl.textContent = category;
 		if (descriptionEl) descriptionEl.innerHTML = description.replace(/\n/g, "<br />");
 
+		galleryImages = [hero, ...images.filter((img) => img && img !== hero)].filter(Boolean);
+		galleryIndex = 0;
+
 		if (heroEl) {
-			if (hero) {
-				heroEl.setAttribute("src", hero);
-				heroEl.setAttribute("alt", `Imagen del proyecto: ${title}`);
-				setHidden(heroEl, false);
-			} else {
-				setHidden(heroEl, true);
+			setHidden(heroEl, galleryImages.length === 0);
+			if (galleryImages.length > 0) renderGalleryImage();
+		}
+
+		const hasMultipleImages = galleryImages.length > 1;
+		setHidden(galleryPrevEl, !hasMultipleImages);
+		setHidden(galleryNextEl, !hasMultipleImages);
+
+		if (galleryDotsEl) {
+			galleryDotsEl.innerHTML = "";
+			if (hasMultipleImages) {
+				galleryImages.forEach((_, i) => {
+					const dot = document.createElement("button");
+					dot.type = "button";
+					dot.className = "h-1.5 w-1.5 rounded-full bg-white/50 transition";
+					dot.setAttribute("aria-label", `Ir a la imagen ${i + 1}`);
+					dot.addEventListener("click", () => goToGalleryImage(i));
+					galleryDotsEl.appendChild(dot);
+				});
 			}
+			setHidden(galleryDotsEl, !hasMultipleImages);
+			renderGalleryImage();
 		}
 
 		if (statsEl) {
@@ -180,24 +273,6 @@ const galleryId = `${id}-gallery`;
 			});
 		}
 
-		if (galleryEl) {
-			galleryEl.innerHTML = "";
-			const galleryImages = images.filter((img) => img && img !== hero).slice(0, 3);
-			galleryImages.forEach((img) => {
-				const figure = document.createElement("div");
-				figure.className = "aspect-[4/3] overflow-hidden rounded-xl bg-slate-100";
-				const image = document.createElement("img");
-				image.className = "h-full w-full object-cover";
-				image.setAttribute("src", img);
-				image.setAttribute("alt", `Galeria del proyecto: ${title}`);
-				image.setAttribute("loading", "lazy");
-				image.setAttribute("decoding", "async");
-				figure.appendChild(image);
-				galleryEl.appendChild(figure);
-			});
-			setHidden(galleryEl, galleryImages.length === 0);
-		}
-
 		modal.classList.remove("hidden");
 		modal.setAttribute("aria-hidden", "false");
 	};
@@ -219,7 +294,10 @@ const galleryId = `${id}-gallery`;
 	overlay?.addEventListener("click", closeModal);
 
 	document.addEventListener("keydown", (event) => {
+		if (!modal || modal.classList.contains("hidden")) return;
 		if (event.key === "Escape") closeModal();
+		if (event.key === "ArrowLeft") goToGalleryImage(galleryIndex - 1);
+		if (event.key === "ArrowRight") goToGalleryImage(galleryIndex + 1);
 	});
 </script>
 

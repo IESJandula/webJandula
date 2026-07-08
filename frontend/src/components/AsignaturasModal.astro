@@ -8,7 +8,7 @@
     <div class="flex items-start justify-between border-b border-slate-200 px-6 py-4">
       <div>
         <p class="text-xs font-semibold uppercase tracking-wide text-blue-700">Plan de estudios</p>
-        <h3 id="modal-title" class="mt-1 text-lg font-bold text-slate-900">Asignaturas del ciclo</h3>
+        <h3 id="modal-title" class="mt-1 text-lg font-bold text-slate-900">Módulos del ciclo</h3>
       </div>
       <button
         id="close-asignaturas-modal"
@@ -57,7 +57,7 @@
 
     const openModal = (name: string, asignaturas: { primero?: string[]; segundo?: string[] }) => {
       if (!modal) return;
-      if (modalTitle) modalTitle.textContent = `Asignaturas - ${name}`;
+      if (modalTitle) modalTitle.textContent = `Módulos - ${name}`;
       renderList(modalPrimero, asignaturas.primero ?? []);
       renderList(modalSegundo, asignaturas.segundo ?? []);
       modal.classList.remove('hidden');

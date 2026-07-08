@@ -41,16 +41,16 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
 
 
       <div
-        class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none xl:ml-32"
+        class="mx-auto mt-16 flex max-w-2xl sm:mt-24 lg:ml-10 lg:mt-0 lg:mr-0 lg:max-w-none lg:flex-none"
       >
         <div class="max-w-3xl flex-none sm:max-w-5xl lg:max-w-none">
           <div
-            class="-m-2 rounded-2xl p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm w-[90vw] md:w-[80vw] lg:w-[60vw] transition-all hover:shadow-xl hover:shadow-slate-200/50"
+            class="-m-2 rounded-2xl p-2 ring-1 ring-inset ring-slate-900/10 lg:-m-4 lg:rounded-3xl lg:p-4 bg-white/50 backdrop-blur-sm max-w-full transition-all hover:shadow-xl hover:shadow-slate-200/50"
           >
             <img
               src="https://images.pexels.com/photos/3380743/pexels-photo-3380743.jpeg"
               alt="Estudiantes IES Jandula"
-              class="w-[36rem] rounded-xl shadow-2xl ring-1 ring-slate-900/10 object-cover object-center h-[24rem]"
+              class="w-full max-w-[36rem] rounded-xl shadow-2xl ring-1 ring-slate-900/10 object-cover object-center h-[24rem]"
             />
           </div>
         </div>
@@ -196,6 +196,10 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
                       Educación Plástica/Música
                     </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-blue-600 flex-shrink-0"></span>
+                      Tecnología y Digitalización
+                    </li>
                   </ul>
                 </article>
 
@@ -205,7 +209,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                   <ul class="space-y-2 text-sm text-slate-700">
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-                      Francés (Segunda Lengua Extranjera)
+                      Francés
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
@@ -217,11 +221,19 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-                      Talleres de Matemáticas
+                      Cultura del Flamenco
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-                      Talleres de Literatura
+                      Lógica, Razonamiento y Matemática Recreativa
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Experimentando con Ciencia
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Comunicación y Redes Sociales en Lengua Extranjera
                     </li>
                   </ul>
                 </article>
@@ -240,26 +252,48 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
             <div class="mb-8">
               <h4 class="text-lg font-semibold text-slate-900 mb-4">Itinerarios en 4º de ESO</h4>
               <p class="text-slate-600 text-base leading-relaxed mb-4">
-                En el último curso, el alumnado puede orientar sus estudios según sus expectativas futuras:
+                En el último curso, el alumnado elige uno de estos cuatro itinerarios, cada uno con sus propias materias de opción:
               </p>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
-                  <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                  <h5 class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
                     <svg class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    Enseñanzas Académicas
+                    Ciencias
                   </h5>
-                  <p class="text-sm text-slate-600">Orientada fundamentalmente hacia el acceso a Bachillerato.</p>
+                  <p class="text-sm text-slate-600 mb-2">Orientada al acceso a Bachillerato de Ciencias.</p>
+                  <p class="text-xs text-slate-500">Física y Química, Biología y Geología</p>
                 </article>
                 <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
-                  <h5 class="font-semibold text-slate-900 mb-3 flex items-center gap-2">
+                  <h5 class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                    <svg class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                    Mixto
+                  </h5>
+                  <p class="text-sm text-slate-600 mb-2">Combina ciencias y economía, sin cerrar puertas.</p>
+                  <p class="text-xs text-slate-500">Física y Química, Economía y Emprendimiento</p>
+                </article>
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
+                    <svg class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                    Humanidades y CCSS
+                  </h5>
+                  <p class="text-sm text-slate-600 mb-2">Orientada al Bachillerato de Humanidades y Ciencias Sociales.</p>
+                  <p class="text-xs text-slate-500">Latín, Economía y Emprendimiento</p>
+                </article>
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                  <h5 class="font-semibold text-slate-900 mb-2 flex items-center gap-2">
                     <svg class="h-5 w-5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
                     </svg>
-                    Enseñanzas Aplicadas
+                    Ciclos Formativos
                   </h5>
-                  <p class="text-sm text-slate-600">Enfocada hacia el acceso a Ciclos Formativos de Grado Medio.</p>
+                  <p class="text-sm text-slate-600 mb-2">Enfocada al acceso a Ciclos Formativos de Grado Medio.</p>
+                  <p class="text-xs text-slate-500">Formación y Orientación Personal y Profesional, Tecnología</p>
                 </article>
               </div>
             </div>
@@ -340,7 +374,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                   <ul class="space-y-2 text-sm text-slate-200">
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
-                      Matemáticas I/II
+                      Matemáticas
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
@@ -360,7 +394,7 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-400 flex-shrink-0"></span>
-                      Tecnología Industrial
+                      Tecnología e Ingeniería
                     </li>
                   </ul>
                 </article>
@@ -373,11 +407,11 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                   <ul class="space-y-2 text-sm text-slate-700">
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
-                      Latín I/II
+                      Latín
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
-                      Matemáticas Aplicadas a las CCSS I/II
+                      Matemáticas Aplicadas a las CCSS
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-amber-500 flex-shrink-0"></span>
@@ -412,11 +446,11 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                   <ul class="space-y-2 text-sm text-slate-700">
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
-                      Lengua Castellana y Literatura I/II
+                      Lengua Castellana y Literatura
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
-                      Inglés I/II
+                      Inglés
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-indigo-600 flex-shrink-0"></span>
@@ -437,13 +471,13 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                   </ul>
                 </article>
 
-                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm">
+                <article class="rounded-2xl bg-white p-5 ring-1 ring-slate-200/60 shadow-sm md:col-span-2">
                   <h5 class="font-semibold text-slate-900 text-sm mb-3">Materias Optativas</h5>
-                  <p class="text-sm text-slate-600 mb-3">Alto interés académico:</p>
-                  <ul class="space-y-2 text-sm text-slate-700">
+                  <p class="text-sm text-slate-600 mb-3">Según curso y modalidad, el alumnado puede elegir entre:</p>
+                  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-slate-700">
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-                      Francés (Segunda Lengua Extranjera)
+                      Francés
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
@@ -451,11 +485,51 @@ El IES Jándula ofrece una <strong> diversificada oferta educativa</strong> que 
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-                      Cultura Audiovisual
+                      Anatomía Aplicada
                     </li>
                     <li class="flex items-start gap-2">
                       <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
-                      Tecnologías de la Información
+                      Tecnologías de la Información y la Comunicación
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Programación y Computación
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Dibujo Técnico
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Taller de Teatro
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Taller Pasa Página
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Taller de Argumentación
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Taller de Probabilidad y Estadística
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Actividad Física, Salud y Sociedad
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Fundamentos de Administración y Gestión
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Patrimonio Cultural y Artístico de Andalucía
+                    </li>
+                    <li class="flex items-start gap-2">
+                      <span class="mt-1 h-1.5 w-1.5 rounded-full bg-emerald-600 flex-shrink-0"></span>
+                      Preparación Certificación en Inglés B2
                     </li>
                   </ul>
                 </article>
