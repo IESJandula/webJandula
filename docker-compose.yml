@@ -20,9 +20,10 @@ services:
       ADMIN_EMAILS: ${ADMIN_EMAILS}
       FRONTEND_URL: ${FRONTEND_URL}
       PANEL_URL: ${PANEL_URL}
-      UPLOADS_DIR: /data/uploads
     volumes:
-      - backend_uploads:/data/uploads
+      # Cubre tanto /data/uploads como el fichero SQLite (/data/jandula-noticias.db),
+      # ambos definidos por defecto en el Dockerfile. Persiste entre despliegues.
+      - backend_data:/data
     expose:
       - "3001"
     restart: unless-stopped
@@ -44,4 +45,4 @@ services:
     restart: unless-stopped
 
 volumes:
-  backend_uploads:
+  backend_data:
