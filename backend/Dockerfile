@@ -1,5 +1,9 @@
 FROM node:22-alpine
 
+# Prisma necesita OpenSSL para sus motores (schema-engine, query-engine).
+# node:22-alpine no lo trae por defecto y falla al detectar la versión.
+RUN apk add --no-cache openssl
+
 WORKDIR /app
 
 COPY package*.json ./
