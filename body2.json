@@ -1,0 +1,1 @@
+{"model":"qwen-coder","stream":true,"messages":[{"role":"user","content":"crea un archivo llamado test.txt"}],"tools":[{"type":"function","function":{"name":"crear_archivo","description":"Crea un archivo","parameters":{"type":"object","properties":{"nombre":{"type":"string"}},"required":["nombre"]}}}]}
