@@ -36,7 +36,7 @@ export const caminosindex = [
 
 export const contacto = {
     titulo: "Contacto",
-    email: "iesjandula@gmail.com",
+  email: "secretaria@iesjandula.es",
     emailsecretaria:"secretaria@iesjandula.es",
     telefono: "953 53 95 08",
     horario: "Lunes a viernes, 09:00 - 14:00",

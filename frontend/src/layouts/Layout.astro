@@ -1,7 +1,6 @@
 ---
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
-import LinksExternos from '@components/LinksExternos.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -106,7 +105,6 @@ const pageSchema = {
     Saltar al contenido principal
 </a>
 
-<LinksExternos />
 <Header />
 <main id="main-content" class="flex-grow bg-gray-100" tabindex="-1">
     <slot />

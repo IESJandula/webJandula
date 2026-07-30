@@ -1,0 +1,72 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHero from "@components/PageHero.astro";
+
+const secciones = [
+  {
+    titulo: "Informacion general",
+    enlaces: [
+      { nombre: "Inicio", href: "/" },
+      { nombre: "Nuestro Centro", href: "/nuestro_centro" },
+      { nombre: "Oferta Educativa", href: "/oferta" },
+      { nombre: "Proyectos", href: "/proyectos" },
+      { nombre: "Noticias", href: "/noticias" },
+    ],
+  },
+  {
+    titulo: "Programas y orientacion",
+    enlaces: [
+      { nombre: "Internacionalizacion", href: "/internacionalizacion" },
+      { nombre: "Erasmus+", href: "/erasmus" },
+      { nombre: "eTwinning", href: "/etwinning" },
+      { nombre: "Orientacion", href: "/orientacion" },
+    ],
+  },
+  {
+    titulo: "Secretaria",
+    enlaces: [
+      { nombre: "Secretaria Virtual", href: "/secretaria_virtual" },
+      { nombre: "Tramites", href: "/secretaria_virtual#tramites" },
+      { nombre: "Certificados", href: "/secretaria_virtual#certificados" },
+      { nombre: "Cita Previa", href: "/secretaria_virtual#cita-previa" },
+    ],
+  },
+  {
+    titulo: "Informacion legal",
+    enlaces: [
+      { nombre: "Aviso Legal", href: "/aviso-legal" },
+      { nombre: "Politica de Privacidad", href: "/privacidad" },
+      { nombre: "Accesibilidad", href: "/accesibilidad" },
+      { nombre: "Sitemap XML", href: "/sitemap-index.xml" },
+    ],
+  },
+];
+---
+
+<Layout title="Mapa del Sitio">
+  <PageHero
+    title="Mapa del Sitio"
+    subtitle="Acceso rapido a las principales secciones y servicios del portal oficial del IES Jandula."
+    gradientClass="from-indigo-900 via-blue-800 to-cyan-800"
+    compact={true}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-6xl px-6 lg:px-8">
+      <div class="grid gap-6 md:grid-cols-2">
+        {secciones.map((seccion) => (
+          <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+            <h2 class="text-xl font-bold text-slate-900">{seccion.titulo}</h2>
+            <ul class="mt-4 space-y-2">
+              {seccion.enlaces.map((enlace) => (
+                <li>
+                  <a href={enlace.href} class="text-blue-700 underline hover:text-blue-800">{enlace.nombre}</a>
+                </li>
+              ))}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

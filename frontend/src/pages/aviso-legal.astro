@@ -1,0 +1,80 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHero from "@components/PageHero.astro";
+---
+
+<Layout title="Aviso Legal">
+  <PageHero
+    title="Aviso Legal"
+    subtitle="Informacion legal sobre titularidad, condiciones de uso y responsabilidad del sitio web oficial del IES Jandula."
+    gradientClass="from-slate-900 via-slate-800 to-blue-900"
+    compact={true}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8 space-y-10 text-slate-700 leading-7">
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">1. Titularidad del sitio web</h2>
+        <p class="mt-3">
+          El presente sitio web es el canal oficial de informacion del <strong>IES Jandula</strong>, centro docente publico de la
+          Consejeria de Desarrollo Educativo y Formacion Profesional de la Junta de Andalucia.
+        </p>
+        <p class="mt-3">
+          Dominio principal: <a href="https://www.iesjandula.es" target="_blank" rel="noopener noreferrer" class="text-blue-700 underline hover:text-blue-800">www.iesjandula.es</a>
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">2. Objeto y condiciones de uso</h2>
+        <p class="mt-3">
+          Este sitio tiene finalidad exclusivamente informativa y de servicio a la comunidad educativa. El acceso y navegacion
+          implican la aceptacion de las presentes condiciones de uso.
+        </p>
+        <p class="mt-3">
+          La persona usuaria se compromete a utilizar los contenidos y servicios conforme a la legislacion vigente, la buena fe y
+          el orden publico, absteniendose de realizar actuaciones que puedan danar, inutilizar o sobrecargar el portal.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">3. Propiedad intelectual e industrial</h2>
+        <p class="mt-3">
+          Los contenidos de esta web (textos, imagenes, diseno, logotipos y estructura) estan protegidos por la normativa de
+          propiedad intelectual e industrial y pertenecen a sus titulares legitimos.
+        </p>
+        <p class="mt-3">
+          Queda prohibida su reproduccion total o parcial, distribucion o transformacion sin autorizacion expresa, salvo usos
+          permitidos por la normativa aplicable.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">4. Responsabilidad</h2>
+        <p class="mt-3">
+          El centro procura mantener la informacion actualizada y exacta, pero no garantiza la ausencia absoluta de errores u
+          omisiones en todos los contenidos publicados.
+        </p>
+        <p class="mt-3">
+          El IES Jandula no se hace responsable de los danos derivados del uso indebido de la web ni de los contenidos de terceros
+          enlazados desde este portal.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">5. Enlaces externos</h2>
+        <p class="mt-3">
+          Este sitio puede contener enlaces a portales externos (Junta de Andalucia, plataformas educativas y redes sociales).
+          Dichos enlaces se facilitan con caracter informativo y no suponen aprobacion ni control sobre sus contenidos.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">6. Legislacion aplicable</h2>
+        <p class="mt-3">
+          Este aviso legal se rige por la normativa espanola y autonómica aplicable. Para cualquier cuestion relacionada con el uso
+          del sitio, podra contactarse con la secretaria del centro a traves de los canales oficiales publicados en la web.
+        </p>
+      </article>
+    </div>
+  </section>
+</Layout>

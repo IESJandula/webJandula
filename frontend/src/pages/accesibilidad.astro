@@ -1,0 +1,61 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHero from "@components/PageHero.astro";
+import { contacto } from "@lib/content";
+---
+
+<Layout title="Accesibilidad">
+  <PageHero
+    title="Accesibilidad"
+    subtitle="Compromiso del IES Jandula con una web utilizable, comprensible y accesible para toda la comunidad educativa."
+    gradientClass="from-emerald-900 via-teal-800 to-slate-900"
+    compact={true}
+  />
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8 space-y-10 text-slate-700 leading-7">
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">Declaracion de accesibilidad</h2>
+        <p class="mt-3">
+          El IES Jandula trabaja para que su sitio web sea accesible para todas las personas, con independencia de sus capacidades,
+          dispositivos o tecnologias de apoyo.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">Medidas aplicadas</h2>
+        <ul class="mt-3 list-disc pl-6 space-y-2">
+          <li>Estructura semantica y jerarquia de encabezados en las paginas.</li>
+          <li>Enlaces descriptivos y navegacion coherente.</li>
+          <li>Textos alternativos en imagenes relevantes.</li>
+          <li>Contraste visual y tamano de tipografia legible.</li>
+          <li>Soporte de navegacion con teclado en elementos principales.</li>
+        </ul>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">Estado de conformidad</h2>
+        <p class="mt-3">
+          Este portal se encuentra en proceso de mejora continua para alcanzar un alto nivel de conformidad con las pautas de
+          accesibilidad digital aplicables al sector publico.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">Contenido no accesible</h2>
+        <p class="mt-3">
+          Puede existir contenido puntual heredado o de terceros que no cumpla totalmente los requisitos de accesibilidad.
+          Trabajamos para corregirlo progresivamente.
+        </p>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">Comunicacion de incidencias</h2>
+        <p class="mt-3">
+          Si detectas barreras de accesibilidad o necesitas informacion en formato alternativo, puedes escribir a
+          <a class="text-blue-700 underline hover:text-blue-800" href={`mailto:${contacto.emailsecretaria}`}> {contacto.emailsecretaria}</a>.
+        </p>
+      </article>
+    </div>
+  </section>
+</Layout>

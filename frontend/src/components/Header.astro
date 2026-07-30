@@ -61,6 +61,12 @@ const megaMenu = [
       { name: "Cita Previa", href: "/secretaria_virtual#cita-previa", desc: "Reserva tu cita" },
     ],
   },
+  {
+    name: "Intranet",
+    href: "https://somos.iesjandula.es/",
+    external: true,
+    items: [],
+  },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -88,6 +94,8 @@ const currentPath = Astro.url.pathname;
           <!-- Trigger -->
           <a
             href={section.href}
+            target={section.external ? "_blank" : undefined}
+            rel={section.external ? "noopener noreferrer" : undefined}
             class={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1
               ${currentPath === section.href
                 ? 'text-blue-700 bg-blue-50'
@@ -207,6 +215,8 @@ const currentPath = Astro.url.pathname;
           ) : (
           <a
             href={section.href}
+            target={section.external ? "_blank" : undefined}
+            rel={section.external ? "noopener noreferrer" : undefined}
             class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-semibold text-gray-800 hover:bg-gray-50 transition-colors"
           >
             {section.name}
