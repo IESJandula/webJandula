@@ -51,7 +51,9 @@ export const proyectos = [
         ],
         etiquetas: ["Ajedrez", "Lógica", "Matemáticas"],
         categoria: "Deportes y Juegos",
-        portada: "/images/proyects/Aula_de_Jaque.webp",
+        // Foto real del Club de Ajedrez Jándula (la anterior estaba generada por IA).
+        portada: "/images/proyects/aula-de-jaque.jpg",
+        portadaAlt: "Profesorado responsable del Aula de Jaque, con la equipación del Club de Ajedrez Jándula, junto a los tableros de juego",
         images: []
     },
     {
