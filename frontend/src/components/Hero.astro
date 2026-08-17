@@ -1,5 +1,4 @@
 ---
-const heroImage = "/images/portadaJandula.webp";
 const serif = "'Newsreader', Georgia, 'Times New Roman', serif";
 ---
 
@@ -7,11 +6,22 @@ const serif = "'Newsreader', Georgia, 'Times New Roman', serif";
   class="relative w-full min-h-[68svh] md:min-h-[72svh] max-h-[640px] flex items-end overflow-hidden"
   aria-label="Bienvenida al IES Jándula"
 >
+  <!--
+    Imagen principal de la portada (es el LCP de la web, lo que más pesa en la
+    primera impresión). Se sirven tres tamaños para que el móvil descargue 76 KB
+    en vez de 229 KB. fetchpriority="high" le da prioridad frente al resto.
+  -->
   <img
-    src={heroImage}
+    src="/images/portada-1280.webp"
+    srcset="/images/portada-800.webp 800w, /images/portada-1280.webp 1280w, /images/portada-1920.webp 1600w"
+    sizes="100vw"
+    width="1280"
+    height="1058"
     alt="Fachada del IES Jándula"
     class="absolute inset-0 w-full h-full object-cover"
     loading="eager"
+    fetchpriority="high"
+    decoding="async"
   />
 
   <!-- Overlay oscuro uniforme -->
