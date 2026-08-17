@@ -316,100 +316,55 @@ export const documentos = [
   {
     titulo: 'Plan de Centro',
     descripcion: [
-      'Integra el Proyecto Educativo de Centro (PEC), el Reglamento de Organizacion y Funcionamiento (ROF) y el Proyecto de Gestion.',
+      'Integra el Proyecto Educativo de Centro (PEC), el Reglamento de Organización y Funcionamiento (ROF) y el Proyecto de Gestión.',
       'Documento oficial aprobado por el Consejo Escolar.',
-      'Publicado en la pagina web del centro.'
+      'Disponible en Secretaría a petición de la comunidad educativa.'
     ]
   },
   {
-    titulo: 'Plan de Mejora y Memoria de Autoevaluacion',
+    titulo: 'Plan de Mejora y Memoria de Autoevaluación',
     descripcion: [
       'Establece objetivos anuales de mejora.',
       'Recoge resultados de evaluaciones internas y externas.',
-      'Propone actuaciones de seguimiento y evaluacion.'
+      'Propone actuaciones de seguimiento y evaluación.'
     ]
   },
   {
-    titulo: 'Programaciones Didacticas',
+    titulo: 'Programaciones Didácticas',
     descripcion: [
       'Elaboradas por cada departamento.',
-      'Definen objetivos, contenidos, metodologia y criterios de evaluacion.'
+      'Definen objetivos, contenidos, metodología y criterios de evaluación.'
     ]
   },
   {
     titulo: 'Plan de Convivencia',
     descripcion: [
-      'Define estrategias de prevencion de conflictos.',
-      'Establece protocolos de actuacion ante conductas inadecuadas.',
-      'Promueve la educacion en valores y la resolucion pacifica de conflictos.'
+      'Define estrategias de prevención de conflictos.',
+      'Establece protocolos de actuación ante conductas inadecuadas.',
+      'Promueve la educación en valores y la resolución pacífica de conflictos.'
     ]
   },
   {
-    titulo: 'Plan de Igualdad de Genero',
+    titulo: 'Plan de Igualdad de Género',
     descripcion: [
       'Trabaja por la igualdad efectiva entre hombres y mujeres.',
-      'Coordina actuaciones de coeducacion y prevencion de violencia de genero.'
+      'Coordina actuaciones de coeducación y prevención de violencia de género.'
     ]
   },
   {
     titulo: 'Plan Digital de Centro (PAD)',
     descripcion: [
-      'Responsable: Coordinador de Transformacion Digital Educativa (TDE).',
-      'Define objetivos de digitalizacion y competencia digital.',
-      'Propone proyectos de innovacion tecnologica.'
+      'Responsable: Coordinador de Transformación Digital Educativa (TDE).',
+      'Define objetivos de digitalización y competencia digital.',
+      'Propone proyectos de innovación tecnológica.'
     ]
   },
   {
     titulo: 'Biblioteca Escolar',
     descripcion: [
-      'Responsable: Coordinacion de Biblioteca.',
-      'Promueve el habito de lectura y el uso de la biblioteca escolar.'
+      'Responsable: Coordinación de Biblioteca.',
+      'Promueve el hábito de lectura y el uso de la biblioteca escolar.'
     ]
   },
 ];
 
-
-export const projects = [
-  {
-    title: 'Proyecto LINCE',
-    category: 'Innovación Tecnológica',
-    description: 'Participación en la Shell Eco Marathon con nuestro vehículo de alta eficiencia energética diseñado por alumnos.',
-    image: 'https://images.unsplash.com/photo-1456926631375-92c8ce872def?q=80&w=1200&auto=format&fit=crop', // Lince ibérico
-    tags: ['Tecnología', 'Competición', 'Ecología']
-  },
-  {
-    title: 'Biblioteca "Pasa Página"',
-    category: 'Cultura y Lectura',
-    description: 'Espacio de encuentro, lectura y actividades culturales. Publicación y redacción de nuestra revista escolar.',
-    image: 'https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=1200&auto=format&fit=crop', // Biblioteca moderna
-    tags: ['Lectura', 'Revista', 'Cultura']
-  },
-  {
-    title: 'Aula de Jaque y Rubik',
-    category: 'Desarrollo Cognitivo',
-    description: 'Fomento del pensamiento estratégico y matemático a través del ajedrez y la resolución de cubos de Rubik.',
-    image: 'https://images.unsplash.com/photo-1529699211952-734e80c4d42b?q=80&w=1200&auto=format&fit=crop', // Ajedrez
-    tags: ['Ajedrez', 'Lógica', 'Matemáticas']
-  },
-  {
-    title: 'Semana Cultural',
-    category: 'Evento Anual',
-    description: 'Jornadas dedicadas a talleres, conferencias, exposiciones y convivencia de toda la comunidad educativa.',
-    image: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=1200&auto=format&fit=crop', // Actividad grupal
-    tags: ['Convivencia', 'Arte', 'Ciencia']
-  },
-  {
-    title: 'Escuelas Deportivas',
-    category: 'Salud y Deporte',
-    description: 'Promoción de hábitos saludables y competiciones deportivas escolares en diversas disciplinas.',
-    image: 'https://images.unsplash.com/photo-1576633587382-13ddf37b1fc1?q=80&w=1200&auto=format&fit=crop', // Deporte / Baloncesto
-    tags: ['Deporte', 'Salud', 'Equipo']
-  },
-  {
-    title: 'Erasmus+',
-    category: 'Internacionalización',
-    description: 'Proyectos de movilidad europea para alumnos y profesores, abriendo puertas a nuevas culturas y aprendizajes.',
-    image: 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop', // Viaje / Europa
-    tags: ['Europa', 'Idiomas', 'Movilidad']
-  }
-];

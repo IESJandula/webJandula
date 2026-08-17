@@ -5,7 +5,8 @@ import NcCaracteristicas from "@components/nuestro_centro/NcCaracteristicas.astr
 import NcDatosCentro from "@components/nuestro_centro/NcDatosCentro.astro";
 import NcInstitucional from "@components/nuestro_centro/NcInstitucional.astro";
 import NcTutorias from "@components/nuestro_centro/NcTutorias.astro";
-import NcDocumentos from "@components/nuestro_centro/NcDocumentos.astro";
+// Desactivado hasta disponer de los PDF oficiales del centro:
+// import NcDocumentos from "@components/nuestro_centro/NcDocumentos.astro";
 ---
 
 <Layout title="Conoce el centro">
@@ -14,5 +15,9 @@ import NcDocumentos from "@components/nuestro_centro/NcDocumentos.astro";
   <NcDatosCentro />
   <NcInstitucional />
   <NcTutorias />
-  <NcDocumentos />
+  <!-- Sección "Documentos del Centro" desactivada (17/08/2026): el listado
+       existe en NcDocumentos.astro y el contenido en lib/content.ts, pero
+       no hay PDF que descargar todavía. Al recibirlos, añade el campo con
+       la ruta del fichero y descomenta estas dos líneas.
+  <NcDocumentos /> -->
 </Layout>

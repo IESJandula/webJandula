@@ -2,12 +2,16 @@
 import Layout from "@layouts/Layout.astro";
 import PageHero from "@components/PageHero.astro";
 import { contacto } from "@lib/content";
+
+// Fecha de la última revisión de esta declaración (RD 1112/2018, art. 15).
+// Actualízala cada vez que se revise la accesibilidad del portal.
+const fechaDeclaracion = "17 de agosto de 2026";
 ---
 
 <Layout title="Accesibilidad">
   <PageHero
     title="Accesibilidad"
-    subtitle="Compromiso del IES Jandula con una web utilizable, comprensible y accesible para toda la comunidad educativa."
+    subtitle="Compromiso del IES Jándula con una web utilizable, comprensible y accesible para toda la comunidad educativa."
     gradientClass="from-emerald-900 via-teal-800 to-slate-900"
     compact={true}
   />
@@ -15,45 +19,72 @@ import { contacto } from "@lib/content";
   <section class="py-16 bg-white">
     <div class="mx-auto max-w-4xl px-6 lg:px-8 space-y-10 text-slate-700 leading-7">
       <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
-        <h2 class="text-2xl font-bold text-slate-900">Declaracion de accesibilidad</h2>
+        <h2 class="text-2xl font-bold text-slate-900">Declaración de accesibilidad</h2>
         <p class="mt-3">
-          El IES Jandula trabaja para que su sitio web sea accesible para todas las personas, con independencia de sus capacidades,
-          dispositivos o tecnologias de apoyo.
+          El IES Jándula trabaja para que su sitio web sea accesible para todas las personas, con independencia de sus capacidades,
+          dispositivos o tecnologías de apoyo, conforme al Real Decreto 1112/2018 sobre accesibilidad de los sitios web y
+          aplicaciones para dispositivos móviles del sector público.
+        </p>
+        <p class="mt-3">
+          Esta declaración se aplica al sitio web <strong>www.iesjandula.es</strong> y fue revisada por última vez el
+          {fechaDeclaracion}.
         </p>
       </article>
 
       <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
         <h2 class="text-2xl font-bold text-slate-900">Medidas aplicadas</h2>
         <ul class="mt-3 list-disc pl-6 space-y-2">
-          <li>Estructura semantica y jerarquia de encabezados en las paginas.</li>
-          <li>Enlaces descriptivos y navegacion coherente.</li>
-          <li>Textos alternativos en imagenes relevantes.</li>
-          <li>Contraste visual y tamano de tipografia legible.</li>
-          <li>Soporte de navegacion con teclado en elementos principales.</li>
+          <li>Estructura semántica y jerarquía de encabezados en las páginas.</li>
+          <li>Enlace para saltar directamente al contenido principal.</li>
+          <li>Enlaces descriptivos y navegación coherente en todo el sitio.</li>
+          <li>Textos alternativos en las imágenes con carga informativa.</li>
+          <li>Contraste visual y tamaño de tipografía legibles.</li>
+          <li>Soporte de navegación con teclado en los elementos principales.</li>
         </ul>
       </article>
 
       <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
         <h2 class="text-2xl font-bold text-slate-900">Estado de conformidad</h2>
         <p class="mt-3">
-          Este portal se encuentra en proceso de mejora continua para alcanzar un alto nivel de conformidad con las pautas de
-          accesibilidad digital aplicables al sector publico.
+          Este sitio web es <strong>parcialmente conforme</strong> con la norma UNE-EN 301549:2019 (equivalente al nivel AA de las
+          pautas WCAG 2.1), debido a las excepciones y a la falta de conformidad de los aspectos que se indican a continuación.
         </p>
       </article>
 
       <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
         <h2 class="text-2xl font-bold text-slate-900">Contenido no accesible</h2>
+        <ul class="mt-3 list-disc pl-6 space-y-2">
+          <li>
+            Contenidos de terceros incrustados (mapas y enlaces a plataformas educativas europeas) sobre los que el centro no tiene
+            control técnico.
+          </li>
+          <li>
+            Documentos y contenidos publicados con anterioridad que pueden no cumplir todos los requisitos y se van adaptando de
+            forma progresiva.
+          </li>
+        </ul>
+      </article>
+
+      <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
+        <h2 class="text-2xl font-bold text-slate-900">Método de evaluación</h2>
         <p class="mt-3">
-          Puede existir contenido puntual heredado o de terceros que no cumpla totalmente los requisitos de accesibilidad.
-          Trabajamos para corregirlo progresivamente.
+          El estado de conformidad se ha determinado mediante una <strong>autoevaluación</strong> realizada por el equipo
+          responsable del portal, combinando revisión manual y herramientas automáticas de análisis de accesibilidad.
         </p>
       </article>
 
       <article class="rounded-2xl bg-slate-50 p-6 ring-1 ring-slate-200">
-        <h2 class="text-2xl font-bold text-slate-900">Comunicacion de incidencias</h2>
+        <h2 class="text-2xl font-bold text-slate-900">Comunicación de incidencias y vía de reclamación</h2>
         <p class="mt-3">
-          Si detectas barreras de accesibilidad o necesitas informacion en formato alternativo, puedes escribir a
-          <a class="text-blue-700 underline hover:text-blue-800" href={`mailto:${contacto.emailsecretaria}`}> {contacto.emailsecretaria}</a>.
+          Si detectas barreras de accesibilidad, necesitas información en un formato alternativo o quieres presentar una queja,
+          puedes escribir a
+          <a class="text-blue-700 underline hover:text-blue-800" href={`mailto:${contacto.emailsecretaria}`}> {contacto.emailsecretaria}</a>
+          o dirigirte a la secretaría del centro, en {contacto.direccion}, teléfono {contacto.telefono}.
+        </p>
+        <p class="mt-3">
+          Las comunicaciones serán atendidas por el centro. Si no recibes respuesta en un plazo de veinte días hábiles o no estás
+          conforme con ella, puedes presentar una reclamación ante la Consejería de Desarrollo Educativo y Formación Profesional de
+          la Junta de Andalucía, como unidad responsable en materia de accesibilidad.
         </p>
       </article>
     </div>
