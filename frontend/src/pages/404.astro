@@ -1,0 +1,63 @@
+---
+import Layout from "@layouts/Layout.astro";
+import PageHero from "@components/PageHero.astro";
+
+const destinos = [
+  { name: "Inicio", href: "/", desc: "Portada del centro" },
+  { name: "Noticias", href: "/noticias", desc: "Últimas novedades" },
+  { name: "Oferta educativa", href: "/oferta", desc: "ESO, Bachillerato y FP" },
+  { name: "Nuestro centro", href: "/nuestro_centro", desc: "Datos, equipo y documentación" },
+  { name: "Secretaría Virtual", href: "/secretaria_virtual", desc: "Trámites y certificados" },
+  { name: "Mapa del sitio", href: "/sitemap", desc: "Todas las páginas" },
+];
+---
+
+<Layout
+  title="Página no encontrada"
+  description="La página que buscas no existe o ha cambiado de dirección."
+>
+  <PageHero
+    title="Página no encontrada"
+    subtitle="La dirección que has abierto no existe o el contenido ha cambiado de sitio. Puedes seguir desde cualquiera de estos apartados."
+    gradientClass="from-blue-900 via-blue-800 to-indigo-900"
+    compact={true}
+  >
+    <Fragment slot="eyebrow">
+      <div
+        class="inline-flex items-center gap-2 rounded-full bg-blue-700/50 px-4 py-2 text-sm font-semibold text-blue-100 ring-1 ring-inset ring-blue-400/30 mb-4"
+      >
+        Error 404
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="py-16 bg-white">
+    <div class="mx-auto max-w-4xl px-6 lg:px-8">
+      <h2 class="text-2xl font-bold tracking-tight text-slate-900 text-center">
+        ¿Qué buscabas?
+      </h2>
+
+      <ul class="mt-10 grid gap-4 sm:grid-cols-2">
+        {
+          destinos.map((destino) => (
+            <li>
+              <a
+                href={destino.href}
+                class="group flex h-full flex-col rounded-2xl bg-slate-50 p-5 ring-1 ring-slate-200 transition-all hover:bg-white hover:ring-blue-300 hover:shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+              >
+                <span class="font-semibold text-slate-900 group-hover:text-blue-800">
+                  {destino.name} <span aria-hidden="true">→</span>
+                </span>
+                <span class="mt-1 text-sm text-slate-600">{destino.desc}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="mt-10 text-center text-sm text-slate-600">
+        Si has llegado aquí desde un enlace de esta web, escríbenos y lo corregimos.
+      </p>
+    </div>
+  </section>
+</Layout>

@@ -1,6 +1,7 @@
 ---
 import Header from '@components/Header.astro';
 import Footer from '@components/Footer.astro';
+import { contacto } from '@lib/content';
 import '../styles/global.css';
 
 interface Props {
@@ -11,8 +12,10 @@ interface Props {
 
 const {
     title,
-    description = "Web oficial del IES Jándula (Linares, Jaén): FP, Bachillerato, Erasmus+ y más.",
-    ogImage = "/images/bg-hero.webp",
+    description = "Web oficial del IES Jándula (Andújar, Jaén): ESO, Bachillerato, FP, Erasmus+ y más.",
+    // Imagen que se ve al compartir en WhatsApp, Facebook, X, etc.
+    // Debe ser JPG/PNG de 1200x630 (el formato WebP no lo muestran todas las apps).
+    ogImage = "/images/og-iesjandula.jpg",
 } = Astro.props;
 
 const siteTitle  = `${title} | IES Jándula`;
@@ -29,14 +32,19 @@ const orgSchema = {
     logo: `${siteUrl}/favicon.svg`,
     address: {
         "@type": "PostalAddress",
-        streetAddress: "C/ Arquitecto Berges, s/n",
-        addressLocality: "Linares",
+        streetAddress: "C/ San Vicente de Paúl, s/n",
+        addressLocality: "Andújar",
         addressRegion: "Jaén",
-        postalCode: "23700",
+        postalCode: "23740",
         addressCountry: "ES",
     },
-    telephone: "+34953690227",
-    email: "23700462.edu@juntadeandalucia.es",
+    geo: {
+        "@type": "GeoCoordinates",
+        latitude: 38.0355578,
+        longitude: -4.0420295,
+    },
+    telephone: `+34${contacto.telefono.replace(/\D/g, "")}`,
+    email: contacto.emailsecretaria,
     sameAs: [
         "https://www.facebook.com/IESJandula.es/",
         "https://www.instagram.com/iesjandula.es/",
@@ -64,6 +72,15 @@ const pageSchema = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
 
+    <!-- Tipografía del cuerpo: se precarga para evitar el parpadeo de texto -->
+    <link
+        rel="preload"
+        href="/fonts/roboto-400-latin.woff2"
+        as="font"
+        type="font/woff2"
+        crossorigin="anonymous"
+    />
+
     <!-- SEO primario -->
     <title>{siteTitle}</title>
     <meta name="description" content={description} />
@@ -77,9 +94,12 @@ const pageSchema = {
     <meta property="og:title"       content={siteTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url"         content={canonical} />
-    <meta property="og:image"       content={ogImageAbs} />
-    <meta property="og:image:alt"   content={`Imagen de portada — ${siteTitle}`} />
-    <meta property="og:locale"      content="es_ES" />
+    <meta property="og:image"        content={ogImageAbs} />
+    <meta property="og:image:width"  content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type"   content="image/jpeg" />
+    <meta property="og:image:alt"    content={`Imagen de portada — ${siteTitle}`} />
+    <meta property="og:locale"       content="es_ES" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card"        content="summary_large_image" />

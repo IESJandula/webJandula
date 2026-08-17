@@ -7,8 +7,8 @@ export default defineConfig({
     integrations: [
         tailwind(),
         sitemap({
-            // Excluir páginas de admin o privadas si las hubiera
-            filter: (page) => !page.includes('/admin'),
+            // Excluir páginas de admin o privadas si las hubiera, y la de error
+            filter: (page) => !page.includes('/admin') && !page.includes('/404'),
             // Cambiar frecuencia y prioridad por sección
             customPages: [],
             serialize(item) {
