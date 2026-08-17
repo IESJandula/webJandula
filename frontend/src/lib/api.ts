@@ -8,6 +8,8 @@ export type NoticiaCard = {
     image: string;
     category: string;
     link: string;
+    /** Anclada por un administrador: va al principio del listado. */
+    fijada: boolean;
 };
 
 export type NoticiaDetail = NoticiaCard & {
@@ -246,7 +248,7 @@ function mapToCard(item: UnknownRecord): NoticiaCard {
 
     return {
         id,
-        title: (item.titulo as string) ?? 'Sin titulo',
+        title: (item.titulo as string) ?? 'Sin título',
         summary:
             (subtitulo || cuerpoPlano || 'Consulta la noticia completa para conocer todos los detalles.')
                 .slice(0, 180),
@@ -254,6 +256,7 @@ function mapToCard(item: UnknownRecord): NoticiaCard {
         image: getImageUrl(item),
         category: (item.categoria as string) ?? 'Centro',
         link: `/noticias/${id}`,
+        fijada: item.fijada === true,
     };
 }
 
@@ -268,12 +271,17 @@ function mapToDetail(item: UnknownRecord): NoticiaDetail {
     return {
         ...card,
         body: bodyHtml,
-        author: (item.autor as string) ?? 'IES Jandula',
+        author: (item.autor as string) ?? 'IES Jándula',
         poster,
         gallery,
     };
 }
 
+/**
+ * Devuelve las noticias publicadas en el orden que fija el backend: primero las
+ * ancladas (en su propio orden) y después el resto por fecha descendente.
+ * No reordenar aquí: se perdería el anclaje.
+ */
 export async function getNoticias(limit = 5): Promise<NoticiaCard[]> {
     try {
         const query = new URLSearchParams({

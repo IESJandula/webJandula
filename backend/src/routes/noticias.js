@@ -1,5 +1,6 @@
 import { prisma } from '../plugins/prisma.js';
 import { authenticate, requireAdmin } from '../middlewares/auth.js';
+import { solicitarRedespliegue } from '../services/redespliegue.js';
 
 const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3001';
 
@@ -16,6 +17,7 @@ function formatNoticia(n) {
     autorEmail: n.autorEmail,
     estado: n.estado,
     motivoRechazo: n.motivoRechazo ?? null,
+    fijada: n.fijada,
     orden: n.orden,
     // Compatibilidad con api.ts de Astro: imagen como array de objetos con url
     imagen: n.portada ? [{ url: n.portada }] : [],
@@ -37,7 +39,8 @@ export default async function noticiasRoutes(fastify) {
     const limit = Math.min(parseInt(request.query.limit ?? '50'), 200);
     const noticias = await prisma.noticia.findMany({
       where: { estado: 'publicada' },
-      orderBy: [{ orden: 'asc' }, { fecha: 'desc' }],
+      // Ancladas primero (en su propio orden), y el resto por fecha descendente.
+      orderBy: [{ fijada: 'desc' }, { orden: 'asc' }, { fecha: 'desc' }],
       take: limit,
     });
     return { data: noticias.map(formatNoticia) };
@@ -97,6 +100,10 @@ export default async function noticiasRoutes(fastify) {
         },
       });
 
+      if (noticia.estado === 'publicada') {
+        solicitarRedespliegue(fastify.log, `noticia ${noticia.id} creada y publicada`);
+      }
+
       return reply.status(201).send({ data: formatNoticia(noticia) });
     }
   );
@@ -142,6 +149,10 @@ export default async function noticiasRoutes(fastify) {
         },
       });
 
+      if (existing.estado === 'publicada' || updated.estado === 'publicada') {
+        solicitarRedespliegue(fastify.log, `noticia ${updated.id} editada`);
+      }
+
       return reply.send({ data: formatNoticia(updated) });
     }
   );
@@ -156,7 +167,8 @@ export default async function noticiasRoutes(fastify) {
       const { estado } = request.query;
       const noticias = await prisma.noticia.findMany({
         where: estado ? { estado } : undefined,
-        orderBy: [{ orden: 'asc' }, { createdAt: 'desc' }],
+        // Mismo orden que la web pública, para que el panel muestre lo que se ve.
+        orderBy: [{ fijada: 'desc' }, { orden: 'asc' }, { fecha: 'desc' }],
       });
       return { data: noticias.map(formatNoticia) };
     }
@@ -175,6 +187,8 @@ export default async function noticiasRoutes(fastify) {
         data: { estado: 'publicada', motivoRechazo: null },
       });
 
+      solicitarRedespliegue(fastify.log, `noticia ${noticia.id} aprobada`);
+
       return reply.send({ data: formatNoticia(noticia) });
     }
   );
@@ -189,6 +203,8 @@ export default async function noticiasRoutes(fastify) {
 
       const { motivo } = request.body || {};
 
+      const previa = await prisma.noticia.findUnique({ where: { id } });
+
       const noticia = await prisma.noticia.update({
         where: { id },
         data: {
@@ -196,6 +212,10 @@ export default async function noticiasRoutes(fastify) {
           motivoRechazo: motivo?.trim() ?? 'Sin motivo especificado',
         },
       });
+
+      if (previa?.estado === 'publicada') {
+        solicitarRedespliegue(fastify.log, `noticia ${noticia.id} rechazada estando publicada`);
+      }
 
       return reply.send({ data: formatNoticia(noticia) });
     }
@@ -214,7 +234,64 @@ export default async function noticiasRoutes(fastify) {
         data: { estado: 'pendiente' },
       });
 
+      solicitarRedespliegue(fastify.log, `noticia ${noticia.id} despublicada`);
+
       return reply.send({ data: formatNoticia(noticia) });
+    }
+  );
+
+  // POST /api/admin/noticias/:id/anclar  → la sube al principio de la web pública
+  fastify.post(
+    '/api/admin/noticias/:id/anclar',
+    { preHandler: [authenticate, requireAdmin] },
+    async (request, reply) => {
+      const id = parseInt(request.params.id);
+      if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
+
+      const noticia = await prisma.noticia.findUnique({ where: { id } });
+      if (!noticia) return reply.status(404).send({ error: 'Noticia no encontrada' });
+      if (noticia.fijada) return reply.send({ data: formatNoticia(noticia) });
+
+      // Se coloca al final de las ya ancladas; desde el panel se puede reordenar.
+      const ultima = await prisma.noticia.findFirst({
+        where: { fijada: true },
+        orderBy: { orden: 'desc' },
+        select: { orden: true },
+      });
+
+      const actualizada = await prisma.noticia.update({
+        where: { id },
+        data: { fijada: true, orden: (ultima?.orden ?? -1) + 1 },
+      });
+
+      solicitarRedespliegue(fastify.log, `noticia ${id} anclada`);
+
+      return reply.send({ data: formatNoticia(actualizada) });
+    }
+  );
+
+  // POST /api/admin/noticias/:id/desanclar  → vuelve a ordenarse por fecha
+  fastify.post(
+    '/api/admin/noticias/:id/desanclar',
+    { preHandler: [authenticate, requireAdmin] },
+    async (request, reply) => {
+      const id = parseInt(request.params.id);
+      if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
+
+      const noticia = await prisma.noticia.findUnique({ where: { id } });
+      if (!noticia) return reply.status(404).send({ error: 'Noticia no encontrada' });
+
+      // orden vuelve a 0: las no ancladas se ordenan solo por fecha.
+      const actualizada = await prisma.noticia.update({
+        where: { id },
+        data: { fijada: false, orden: 0 },
+      });
+
+      if (noticia.fijada) {
+        solicitarRedespliegue(fastify.log, `noticia ${id} desanclada`);
+      }
+
+      return reply.send({ data: formatNoticia(actualizada) });
     }
   );
 
@@ -228,14 +305,25 @@ export default async function noticiasRoutes(fastify) {
         return reply.status(400).send({ error: 'Se esperaba un array de ids' });
       }
 
-      await prisma.$transaction(
-        ids.map((id, index) =>
-          prisma.noticia.update({
-            where: { id: parseInt(id) },
-            data: { orden: index },
-          })
-        )
-      );
+      // "orden" solo tiene sentido entre las ancladas: se numeran 0,1,2... según
+      // la posición en la que llegan, y a las no ancladas se les fuerza 0 para
+      // que sigan ordenándose por fecha.
+      const numericos = ids.map((id) => parseInt(id)).filter((id) => !isNaN(id));
+      const registros = await prisma.noticia.findMany({
+        where: { id: { in: numericos } },
+        select: { id: true, fijada: true },
+      });
+      const esFijada = new Map(registros.map((r) => [r.id, r.fijada]));
+
+      let posicion = 0;
+      const cambios = numericos.map((id) => {
+        const orden = esFijada.get(id) ? posicion++ : 0;
+        return prisma.noticia.update({ where: { id }, data: { orden } });
+      });
+
+      await prisma.$transaction(cambios);
+
+      solicitarRedespliegue(fastify.log, 'orden de las noticias ancladas cambiado');
 
       return reply.send({ ok: true });
     }
@@ -249,7 +337,13 @@ export default async function noticiasRoutes(fastify) {
       const id = parseInt(request.params.id);
       if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
 
+      const previa = await prisma.noticia.findUnique({ where: { id } });
       await prisma.noticia.delete({ where: { id } });
+
+      if (previa?.estado === 'publicada') {
+        solicitarRedespliegue(fastify.log, `noticia ${id} eliminada`);
+      }
+
       return reply.send({ ok: true });
     }
   );

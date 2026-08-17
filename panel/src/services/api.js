@@ -37,6 +37,11 @@ export const rechazarNoticia = (id, motivo) =>
   apiClient.post(`/api/admin/noticias/${id}/rechazar`, { motivo });
 export const despublicarNoticia = (id) => apiClient.post(`/api/admin/noticias/${id}/despublicar`);
 export const eliminarNoticia = (id) => apiClient.delete(`/api/admin/noticias/${id}`);
+// Anclar: la noticia se queda al principio de la web pública hasta desanclarla,
+// sin que la desplacen las noticias que se publiquen después.
+export const anclarNoticia = (id) => apiClient.post(`/api/admin/noticias/${id}/anclar`);
+export const desanclarNoticia = (id) => apiClient.post(`/api/admin/noticias/${id}/desanclar`);
+// Reordena las noticias ancladas entre sí (el resto se ordena por fecha).
 export const reordenarNoticias = (ids) => apiClient.put('/api/admin/noticias/orden', { ids });
 
 // Uploads

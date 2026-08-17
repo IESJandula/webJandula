@@ -3,13 +3,14 @@ import SectionHeader from './SectionHeader.astro';
 import CardNoticia from './CardNoticia.astro';
 import { getNoticias } from '@/lib/api';
 
+// El backend ya las devuelve ordenadas: primero las ancladas y luego por fecha.
+// No reordenar aquí por fecha: anularía el anclaje justo en la portada.
 const news = await getNoticias(5);
-const sortedNews = [...news].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-const featuredNews = sortedNews.slice(0, 2);
-const secondaryNews = sortedNews.slice(2, 5);
+const featuredNews = news.slice(0, 2);
+const secondaryNews = news.slice(2, 5);
 ---
 
-{sortedNews.length > 0 && (
+{news.length > 0 && (
 <section class="py-20 bg-white">
   <div class="container mx-auto px-4">
     <SectionHeader

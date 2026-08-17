@@ -21,6 +21,12 @@ model Noticia {
   autorEmail     String
   estado         String   @default("pendiente") // pendiente | publicada | rechazada
   motivoRechazo  String?
+  // Noticias ancladas: aparecen al principio de la web pública, por encima de
+  // las demás, hasta que un administrador las desancla. Publicar una noticia
+  // nueva NO desplaza a las ancladas.
+  fijada         Boolean  @default(false)
+  // Orden ENTRE las noticias ancladas (0 = primera). Las no ancladas lo tienen
+  // siempre a 0 y se ordenan por fecha descendente.
   orden          Int      @default(0)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

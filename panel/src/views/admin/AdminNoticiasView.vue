@@ -28,7 +28,10 @@
     <!-- Tabla -->
     <div v-else class="table-wrapper">
       <p v-if="filtro === 'publicada'" class="drag-hint">
-        ↕ Arrastra las filas para cambiar el orden en la web pública
+        📌 Ancla una noticia para que se quede al principio de la web pública hasta que la desancles.
+        <template v-if="numFijadas > 1">
+          ↕ Arrastra las ancladas para ordenarlas entre sí.
+        </template>
       </p>
       <table>
         <thead>
@@ -43,9 +46,12 @@
           </tr>
         </thead>
         <tbody ref="tbodyRef">
-          <tr v-for="n in noticias" :key="n.id" :data-id="n.id">
-            <td v-if="filtro === 'publicada'" class="drag-handle" title="Arrastrar para reordenar">⠿</td>
+          <tr v-for="n in noticias" :key="n.id" :data-id="n.id" :class="{ 'fila-anclada': n.fijada }">
+            <td v-if="filtro === 'publicada'" class="drag-handle" :title="n.fijada ? 'Arrastrar para ordenar entre las ancladas' : 'Solo se pueden ordenar las noticias ancladas'">
+              <span v-if="n.fijada">⠿</span>
+            </td>
             <td>
+              <span v-if="n.fijada" class="badge badge-anclada" title="Anclada al principio de la web pública">📌 Anclada</span>
               <strong>{{ n.titulo }}</strong>
               <p v-if="n.estado === 'rechazada' && n.motivoRechazo" class="motivo">✗ {{ n.motivoRechazo }}</p>
             </td>
@@ -57,6 +63,18 @@
               <div class="actions">
                 <button v-if="n.estado === 'pendiente'" class="btn btn-success" @click="aprobar(n)">✓ Aprobar</button>
                 <button v-if="n.estado === 'pendiente'" class="btn btn-danger" @click="abrirRechazo(n)">✗ Rechazar</button>
+                <button
+                  v-if="n.estado === 'publicada' && !n.fijada"
+                  class="btn btn-secondary"
+                  title="Fijar al principio de la web pública"
+                  @click="anclar(n)"
+                >📌 Anclar</button>
+                <button
+                  v-if="n.estado === 'publicada' && n.fijada"
+                  class="btn btn-anclada"
+                  title="Dejar de fijarla: volverá a ordenarse por fecha"
+                  @click="desanclar(n)"
+                >Desanclar</button>
                 <button v-if="n.estado === 'publicada'" class="btn btn-warning" @click="despublicar(n)">Despublicar</button>
                 <router-link :to="`/noticias/${n.id}/editar`" class="btn btn-secondary">Editar</router-link>
                 <button class="btn btn-danger" @click="eliminar(n)">Borrar</button>
@@ -93,6 +111,7 @@ import Sortable from 'sortablejs';
 import {
   getAdminNoticias, aprobarNoticia, rechazarNoticia,
   despublicarNoticia, eliminarNoticia, reordenarNoticias,
+  anclarNoticia, desanclarNoticia,
 } from '@/services/api';
 
 const tabs = [
@@ -119,6 +138,8 @@ const conteo = computed(() => ({
   todas: todas.value.length,
 }));
 
+const numFijadas = computed(() => noticias.value.filter((n) => n.fijada).length);
+
 const rechazoModal = reactive({ visible: false, noticia: null, motivo: '' });
 
 async function cargar() {
@@ -140,6 +161,8 @@ watch([filtro, noticias], async () => {
   if (filtro.value === 'publicada' && tbodyRef.value) {
     sortable = Sortable.create(tbodyRef.value, {
       handle: '.drag-handle',
+      // Solo las ancladas se reordenan a mano: el resto va por fecha.
+      draggable: 'tr.fila-anclada',
       animation: 150,
       onEnd: async () => {
         const ids = [...tbodyRef.value.querySelectorAll('tr[data-id]')].map((tr) =>
@@ -167,6 +190,16 @@ function abrirRechazo(n) {
 async function confirmarRechazo() {
   await rechazarNoticia(rechazoModal.noticia.id, rechazoModal.motivo);
   rechazoModal.visible = false;
+  await cargar();
+}
+
+async function anclar(n) {
+  await anclarNoticia(n.id);
+  await cargar();
+}
+
+async function desanclar(n) {
+  await desanclarNoticia(n.id);
   await cargar();
 }
 
@@ -199,6 +232,16 @@ function formatFecha(fecha) {
 }
 .tab.active .tab-badge { background: rgba(255,255,255,0.35); }
 .motivo { font-size: 11px; color: var(--seneca-peligro); margin: 4px 0 0; font-style: italic; }
+
+/* Noticias ancladas */
+.fila-anclada { background: #fffbeb; }
+.badge-anclada {
+  display: inline-block; background: #fbbf24; color: #451a03;
+  border-radius: 10px; font-size: 10px; font-weight: 700;
+  padding: 2px 7px; margin-right: 6px; vertical-align: middle;
+}
+.btn-anclada { background: #fbbf24; color: #451a03; }
+.btn-anclada:hover { background: #f59e0b; }
 
 /* Modal */
 .modal-overlay {

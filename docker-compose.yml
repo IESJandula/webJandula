@@ -20,6 +20,11 @@ services:
       ADMIN_EMAILS: ${ADMIN_EMAILS}
       FRONTEND_URL: ${FRONTEND_URL}
       PANEL_URL: ${PANEL_URL}
+      # Webhook de despliegue del frontend en Dokploy. Imprescindible: el
+      # frontend es estático y sin esto las noticias nuevas no llegan a la web.
+      DEPLOY_HOOK_URL: ${DEPLOY_HOOK_URL}
+      DEPLOY_HOOK_METHOD: ${DEPLOY_HOOK_METHOD:-POST}
+      DEPLOY_DEBOUNCE_MS: ${DEPLOY_DEBOUNCE_MS:-60000}
     volumes:
       # Cubre tanto /data/uploads como el fichero SQLite (/data/jandula-noticias.db),
       # ambos definidos por defecto en el Dockerfile. Persiste entre despliegues.
