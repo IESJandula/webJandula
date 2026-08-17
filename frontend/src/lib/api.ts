@@ -278,53 +278,83 @@ function mapToDetail(item: UnknownRecord): NoticiaDetail {
 }
 
 /**
+ * Pide JSON a la API con reintentos.
+ *
+ * IMPORTANTE: si la API no responde, esto LANZA un error y tumba el build en
+ * lugar de devolver una lista vacia. Es deliberado.
+ *
+ * El webhook de despliegue de Dokploy redespliega el compose completo, o sea
+ * que el backend se reinicia a la vez que se construye el frontend. Si en ese
+ * momento la API no contesta y aqui se devolviera [], se publicaria una web
+ * con CERO noticias, en silencio, y se quedaria asi hasta el despliegue
+ * siguiente. Prefiero que el despliegue falle: Dokploy mantiene en pie el
+ * contenedor anterior, que al menos tiene las noticias correctas.
+ *
+ * Una lista vacia solo es legitima si la API responde bien y no hay noticias.
+ */
+async function pedirJson(
+    url: string,
+    { intentos = 3, esperaMs = 2000 }: { intentos?: number; esperaMs?: number } = {},
+): Promise<{ data?: Array<UnknownRecord> }> {
+    let ultimoError = '';
+
+    for (let intento = 1; intento <= intentos; intento++) {
+        try {
+            const res = await fetch(url);
+            if (res.ok) return (await res.json()) as { data?: Array<UnknownRecord> };
+            ultimoError = `HTTP ${res.status}`;
+        } catch (err) {
+            ultimoError = err instanceof Error ? err.message : String(err);
+        }
+
+        if (intento < intentos) {
+            console.warn(
+                `[api] La API de noticias no responde (${ultimoError}). ` +
+                `Reintento ${intento} de ${intentos - 1} en ${esperaMs / 1000}s...`,
+            );
+            await new Promise((resolve) => setTimeout(resolve, esperaMs));
+            esperaMs *= 2;
+        }
+    }
+
+    throw new Error(
+        `No se pudo leer las noticias desde ${API} tras ${intentos} intentos ` +
+        `(ultimo error: ${ultimoError}).
+` +
+        `El build se detiene a proposito: continuar publicaria la web sin ninguna ` +
+        `noticia. Comprueba que el backend esta en pie y que PUBLIC_API_URL apunta ` +
+        `a la URL correcta, y vuelve a lanzar el despliegue.`,
+    );
+}
+
+/**
  * Devuelve las noticias publicadas en el orden que fija el backend: primero las
  * ancladas (en su propio orden) y después el resto por fecha descendente.
  * No reordenar aquí: se perdería el anclaje.
  */
 export async function getNoticias(limit = 5): Promise<NoticiaCard[]> {
-    try {
-        const query = new URLSearchParams({
-            'sort[0]': 'fecha:desc',
-            'pagination[limit]': String(limit),
-            'populate': '*',
-        });
+    const query = new URLSearchParams({
+        'sort[0]': 'fecha:desc',
+        'pagination[limit]': String(limit),
+        'populate': '*',
+    });
 
-        const res = await fetch(`${API}/api/noticias?${query.toString()}`);
-        if (!res.ok) return [];
-
-        const json = (await res.json()) as {
-            data?: Array<UnknownRecord>;
-        };
-
-        const data = Array.isArray(json?.data) ? json.data : [];
-        return data.map(mapToCard);
-    } catch {
-        return [];
-    }
+    const json = await pedirJson(`${API}/api/noticias?${query.toString()}`);
+    const data = Array.isArray(json?.data) ? json.data : [];
+    return data.map(mapToCard);
 }
 
 export async function getNoticiasIds(limit = 200): Promise<string[]> {
-    try {
-        const query = new URLSearchParams({
-            'sort[0]': 'fecha:desc',
-            'pagination[limit]': String(limit),
-            'fields[0]': 'id',
-            'fields[1]': 'documentId',
-        });
+    const query = new URLSearchParams({
+        'sort[0]': 'fecha:desc',
+        'pagination[limit]': String(limit),
+        'fields[0]': 'id',
+        'fields[1]': 'documentId',
+    });
 
-        const res = await fetch(`${API}/api/noticias?${query.toString()}`);
-        if (!res.ok) return [];
-
-        const json = (await res.json()) as {
-            data?: Array<UnknownRecord>;
-        };
-
-        const data = Array.isArray(json?.data) ? json.data : [];
-        return data.map(getItemId);
-    } catch {
-        return [];
-    }
+    const json = await pedirJson(`${API}/api/noticias?${query.toString()}`);
+    const data = Array.isArray(json?.data) ? json.data : [];
+    return data.map(getItemId);
 }
 
 export async function getNoticiaById(id: string): Promise<NoticiaDetail | null> {
