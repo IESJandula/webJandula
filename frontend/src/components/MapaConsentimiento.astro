@@ -1,0 +1,78 @@
+---
+/**
+ * Mapa de Google que NO se carga hasta que la persona lo pide.
+ *
+ * Un iframe de Google Maps incrustado directamente se descarga en cuanto se
+ * abre la página y envía a Google la IP y los datos del navegador de cada
+ * visitante, sin consentimiento. Al exigir un clic, esa transferencia solo
+ * ocurre si la persona la acepta, y además la página carga más rápido.
+ */
+interface Props {
+  src: string;
+  titulo?: string;
+  height?: number;
+  class?: string;
+}
+
+const {
+  src,
+  titulo = "Mapa de situación del IES Jándula",
+  height = 180,
+  class: clase = "",
+} = Astro.props;
+---
+
+<div class:list={["mapa-consentimiento", clase]} data-mapa-src={src} data-mapa-titulo={titulo}>
+  <button
+    type="button"
+    class="group flex w-full flex-col items-center justify-center gap-2 rounded-lg bg-slate-100 p-4 text-center ring-1 ring-slate-200 transition-colors hover:bg-slate-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+    style={`min-height:${height}px`}
+    data-mapa-boton
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="1.5"
+      stroke="currentColor"
+      class="h-7 w-7 text-slate-500 group-hover:text-slate-700"
+      aria-hidden="true"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z"
+      ></path>
+    </svg>
+    <span class="text-sm font-semibold text-slate-700">Ver el mapa</span>
+  </button>
+
+  <p class="mt-2 text-[11px] leading-snug text-slate-500" data-mapa-aviso>
+    Al abrir el mapa, Google Maps recibirá tu dirección IP. Consulta la
+    <a href="/privacidad" class="underline hover:text-slate-700">política de privacidad</a>.
+  </p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".mapa-consentimiento").forEach((contenedor) => {
+    const boton = contenedor.querySelector<HTMLButtonElement>("[data-mapa-boton]");
+    const aviso = contenedor.querySelector<HTMLElement>("[data-mapa-aviso]");
+    const src = contenedor.dataset.mapaSrc;
+    if (!boton || !src) return;
+
+    boton.addEventListener("click", () => {
+      const alto = boton.style.minHeight.replace("px", "") || "180";
+      const iframe = document.createElement("iframe");
+      iframe.src = src;
+      iframe.title = contenedor.dataset.mapaTitulo ?? "Mapa";
+      iframe.className = "w-full rounded-lg border-0";
+      iframe.height = alto;
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "no-referrer-when-downgrade";
+      iframe.allowFullscreen = true;
+
+      boton.replaceWith(iframe);
+      aviso?.remove();
+    });
+  });
+</script>

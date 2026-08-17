@@ -1,8 +1,7 @@
-/* src/st
-pnpm run devyles/global.css */
+/* src/styles/global.css */
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap');
+/* Tipografias autoalojadas en public/fonts (ya no se piden a Google Fonts) */
+@import './fonts.css';
 
 @tailwind base;
 @tailwind components;

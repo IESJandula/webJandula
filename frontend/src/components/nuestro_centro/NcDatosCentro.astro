@@ -1,5 +1,6 @@
 ---
 import { contacto } from '@lib/content';
+import MapaConsentimiento from '@components/MapaConsentimiento.astro';
 ---
 
 <section id="datos-centro" class="py-20 bg-white">
@@ -35,14 +36,7 @@ import { contacto } from '@lib/content';
         <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200 sm:col-span-2 lg:col-span-3">
           <span class="text-sm font-semibold text-slate-900">Dirección:</span>
           <p class="mt-1 text-slate-700">c/ San Vicente de Paúl, s/n, 23740 Andújar - Jaén</p>
-          <iframe
-            class="mt-2 w-full rounded-lg border-0"
-            height="180"
-            src={contacto.mapaUrl}
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+          <MapaConsentimiento src={contacto.mapaUrl} height={180} class="mt-2" />
         </div>
         <div class="rounded-2xl bg-slate-50 p-4 ring-1 ring-slate-200">
           <span class="text-sm font-semibold text-slate-900">Teléfono:</span>
