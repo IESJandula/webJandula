@@ -21,3 +21,14 @@ pnpm-debug.log*
 .env
 .env.local
 *.local
+
+# --- Credenciales (NUNCA subir al repositorio) ---
+firebase-service-account.json
+*-service-account.json
+
+# --- Builds y datos generados ---
+dist/
+.astro/
+backend/uploads/
+*.db
+*.db-journal
