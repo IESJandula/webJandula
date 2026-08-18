@@ -18,6 +18,9 @@ RUN npx prisma generate
 COPY src ./src
 # Scripts de mantenimiento (importacion del blog antiguo, etc.)
 COPY scripts ./scripts
+# Contenido descargado del blog antiguo (manifiesto + imagenes). Viaja en la
+# imagen porque el servidor de la Junta no acepta conexiones desde el VPS.
+COPY importacion ./importacion
 
 # El volumen se monta en /data (uploads + sqlite), y persiste entre despliegues
 ENV UPLOADS_DIR=/data/uploads
