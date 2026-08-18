@@ -35,7 +35,7 @@ export default async function noticiasRoutes(fastify) {
   // ── PÚBLICAS (consume Astro) ──────────────────────────────────────────────
 
   // GET /api/noticias?limit=10  → solo publicadas
-  fastify.get('/api/noticias', async (request) => {
+  fastify.get('/api/noticias', async (request, reply) => {
     const limit = Math.min(parseInt(request.query.limit ?? '50'), 200);
     const noticias = await prisma.noticia.findMany({
       where: { estado: 'publicada' },
@@ -43,6 +43,27 @@ export default async function noticiasRoutes(fastify) {
       orderBy: [{ fijada: 'desc' }, { orden: 'asc' }, { fecha: 'desc' }],
       take: limit,
     });
+
+    // ETag y Last-Modified: los usa el Dockerfile del frontend para saber si
+    // tiene que reconstruir la web.
+    //
+    // La web es estática y las noticias se incrustan durante el build, pero
+    // Docker decide si reutiliza una capa mirando solo los ficheros del
+    // repositorio, que no cambian al publicar una noticia. Con estas cabeceras,
+    // el "ADD" del Dockerfile invalida la capa justo cuando cambian las
+    // noticias, y no antes. Comprobado que BuildKit atiende a las dos.
+    const masReciente = noticias.reduce(
+      (max, n) => (n.updatedAt > max ? n.updatedAt : max),
+      new Date(0)
+    );
+    // Se incluyen los ids además de la fecha: así borrar una noticia también
+    // cambia la firma, aunque no exista ninguna fecha de modificación nueva.
+    const firma = `${noticias.length}-${masReciente.getTime()}-${noticias.map((n) => n.id).join('.')}`;
+
+    reply
+      .header('ETag', `"${Buffer.from(firma).toString('base64url').slice(0, 32)}"`)
+      .header('Last-Modified', masReciente.toUTCString());
+
     return { data: noticias.map(formatNoticia) };
   });
 
