@@ -10,6 +10,10 @@ COPY . .
 
 ARG PUBLIC_API_URL
 ENV PUBLIC_API_URL=$PUBLIC_API_URL
+# Valvula de escape para el PRIMER despliegue de un dominio nuevo: permite
+# construir aunque la API todavia no sea accesible. Ver src/lib/api.ts.
+ARG PERMITIR_BUILD_SIN_NOTICIAS
+ENV PERMITIR_BUILD_SIN_NOTICIAS=$PERMITIR_BUILD_SIN_NOTICIAS
 RUN pnpm build
 
 FROM nginx:alpine

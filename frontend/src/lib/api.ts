@@ -277,6 +277,14 @@ function mapToDetail(item: UnknownRecord): NoticiaDetail {
     };
 }
 
+function permitirBuildSinNoticias(): boolean {
+    const entorno = globalThis as { process?: { env?: Record<string, string | undefined> } };
+    const valor =
+        entorno.process?.env?.PERMITIR_BUILD_SIN_NOTICIAS ??
+        (import.meta.env.PERMITIR_BUILD_SIN_NOTICIAS as string | undefined);
+    return valor === 'true' || valor === '1';
+}
+
 /**
  * Pide JSON a la API con reintentos.
  *
@@ -317,13 +325,40 @@ async function pedirJson(
         }
     }
 
+    // Valvula de escape para el arranque de un dominio nuevo.
+    //
+    // Al estrenar dominio se produce un bloqueo circular: Traefik solo pide el
+    // certificado de la API cuando el despliegue termina, pero el despliegue no
+    // termina porque este build necesita la API por HTTPS y todavia responde con
+    // el certificado por defecto de Traefik. Con esta variable se construye una
+    // vez sin noticias, se emite el certificado, y despues se quita.
+    if (permitirBuildSinNoticias()) {
+        const separador = '='.repeat(72);
+        console.warn([
+            '',
+            separador,
+            'AVISO: PERMITIR_BUILD_SIN_NOTICIAS esta activada.',
+            `No se pudo leer las noticias desde ${API} (${ultimoError}),`,
+            'y aun asi se va a publicar la web SIN NINGUNA NOTICIA.',
+            '',
+            'Esto solo debe usarse para el primer despliegue de un dominio nuevo.',
+            'QUITA esta variable y vuelve a desplegar en cuanto la API responda.',
+            separador,
+            '',
+        ].join(String.fromCharCode(10)));
+        return { data: [] };
+    }
+
     throw new Error(
         `No se pudo leer las noticias desde ${API} tras ${intentos} intentos ` +
         `(ultimo error: ${ultimoError}).
 ` +
         `El build se detiene a proposito: continuar publicaria la web sin ninguna ` +
         `noticia. Comprueba que el backend esta en pie y que PUBLIC_API_URL apunta ` +
-        `a la URL correcta, y vuelve a lanzar el despliegue.`,
+        `a la URL correcta, y vuelve a lanzar el despliegue.
+` +
+        `Si estas estrenando dominio y la API todavia no tiene certificado, puedes ` +
+        `construir una vez sin noticias con PERMITIR_BUILD_SIN_NOTICIAS=true.`,
     );
 }
 

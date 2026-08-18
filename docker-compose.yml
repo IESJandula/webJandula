@@ -5,6 +5,9 @@ services:
       dockerfile: Dockerfile
       args:
         PUBLIC_API_URL: ${PUBLIC_API_URL}
+        # Solo para arrancar un dominio nuevo, cuando la API aun no tiene
+        # certificado. Dejar vacio en condiciones normales.
+        PERMITIR_BUILD_SIN_NOTICIAS: ${PERMITIR_BUILD_SIN_NOTICIAS:-}
     expose:
       - "80"
     restart: unless-stopped
