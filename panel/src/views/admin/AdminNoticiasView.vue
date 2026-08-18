@@ -52,7 +52,9 @@
             </td>
             <td>
               <span v-if="n.fijada" class="badge badge-anclada" title="Anclada al principio de la web pública">📌 Anclada</span>
-              <strong>{{ n.titulo }}</strong>
+              <button class="titulo-enlace" title="Ver la noticia completa" @click="verNoticia(n)">
+                {{ n.titulo }}
+              </button>
               <p v-if="n.estado === 'rechazada' && n.motivoRechazo" class="motivo">✗ {{ n.motivoRechazo }}</p>
             </td>
             <td>{{ n.autor }}</td>
@@ -61,6 +63,7 @@
             <td><span class="badge" :class="`badge-${n.estado}`">{{ n.estado }}</span></td>
             <td>
               <div class="actions">
+                <button class="btn btn-secondary" title="Leer la noticia antes de decidir" @click="verNoticia(n)">👁 Ver</button>
                 <button v-if="n.estado === 'pendiente'" class="btn btn-success" @click="aprobar(n)">✓ Aprobar</button>
                 <button v-if="n.estado === 'pendiente'" class="btn btn-danger" @click="abrirRechazo(n)">✗ Rechazar</button>
                 <button
@@ -85,6 +88,54 @@
       </table>
     </div>
 
+    <!-- Visor de la noticia. Los datos ya vienen en el listado del panel
+         (titulo, cuerpo, imagenes), asi que no hace falta pedir nada mas.
+         Sirve para leer una noticia pendiente ANTES de aprobarla. -->
+    <div v-if="visor.visible" class="modal-overlay" @click.self="cerrarVisor">
+      <div class="visor-card">
+        <header class="visor-cabecera">
+          <div class="visor-meta">
+            <span class="badge" :class="`badge-${visor.noticia.estado}`">{{ visor.noticia.estado }}</span>
+            <span>{{ visor.noticia.categoria }}</span>
+            <span>·</span>
+            <span>{{ formatFecha(visor.noticia.fecha) }}</span>
+            <span>·</span>
+            <span>{{ visor.noticia.autor }}</span>
+          </div>
+          <button class="visor-cerrar" aria-label="Cerrar" @click="cerrarVisor">✕</button>
+        </header>
+
+        <div class="visor-cuerpo">
+          <h2 class="visor-titulo">{{ visor.noticia.titulo }}</h2>
+          <p v-if="visor.noticia.subtitulo" class="visor-entradilla">{{ visor.noticia.subtitulo }}</p>
+
+          <img
+            v-if="portadaVisor"
+            :src="portadaVisor"
+            :alt="`Portada de ${visor.noticia.titulo}`"
+            class="visor-portada"
+          />
+
+          <!-- El cuerpo es HTML del editor o de la importacion. Solo lo ve el
+               profesorado autenticado del centro, no visitantes. -->
+          <div class="visor-texto" v-html="visor.noticia.cuerpo"></div>
+
+          <div v-if="galeriaVisor.length" class="visor-galeria">
+            <img v-for="(g, i) in galeriaVisor" :key="i" :src="g" :alt="`Imagen ${i + 1} de la galería`" />
+          </div>
+        </div>
+
+        <footer class="visor-pie">
+          <div class="actions">
+            <button v-if="visor.noticia.estado === 'pendiente'" class="btn btn-success" @click="aprobarDesdeVisor">✓ Aprobar</button>
+            <button v-if="visor.noticia.estado === 'pendiente'" class="btn btn-danger" @click="rechazarDesdeVisor">✗ Rechazar</button>
+            <router-link :to="`/noticias/${visor.noticia.id}/editar`" class="btn btn-secondary">Editar</router-link>
+          </div>
+          <button class="btn btn-secondary" @click="cerrarVisor">Cerrar</button>
+        </footer>
+      </div>
+    </div>
+
     <!-- Modal de rechazo -->
     <div v-if="rechazoModal.visible" class="modal-overlay" @click.self="rechazoModal.visible = false">
       <div class="modal-card">
@@ -106,12 +157,12 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, watch, nextTick } from 'vue';
+import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
 import Sortable from 'sortablejs';
 import {
   getAdminNoticias, aprobarNoticia, rechazarNoticia,
   despublicarNoticia, eliminarNoticia, reordenarNoticias,
-  anclarNoticia, desanclarNoticia,
+  anclarNoticia, desanclarNoticia, urlImagen,
 } from '@/services/api';
 
 const tabs = [
@@ -142,6 +193,43 @@ const numFijadas = computed(() => noticias.value.filter((n) => n.fijada).length)
 
 const rechazoModal = reactive({ visible: false, noticia: null, motivo: '' });
 
+// Visor de la noticia
+const visor = reactive({ visible: false, noticia: {} });
+
+const portadaVisor = computed(() => urlImagen(visor.noticia?.imagen?.[0]?.url));
+const galeriaVisor = computed(() =>
+  (visor.noticia?.galeria ?? []).map((g) => urlImagen(g.url ?? g)).filter(Boolean)
+);
+
+function verNoticia(n) {
+  visor.noticia = n;
+  visor.visible = true;
+  // Evita que la pagina de detras siga desplazandose con la rueda.
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarVisor() {
+  visor.visible = false;
+  document.body.style.overflow = '';
+}
+
+async function aprobarDesdeVisor() {
+  const n = visor.noticia;
+  cerrarVisor();
+  await aprobar(n);
+}
+
+function rechazarDesdeVisor() {
+  const n = visor.noticia;
+  cerrarVisor();
+  abrirRechazo(n);
+}
+
+// Cerrar con la tecla Escape, como cualquier ventana modal.
+function alPulsarTecla(e) {
+  if (e.key === 'Escape' && visor.visible) cerrarVisor();
+}
+
 async function cargar() {
   loading.value = true;
   try {
@@ -152,7 +240,16 @@ async function cargar() {
   }
 }
 
-onMounted(cargar);
+onMounted(() => {
+  cargar();
+  window.addEventListener('keydown', alPulsarTecla);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', alPulsarTecla);
+  // Si se sale de la pagina con el visor abierto, devolver el scroll.
+  document.body.style.overflow = '';
+});
 
 // Drag & drop solo en tab publicadas
 watch([filtro, noticias], async () => {
@@ -232,6 +329,121 @@ function formatFecha(fecha) {
 }
 .tab.active .tab-badge { background: rgba(255,255,255,0.35); }
 .motivo { font-size: 11px; color: var(--seneca-peligro); margin: 4px 0 0; font-style: italic; }
+
+/* Titulo de la tabla como enlace: invita a abrir el visor */
+.titulo-enlace {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 700;
+  color: var(--seneca-azul, #14507a);
+  text-align: left;
+  cursor: pointer;
+}
+.titulo-enlace:hover { text-decoration: underline; }
+
+/* Visor de la noticia */
+.visor-card {
+  background: #fff;
+  border-radius: 12px;
+  width: min(760px, 94vw);
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(15, 40, 70, 0.25);
+}
+.visor-cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid #e6ebf0;
+  background: #f7f9fb;
+}
+.visor-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #5b6b7b;
+}
+.visor-cerrar {
+  background: none;
+  border: 0;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  color: #5b6b7b;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.visor-cerrar:hover { background: #e6ebf0; }
+.visor-cuerpo {
+  padding: 24px 28px;
+  overflow-y: auto;
+}
+.visor-titulo {
+  margin: 0 0 10px;
+  font-size: 26px;
+  line-height: 1.2;
+  color: #0f2d45;
+}
+.visor-entradilla {
+  margin: 0 0 18px;
+  font-size: 16px;
+  color: #5b6b7b;
+}
+.visor-portada {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background: #eef2f5;
+}
+.visor-texto {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #33414f;
+  max-width: 62ch;
+}
+.visor-texto :deep(p) { margin: 0 0 1em; }
+.visor-texto :deep(img) {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 1em 0;
+}
+.visor-texto :deep(a) { color: #1d4ed8; }
+.visor-texto :deep(h1),
+.visor-texto :deep(h2),
+.visor-texto :deep(h3) { color: #0f2d45; line-height: 1.25; margin: 1.4em 0 0.5em; }
+.visor-galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.visor-galeria img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: #eef2f5;
+}
+.visor-pie {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 20px;
+  border-top: 1px solid #e6ebf0;
+  background: #f7f9fb;
+}
 
 /* Noticias ancladas */
 .fila-anclada { background: #fffbeb; }

@@ -1,7 +1,17 @@
 import axios from 'axios';
 import { auth } from '@/firebaseConfig';
 
-const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+export const API = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+
+/**
+ * Compone la URL absoluta de una imagen guardada en el backend.
+ * Las noticias importadas del blog guardan la ruta relativa (/uploads/...),
+ * mientras que las subidas desde el panel guardan la URL completa.
+ */
+export const urlImagen = (ruta) => {
+  if (!ruta) return '';
+  return ruta.startsWith('http') ? ruta : `${API}${ruta}`;
+};
 
 export const apiClient = axios.create({
   baseURL: API,
