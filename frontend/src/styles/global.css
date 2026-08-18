@@ -192,6 +192,13 @@ body {
 
 .news-richtext strong { color: #0f172a; font-weight: 600; }
 
+/* Si el editor ha fijado un color de texto (celdas oscuras con letra blanca,
+   por ejemplo), la negrita no debe imponer su gris oscuro encima. */
+.news-richtext [style*="color"] strong,
+.news-richtext strong [style*="color"] {
+    color: inherit;
+}
+
 .news-richtext hr {
     border: 0;
     border-top: 1px solid #e2e8f0;

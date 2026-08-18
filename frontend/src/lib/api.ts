@@ -121,7 +121,12 @@ function richTextToHtml(value: unknown): string {
 
         // Only bypass markdown conversion if the payload is already structured HTML.
         // Inline tags (like <u>) should still go through markdown parsing.
-        const isStructuredHtml = /<(p|h[1-6]|ul|ol|li|blockquote|article|section|div|figure|img|a|br)\b/i.test(asHtml);
+        // Ojo con esta lista: si falta una etiqueta, ese contenido se trata como
+        // markdown y acaba ESCAPADO, o sea que el visitante ve el codigo. Pasaba
+        // con las tablas: una noticia que empieza por <table> (un horario de
+        // examenes pegado tal cual) se mostraba como texto literal.
+        const isStructuredHtml =
+            /<(p|h[1-6]|ul|ol|li|blockquote|article|section|div|figure|figcaption|img|a|br|hr|table|thead|tbody|tfoot|tr|td|th|strong|em|b|i|u|span|pre|code)\b/i.test(asHtml);
         if (isStructuredHtml) return asHtml;
 
         // Otherwise treat as markdown/plain text from Strapi rich text.

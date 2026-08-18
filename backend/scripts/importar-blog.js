@@ -151,10 +151,28 @@ async function prepararCuerpo(htmlOriginal, indice, imagenes, registro) {
   });
   if (emojis) registro.push(`      ${emojis} emojis recuperados como texto`);
 
+  // En las tablas, el color de fondo y la alineacion SI son contenido: los
+  // horarios de examenes del centro los usan para distinguir bloques. Se
+  // apartan antes de la limpieza general y se devuelven despues.
+  html = html.replace(/<(td|th|tr)([^>]*)>/gi, (etiqueta, nombre, atributos) => {
+    const estilo = atributos.match(/style=["']([^"']*)["']/i)?.[1] ?? '';
+    const conservar = estilo
+      .split(';')
+      .map((d) => d.trim())
+      .filter((d) => /^(background-color|text-align)\s*:/i.test(d));
+    const resto = atributos.replace(/\s*style=["'][^"']*["']/i, '');
+    return conservar.length
+      ? `<${nombre}${resto} estiloconservado="${conservar.join('; ')}">`
+      : `<${nombre}${resto}>`;
+  });
+
   // Fuera capas y atributos de presentación ajenos: la web pone su estilo.
   html = html
     .replace(/<\/?(?:div|span|section)[^>]*>/gi, '')
     .replace(/\s(?:class|style|id|dir|srcset|sizes|data-[\w-]+)=["'][^"']*["']/gi, '');
+
+  // Devolver el estilo apartado de las celdas.
+  html = html.replace(/estiloconservado="([^"]*)"/gi, 'style="$1"');
 
   // Si no quedó ningún párrafo (típico de lo pegado de Facebook), se rehacen.
   if (!/<(p|h[1-6]|ul|ol|blockquote)[ >]/i.test(html)) {
