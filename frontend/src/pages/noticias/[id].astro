@@ -35,6 +35,45 @@ const formattedDate = noticia ? formatSpanishDate(noticia.date) : '';
 //  - La imagen principal estaba duplicada, en cabecera y en cuerpo. Queda una.
 //  - El cuerpo se limita a 65ch: con el texto a todo lo ancho el ojo pierde el
 //    renglon al volver a la izquierda.
+// Las noticias importadas del blog traen como subtitulo el extracto automatico
+// de WordPress, que son las primeras palabras del cuerpo. Mostrarlo como
+// entradilla hacia leer lo mismo dos veces seguidas, asi que se omite cuando
+// esta contenido al principio del texto.
+function normalizar(texto: string): string {
+  return texto
+    .replace(/<[^>]*>/g, ' ')
+    // El cuerpo guarda entidades HTML (&#8211;, &nbsp;) donde el extracto de
+    // WordPress trae ya el caracter. Sin decodificarlas, las dos cadenas se
+    // separaban en el primer guion largo y la comparacion fallaba.
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&(?:quot|ldquo|rdquo);/g, '"')
+    .replace(/&(?:ndash|mdash);/g, '-')
+    .replace(/&[a-z]+;/gi, ' ')
+    .replace(/\s+/g, ' ')
+    .replace(/[.…]+$/, '')
+    .trim()
+    .toLowerCase();
+}
+
+const entradilla = (() => {
+  if (!noticia?.summary) return '';
+
+  // Se comparan las dos cadenas SIN espacios: en alguna entrada del blog la
+  // imagen quedo insertada en mitad de una palabra ("Queremos expre<img>sar"),
+  // y al quitar las etiquetas aparece un espacio que no esta en el extracto.
+  const sinEspacios = (s: string) => normalizar(s).replace(/ /g, '');
+
+  const resumen = sinEspacios(noticia.summary);
+  if (resumen.length < 20) return '';
+
+  // El extracto suele cortar a media palabra, asi que se descarta el final.
+  const comparable = resumen.slice(0, Math.max(20, resumen.length - 10));
+
+  return sinEspacios(noticia.body).startsWith(comparable) ? '' : noticia.summary;
+})();
+
 const palabras = noticia ? noticia.body.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length : 0;
 const minutosLectura = Math.max(1, Math.round(palabras / 200));
 const sidePoster = noticia?.poster ?? null;
@@ -114,9 +153,9 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
             {noticia.title}
           </h1>
 
-          {noticia.summary && (
+          {entradilla && (
             <p class="mt-5 text-lg leading-relaxed text-slate-600 md:text-xl" style="text-wrap: pretty;">
-              {noticia.summary}
+              {entradilla}
             </p>
           )}
         </div>
@@ -124,15 +163,13 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
     </header>
 
     <figure class="container mx-auto px-4 pt-10 md:pt-12">
-      <div class="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-slate-100">
-        <img
-          src={noticia.image}
-          alt={`Fotografia de la noticia: ${noticia.title}`}
-          class="w-full max-h-[520px] object-cover"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      <img
+        src={noticia.image}
+        alt={`Fotografia de la noticia: ${noticia.title}`}
+        class="mx-auto max-h-[520px] w-auto max-w-full rounded-2xl bg-slate-100 object-contain"
+        loading="eager"
+        decoding="async"
+      />
     </figure>
 
     <div class="container mx-auto px-4 py-10 md:py-14">

@@ -260,6 +260,23 @@ function mapToCard(item: UnknownRecord): NoticiaCard {
     };
 }
 
+/**
+ * Ajusta el HTML del cuerpo que llega de la API.
+ *
+ *  - Las imagenes de las noticias las sirve el BACKEND, no el frontend. En la
+ *    base de datos se guardan como rutas relativas (/uploads/...), asi que en
+ *    el navegador se buscaban en el dominio de la web y salian roto. Se les
+ *    pone delante la URL de la API.
+ *  - WordPress envuelve cada imagen en un enlace al fichero original. Pinchar
+ *    llevaba a un .webp suelto, fuera de la web; se quita el enlace y se queda
+ *    la imagen.
+ */
+function arreglarHtmlDelCuerpo(html: string): string {
+    return html
+        .replace(/(src|href)="\/uploads\//g, `$1="${API}/uploads/`)
+        .replace(/<a[^>]*>\s*(<img[^>]*>)\s*<\/a>/gi, '$1');
+}
+
 function mapToDetail(item: UnknownRecord): NoticiaDetail {
     const card = mapToCard(item);
     const bodyHtml =
@@ -270,7 +287,7 @@ function mapToDetail(item: UnknownRecord): NoticiaDetail {
 
     return {
         ...card,
-        body: bodyHtml,
+        body: arreglarHtmlDelCuerpo(bodyHtml),
         author: (item.autor as string) ?? 'IES Jándula',
         poster,
         gallery,
