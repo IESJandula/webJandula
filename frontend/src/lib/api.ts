@@ -303,13 +303,15 @@ function permitirBuildSinNoticias(): boolean {
 async function pedirJson(
     url: string,
     { intentos = 3, esperaMs = 2000 }: { intentos?: number; esperaMs?: number } = {},
-): Promise<{ data?: Array<UnknownRecord> }> {
+): Promise<{ data?: unknown }> {
     let ultimoError = '';
 
     for (let intento = 1; intento <= intentos; intento++) {
         try {
             const res = await fetch(url);
-            if (res.ok) return (await res.json()) as { data?: Array<UnknownRecord> };
+            if (res.ok) return (await res.json()) as { data?: unknown };
+            // Un 404 no es un fallo de red: la noticia simplemente no existe.
+            if (res.status === 404) return {};
             ultimoError = `HTTP ${res.status}`;
         } catch (err) {
             ultimoError = err instanceof Error ? err.message : String(err);
@@ -375,7 +377,7 @@ export async function getNoticias(limit = 5): Promise<NoticiaCard[]> {
     });
 
     const json = await pedirJson(`${API}/api/noticias?${query.toString()}`);
-    const data = Array.isArray(json?.data) ? json.data : [];
+    const data = Array.isArray(json?.data) ? (json.data as UnknownRecord[]) : [];
     return data.map(mapToCard);
 }
 
@@ -388,37 +390,24 @@ export async function getNoticiasIds(limit = 200): Promise<string[]> {
     });
 
     const json = await pedirJson(`${API}/api/noticias?${query.toString()}`);
-    const data = Array.isArray(json?.data) ? json.data : [];
+    const data = Array.isArray(json?.data) ? (json.data as UnknownRecord[]) : [];
     return data.map(getItemId);
 }
 
+/**
+ * Devuelve una noticia por su id.
+ *
+ * Ojo con el historial: antes se pedia `?filters[documentId][$eq]=<id>`, que es
+ * sintaxis de Strapi. El backend actual (Fastify) IGNORA esos parametros y
+ * devuelve la lista completa, asi que la funcion se quedaba con la primera
+ * noticia y TODAS las fichas mostraban el mismo articulo. Con una sola noticia
+ * publicada no se notaba; al importar el blog salieron 11 fichas identicas.
+ */
 export async function getNoticiaById(id: string): Promise<NoticiaDetail | null> {
-    try {
-        const queryByDocument = new URLSearchParams({
-            'filters[documentId][$eq]': id,
-            'populate': '*',
-        });
+    const json = await pedirJson(`${API}/api/noticias/${encodeURIComponent(id)}`);
+    const item = json?.data;
 
-        const byDocument = await fetch(`${API}/api/noticias?${queryByDocument.toString()}`);
-        if (byDocument.ok) {
-            const json = (await byDocument.json()) as { data?: Array<UnknownRecord> };
-            const item = Array.isArray(json?.data) ? json.data[0] : undefined;
-            if (item) return mapToDetail(item);
-        }
-
-        const queryById = new URLSearchParams({
-            'filters[id][$eq]': id,
-            'populate': '*',
-        });
-
-        const byId = await fetch(`${API}/api/noticias?${queryById.toString()}`);
-        if (!byId.ok) return null;
-
-        const json = (await byId.json()) as { data?: Array<UnknownRecord> };
-        const item = Array.isArray(json?.data) ? json.data[0] : undefined;
-
-        return item ? mapToDetail(item) : null;
-    } catch {
-        return null;
-    }
+    if (!item || typeof item !== 'object' || Array.isArray(item)) return null;
+    return mapToDetail(item as UnknownRecord);
 }
+

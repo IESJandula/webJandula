@@ -10,25 +10,11 @@ function formatSpanishDate(dateInput: string): string {
   if (Number.isNaN(date.getTime())) return dateInput;
 
   const months = [
-    'ENERO',
-    'FEBRERO',
-    'MARZO',
-    'ABRIL',
-    'MAYO',
-    'JUNIO',
-    'JULIO',
-    'AGOSTO',
-    'SEPTIEMBRE',
-    'OCTUBRE',
-    'NOVIEMBRE',
-    'DICIEMBRE',
+    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
   ];
 
-  const day = date.getDate();
-  const month = months[date.getMonth()];
-  const year = date.getFullYear();
-
-  return `${day} ${month}, ${year}`;
+  return `${date.getDate()} de ${months[date.getMonth()]} de ${date.getFullYear()}`;
 }
 
 export async function getStaticPaths() {
@@ -39,28 +25,21 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 const noticia = id ? await getNoticiaById(id) : null;
 const formattedDate = noticia ? formatSpanishDate(noticia.date) : '';
+
+// Tiempo de lectura estimado a 200 palabras por minuto, que es el ritmo medio
+// de lectura en pantalla. Ayuda a decidir si se lee ahora o luego.
+const palabras = noticia ? noticia.body.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length : 0;
+const minutosLectura = Math.max(1, Math.round(palabras / 200));
 const sidePoster = noticia?.poster ?? null;
 const bottomGallery = noticia?.gallery ?? [];
 
 
 
-type NoticiaData = NonNullable<Awaited<ReturnType<typeof getNoticiaById>>>;
-type RelatedNoticia = NoticiaData & { id: string };
-
-// ...existing code...
-
-
-const relatedPool: RelatedNoticia[] = noticia
-  ? (
-      await Promise.all(
-        (await getNoticiasIds(200))
-          .filter((newsId) => newsId !== id)
-          .map(async (newsId) => {
-            const item = await getNoticiaById(newsId);
-            return item ? ({ ...item, id: newsId } as RelatedNoticia) : null;
-          })
-      )
-    ).filter((item): item is RelatedNoticia => item !== null)
+// Candidatas para la barra lateral. Antes esto pedia el detalle de CADA noticia
+// una por una (con 12 noticias son 144 peticiones por build); el listado ya trae
+// todo lo que necesita la barra lateral: titulo, fecha, imagen y categoria.
+const relatedPool = noticia
+  ? (await getNoticias(24)).filter((item) => item.id !== id)
   : [];
 
 const sameCategory = noticia
@@ -101,39 +80,57 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
       </div>
     </section>
   ) : (
-  <article class="bg-slate-50">
-    <header class="relative overflow-hidden bg-gradient-to-b text-white">
-      <div class="absolute -top-20 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-blue-500/20 blur-3xl"></div>
-      <div class="container mx-auto px-4 py-9 md:py-9 relative">
-        <a
-          href="/noticias"
-          class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-400 transition-colors"
-        >
-          <span aria-hidden="true">←</span>
-          Volver a noticias
-        </a>
+  <article class="bg-white">
+    <!-- Cabecera del articulo. Antes el titular iba en degradado recortado
+         (bg-clip-text), que se lee peor y es un tic de plantilla; ahora va en
+         serif, solido y a buen tamano, con los datos de publicacion encima. -->
+    <header class="border-b border-slate-100">
+      <div class="container mx-auto px-4 pt-8 pb-10 md:pt-10 md:pb-14">
+        <div class="mx-auto max-w-3xl">
+          <a
+            href="/noticias"
+            class="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded"
+          >
+            <span aria-hidden="true">&#8592;</span>
+            Volver a noticias
+          </a>
 
-        <div class="mt-6 flex flex-wrap items-center gap-3">
-          <span class={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ring-1 ${categoriaStyle?.badge}`}>
-            <span class={`h-1.5 w-1.5 rounded-full ${categoriaStyle?.dot}`}></span>
-            {noticia.category}
-          </span>
+          <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
+            <time datetime={noticia.date} class="tabular-nums">{formattedDate}</time>
+            <span aria-hidden="true" class="text-slate-300">&#183;</span>
+            <span>{noticia.author}</span>
+            <span aria-hidden="true" class="text-slate-300">&#183;</span>
+            <span>{minutosLectura} min de lectura</span>
+          </p>
+
+          <h1
+            class="mt-4 text-3xl font-semibold leading-[1.12] text-slate-900 md:text-[2.75rem]"
+            style="font-family: 'Newsreader', Georgia, serif; letter-spacing: -0.02em; text-wrap: balance;"
+          >
+            {noticia.title}
+          </h1>
+
+          {noticia.summary && (
+            <p class="mt-5 text-lg leading-relaxed text-slate-600 md:text-xl" style="text-wrap: pretty;">
+              {noticia.summary}
+            </p>
+          )}
         </div>
-
-        <h1 class="mt-6 max-w-4xl font-bold text-3xl md:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-slate-950 via-slate-600 to-blue-700">
-          {noticia.title}
-        </h1>
-
-        <div class="mt-4">
-        <span class="text-m text-slate-500 mr-3">{formattedDate}</span>
-        <span class="text-m text-blue-500">{noticia.author}</span>
-        </div>
-
-        <p class="mt-5 max-w-3xl text-base md:text-lg text-slate-500 leading-relaxed">
-          {noticia.summary}
-        </p>
       </div>
     </header>
+
+    <!-- Imagen principal, a lo ancho del contenido y sin recortes agresivos. -->
+    <figure class="container mx-auto px-4 pt-10 md:pt-12">
+      <div class="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-slate-100">
+        <img
+          src={noticia.image}
+          alt={`Fotografia de la noticia: ${noticia.title}`}
+          class="w-full max-h-[520px] object-cover"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </figure>
 
     <div class="container mx-auto px-4 py-10 md:py-14">
       <div
@@ -143,23 +140,12 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
         ]}
       >
         <div class="min-w-0">
-          <figure class="mx-auto w-full overflow-hidden rounded-lg shadow-xl ring-1 ring-slate-200 bg-white">
-            <img
-              src={noticia.image}
-              alt={`Imagen principal de la noticia: ${noticia.title}`}
-              class="w-full max-h-[460px] object-cover"
-              loading="eager"
-              decoding="async"
-            />
-          </figure>
-
-          <section class="mt-10">
+          <section>
             <h2 class="sr-only">Contenido de la noticia</h2>
 
-            <div
-              class="news-richtext text-base md:text-lg text-slate-700 leading-relaxed"
-              set:html={noticia.body}
-            ></div>
+            <!-- La medida de linea se limita aqui (65ch): con el texto a todo lo
+                 ancho el ojo pierde el renglon al volver a la izquierda. -->
+            <div class="news-richtext max-w-[65ch]" set:html={noticia.body}></div>
 
                         {sidePoster && (
               <figure class="mx-auto mb-6 w-full max-w-xl lg:max-w-sm overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-md">
@@ -228,16 +214,16 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
         {relatedNoticias.length > 0 && (
           <aside class="lg:sticky lg:top-24 space-y-6">
             {relatedNoticias.length > 0 && (
-              <section class=" p-4">
-                <h3 class="text-base font-bold text-slate-900">Noticias relacionadas</h3>
-                <div class="mt-4 space-y-4">
+              <section class="rounded-2xl bg-slate-50 p-6">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+                  Mas noticias
+                </h3>
+                <div class="mt-5 space-y-5">
                   {relatedNoticias.map((item) => (
                     <CardNoticiaRelacionada
                       title={item.title}
-                      summary={item.summary}
-                      date={formatSpanishDate(item.date)}
+                      date={item.date}
                       image={item.image}
-                      category={item.category}
                       link={`/noticias/${item.id}`}
                     />
                   ))}

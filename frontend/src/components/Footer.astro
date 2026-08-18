@@ -10,12 +10,22 @@ const quickLinks = [
   { name: "Accesibilidad", href: "/accesibilidad" },
 ];
 
+// Rutas ABSOLUTAS (con / delante). Sin la barra son relativas a la URL actual,
+// asi que en una pagina anidada como /noticias/101/ los logos se buscaban en
+// /noticias/101/images/... y salian rotos en todas las fichas de noticia.
 const logosfooter = [
   {
     name: "Andalucía se mueve con Europa",
-    href: "images/AndaluaciaEuropa.webp",
+    href: "/images/AndaluaciaEuropa.webp",
+    ancho: 320,
+    alto: 96,
   },
-  { name: "Junta de Andalucía", href: "images/logo-ced.png" },
+  {
+    name: "Junta de Andalucía",
+    href: "/images/logo-ced.png",
+    ancho: 320,
+    alto: 96,
+  },
 ];
 
 const year = new Date().getFullYear();
@@ -34,6 +44,10 @@ const year = new Date().getFullYear();
         <img
           src={logo.href}
           alt={`Logo de ${logo.name}`}
+          width={logo.ancho}
+          height={logo.alto}
+          loading="lazy"
+          decoding="async"
           class="h-12 md:h-18 w-auto no-select-img"
         />
       ))

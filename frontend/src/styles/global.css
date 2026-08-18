@@ -25,77 +25,142 @@ body {
     user-select: none;
 }
 
-/* Richtext styles for noticia detail pages */
+/* ------------------------------------------------------------------
+   Cuerpo del articulo de noticia.
+
+   El texto viene de la API en HTML, asi que el estilo se aplica desde
+   aqui. Criterios: medida de linea corta (unos 68 caracteres, que es
+   donde el ojo lee comodo), interlineado generoso, y titulares en la
+   serif Newsreader para separar visualmente el articulo del resto de
+   la web, que va en Roboto.
+   ------------------------------------------------------------------ */
+
+.news-richtext {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    color: #334155;
+}
+
+@media (min-width: 768px) {
+    .news-richtext {
+        font-size: 1.125rem;
+        line-height: 1.8;
+    }
+}
+
 .news-richtext p {
-    margin: 0 0 1rem;
+    margin: 0 0 1.4em;
+    text-wrap: pretty;
+}
+
+/* Entradilla: el primer parrafo entra algo mas grande, como en prensa. */
+.news-richtext > p:first-of-type {
+    font-size: 1.15em;
+    line-height: 1.65;
+    color: #1e293b;
 }
 
 .news-richtext h1,
 .news-richtext h2,
 .news-richtext h3 {
+    font-family: 'Newsreader', Georgia, serif;
     color: #0f172a;
-    font-weight: 700;
-    line-height: 1.25;
-    margin: 1.5rem 0 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    margin: 2.2em 0 0.6em;
 }
 
-.news-richtext h1 {
-    font-size: 1.75rem;
-}
-
-.news-richtext h2 {
-    font-size: 1.4rem;
-}
-
-.news-richtext h3 {
-    font-size: 1.2rem;
-}
+.news-richtext h1 { font-size: 1.9em; }
+.news-richtext h2 { font-size: 1.5em; }
+.news-richtext h3 { font-size: 1.25em; }
 
 .news-richtext ul,
 .news-richtext ol {
-    margin: 0 0 1.1rem 1.25rem;
+    margin: 0 0 1.4em 1.3em;
 }
 
-.news-richtext ul {
-    list-style: disc;
-}
-
-.news-richtext ol {
-    list-style: decimal;
-}
+.news-richtext ul { list-style: disc; }
+.news-richtext ol { list-style: decimal; }
 
 .news-richtext li {
-    margin: 0.3rem 0;
+    margin: 0.4em 0;
+    padding-left: 0.2em;
 }
 
+.news-richtext li::marker {
+    color: #94a3b8;
+}
+
+/* Cita: sin la barra azul de siempre. Serif, en cursiva y con un filete
+   discreto del mismo gris del texto. */
 .news-richtext blockquote {
-    border-left: 4px solid #93c5fd;
-    padding: 0.5rem 0 0.5rem 1rem;
-    margin: 1.25rem 0;
-    color: #334155;
-    background: #f8fafc;
-    border-radius: 0.25rem;
+    font-family: 'Newsreader', Georgia, serif;
+    font-size: 1.25em;
+    font-style: italic;
+    line-height: 1.5;
+    color: #1e293b;
+    border-left: 2px solid #cbd5e1;
+    padding-left: 1.25em;
+    margin: 2em 0;
+}
+
+.news-richtext blockquote p:last-child {
+    margin-bottom: 0;
 }
 
 .news-richtext a {
     color: #1d4ed8;
     text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    transition: color 0.2s ease;
 }
 
+.news-richtext a:hover {
+    color: #1e3a8a;
+}
+
+/* Las imagenes del cuerpo respiran y se salen un poco de la medida del
+   texto en pantallas anchas, para que no queden encajonadas. */
 .news-richtext img {
-    border-radius: 0.9rem;
+    display: block;
+    border-radius: 0.75rem;
     max-width: 100%;
     height: auto;
-    margin: 1rem 0;
+    margin: 2em auto;
+}
+
+@media (min-width: 1024px) {
+    .news-richtext img {
+        max-width: 115%;
+        margin-left: -7.5%;
+    }
+}
+
+.news-richtext figcaption {
+    margin-top: -1.2em;
+    margin-bottom: 2em;
+    font-size: 0.875rem;
+    color: #64748b;
+    text-align: center;
+}
+
+.news-richtext strong { color: #0f172a; font-weight: 600; }
+
+.news-richtext hr {
+    border: 0;
+    border-top: 1px solid #e2e8f0;
+    margin: 2.5em 0;
 }
 
 .news-richtext code {
-    background: #e2e8f0;
+    background: #f1f5f9;
     border-radius: 0.25rem;
-    padding: 0.1rem 0.3rem;
+    padding: 0.1rem 0.35rem;
     font-size: 0.9em;
 }
-
 /* Responsividad mejorada para modales */
 @media (max-width: 640px) {
     /* Prevenir overflow en móvil */

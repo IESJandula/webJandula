@@ -51,7 +51,27 @@ async function handleLogin() {
 
     router.push(data.rol === 'admin' ? '/admin/noticias' : '/');
   } catch (err) {
-    error.value = err.response?.data?.error || 'No se pudo iniciar sesión. Usa tu cuenta del centro.';
+    // Traducir los fallos habituales: el mensaje generico anterior escondia la
+    // causa y obligaba a mirar la consola del navegador.
+    const codigo = err.code || '';
+    const mensajes = {
+      'auth/unauthorized-domain':
+        'Este dominio no esta autorizado en Firebase. Anade panel.iesjandula.es en '
+        + 'Firebase Console > Authentication > Settings > Authorized domains.',
+      'auth/popup-blocked': 'El navegador ha bloqueado la ventana de Google. Permite las ventanas emergentes.',
+      'auth/popup-closed-by-user': 'Se cerro la ventana de Google antes de terminar.',
+      'auth/operation-not-allowed': 'El acceso con Google no esta habilitado en Firebase.',
+      'auth/invalid-api-key': 'La clave de Firebase del panel no es valida (VITE_FIREBASE_API_KEY).',
+    };
+
+    error.value =
+      err.response?.data?.error
+      || mensajes[codigo]
+      || (codigo ? `No se pudo iniciar sesion (${codigo}).` : null)
+      || (err.message ? `No se pudo iniciar sesion: ${err.message}` : null)
+      || 'No se pudo iniciar sesion. Usa tu cuenta del centro.';
+
+    console.error('[login] fallo al iniciar sesion:', codigo || err.message, err);
   } finally {
     loading.value = false;
   }
