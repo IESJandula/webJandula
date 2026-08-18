@@ -262,6 +262,8 @@ async function fase1Descargar(simulacion) {
 
 // ─────────────────────────── FASE 2: APLICAR ───────────────────────────
 
+const cabecera = (t) => String.fromCharCode(10) + '  ' + t;
+
 async function fase2Aplicar() {
   if (!existsSync(MANIFIESTO)) {
     throw new Error(
@@ -329,13 +331,22 @@ async function fase2Aplicar() {
   }
 
   try {
+    // Dokploy compara la rama que llega en el cuerpo con la que tiene
+    // configurada; sin cuerpo responde "Branch Not Match" y no despliega.
+    const rama = process.env.DEPLOY_HOOK_BRANCH || 'main';
     const res = await fetch(hook, {
       method: process.env.DEPLOY_HOOK_METHOD || 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: 'refs/heads/' + rama }),
       signal: AbortSignal.timeout(20000),
     });
-    console.log(res.ok
-      ? '\n  Redespliegue solicitado. En unos minutos la web mostrará las noticias.'
-      : `\n  El webhook respondió ${res.status}: lanza el despliegue a mano.`);
+    if (res.ok) {
+      console.log(cabecera('Redespliegue solicitado. En unos minutos la web mostrara las noticias.'));
+    } else {
+      const detalle = await res.text().catch(() => '');
+      console.log(cabecera('El webhook respondio ' + res.status + ': ' + detalle.slice(0, 90)));
+      console.log('  Lanza el despliegue a mano desde Dokploy.');
+    }
   } catch (err) {
     console.log(`\n  No se pudo avisar al webhook (${err.message}). Lanza el despliegue a mano.`);
   }

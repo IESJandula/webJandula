@@ -14,6 +14,10 @@
  *                        Si está vacía, esto no hace nada (solo lo avisa en el log),
  *                        de modo que en local no se dispara ningún despliegue.
  *   DEPLOY_HOOK_METHOD   Método HTTP; por defecto POST.
+ *   DEPLOY_HOOK_BRANCH   Rama que se envía en el aviso; por defecto main.
+ *                        Dokploy la compara con la que tiene configurada y,
+ *                        si no coincide, responde "Branch Not Match" y no
+ *                        despliega.
  *   DEPLOY_DEBOUNCE_MS   Espera antes de disparar, en milisegundos (por defecto
  *                        60000). Sirve para que aprobar cinco noticias seguidas
  *                        genere UNA sola reconstrucción y no cinco.
@@ -21,6 +25,7 @@
 
 const URL_HOOK = process.env.DEPLOY_HOOK_URL || '';
 const METODO = (process.env.DEPLOY_HOOK_METHOD || 'POST').toUpperCase();
+const RAMA = process.env.DEPLOY_HOOK_BRANCH || 'main';
 const ESPERA_MS = parseInt(process.env.DEPLOY_DEBOUNCE_MS || '60000');
 
 let temporizador = null;
@@ -36,8 +41,12 @@ async function dispararAhora(log) {
     const controlador = new AbortController();
     const corte = setTimeout(() => controlador.abort(), 15000);
 
+    // Dokploy espera un cuerpo con formato de webhook de git para saber a qué
+    // rama corresponde el aviso. Sin él responde "Branch Not Match".
     const res = await fetch(URL_HOOK, {
       method: METODO,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ref: `refs/heads/${RAMA}` }),
       signal: controlador.signal,
     });
     clearTimeout(corte);
@@ -48,8 +57,11 @@ async function dispararAhora(log) {
         'Redespliegue del frontend solicitado correctamente'
       );
     } else {
+      // El cuerpo de la respuesta dice el motivo real (rama que no coincide,
+      // token caducado...). Registrarlo ahorra mucho tiempo de diagnostico.
+      const detalle = await res.text().catch(() => '');
       log.error(
-        { motivos, status: res.status },
+        { motivos, status: res.status, respuesta: detalle.slice(0, 200), rama: RAMA },
         'El webhook de despliegue respondió con error: la web publica NO se ha actualizado'
       );
     }
