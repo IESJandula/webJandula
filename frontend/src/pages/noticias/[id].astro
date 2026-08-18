@@ -74,8 +74,6 @@ const entradilla = (() => {
   return sinEspacios(noticia.body).startsWith(comparable) ? '' : noticia.summary;
 })();
 
-const palabras = noticia ? noticia.body.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length : 0;
-const minutosLectura = Math.max(1, Math.round(palabras / 200));
 const sidePoster = noticia?.poster ?? null;
 const bottomGallery = noticia?.gallery ?? [];
 
@@ -142,8 +140,6 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
             <time datetime={noticia.date} class="tabular-nums">{formattedDate}</time>
             <span aria-hidden="true" class="text-slate-300">&#183;</span>
             <span>{noticia.author}</span>
-            <span aria-hidden="true" class="text-slate-300">&#183;</span>
-            <span>{minutosLectura} min de lectura</span>
           </p>
 
           <h1
@@ -162,11 +158,11 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
       </div>
     </header>
 
-    <figure class="container mx-auto px-4 pt-10 md:pt-12">
+    <figure class="container mx-auto px-4 pt-8 md:pt-10">
       <img
         src={noticia.image}
         alt={`Fotografia de la noticia: ${noticia.title}`}
-        class="mx-auto max-h-[520px] w-auto max-w-full rounded-2xl bg-slate-100 object-contain"
+        class="mx-auto max-h-[360px] w-auto max-w-full rounded-xl bg-slate-100 object-contain md:max-h-[400px]"
         loading="eager"
         decoding="async"
       />
