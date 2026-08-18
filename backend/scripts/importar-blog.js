@@ -40,6 +40,9 @@ const MAX_ANCHURA = 1920;
 
 const DESCARGAR = process.argv.includes('--descargar');
 const APLICAR = process.argv.includes('--aplicar');
+// Rehace el cuerpo y la portada de las noticias que YA existen, a partir del
+// manifiesto. Sirve para recuperar una noticia que se estropeo al editarla.
+const RESTAURAR = process.argv.includes('--restaurar');
 
 /** Entradas que salen publicadas. El resto entran como "pendiente". */
 const IDS_A_PUBLICAR = new Set([
@@ -306,10 +309,23 @@ async function fase2Aplicar() {
   console.log(`  ${copiadas} imágenes copiadas a ${UPLOADS_DIR}\n`);
 
   const correoAutor = (process.env.ADMIN_EMAILS || 'web@iesjandula.es').split(',')[0].trim();
-  let publicadas = 0, pendientes = 0, saltadas = 0;
+  let publicadas = 0, pendientes = 0, saltadas = 0, restauradas = 0;
 
   for (const n of manifiesto.noticias) {
     const yaExiste = await prisma.noticia.findFirst({ where: { titulo: n.titulo } });
+
+    if (yaExiste && RESTAURAR) {
+      // Se rehacen solo cuerpo, subtitulo y portada. El estado, el anclaje y la
+      // fecha son decisiones del centro y no se tocan.
+      await prisma.noticia.update({
+        where: { id: yaExiste.id },
+        data: { cuerpo: n.cuerpo, subtitulo: n.subtitulo, portada: n.portada },
+      });
+      console.log(`  [RESTAURADA] ${n.titulo.slice(0, 50)}  (id ${yaExiste.id})`);
+      restauradas++;
+      continue;
+    }
+
     if (yaExiste) {
       console.log(`  [SALTADA]   ${n.titulo.slice(0, 52)}  (ya existe, id ${yaExiste.id})`);
       saltadas++;
@@ -335,9 +351,9 @@ async function fase2Aplicar() {
     n.estado === 'publicada' ? publicadas++ : pendientes++;
   }
 
-  console.log(`\n  Publicadas: ${publicadas}   Pendientes: ${pendientes}   Saltadas: ${saltadas}`);
+  console.log(`\n  Publicadas: ${publicadas}   Pendientes: ${pendientes}   Saltadas: ${saltadas}   Restauradas: ${restauradas}`);
 
-  if (publicadas === 0) return;
+  if (publicadas === 0 && restauradas === 0) return;
 
   // Este script escribe con Prisma sin pasar por la API, así que no se dispara
   // el aviso de redespliegue que sí hace el panel. Se avisa aquí.
