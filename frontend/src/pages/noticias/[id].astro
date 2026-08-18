@@ -28,6 +28,13 @@ const formattedDate = noticia ? formatSpanishDate(noticia.date) : '';
 
 // Tiempo de lectura estimado a 200 palabras por minuto, que es el ritmo medio
 // de lectura en pantalla. Ayuda a decidir si se lee ahora o luego.
+// Notas de diseno de esta pagina (aqui no viajan al navegador):
+//  - El titular iba en degradado recortado (bg-clip-text), que se lee peor y es
+//    un tic de plantilla. Ahora es serif solido con los datos de publicacion
+//    encima.
+//  - La imagen principal estaba duplicada, en cabecera y en cuerpo. Queda una.
+//  - El cuerpo se limita a 65ch: con el texto a todo lo ancho el ojo pierde el
+//    renglon al volver a la izquierda.
 const palabras = noticia ? noticia.body.replace(/<[^>]*>/g, ' ').split(/\s+/).filter(Boolean).length : 0;
 const minutosLectura = Math.max(1, Math.round(palabras / 200));
 const sidePoster = noticia?.poster ?? null;
@@ -81,9 +88,6 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
     </section>
   ) : (
   <article class="bg-white">
-    <!-- Cabecera del articulo. Antes el titular iba en degradado recortado
-         (bg-clip-text), que se lee peor y es un tic de plantilla; ahora va en
-         serif, solido y a buen tamano, con los datos de publicacion encima. -->
     <header class="border-b border-slate-100">
       <div class="container mx-auto px-4 pt-8 pb-10 md:pt-10 md:pb-14">
         <div class="mx-auto max-w-3xl">
@@ -119,7 +123,6 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
       </div>
     </header>
 
-    <!-- Imagen principal, a lo ancho del contenido y sin recortes agresivos. -->
     <figure class="container mx-auto px-4 pt-10 md:pt-12">
       <div class="mx-auto max-w-4xl overflow-hidden rounded-2xl bg-slate-100">
         <img
@@ -143,8 +146,6 @@ const categoriaStyle = noticia ? getCategoriaStyle(noticia.category) : null;
           <section>
             <h2 class="sr-only">Contenido de la noticia</h2>
 
-            <!-- La medida de linea se limita aqui (65ch): con el texto a todo lo
-                 ancho el ojo pierde el renglon al volver a la izquierda. -->
             <div class="news-richtext max-w-[65ch]" set:html={noticia.body}></div>
 
                         {sidePoster && (
