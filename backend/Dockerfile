@@ -16,6 +16,8 @@ ENV DATABASE_URL="file:./generate-placeholder.db"
 RUN npx prisma generate
 
 COPY src ./src
+# Scripts de mantenimiento (importacion del blog antiguo, etc.)
+COPY scripts ./scripts
 
 # El volumen se monta en /data (uploads + sqlite), y persiste entre despliegues
 ENV UPLOADS_DIR=/data/uploads
