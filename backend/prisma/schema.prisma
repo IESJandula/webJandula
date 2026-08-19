@@ -25,8 +25,10 @@ model Noticia {
   // las demás, hasta que un administrador las desancla. Publicar una noticia
   // nueva NO desplaza a las ancladas.
   fijada         Boolean  @default(false)
-  // Orden ENTRE las noticias ancladas (0 = primera). Las no ancladas lo tienen
-  // siempre a 0 y se ordenan por fecha descendente.
+  // Posición manual dentro de la web pública (0 = primera). Se fija
+  // arrastrando en el panel y vale para cualquier noticia publicada, anclada
+  // o no; las ancladas se muestran antes que el resto sea cual sea su número.
+  // Una noticia recién publicada entra al principio de las no ancladas.
   orden          Int      @default(0)
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt

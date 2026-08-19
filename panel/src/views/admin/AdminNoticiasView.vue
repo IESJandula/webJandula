@@ -27,16 +27,14 @@
 
     <!-- Tabla -->
     <div v-else class="table-wrapper">
-      <p v-if="filtro === 'publicada'" class="drag-hint">
-        📌 Ancla una noticia para que se quede al principio de la web pública hasta que la desancles.
-        <template v-if="numFijadas > 1">
-          ↕ Arrastra las ancladas para ordenarlas entre sí.
-        </template>
+      <p v-if="filtro === 'publicada'" class="orden-aviso">
+        ↕ Usa las flechas para colocar cada noticia donde quieras en la web pública.
+        📌 Las ancladas se quedan siempre por encima del resto, aunque publiques una noticia nueva.
       </p>
       <table>
         <thead>
           <tr>
-            <th v-if="filtro === 'publicada'" style="width:36px"></th>
+            <th v-if="filtro === 'publicada'" style="width:52px">Orden</th>
             <th>Título</th>
             <th>Autor</th>
             <th>Categoría</th>
@@ -45,10 +43,23 @@
             <th>Acciones</th>
           </tr>
         </thead>
-        <tbody ref="tbodyRef">
+        <tbody>
           <tr v-for="n in noticias" :key="n.id" :data-id="n.id" :class="{ 'fila-anclada': n.fijada }">
-            <td v-if="filtro === 'publicada'" class="drag-handle" :title="n.fijada ? 'Arrastrar para ordenar entre las ancladas' : 'Solo se pueden ordenar las noticias ancladas'">
-              <span v-if="n.fijada">⠿</span>
+            <td v-if="filtro === 'publicada'" class="orden-botones">
+              <button
+                class="btn-orden"
+                :disabled="moviendo || vecino(n, -1) === null"
+                :title="n.fijada ? 'Subirla entre las ancladas' : 'Subirla una posición'"
+                aria-label="Subir"
+                @click="mover(n, -1)"
+              >▲</button>
+              <button
+                class="btn-orden"
+                :disabled="moviendo || vecino(n, 1) === null"
+                :title="n.fijada ? 'Bajarla entre las ancladas' : 'Bajarla una posición'"
+                aria-label="Bajar"
+                @click="mover(n, 1)"
+              >▼</button>
             </td>
             <td>
               <span v-if="n.fijada" class="badge badge-anclada" title="Anclada al principio de la web pública">📌 Anclada</span>
@@ -75,7 +86,7 @@
                 <button
                   v-if="n.estado === 'publicada' && n.fijada"
                   class="btn btn-anclada"
-                  title="Dejar de fijarla: volverá a ordenarse por fecha"
+                  title="Dejar de fijarla: seguirá donde está, pero las noticias nuevas podrán adelantarla"
                   @click="desanclar(n)"
                 >Desanclar</button>
                 <button v-if="n.estado === 'publicada'" class="btn btn-warning" @click="despublicar(n)">Despublicar</button>
@@ -157,8 +168,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed, onMounted, onUnmounted, watch, nextTick } from 'vue';
-import Sortable from 'sortablejs';
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
 import {
   getAdminNoticias, aprobarNoticia, rechazarNoticia,
   despublicarNoticia, eliminarNoticia, reordenarNoticias,
@@ -175,12 +185,17 @@ const tabs = [
 const filtro = ref('pendiente');
 const todas = ref([]);
 const loading = ref(true);
-const tbodyRef = ref(null);
-let sortable = null;
+// Se bloquean las flechas mientras se guarda: dos clics seguidos podrian
+// mandar dos ordenes distintas y ganar la que contestase la ultima.
+const moviendo = ref(false);
 
 const noticias = computed(() =>
   filtro.value === 'todas' ? todas.value : todas.value.filter((n) => n.estado === filtro.value)
 );
+
+// Las publicadas, en el orden en que se ven. Es la lista que se renumera al
+// mover una noticia con las flechas.
+const publicadas = computed(() => todas.value.filter((n) => n.estado === 'publicada'));
 
 const conteo = computed(() => ({
   pendiente: todas.value.filter((n) => n.estado === 'pendiente').length,
@@ -188,8 +203,6 @@ const conteo = computed(() => ({
   rechazada: todas.value.filter((n) => n.estado === 'rechazada').length,
   todas: todas.value.length,
 }));
-
-const numFijadas = computed(() => noticias.value.filter((n) => n.fijada).length);
 
 const rechazoModal = reactive({ visible: false, noticia: null, motivo: '' });
 
@@ -251,25 +264,42 @@ onUnmounted(() => {
   document.body.style.overflow = '';
 });
 
-// Drag & drop solo en tab publicadas
-watch([filtro, noticias], async () => {
-  await nextTick();
-  if (sortable) { sortable.destroy(); sortable = null; }
-  if (filtro.value === 'publicada' && tbodyRef.value) {
-    sortable = Sortable.create(tbodyRef.value, {
-      handle: '.drag-handle',
-      // Solo las ancladas se reordenan a mano: el resto va por fecha.
-      draggable: 'tr.fila-anclada',
-      animation: 150,
-      onEnd: async () => {
-        const ids = [...tbodyRef.value.querySelectorAll('tr[data-id]')].map((tr) =>
-          tr.getAttribute('data-id')
-        );
-        await reordenarNoticias(ids);
-      },
-    });
+// Colocar noticias con las flechas ▲▼
+//
+// "direccion" es -1 (subir) o 1 (bajar). Solo se intercambia con la vecina del
+// MISMO grupo: las ancladas se muestran siempre por encima del resto, asi que
+// sacar una noticia de su grupo con la flecha no cambiaria nada en la web y
+// solo despistaria. Devuelve la posicion de esa vecina, o null si no la hay
+// (primera/ultima de su grupo): sirve tambien para desactivar el boton.
+function vecino(n, direccion) {
+  const lista = publicadas.value;
+  const i = lista.findIndex((x) => x.id === n.id);
+  const j = i + direccion;
+  if (i < 0 || j < 0 || j >= lista.length) return null;
+  if (lista[j].fijada !== n.fijada) return null;
+  return j;
+}
+
+async function mover(n, direccion) {
+  const j = vecino(n, direccion);
+  if (j === null || moviendo.value) return;
+
+  const lista = [...publicadas.value];
+  const i = lista.findIndex((x) => x.id === n.id);
+  [lista[i], lista[j]] = [lista[j], lista[i]];
+
+  // Se refleja ya en pantalla, sin esperar al servidor. Las noticias que no
+  // estan publicadas se quedan en su sitio dentro de la lista.
+  const cola = [...lista];
+  todas.value = todas.value.map((x) => (x.estado === 'publicada' ? cola.shift() : x));
+
+  moviendo.value = true;
+  try {
+    await reordenarNoticias(lista.map((x) => String(x.id)));
+  } finally {
+    moviendo.value = false;
   }
-}, { flush: 'post' });
+}
 
 function cambiarFiltro(val) { filtro.value = val; }
 
@@ -318,9 +348,23 @@ function formatFecha(fecha) {
 </script>
 
 <style scoped>
-.drag-hint { font-size: 13px; color: var(--seneca-gris-medio); margin-bottom: 10px; }
-.drag-handle { cursor: grab; font-size: 18px; color: var(--seneca-gris-claro); text-align: center; user-select: none; }
-.drag-handle:active { cursor: grabbing; }
+.orden-aviso { font-size: 13px; color: var(--seneca-gris-medio); margin-bottom: 10px; }
+.orden-botones { text-align: center; white-space: nowrap; }
+.btn-orden {
+  display: block;
+  width: 30px;
+  margin: 2px auto;
+  padding: 2px 0;
+  font-size: 13px;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--seneca-azul-principal);
+  background: #fff;
+  border: 1px solid var(--seneca-gris-claro);
+  border-radius: 4px;
+}
+.btn-orden:hover:not(:disabled) { background: var(--seneca-azul-principal); color: #fff; }
+.btn-orden:disabled { opacity: .35; cursor: default; }
 .tab-badge {
   display: inline-flex; align-items: center; justify-content: center;
   background: var(--seneca-peligro); color: white;

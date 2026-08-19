@@ -31,6 +31,22 @@ function formatNoticia(n) {
   };
 }
 
+// Posicion para una noticia que acaba de publicarse: al principio de las NO
+// ancladas. El orden de la web lo fija a mano el panel (arrastrando), asi que
+// una noticia nueva ya no puede colocarse sola por fecha: hay que darle un
+// numero menor que el de todas las demas. Las ancladas siguen por encima
+// gracias al "fijada desc" del orderBy, aunque su numero sea mayor.
+async function ordenAlPrincipio() {
+  const primera = await prisma.noticia.findFirst({
+    where: { estado: 'publicada' },
+    orderBy: { orden: 'asc' },
+    select: { orden: true },
+  });
+  // Puede quedar negativo: no importa, solo cuenta el orden relativo, y el
+  // siguiente arrastre renumera todo desde 0.
+  return (primera?.orden ?? 0) - 1;
+}
+
 export default async function noticiasRoutes(fastify) {
   // ── PÚBLICAS (consume Astro) ──────────────────────────────────────────────
 
@@ -39,7 +55,8 @@ export default async function noticiasRoutes(fastify) {
     const limit = Math.min(parseInt(request.query.limit ?? '50'), 200);
     const noticias = await prisma.noticia.findMany({
       where: { estado: 'publicada' },
-      // Ancladas primero (en su propio orden), y el resto por fecha descendente.
+      // Ancladas primero y despues el resto, unas y otras en el orden manual
+      // que se fija arrastrando en el panel. La fecha solo desempata.
       orderBy: [{ fijada: 'desc' }, { orden: 'asc' }, { fecha: 'desc' }],
       take: limit,
     });
@@ -106,6 +123,8 @@ export default async function noticiasRoutes(fastify) {
         return reply.status(400).send({ error: 'Título y cuerpo son obligatorios' });
       }
 
+      const publicaYa = request.user.role === 'admin';
+
       const noticia = await prisma.noticia.create({
         data: {
           titulo: titulo.trim(),
@@ -117,7 +136,9 @@ export default async function noticiasRoutes(fastify) {
           autor: request.user.name,
           autorEmail: request.user.email,
           // Admin publica directamente, profesor queda pendiente de aprobación
-          estado: request.user.role === 'admin' ? 'publicada' : 'pendiente',
+          estado: publicaYa ? 'publicada' : 'pendiente',
+          // Si nace publicada, se coloca al principio de las no ancladas.
+          orden: publicaYa ? await ordenAlPrincipio() : 0,
         },
       });
 
@@ -203,9 +224,18 @@ export default async function noticiasRoutes(fastify) {
       const id = parseInt(request.params.id);
       if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
 
+      const previa = await prisma.noticia.findUnique({ where: { id } });
+      if (!previa) return reply.status(404).send({ error: 'Noticia no encontrada' });
+
       const noticia = await prisma.noticia.update({
         where: { id },
-        data: { estado: 'publicada', motivoRechazo: null },
+        data: {
+          estado: 'publicada',
+          motivoRechazo: null,
+          // Al publicarse entra al principio de las no ancladas. Si ya estaba
+          // publicada no se toca: se quedaria donde el admin la haya puesto.
+          ...(previa.estado !== 'publicada' && { orden: await ordenAlPrincipio() }),
+        },
       });
 
       solicitarRedespliegue(fastify.log, `noticia ${noticia.id} aprobada`);
@@ -302,10 +332,11 @@ export default async function noticiasRoutes(fastify) {
       const noticia = await prisma.noticia.findUnique({ where: { id } });
       if (!noticia) return reply.status(404).send({ error: 'Noticia no encontrada' });
 
-      // orden vuelve a 0: las no ancladas se ordenan solo por fecha.
+      // Deja de estar protegida, pero no se cae al fondo: se queda al
+      // principio de las no ancladas, y desde ahi se puede arrastrar.
       const actualizada = await prisma.noticia.update({
         where: { id },
-        data: { fijada: false, orden: 0 },
+        data: { fijada: false, orden: await ordenAlPrincipio() },
       });
 
       if (noticia.fijada) {
@@ -326,25 +357,19 @@ export default async function noticiasRoutes(fastify) {
         return reply.status(400).send({ error: 'Se esperaba un array de ids' });
       }
 
-      // "orden" solo tiene sentido entre las ancladas: se numeran 0,1,2... según
-      // la posición en la que llegan, y a las no ancladas se les fuerza 0 para
-      // que sigan ordenándose por fecha.
+      // "orden" es la posición manual de CUALQUIER noticia publicada: se
+      // numeran 0,1,2... según la posición en la que llegan. Las ancladas
+      // siguen apareciendo antes que el resto por el "fijada desc" del
+      // listado, sea cual sea su número.
       const numericos = ids.map((id) => parseInt(id)).filter((id) => !isNaN(id));
-      const registros = await prisma.noticia.findMany({
-        where: { id: { in: numericos } },
-        select: { id: true, fijada: true },
-      });
-      const esFijada = new Map(registros.map((r) => [r.id, r.fijada]));
 
-      let posicion = 0;
-      const cambios = numericos.map((id) => {
-        const orden = esFijada.get(id) ? posicion++ : 0;
-        return prisma.noticia.update({ where: { id }, data: { orden } });
-      });
+      const cambios = numericos.map((id, posicion) =>
+        prisma.noticia.update({ where: { id }, data: { orden: posicion } })
+      );
 
       await prisma.$transaction(cambios);
 
-      solicitarRedespliegue(fastify.log, 'orden de las noticias ancladas cambiado');
+      solicitarRedespliegue(fastify.log, 'orden de las noticias cambiado');
 
       return reply.send({ ok: true });
     }
