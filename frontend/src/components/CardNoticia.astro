@@ -1,97 +1,12 @@
 ---
 // src/components/CardNoticia.astro
 //
-// Tarjeta de noticia en clave editorial: manda la fotografía y debajo van
-// fecha, titular y entradilla. Sin etiquetas de categoría ni distintivos
-// encima de la imagen: ensuciaban la foto y competían con el titular.
+// Envoltorio fino: el marcado esta en src/lib/cardNoticia.ts porque el
+// navegador tiene que poder pintar la misma tarjeta al refrescar las noticias
+// sin reconstruir la web.
+import { cardNoticiaHTML, type NoticiaCardProps } from '@/lib/cardNoticia';
 
-interface Props {
-    title: string;
-    summary: string;
-    date: string;
-    image: string;
-    link: string;
-    variant?: 'default' | 'featured';
-}
-
-// El span absoluto que hay dentro del enlace del titular cubre la tarjeta
-// entera, para poder pinchar en cualquier punto sin duplicar enlaces (que es lo
-// que molesta a quien navega con lector de pantalla).
-const { title, summary, date, image, link, variant = 'default' } = Astro.props;
-const isFeatured = variant === 'featured';
-
-// Fecha en texto: más legible que 2026-07-19 y más propia de un periódico.
-const meses = [
-    'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-    'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
-];
-const fechaObj = new Date(date);
-const fechaLegible = Number.isNaN(fechaObj.getTime())
-    ? date
-    : `${fechaObj.getDate()} de ${meses[fechaObj.getMonth()]} de ${fechaObj.getFullYear()}`;
+const props = Astro.props as NoticiaCardProps;
 ---
 
-<article class="group relative flex h-full flex-col">
-    <div class="overflow-hidden rounded-2xl bg-slate-100">
-        <img
-            src={image}
-            alt=""
-            class:list={[
-                'w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]',
-                isFeatured ? 'h-64 md:h-80' : 'h-52',
-            ]}
-            loading="lazy"
-            decoding="async"
-        />
-    </div>
-
-    <div class="flex flex-1 flex-col pt-5">
-        <time
-            datetime={date}
-            class="text-xs font-medium uppercase tracking-[0.08em] text-slate-500 tabular-nums"
-        >
-            {fechaLegible}
-        </time>
-
-        <h3
-            class:list={[
-                'mt-2 font-semibold leading-snug text-slate-900 transition-colors group-hover:text-blue-800',
-                isFeatured ? 'text-2xl md:text-[1.75rem]' : 'text-lg',
-            ]}
-            style="font-family: 'Newsreader', Georgia, serif; letter-spacing: -0.015em; text-wrap: balance;"
-        >
-            <a
-                href={link}
-                class="rounded focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-            >
-                {title}
-                <span class="absolute inset-0"></span>
-            </a>
-        </h3>
-
-        <p
-            class:list={[
-                'mt-3 flex-1 leading-relaxed text-slate-600 line-clamp-3',
-                isFeatured ? 'text-base' : 'text-sm',
-            ]}
-            style="text-wrap: pretty;"
-        >
-            {summary}
-        </p>
-
-        <span
-            class="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-blue-700 transition-colors group-hover:text-blue-900"
-            aria-hidden="true"
-        >
-            Leer noticia
-            <svg
-                class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-            >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-            </svg>
-        </span>
-    </div>
-</article>
+<Fragment set:html={cardNoticiaHTML(props)} />

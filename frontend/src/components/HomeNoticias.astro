@@ -20,13 +20,13 @@ const secondaryNews = news.slice(2, 5);
       subtitle="Mantente al día de la vida, los eventos y las actividades de nuestro centro"
     />
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 max-w-6xl mx-auto">
+    <div id="portada-noticias-destacadas" class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 max-w-6xl mx-auto">
       {featuredNews.map((item) => (
         <CardNoticia {...item} variant="featured" />
       ))}
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
+    <div id="portada-noticias-resto" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 max-w-6xl mx-auto">
       {secondaryNews.map((item) => (
         <CardNoticia {...item} />
       ))}
@@ -40,3 +40,22 @@ const secondaryNews = news.slice(2, 5);
   </div>
 </section>
 )}
+
+<script>
+    // La portada se construye con el orden que habia al reconstruir la web.
+    // Esto la pone al dia nada mas abrirla, sin esperar al redespliegue.
+    import { refrescarNoticias } from '@/lib/noticiasEnVivo';
+
+    refrescarNoticias(
+        [
+            {
+                el: document.getElementById('portada-noticias-destacadas'),
+                desde: 0,
+                hasta: 2,
+                variant: 'featured' as const,
+            },
+            { el: document.getElementById('portada-noticias-resto'), desde: 2, hasta: 5 },
+        ],
+        { limite: 5 }
+    );
+</script>

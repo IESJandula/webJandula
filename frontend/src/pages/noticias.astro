@@ -105,7 +105,7 @@ const years = [...new Set(noticias.map((n) => n.date?.slice(0, 4)).filter(Boolea
 							<h2 class="text-2xl md:text-3xl font-bold text-slate-900">Últimas noticias</h2>
 						</div>
 
-						<div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+						<div id="noticias-destacadas" class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
 							{destacadas.map((item) => (
 								<CardNoticia {...item} variant="featured" />
 							))}
@@ -118,7 +118,7 @@ const years = [...new Set(noticias.map((n) => n.date?.slice(0, 4)).filter(Boolea
 									<p class="mt-2 text-slate-600">Historico reciente de noticias y comunicados.</p>
 								</div>
 
-								<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+								<div id="noticias-listado" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 									{listado.map((item) => (
 										<CardNoticia {...item} />
 									))}
@@ -128,7 +128,7 @@ const years = [...new Set(noticias.map((n) => n.date?.slice(0, 4)).filter(Boolea
 					</div>
 
 					<div id="noticias-filter-view" class="hidden">
-						<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+						<div id="noticias-filtrables" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
 							{noticias.map((item) => (
 								<div
 									data-noticia
@@ -161,7 +161,7 @@ const years = [...new Set(noticias.map((n) => n.date?.slice(0, 4)).filter(Boolea
 			const empty = document.getElementById('noticias-empty');
 			const defaultView = document.getElementById('noticias-default-view');
 			const filterView = document.getElementById('noticias-filter-view');
-			const items = Array.from(filterView?.querySelectorAll('[data-noticia]') ?? []);
+			let items = Array.from(filterView?.querySelectorAll('[data-noticia]') ?? []);
 
 			const normalize = (value) =>
 				(value ?? '')
@@ -204,8 +204,39 @@ const years = [...new Set(noticias.map((n) => n.date?.slice(0, 4)).filter(Boolea
 			yearSelect?.addEventListener('change', applyFilter);
 			monthSelect?.addEventListener('change', applyFilter);
 			applyFilter();
+
+			// Si las tarjetas se repintan con el orden que hay ahora en la API,
+			// los nodos de arriba ya no existen: hay que volver a cogerlos.
+			document.addEventListener('noticias:repintadas', () => {
+				items = Array.from(filterView?.querySelectorAll('[data-noticia]') ?? []);
+				applyFilter();
+			});
 		</script>
 	)}
 
 
+	<script>
+		// Igual que en la portada: el listado se construye con el orden que
+		// habia al reconstruir la web, y esto lo pone al dia al abrirlo.
+		import { refrescarNoticias } from '@/lib/noticiasEnVivo';
+
+		const atributosBuscador = (noticia, html) => `
+			<div
+				data-noticia
+				data-search="${[noticia.title, noticia.summary, noticia.category].join(' ').replace(/"/g, '&quot;')}"
+				data-year="${noticia.date?.slice(0, 4) ?? ''}"
+				data-month="${noticia.date?.slice(5, 7) ?? ''}"
+			>${html}</div>`;
+
+		refrescarNoticias(
+			[
+				{ el: document.getElementById('noticias-destacadas'), desde: 0, hasta: 2, variant: 'featured' as const },
+				{ el: document.getElementById('noticias-listado'), desde: 2 },
+				{ el: document.getElementById('noticias-filtrables'), desde: 0, envolver: atributosBuscador },
+			],
+			{ limite: 24 }
+		).then((cambio) => {
+			if (cambio) document.dispatchEvent(new CustomEvent('noticias:repintadas'));
+		});
+	</script>
 </Layout>
