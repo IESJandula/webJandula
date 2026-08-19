@@ -8,7 +8,12 @@ export default defineConfig({
         tailwind(),
         sitemap({
             // Excluir páginas de admin o privadas si las hubiera, y la de error
-            filter: (page) => !page.includes('/admin') && !page.includes('/404'),
+            filter: (page) =>
+                !page.includes('/admin') &&
+                !page.includes('/404') &&
+                // Comodin para las noticias sin pagina propia todavia: no es
+                // una pagina real, se rellena en el navegador.
+                !page.includes('/noticias/ver'),
             // Cambiar frecuencia y prioridad por sección
             customPages: [],
             serialize(item) {

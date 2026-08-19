@@ -8,6 +8,8 @@ interface Props {
     title: string;
     description?: string;
     ogImage?: string;
+    /** Para paginas que no son contenido propio, como /noticias/ver. */
+    noindex?: boolean;
 }
 
 const {
@@ -16,6 +18,7 @@ const {
     // Imagen que se ve al compartir en WhatsApp, Facebook, X, etc.
     // Debe ser JPG/PNG de 1200x630 (el formato WebP no lo muestran todas las apps).
     ogImage = "/images/og-iesjandula.jpg",
+    noindex = false,
 } = Astro.props;
 
 const siteTitle  = `${title} | IES Jándula`;
@@ -84,7 +87,7 @@ const pageSchema = {
     <!-- SEO primario -->
     <title>{siteTitle}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
     <link rel="canonical" href={canonical} />
     <link rel="sitemap" href="/sitemap-index.xml" />
 

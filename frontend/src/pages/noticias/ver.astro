@@ -1,0 +1,25 @@
+---
+/**
+ * Pagina de reserva para las noticias que todavia no tienen version construida.
+ *
+ * Las fichas de /noticias/<id> se generan durante el build, asi que una noticia
+ * publicada despues no tendria pagina y daria un 404. El nginx del contenedor
+ * manda aqui cualquier /noticias/<id> que no exista (ver nginx.conf), y esta
+ * pagina la pide a la API y se rellena sola.
+ *
+ * Llega vacia a proposito: no sabe de que noticia se trata hasta que el
+ * navegador lee el id de la URL.
+ */
+import Layout from '@/layouts/Layout.astro';
+import ArticuloNoticia from '@/components/ArticuloNoticia.astro';
+---
+
+<Layout title="Noticia" noindex>
+  <ArticuloNoticia noticia={null} cargando />
+
+  <script>
+    import { refrescarArticulo } from '@/lib/articuloEnVivo';
+
+    refrescarArticulo();
+  </script>
+</Layout>

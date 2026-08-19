@@ -1,0 +1,311 @@
+---
+/**
+ * La ficha de una noticia.
+ *
+ * La usan dos paginas: la version construida de cada noticia (noticias/[id])
+ * y la de reserva (noticias/ver), que atiende a las noticias publicadas
+ * despues del ultimo build. Cada pieza que puede cambiar al editar lleva un
+ * data-articulo: con eso, articuloEnVivo.ts la pone al dia en el navegador sin
+ * reconstruir la web.
+ */
+import CardNoticiaRelacionada from '@/components/CardNoticiaRelacionada.astro';
+import CardNoticia from '@/components/CardNoticia.astro';
+import { formatearFecha, calcularEntradilla, figuraGaleriaHTML } from '@/lib/articuloNoticia';
+import type { NoticiaCard, NoticiaDetail } from '@/lib/api';
+
+interface Props {
+    noticia: NoticiaDetail | null;
+    relacionadas?: NoticiaCard[];
+    recomendadas?: NoticiaCard[];
+    /** Pagina de reserva: aun no se sabe que noticia toca, se rellena luego. */
+    cargando?: boolean;
+}
+
+const { noticia, relacionadas = [], recomendadas = [], cargando = false } = Astro.props;
+
+const fechaLegible = noticia ? formatearFecha(noticia.date) : '';
+const entradilla = calcularEntradilla(noticia?.summary, noticia?.body);
+const sidePoster = noticia?.poster ?? null;
+const bottomGallery = noticia?.gallery ?? [];
+---
+
+<section id="articulo-no-disponible" class:list={['bg-slate-50 py-20', (noticia || cargando) && 'hidden']}>
+      <div class="container mx-auto px-4">
+        <div class="mx-auto max-w-2xl rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm">
+          <h1 class="text-2xl md:text-3xl font-bold text-slate-900">Noticia no disponible</h1>
+          <p class="mt-3 text-slate-600">
+            Ahora mismo no se puede cargar esta noticia. Si el backend esta caido, la web seguira funcionando y podras volver a intentarlo mas tarde.
+          </p>
+          <a
+            href="/noticias"
+            class="mt-6 inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+          >
+            <span aria-hidden="true">←</span>
+            Volver a noticias
+          </a>
+        </div>
+      </div>
+    </section>
+
+  <article id="articulo-noticia" class:list={['bg-white', !noticia && 'hidden']} data-noticia-id={noticia?.id ?? ''}>
+    <header class="border-b border-slate-100">
+      <div class="container mx-auto px-4 pt-8 pb-10 md:pt-10 md:pb-14">
+        <div class="mx-auto max-w-3xl">
+          <a
+            href="/noticias"
+            class="inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition-colors hover:text-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2 rounded"
+          >
+            <span aria-hidden="true">&#8592;</span>
+            Volver a noticias
+          </a>
+
+          <p class="mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
+            <time data-articulo="fecha" datetime={noticia?.date ?? ''} class="tabular-nums">{fechaLegible}</time>
+            <span aria-hidden="true" class="text-slate-300">&#183;</span>
+            <span data-articulo="autor">{noticia?.author}</span>
+          </p>
+
+          <h1
+            data-articulo="titulo"
+            class="mt-4 text-3xl font-semibold leading-[1.12] text-slate-900 md:text-[2.75rem]"
+            style="font-family: 'Newsreader', Georgia, serif; letter-spacing: -0.02em; text-wrap: balance;"
+          >
+            {noticia?.title}
+          </h1>
+
+          <p
+            data-articulo="entradilla"
+            class:list={['mt-5 text-lg leading-relaxed text-slate-600 md:text-xl', !entradilla && 'hidden']}
+            style="text-wrap: pretty;"
+          >{entradilla}</p>
+        </div>
+      </div>
+    </header>
+
+    <figure class="container mx-auto px-4 pt-8 md:pt-10">
+      <img
+        data-articulo="portada"
+        src={noticia?.image}
+        alt={`Fotografia de la noticia: ${noticia?.title ?? ''}`}
+        class="mx-auto max-h-[360px] w-auto max-w-full rounded-xl bg-slate-100 object-contain md:max-h-[400px]"
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
+
+    <div class="container mx-auto px-4 py-10 md:py-14">
+      <div
+        class:list={[
+          'mx-auto grid grid-cols-1 gap-8 items-start',
+          relacionadas.length > 0 && 'lg:grid-cols-[minmax(0,1fr)_340px]',
+        ]}
+      >
+        <div class="min-w-0">
+          <section>
+            <h2 class="sr-only">Contenido de la noticia</h2>
+
+            <div data-articulo="cuerpo" class="news-richtext max-w-[65ch]" set:html={noticia?.body}></div>
+
+            <figure
+              data-articulo="cartel"
+              class:list={['mx-auto mb-6 w-full max-w-xl lg:max-w-sm overflow-hidden rounded-2xl ring-1 ring-slate-200 bg-white shadow-md', !sidePoster && 'hidden']}
+            >
+                <button
+                  class="gallery-image-trigger block w-full"
+                  data-image={sidePoster}
+                  data-alt={`Cartel del evento: ${noticia?.title ?? ''}`}
+                  aria-label="Abrir cartel en grande"
+                >
+                  <img
+                    src={sidePoster}
+                    alt={`Cartel del evento: ${noticia?.title ?? ''}`}
+                    class="w-full h-auto object-contain bg-white hover:scale-[1.01] transition-transform duration-300"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </button>
+            </figure>
+          </section>
+
+          <section data-articulo="galeria-seccion" class:list={['mt-10', bottomGallery.length === 0 && 'hidden']}>
+              <h2 class="text-xl md:text-2xl font-bold text-slate-900 mb-5">Galeria</h2>
+              <div data-articulo="galeria" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {bottomGallery.map((src, index) => (
+                  <Fragment set:html={figuraGaleriaHTML(src, noticia?.title ?? '', index)} />
+                ))}
+              </div>
+            </section>
+
+          <div class="mt-8 flex justify-between items-center">
+            <a
+              href="/noticias"
+              class="inline-flex items-center gap-2 rounded-full border border-slate-300 px-5 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-100 transition-colors"
+            >
+              <span aria-hidden="true">←</span>
+              Todas las noticias
+            </a>
+          </div>
+        </div>
+
+        {relacionadas.length > 0 && (
+          <aside class="lg:sticky lg:top-24 space-y-6">
+            {relacionadas.length > 0 && (
+              <section class="rounded-2xl bg-slate-50 p-6">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.08em] text-slate-500">
+                  Mas noticias
+                </h3>
+                <div class="mt-5 space-y-5">
+                  {relacionadas.map((item) => (
+                    <CardNoticiaRelacionada
+                      title={item.title}
+                      date={item.date}
+                      image={item.image}
+                      link={`/noticias/${item.id}`}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+          </aside>
+        )}
+      </div>
+
+      {recomendadas.length > 0 && (
+        <section class="mt-16 pt-12 border-t border-slate-200">
+          <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-8">Te puede interesar</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {recomendadas.map((item) => (
+              <CardNoticia
+                title={item.title}
+                summary={item.summary}
+                date={formatearFecha(item.date)}
+                image={item.image}
+                category={item.category}
+                link={`/noticias/${item.id}`}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+    </div>
+  </article>
+
+          <div id="gallery-lightbox" class="fixed inset-0 z-[9999] hidden bg-black/85 p-4 md:p-8">
+    <button
+      id="gallery-lightbox-close"
+      class="absolute top-4 right-4 rounded-full bg-white/15 px-3 py-1.5 text-sm font-semibold text-white hover:bg-white/25"
+      aria-label="Cerrar visor"
+    >
+      Cerrar
+    </button>
+    <div class="h-full w-full flex items-center justify-center">
+      <img id="gallery-lightbox-image" alt="" class="max-h-full max-w-full object-contain" />
+    </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lightbox = document.getElementById('gallery-lightbox');
+      const lightboxImage = document.getElementById('gallery-lightbox-image') as HTMLImageElement | null;
+      const closeButton = document.getElementById('gallery-lightbox-close');
+
+      if (!lightbox || !lightboxImage) return;
+
+      const closeLightbox = () => {
+        lightbox.classList.add('hidden');
+        lightboxImage.src = '';
+        lightboxImage.alt = '';
+      };
+
+      // Delegado en el documento y no atado a cada boton: la galeria se vuelve
+      // a pintar cuando se edita la noticia, y los manejadores se irian con los
+      // nodos antiguos.
+      document.addEventListener('click', (event) => {
+        const trigger = (event.target as HTMLElement)?.closest?.('.gallery-image-trigger');
+        if (!trigger) return;
+
+        const src = trigger.getAttribute('data-image');
+        const alt = trigger.getAttribute('data-alt') ?? 'Imagen ampliada';
+        if (!src) return;
+
+        lightboxImage.src = src;
+        lightboxImage.alt = alt;
+        lightbox.classList.remove('hidden');
+      });
+
+      closeButton?.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') closeLightbox();
+      });
+    });
+  </script>
+
+  <style>
+    .news-richtext :global(h2) {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: theme('colors.slate.900');
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+    .news-richtext :global(h3) {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: theme('colors.slate.900');
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+    .news-richtext :global(p) {
+      margin-bottom: 1.1rem;
+    }
+    .news-richtext :global(ul),
+    .news-richtext :global(ol) {
+      margin: 1rem 0 1.25rem;
+      padding-left: 1.5rem;
+    }
+    .news-richtext :global(ul) {
+      list-style-type: disc;
+    }
+    .news-richtext :global(ol) {
+      list-style-type: decimal;
+    }
+    .news-richtext :global(li) {
+      margin-bottom: 0.4rem;
+    }
+    .news-richtext :global(blockquote) {
+      border-left: 4px solid theme('colors.blue.400');
+      background: theme('colors.blue.50');
+      padding: 0.9rem 1.25rem;
+      border-radius: 0.5rem;
+      margin: 1.5rem 0;
+      font-style: italic;
+      color: theme('colors.slate.700');
+    }
+    .news-richtext :global(a) {
+      color: theme('colors.blue.600');
+      font-weight: 600;
+      text-decoration: underline;
+      text-decoration-color: theme('colors.blue.200');
+    }
+    .news-richtext :global(a:hover) {
+      text-decoration-color: theme('colors.blue.500');
+    }
+    .news-richtext :global(strong) {
+      color: theme('colors.slate.900');
+    }
+    .news-richtext :global(img) {
+      border-radius: 0.75rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .news-richtext :global(code) {
+      background: theme('colors.slate.100');
+      padding: 0.15rem 0.4rem;
+      border-radius: 0.3rem;
+      font-size: 0.9em;
+    }
+  </style>
