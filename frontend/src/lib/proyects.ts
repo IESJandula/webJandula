@@ -83,20 +83,16 @@ export const proyectos = [
         // Ediciones publicadas, de la mas reciente a la mas antigua: es el
         // orden en el que se muestran, sin reordenar en la plantilla.
         //
-        // Las cuatro estan en Calameo. Antes se publicaban en Issuu (5
-        // ediciones mas), pero el perfil "pasapagina2018" ya no responde:
-        // devuelve 404 tanto a Issuu como a su buscador. Cuando aparezcan los
-        // enlaces, se anaden aqui debajo y salen solos en la web.
+        // Las ediciones anteriores a 2022/23 se publicaron en Issuu, en el
+        // perfil "pasapagina2018". Sus enlaces NO se incluyen porque ese perfil
+        // devuelve 404: comprobados uno a uno en el navegador (cursos 21/22,
+        // 18/19 y 17/18). Si vuelven a estar accesibles, se anaden aqui.
         publicaciones: [
             { curso: "2025/2026", url: "https://www.calameo.com/read/007708712fcee740cb14a" },
             { curso: "2024/2025", url: "https://www.calameo.com/read/00559540447215b0776d7" },
             { curso: "2023/2024", url: "https://www.calameo.com/read/0077087123acf628ae560" },
             { curso: "2022/2023", url: "https://www.calameo.com/read/0074095633a40c956a7a7" },
         ],
-        publicacionesNota: {
-            texto: "Las ediciones anteriores se publicaron en otra plataforma. Se van compartiendo en el Instagram de la revista.",
-            enlace: { titulo: "Instagram de Pasa Página", url: "https://www.instagram.com/pasa__pagina/" },
-        },
         portada: "/images/proyects/pasa_pagina_portada.jpg",
         images: []
     },
