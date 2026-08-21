@@ -22,6 +22,9 @@ const statsId = `${id}-stats`;
 const featuresWrapId = `${id}-features-wrap`;
 const featuresId = `${id}-features`;
 const tagsId = `${id}-tags`;
+const publicationsWrapId = `${id}-publications-wrap`;
+const publicationsId = `${id}-publications`;
+const publicationsNoteId = `${id}-publications-note`;
 
 ---
 
@@ -104,6 +107,17 @@ const tagsId = `${id}-tags`;
 				<ul id={featuresId} class="mt-2 grid gap-2 text-sm text-slate-700"></ul>
 			</div>
 
+			<!--
+				Ediciones publicadas (por ahora, la revista Pasa Página). Es una
+				lista de enlaces externos, asi que cada uno se abre en otra
+				pestaña y avisa de que sale del sitio.
+			-->
+			<div id={publicationsWrapId} class="rounded-xl bg-blue-50/60 p-3 sm:p-4 ring-1 ring-blue-200/70">
+				<p class="text-xs font-semibold uppercase tracking-wide text-blue-700">Ediciones publicadas</p>
+				<ul id={publicationsId} class="mt-2 grid gap-1.5 text-sm"></ul>
+				<p id={publicationsNoteId} class="mt-3 text-xs leading-5 text-slate-600"></p>
+			</div>
+
 			<div id={tagsId} class="flex flex-wrap gap-2"></div>
 		</div>
 	</div>
@@ -129,7 +143,7 @@ const tagsId = `${id}-tags`;
 	}
 </style>
 
-<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, galleryPrevId, galleryNextId, galleryDotsId, statsId, featuresWrapId, featuresId, tagsId }}>
+<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, galleryPrevId, galleryNextId, galleryDotsId, statsId, featuresWrapId, featuresId, tagsId, publicationsWrapId, publicationsId, publicationsNoteId }}>
 	const modal = document.getElementById(modalId);
 	const overlay = document.getElementById(overlayId);
 	const closeButton = document.getElementById(closeId);
@@ -143,6 +157,9 @@ const tagsId = `${id}-tags`;
 	const statsEl = document.getElementById(statsId);
 	const featuresWrap = document.getElementById(featuresWrapId);
 	const featuresEl = document.getElementById(featuresId);
+	const publicationsWrap = document.getElementById(publicationsWrapId);
+	const publicationsEl = document.getElementById(publicationsId);
+	const publicationsNoteEl = document.getElementById(publicationsNoteId);
 	const tagsEl = document.getElementById(tagsId);
 
 	let galleryImages = [];
@@ -195,6 +212,8 @@ const tagsId = `${id}-tags`;
 		const features = parseJson(data.proyectoFeatures || data.features);
 		const stats = parseJson(data.proyectoStats || data.stats);
 		const images = parseJson(data.proyectoImages || data.images);
+		const publications = parseJson(data.proyectoPublications || data.publications);
+		const publicationsNote = parseJson(data.proyectoPublicationsNote || data.publicationsNote);
 		const hero = data.proyectoImage || data.image || images[0] || "";
 
 		if (titleEl) titleEl.textContent = title;
@@ -261,6 +280,44 @@ const tagsId = `${id}-tags`;
 			} else {
 				setHidden(featuresWrap, true);
 			}
+		}
+
+		if (publicationsEl && publicationsWrap) {
+			publicationsEl.innerHTML = "";
+			publications.forEach((publicacion) => {
+				const item = document.createElement("li");
+				const enlace = document.createElement("a");
+				enlace.href = publicacion.url;
+				enlace.target = "_blank";
+				enlace.rel = "noopener noreferrer";
+				enlace.className = "inline-flex items-center gap-1.5 font-semibold text-blue-700 underline decoration-blue-200 underline-offset-2 hover:text-blue-900 hover:decoration-blue-500";
+				enlace.textContent = publicacion.titulo || `Curso ${publicacion.curso}`;
+				const fuera = document.createElement("span");
+				fuera.setAttribute("aria-hidden", "true");
+				fuera.textContent = "↗";
+				enlace.appendChild(fuera);
+				item.appendChild(enlace);
+				publicationsEl.appendChild(item);
+			});
+
+			if (publicationsNoteEl) {
+				publicationsNoteEl.innerHTML = "";
+				if (publicationsNote && publicationsNote.texto) {
+					publicationsNoteEl.append(publicationsNote.texto + " ");
+					if (publicationsNote.enlace) {
+						const enlace = document.createElement("a");
+						enlace.href = publicationsNote.enlace.url;
+						enlace.target = "_blank";
+						enlace.rel = "noopener noreferrer";
+						enlace.className = "font-semibold text-blue-700 underline decoration-blue-200 underline-offset-2 hover:text-blue-900";
+						enlace.textContent = publicationsNote.enlace.titulo;
+						publicationsNoteEl.appendChild(enlace);
+					}
+				}
+				setHidden(publicationsNoteEl, !(publicationsNote && publicationsNote.texto));
+			}
+
+			setHidden(publicationsWrap, publications.length === 0);
 		}
 
 		if (tagsEl) {
