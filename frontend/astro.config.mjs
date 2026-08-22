@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-    site: 'https://www.iesjandula.es',
+    site: 'https://iesjandula.es',
     integrations: [
         tailwind(),
         sitemap({
@@ -17,7 +17,7 @@ export default defineConfig({
             // Cambiar frecuencia y prioridad por sección
             customPages: [],
             serialize(item) {
-                if (item.url === 'https://www.iesjandula.es/') {
+                if (item.url === 'https://iesjandula.es/') {
                     return { ...item, changefreq: 'daily',   priority: 1.0 };
                 }
                 if (item.url.includes('/oferta') || item.url.includes('/nuestro_centro')) {

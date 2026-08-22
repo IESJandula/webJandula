@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.iesjandula.es/sitemap-index.xml
+Sitemap: https://iesjandula.es/sitemap-index.xml
