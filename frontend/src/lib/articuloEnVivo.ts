@@ -69,8 +69,9 @@ export async function refrescarArticulo(): Promise<void> {
         return;
     }
 
+    // El autor no se enseña: quien publica es el centro, no la persona que
+    // entra al panel.
     texto('titulo', noticia.title);
-    texto('autor', noticia.author);
 
     const fecha = pieza('fecha');
     if (fecha) {
@@ -85,11 +86,24 @@ export async function refrescarArticulo(): Promise<void> {
         visible(entradillaEl, Boolean(entradilla));
     }
 
+    const categoria = pieza('categoria');
+    if (categoria) categoria.textContent = noticia.category ?? '';
+    visible(categoria, Boolean(noticia.category));
+    visible(pieza('categoria-separador'), Boolean(noticia.category));
+
+    // La imagen va dentro de un boton que la abre a pantalla completa, asi que
+    // hay que poner al dia las dos piezas. Sin imagen se esconde la banda
+    // entera: si no, quedaria una franja gris vacia bajo el titulo.
     const portada = pieza('portada') as HTMLImageElement | null;
+    const portadaBoton = pieza('portada-boton');
     if (portada && noticia.image) {
+        const alt = `Imagen de la noticia: ${noticia.title}`;
         portada.src = noticia.image;
-        portada.alt = `Fotografia de la noticia: ${noticia.title}`;
+        portada.alt = alt;
+        portadaBoton?.setAttribute('data-image', noticia.image);
+        portadaBoton?.setAttribute('data-alt', alt);
     }
+    visible(pieza('portada-banda'), Boolean(noticia.image));
 
     // El cuerpo llega como HTML desde la API, igual que en el build.
     const cuerpo = pieza('cuerpo');

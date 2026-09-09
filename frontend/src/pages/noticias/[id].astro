@@ -11,29 +11,24 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 const noticia = id ? await getNoticiaById(id) : null;
 
-// Candidatas para la barra lateral. Antes esto pedia el detalle de CADA noticia
-// una por una (con 12 noticias son 144 peticiones por build); el listado ya trae
-// todo lo que necesita la barra lateral: titulo, fecha, imagen y categoria.
-const relatedPool = noticia
+// Las tres noticias del pie. Antes esto pedia el detalle de CADA noticia una
+// por una (con 12 noticias son 144 peticiones por build); el listado ya trae
+// todo lo que hace falta: titulo, fecha, imagen y categoria.
+//
+// Primero las de la misma categoria y, si no llegan a tres, se completan con
+// las mas recientes: una ficha del tablon no deberia terminar en un hueco.
+const candidatas = noticia
   ? (await getNoticias(24)).filter((item) => item.id !== id)
   : [];
 
-const sameCategory = noticia
-  ? relatedPool.filter((item) => item.category === noticia.category)
-  : [];
+const mismaCategoria = candidatas.filter((item) => item.category === noticia?.category);
+const resto = candidatas.filter((item) => item.category !== noticia?.category);
 
-const relacionadas = (sameCategory.length > 0 ? sameCategory : relatedPool).slice(0, 4);
-
-// "Te puede interesar" — fila inferior estilo periódico digital, distinta de la sidebar
-const relatedIds = new Set(relacionadas.map((item) => item.id));
-const recientes = noticia ? await getNoticias(8) : [];
-const recomendadas = recientes
-  .filter((item) => item.id !== id && !relatedIds.has(item.id))
-  .slice(0, 3);
+const relacionadas = [...mismaCategoria, ...resto].slice(0, 3);
 ---
 
 <Layout title={noticia?.title ?? 'Noticia no disponible'}>
-  <ArticuloNoticia noticia={noticia} relacionadas={relacionadas} recomendadas={recomendadas} />
+  <ArticuloNoticia noticia={noticia} relacionadas={relacionadas} />
 
   <script>
     // Esta pagina se construyo con el contenido que habia entonces. Si despues
