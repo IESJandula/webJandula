@@ -82,12 +82,16 @@ const bottomGallery = noticia?.gallery ?? [];
       </div>
     </header>
 
+    <!-- La portada se limita por la altura de la ventana, no por un alto fijo:
+         muchos avisos del centro son carteles verticales y con un tope de
+         400px se veian diminutos. Al no fijar el ancho nunca se amplia mas
+         alla de su tamano real, asi que tampoco se pixela. -->
     <figure class="container mx-auto px-4 pt-8 md:pt-10">
       <img
         data-articulo="portada"
         src={noticia?.image}
         alt={`Fotografia de la noticia: ${noticia?.title ?? ''}`}
-        class="mx-auto max-h-[360px] w-auto max-w-full rounded-xl bg-slate-100 object-contain md:max-h-[400px]"
+        class="mx-auto max-h-[75vh] w-auto max-w-full rounded-xl bg-slate-100 object-contain"
         loading="eager"
         decoding="async"
       />
