@@ -182,7 +182,10 @@ const tabs = [
   { label: 'Todas', value: 'todas' },
 ];
 
-const filtro = ref('pendiente');
+// Se abre por las publicadas: es lo que hay en la web ahora mismo y lo que se
+// viene a mirar y a reordenar a diario. Las pendientes son cosa de dias
+// sueltos, y su pestana ya lleva el numero de las que esperan.
+const filtro = ref('publicada');
 const todas = ref([]);
 const loading = ref(true);
 // Se bloquean las flechas mientras se guarda: dos clics seguidos podrian
