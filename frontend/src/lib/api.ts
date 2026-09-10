@@ -249,14 +249,23 @@ function stripHtml(html: string): string {
 function mapToCard(item: UnknownRecord): NoticiaCard {
     const id = getItemId(item);
     const subtitulo = (item.subtitulo as string)?.trim();
-    const cuerpoPlano = subtitulo ? '' : stripHtml(((item.cuerpo as string) ?? '').toString());
+
+    // El subtitulo va entero: lo escribe quien publica la noticia y es la
+    // entradilla de la ficha, asi que no se le pone tope. En las tarjetas del
+    // listado no se desmadra porque el resumen va con line-clamp.
+    //
+    // El recorte se queda solo para el texto de emergencia: cuando la noticia
+    // no trae subtitulo se usa el principio del cuerpo, y ahi si hay que
+    // cortar (si no, cada tarjeta cargaria el articulo completo).
+    const cuerpoPlano = subtitulo
+        ? ''
+        : stripHtml(((item.cuerpo as string) ?? '').toString()).slice(0, 180);
 
     return {
         id,
         title: (item.titulo as string) ?? 'Sin título',
         summary:
-            (subtitulo || cuerpoPlano || 'Consulta la noticia completa para conocer todos los detalles.')
-                .slice(0, 180),
+            subtitulo || cuerpoPlano || 'Consulta la noticia completa para conocer todos los detalles.',
         date: (item.fecha as string) ?? new Date().toISOString().slice(0, 10),
         image: getImageUrl(item),
         category: (item.categoria as string) ?? 'Centro',
