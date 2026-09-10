@@ -22,7 +22,8 @@
     <div v-if="loading" class="empty-state"><span class="spinner"></span></div>
 
     <div v-else-if="noticias.length === 0" class="empty-state">
-      <p>No hay noticias {{ filtro !== 'todas' ? `en estado "${filtro}"` : '' }}</p>
+      <p v-if="filtro === 'revision'">Ninguna noticia tiene cambios esperando revisión</p>
+      <p v-else>No hay noticias {{ filtro !== 'todas' ? `en estado "${filtro}"` : '' }}</p>
     </div>
 
     <!-- Tabla -->
@@ -67,6 +68,9 @@
                 {{ n.titulo }}
               </button>
               <p v-if="n.estado === 'rechazada' && n.motivoRechazo" class="motivo">✗ {{ n.motivoRechazo }}</p>
+              <p v-if="n.revision" class="marca-cambios">
+                ✎ Su autor ha propuesto cambios. En la web sigue esta versión.
+              </p>
             </td>
             <td>{{ n.autor }}</td>
             <td>{{ n.categoria }}</td>
@@ -75,6 +79,12 @@
             <td>
               <div class="actions">
                 <button class="btn btn-secondary" title="Leer la noticia antes de decidir" @click="verNoticia(n)">👁 Ver</button>
+                <button
+                  v-if="n.revision"
+                  class="btn btn-success"
+                  title="Comparar lo que hay en la web con lo que propone su autor"
+                  @click="verCambios(n)"
+                >✎ Revisar cambios</button>
                 <button v-if="n.estado === 'pendiente'" class="btn btn-success" @click="aprobar(n)">✓ Aprobar</button>
                 <button v-if="n.estado === 'pendiente'" class="btn btn-danger" @click="abrirRechazo(n)">✗ Rechazar</button>
                 <button
@@ -147,20 +157,87 @@
       </div>
     </div>
 
+    <!-- Comparador de cambios. El autor de una noticia ya publicada no la
+         cambia en directo: propone, y aqui se ve lo que hay en la web al lado
+         de lo que propone, con los campos tocados resaltados. -->
+    <div v-if="comparador.visible" class="modal-overlay" @click.self="cerrarComparador">
+      <div class="visor-card">
+        <header class="visor-cabecera">
+          <div class="visor-meta">
+            <span class="badge badge-cambios">✎ Cambios propuestos</span>
+            <span>{{ comparador.noticia.autor }}</span>
+            <span v-if="comparador.noticia.revisionFecha">·</span>
+            <span v-if="comparador.noticia.revisionFecha">
+              {{ formatFecha(comparador.noticia.revisionFecha) }}
+            </span>
+          </div>
+          <button class="visor-cerrar" aria-label="Cerrar" @click="cerrarComparador">✕</button>
+        </header>
+
+        <div class="visor-cuerpo comparador">
+          <section class="columna">
+            <h3 class="columna-titulo">En la web ahora</h3>
+            <h2 class="visor-titulo" :class="{ resaltado: cambio('titulo') }">
+              {{ comparador.noticia.titulo }}
+            </h2>
+            <p
+              v-if="comparador.noticia.subtitulo"
+              class="visor-entradilla"
+              :class="{ resaltado: cambio('subtitulo') }"
+            >{{ comparador.noticia.subtitulo }}</p>
+            <img v-if="portadaActual" :src="portadaActual" alt="Portada actual" class="visor-portada" />
+            <div class="visor-texto" :class="{ resaltado: cambio('cuerpo') }" v-html="comparador.noticia.cuerpo"></div>
+          </section>
+
+          <section class="columna columna-propuesta">
+            <h3 class="columna-titulo">Lo que propone su autor</h3>
+            <h2 class="visor-titulo" :class="{ resaltado: cambio('titulo') }">
+              {{ propuesta.titulo }}
+            </h2>
+            <p
+              v-if="propuesta.subtitulo"
+              class="visor-entradilla"
+              :class="{ resaltado: cambio('subtitulo') }"
+            >{{ propuesta.subtitulo }}</p>
+            <img v-if="portadaPropuesta" :src="portadaPropuesta" alt="Portada propuesta" class="visor-portada" />
+            <div class="visor-texto" :class="{ resaltado: cambio('cuerpo') }" v-html="propuesta.cuerpo"></div>
+          </section>
+        </div>
+
+        <footer class="visor-pie">
+          <div class="actions">
+            <button class="btn btn-success" @click="aprobarCambiosDe(comparador.noticia)">
+              ✓ Publicar estos cambios
+            </button>
+            <button class="btn btn-danger" @click="abrirRechazoCambios(comparador.noticia)">
+              ✗ Descartarlos
+            </button>
+          </div>
+          <button class="btn btn-secondary" @click="cerrarComparador">Cerrar</button>
+        </footer>
+      </div>
+    </div>
+
     <!-- Modal de rechazo -->
     <div v-if="rechazoModal.visible" class="modal-overlay" @click.self="rechazoModal.visible = false">
       <div class="modal-card">
-        <h3>Rechazar noticia</h3>
+        <h3>{{ esRechazoDeCambios ? 'Descartar los cambios' : 'Rechazar noticia' }}</h3>
         <p style="font-size:14px; color: var(--seneca-gris-oscuro)">
           "{{ rechazoModal.noticia?.titulo }}"
         </p>
+        <p v-if="esRechazoDeCambios" class="modal-nota">
+          La noticia se queda en la web tal como está ahora. Su autor verá el motivo y podrá
+          proponer otros cambios.
+        </p>
         <div class="form-group">
-          <label>Motivo del rechazo</label>
+          <label>Motivo</label>
           <textarea v-model="rechazoModal.motivo" class="form-control" rows="3" placeholder="Explica brevemente el motivo..."></textarea>
         </div>
         <div class="form-actions">
           <button class="btn btn-secondary" @click="rechazoModal.visible = false">Cancelar</button>
-          <button class="btn btn-danger" @click="confirmarRechazo">Confirmar rechazo</button>
+          <button class="btn btn-danger" @click="confirmarRechazo">
+            {{ esRechazoDeCambios ? 'Descartar los cambios' : 'Confirmar rechazo' }}
+          </button>
         </div>
       </div>
     </div>
@@ -173,11 +250,15 @@ import {
   getAdminNoticias, aprobarNoticia, rechazarNoticia,
   despublicarNoticia, eliminarNoticia, reordenarNoticias,
   anclarNoticia, desanclarNoticia, urlImagen,
+  aprobarCambios, rechazarCambios,
 } from '@/services/api';
 
 const tabs = [
   { label: 'Pendientes', value: 'pendiente' },
   { label: 'Publicadas', value: 'publicada' },
+  // No es un estado de la noticia, sino las que tienen cambios propuestos por
+  // su autor esperando revision.
+  { label: 'Con cambios', value: 'revision' },
   { label: 'Rechazadas', value: 'rechazada' },
   { label: 'Todas', value: 'todas' },
 ];
@@ -192,9 +273,11 @@ const loading = ref(true);
 // mandar dos ordenes distintas y ganar la que contestase la ultima.
 const moviendo = ref(false);
 
-const noticias = computed(() =>
-  filtro.value === 'todas' ? todas.value : todas.value.filter((n) => n.estado === filtro.value)
-);
+const noticias = computed(() => {
+  if (filtro.value === 'todas') return todas.value;
+  if (filtro.value === 'revision') return todas.value.filter((n) => n.revision);
+  return todas.value.filter((n) => n.estado === filtro.value);
+});
 
 // Las publicadas, en el orden en que se ven. Es la lista que se renumera al
 // mover una noticia con las flechas.
@@ -203,11 +286,52 @@ const publicadas = computed(() => todas.value.filter((n) => n.estado === 'public
 const conteo = computed(() => ({
   pendiente: todas.value.filter((n) => n.estado === 'pendiente').length,
   publicada: todas.value.filter((n) => n.estado === 'publicada').length,
+  revision: todas.value.filter((n) => n.revision).length,
   rechazada: todas.value.filter((n) => n.estado === 'rechazada').length,
   todas: todas.value.length,
 }));
 
-const rechazoModal = reactive({ visible: false, noticia: null, motivo: '' });
+// tipo: 'noticia' rechaza la noticia entera; 'cambios' solo descarta los
+// cambios propuestos y deja en la web la version que ya estaba.
+const rechazoModal = reactive({ visible: false, noticia: null, motivo: '', tipo: 'noticia' });
+const esRechazoDeCambios = computed(() => rechazoModal.tipo === 'cambios');
+
+// Comparador de cambios propuestos
+const comparador = reactive({ visible: false, noticia: {} });
+
+const propuesta = computed(() => comparador.noticia?.revision ?? {});
+const portadaActual = computed(() => urlImagen(comparador.noticia?.imagen?.[0]?.url));
+const portadaPropuesta = computed(() => urlImagen(propuesta.value?.imagen?.[0]?.url));
+
+/** true si ese campo cambia con la propuesta, para resaltarlo en las dos columnas. */
+function cambio(campo) {
+  return (comparador.noticia?.[campo] ?? '') !== (propuesta.value?.[campo] ?? '');
+}
+
+function verCambios(n) {
+  comparador.noticia = n;
+  comparador.visible = true;
+  document.body.style.overflow = 'hidden';
+}
+
+function cerrarComparador() {
+  comparador.visible = false;
+  document.body.style.overflow = '';
+}
+
+async function aprobarCambiosDe(n) {
+  cerrarComparador();
+  await aprobarCambios(n.id);
+  await cargar();
+}
+
+function abrirRechazoCambios(n) {
+  cerrarComparador();
+  rechazoModal.noticia = n;
+  rechazoModal.motivo = '';
+  rechazoModal.tipo = 'cambios';
+  rechazoModal.visible = true;
+}
 
 // Visor de la noticia
 const visor = reactive({ visible: false, noticia: {} });
@@ -243,7 +367,9 @@ function rechazarDesdeVisor() {
 
 // Cerrar con la tecla Escape, como cualquier ventana modal.
 function alPulsarTecla(e) {
-  if (e.key === 'Escape' && visor.visible) cerrarVisor();
+  if (e.key !== 'Escape') return;
+  if (visor.visible) cerrarVisor();
+  if (comparador.visible) cerrarComparador();
 }
 
 async function cargar() {
@@ -314,11 +440,16 @@ async function aprobar(n) {
 function abrirRechazo(n) {
   rechazoModal.noticia = n;
   rechazoModal.motivo = '';
+  rechazoModal.tipo = 'noticia';
   rechazoModal.visible = true;
 }
 
 async function confirmarRechazo() {
-  await rechazarNoticia(rechazoModal.noticia.id, rechazoModal.motivo);
+  if (esRechazoDeCambios.value) {
+    await rechazarCambios(rechazoModal.noticia.id, rechazoModal.motivo);
+  } else {
+    await rechazarNoticia(rechazoModal.noticia.id, rechazoModal.motivo);
+  }
   rechazoModal.visible = false;
   await cargar();
 }
@@ -376,6 +507,53 @@ function formatFecha(fecha) {
 }
 .tab.active .tab-badge { background: rgba(255,255,255,0.35); }
 .motivo { font-size: 11px; color: var(--seneca-peligro); margin: 4px 0 0; font-style: italic; }
+.marca-cambios { font-size: 11px; color: var(--seneca-azul-medio); margin: 4px 0 0; }
+.modal-nota {
+  font-size: 13px;
+  color: var(--seneca-azul-medio);
+  background: var(--seneca-azul-claro);
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 10px 0 0;
+}
+.badge-cambios { background: var(--seneca-azul-claro); color: var(--seneca-azul-medio); }
+
+/* Comparador: lo que hay en la web a la izquierda, lo propuesto a la derecha.
+   En pantallas estrechas se apilan, con lo propuesto debajo. */
+.comparador {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+@media (max-width: 820px) {
+  .comparador { grid-template-columns: 1fr; }
+}
+.columna { min-width: 0; }
+.columna-propuesta {
+  border-left: 1px solid var(--seneca-gris-claro);
+  padding-left: 24px;
+}
+@media (max-width: 820px) {
+  .columna-propuesta {
+    border-left: 0;
+    border-top: 1px solid var(--seneca-gris-claro);
+    padding-left: 0;
+    padding-top: 20px;
+  }
+}
+.columna-titulo {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--seneca-gris-medio);
+  margin: 0 0 12px;
+}
+/* Marca los campos que cambian, para no tener que leerlo todo comparando. */
+.resaltado {
+  background: #fff8e1;
+  box-shadow: 0 0 0 6px #fff8e1;
+  border-radius: 2px;
+}
 
 /* Titulo de la tabla como enlace: invita a abrir el visor */
 .titulo-enlace {

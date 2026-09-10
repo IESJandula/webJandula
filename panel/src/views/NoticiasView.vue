@@ -33,12 +33,18 @@
             <p v-if="n.estado === 'rechazada' && n.motivoRechazo" class="motivo-rechazo">
               ✗ {{ n.motivoRechazo }}
             </p>
+            <p v-if="n.revision" class="aviso-cambios">
+              ✎ Cambios enviados. En la web sigue la versión anterior hasta que se aprueben.
+            </p>
+            <p v-else-if="n.revisionMotivo" class="motivo-rechazo">
+              ✗ Cambios descartados: {{ n.revisionMotivo }}
+            </p>
           </div>
         </div>
         <div class="actions" style="margin-top:12px">
           <router-link :to="`/noticias/${n.id}/editar`" class="btn btn-secondary">Editar</router-link>
-          <span v-if="n.estado === 'publicada'" class="text-muted">
-            Está en la web: lo que cambies se verá allí en unos minutos
+          <span v-if="n.estado === 'publicada' && !n.revision" class="text-muted">
+            Está en la web: lo que cambies pasará antes por revisión
           </span>
         </div>
       </div>
@@ -77,6 +83,7 @@ function formatFecha(fecha) {
 .noticia-titulo { font-size: 15px; font-weight: 600; margin: 6px 0 4px; color: var(--seneca-azul-principal); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .noticia-meta { font-size: 12px; color: var(--seneca-gris-medio); margin: 0; }
 .motivo-rechazo { font-size: 12px; color: var(--seneca-peligro); margin: 6px 0 0; font-style: italic; }
+.aviso-cambios { font-size: 12px; color: var(--seneca-azul-medio); margin: 6px 0 0; }
 .text-muted { font-size: 13px; color: var(--seneca-gris-medio); }
 .admin-hint { font-size: 13px; color: var(--seneca-azul-medio); background: var(--seneca-azul-claro); padding: 8px 14px; border-radius: 6px; margin-bottom: 16px; }
 </style>

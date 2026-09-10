@@ -5,8 +5,16 @@
       <router-link to="/" class="btn btn-secondary">← Volver</router-link>
     </div>
 
-    <p v-if="estado === 'publicada'" class="aviso-publicada">
-      Esta noticia ya está en la web. Al guardar, el cambio se verá allí en unos minutos.
+    <p v-if="estado === 'publicada' && !authStore.isAdmin" class="aviso-publicada">
+      Esta noticia ya está en la web. Lo que guardes aquí no la cambia todavía: se envía a
+      revisión y, hasta que se apruebe, se sigue viendo la versión publicada.
+      <span v-if="hayCambiosPendientes">Estás editando los cambios que ya enviaste.</span>
+    </p>
+    <p v-else-if="estado === 'publicada'" class="aviso-publicada">
+      Esta noticia está en la web. Como administrador, lo que guardes se publica directamente.
+    </p>
+    <p v-if="motivoCambiosRechazados" class="aviso-rechazo">
+      ✗ Tus cambios anteriores se descartaron: {{ motivoCambiosRechazados }}
     </p>
 
     <form class="card form-card" @submit.prevent="handleSubmit">
@@ -102,6 +110,10 @@ const form = reactive({
 const submitting = ref(false);
 /** Estado de la noticia que se edita, para avisar si ya esta en la web. */
 const estado = ref('');
+/** Ya habia cambios propuestos y sin revisar: se sigue editando sobre ellos. */
+const hayCambiosPendientes = ref(false);
+/** Motivo por el que se descartaron los cambios anteriores, si los hubo. */
+const motivoCambiosRechazados = ref('');
 const portadaInput = ref(null);
 const galeriaInput = ref(null);
 
@@ -117,12 +129,19 @@ onMounted(async () => {
     }
     if (noticia) {
       estado.value = noticia.estado ?? '';
-      form.titulo = noticia.titulo;
-      form.subtitulo = noticia.subtitulo ?? '';
-      form.categoria = noticia.categoria;
-      form.portada = noticia.imagen?.[0]?.url ?? null;
-      form.cuerpo = noticia.cuerpo;
-      form.galeria = (noticia.galeria ?? []).map((g) => g.url ?? g);
+      // Si ya habia cambios propuestos y sin aprobar, se sigue trabajando
+      // sobre ellos: lo contrario seria empezar de cero cada vez que se abre.
+      // Los administradores editan la version que esta en la web.
+      const partida = !authStore.isAdmin && noticia.revision ? noticia.revision : noticia;
+      hayCambiosPendientes.value = !authStore.isAdmin && Boolean(noticia.revision);
+      motivoCambiosRechazados.value = noticia.revisionMotivo ?? '';
+
+      form.titulo = partida.titulo;
+      form.subtitulo = partida.subtitulo ?? '';
+      form.categoria = partida.categoria;
+      form.portada = partida.imagen?.[0]?.url ?? null;
+      form.cuerpo = partida.cuerpo;
+      form.galeria = (partida.galeria ?? []).map((g) => g.url ?? g);
     }
   }
 });
@@ -163,6 +182,11 @@ async function handleSubmit() {
     const payload = { ...form };
     if (isEditing.value) {
       await editarNoticia(route.params.id, payload);
+      // Editar una noticia que ya esta en la web no la cambia: hay que decirlo
+      // aqui, o el autor se ira a mirarla y pensara que no se ha guardado.
+      if (estado.value === 'publicada' && !authStore.isAdmin) {
+        alert('Cambios enviados a revisión. En la web sigue la versión publicada hasta que un administrador los apruebe.');
+      }
     } else {
       await crearNoticia(payload);
     }
@@ -177,6 +201,15 @@ async function handleSubmit() {
 
 <style scoped>
 .form-card { max-width: 780px; }
+.aviso-rechazo {
+  max-width: 780px;
+  font-size: 13px;
+  color: var(--seneca-peligro);
+  background: #fdecee;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
 .aviso-publicada {
   max-width: 780px;
   font-size: 13px;

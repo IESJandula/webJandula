@@ -30,6 +30,14 @@ model Noticia {
   // o no; las ancladas se muestran antes que el resto sea cual sea su número.
   // Una noticia recién publicada entra al principio de las no ancladas.
   orden          Int      @default(0)
+  // Cambios que el autor propone sobre una noticia YA publicada. Se guardan
+  // aparte (JSON con titulo, subtitulo, cuerpo, categoria, portada y galeria)
+  // para que la web siga enseñando lo aprobado hasta que un administrador
+  // revise: editar no debe cambiar por la espalda lo que ya leen las familias.
+  revision       String?
+  revisionFecha  DateTime?
+  // Motivo del ultimo rechazo de cambios, para que el autor sepa que corregir.
+  revisionMotivo String?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }

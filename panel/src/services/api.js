@@ -46,6 +46,12 @@ export const aprobarNoticia = (id) => apiClient.post(`/api/admin/noticias/${id}/
 export const rechazarNoticia = (id, motivo) =>
   apiClient.post(`/api/admin/noticias/${id}/rechazar`, { motivo });
 export const despublicarNoticia = (id) => apiClient.post(`/api/admin/noticias/${id}/despublicar`);
+// Cambios propuestos sobre una noticia ya publicada: hasta que se aprueban, en
+// la web sigue la versión anterior.
+export const aprobarCambios = (id) =>
+  apiClient.post(`/api/admin/noticias/${id}/revision/aprobar`);
+export const rechazarCambios = (id, motivo) =>
+  apiClient.post(`/api/admin/noticias/${id}/revision/rechazar`, { motivo });
 export const eliminarNoticia = (id) => apiClient.delete(`/api/admin/noticias/${id}`);
 // Anclar: la noticia se queda al principio de la web pública hasta desanclarla,
 // sin que la desplacen las noticias que se publiquen después.

@@ -4,8 +4,76 @@ import { solicitarRedespliegue } from '../services/redespliegue.js';
 
 const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3001';
 
-function formatNoticia(n) {
+function parsearGaleria(json) {
+  try {
+    const lista = JSON.parse(json);
+    return Array.isArray(lista) ? lista : [];
+  } catch {
+    return [];
+  }
+}
+
+/** Los cambios pendientes, tal como se guardaron. null si no hay ninguno. */
+function leerRevision(json) {
+  if (!json) return null;
+  try {
+    const r = JSON.parse(json);
+    return r && typeof r === 'object' ? r : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Los cambios pendientes con la misma forma que una noticia, para que el panel
+ * los pinte con el mismo codigo (imagen como array, galeria como objetos).
+ */
+function formatRevision(json) {
+  const r = leerRevision(json);
+  if (!r) return null;
+
   return {
+    titulo: r.titulo ?? '',
+    subtitulo: r.subtitulo ?? '',
+    cuerpo: r.cuerpo ?? '',
+    categoria: r.categoria ?? '',
+    imagen: r.portada ? [{ url: r.portada }] : [],
+    galeria: (Array.isArray(r.galeria) ? r.galeria : []).map((url) => ({ url })),
+  };
+}
+
+/**
+ * Campos para volcar los cambios pendientes sobre la propia noticia. Se usa
+ * cuando la noticia sale de la web (se rechaza o se despublica): ahi ya no hay
+ * version publica que proteger, y descartarlos tiraria el trabajo del autor.
+ * Sin cambios pendientes devuelve {}, asi que se puede repartir siempre.
+ */
+function aplicarRevisionPendiente(previa) {
+  const propuesta = leerRevision(previa?.revision);
+  if (!propuesta) return {};
+
+  return {
+    titulo: propuesta.titulo ?? previa.titulo,
+    subtitulo: propuesta.subtitulo ?? null,
+    cuerpo: propuesta.cuerpo ?? previa.cuerpo,
+    categoria: propuesta.categoria ?? previa.categoria,
+    portada: propuesta.portada ?? null,
+    galeria: JSON.stringify(Array.isArray(propuesta.galeria) ? propuesta.galeria : []),
+    revision: null,
+    revisionFecha: null,
+    revisionMotivo: null,
+  };
+}
+
+/**
+ * @param {object} n                  fila de la tabla Noticia
+ * @param {object} [opciones]
+ * @param {boolean} [opciones.conRevision]  incluir los cambios sin aprobar.
+ *        Solo en las rutas con sesion (el autor y el panel de administracion):
+ *        en las publicas la web tiene que seguir viendo lo aprobado.
+ */
+function formatNoticia(n, { conRevision = false } = {}) {
+  const base = {
     id: String(n.id),
     documentId: String(n.id),
     titulo: n.titulo,
@@ -21,13 +89,16 @@ function formatNoticia(n) {
     orden: n.orden,
     // Compatibilidad con api.ts de Astro: imagen como array de objetos con url
     imagen: n.portada ? [{ url: n.portada }] : [],
-    galeria: (() => {
-      try {
-        return JSON.parse(n.galeria).map((url) => ({ url }));
-      } catch {
-        return [];
-      }
-    })(),
+    galeria: parsearGaleria(n.galeria).map((url) => ({ url })),
+  };
+
+  if (!conRevision) return base;
+
+  return {
+    ...base,
+    revision: formatRevision(n.revision),
+    revisionFecha: n.revisionFecha ? n.revisionFecha.toISOString() : null,
+    revisionMotivo: n.revisionMotivo ?? null,
   };
 }
 
@@ -108,7 +179,7 @@ export default async function noticiasRoutes(fastify) {
         where: { autorEmail: request.user.email },
         orderBy: { createdAt: 'desc' },
       });
-      return { data: noticias.map(formatNoticia) };
+      return { data: noticias.map((n) => formatNoticia(n, { conRevision: true })) };
     }
   );
 
@@ -168,13 +239,42 @@ export default async function noticiasRoutes(fastify) {
         return reply.status(403).send({ error: 'Sin permisos para editar esta noticia' });
       }
 
-      // El autor puede corregir su noticia en cualquier estado, tambien
-      // publicada: una errata en la fecha de un examen tiene que poder
-      // arreglarla quien la escribio, sin esperar a que un administrador se
-      // conecte. La noticia sigue publicada y el cambio se lleva a la web con
-      // el redespliegue de mas abajo.
-
       const { titulo, subtitulo, cuerpo, categoria, portada, galeria } = request.body;
+
+      // El autor puede corregir su noticia en cualquier estado, tambien
+      // publicada, pero lo que ya esta en la web no se cambia por la espalda:
+      // sus cambios quedan guardados como revision y no salen hasta que un
+      // administrador los aprueba. Mientras tanto la web sigue con lo
+      // aprobado. Un administrador si edita en directo.
+      if (!isAdmin && existing.estado === 'publicada') {
+        const propuesta = {
+          titulo: (titulo ?? existing.titulo).trim(),
+          subtitulo:
+            subtitulo !== undefined ? (subtitulo?.trim() ?? null) : existing.subtitulo,
+          cuerpo: (cuerpo ?? existing.cuerpo).trim(),
+          categoria: categoria ?? existing.categoria,
+          portada: portada !== undefined ? portada : existing.portada,
+          galeria:
+            galeria !== undefined
+              ? Array.isArray(galeria)
+                ? galeria
+                : []
+              : parsearGaleria(existing.galeria),
+        };
+
+        const noticia = await prisma.noticia.update({
+          where: { id },
+          data: {
+            revision: JSON.stringify(propuesta),
+            revisionFecha: new Date(),
+            // Cambios nuevos: el motivo del rechazo anterior deja de valer.
+            revisionMotivo: null,
+          },
+        });
+
+        // Sin redespliegue a proposito: en la web no ha cambiado nada.
+        return reply.send({ data: formatNoticia(noticia, { conRevision: true }) });
+      }
 
       const updated = await prisma.noticia.update({
         where: { id },
@@ -213,7 +313,7 @@ export default async function noticiasRoutes(fastify) {
         // Mismo orden que la web pública, para que el panel muestre lo que se ve.
         orderBy: [{ fijada: 'desc' }, { orden: 'asc' }, { fecha: 'desc' }],
       });
-      return { data: noticias.map(formatNoticia) };
+      return { data: noticias.map((n) => formatNoticia(n, { conRevision: true })) };
     }
   );
 
@@ -245,6 +345,77 @@ export default async function noticiasRoutes(fastify) {
     }
   );
 
+  // POST /api/admin/noticias/:id/revision/aprobar
+  //   Los cambios propuestos por el autor pasan a ser la noticia.
+  fastify.post(
+    '/api/admin/noticias/:id/revision/aprobar',
+    { preHandler: [authenticate, requireAdmin] },
+    async (request, reply) => {
+      const id = parseInt(request.params.id);
+      if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
+
+      const previa = await prisma.noticia.findUnique({ where: { id } });
+      if (!previa) return reply.status(404).send({ error: 'Noticia no encontrada' });
+
+      const propuesta = leerRevision(previa.revision);
+      if (!propuesta) {
+        return reply.status(400).send({ error: 'Esta noticia no tiene cambios pendientes' });
+      }
+
+      const noticia = await prisma.noticia.update({
+        where: { id },
+        data: {
+          titulo: propuesta.titulo ?? previa.titulo,
+          subtitulo: propuesta.subtitulo ?? null,
+          cuerpo: propuesta.cuerpo ?? previa.cuerpo,
+          categoria: propuesta.categoria ?? previa.categoria,
+          portada: propuesta.portada ?? null,
+          galeria: JSON.stringify(Array.isArray(propuesta.galeria) ? propuesta.galeria : []),
+          revision: null,
+          revisionFecha: null,
+          revisionMotivo: null,
+        },
+      });
+
+      if (noticia.estado === 'publicada') {
+        solicitarRedespliegue(fastify.log, `cambios de la noticia ${noticia.id} aprobados`);
+      }
+
+      return reply.send({ data: formatNoticia(noticia, { conRevision: true }) });
+    }
+  );
+
+  // POST /api/admin/noticias/:id/revision/rechazar
+  //   Se descartan los cambios; en la web sigue lo que ya habia.
+  fastify.post(
+    '/api/admin/noticias/:id/revision/rechazar',
+    { preHandler: [authenticate, requireAdmin] },
+    async (request, reply) => {
+      const id = parseInt(request.params.id);
+      if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
+
+      const previa = await prisma.noticia.findUnique({ where: { id } });
+      if (!previa) return reply.status(404).send({ error: 'Noticia no encontrada' });
+      if (!leerRevision(previa.revision)) {
+        return reply.status(400).send({ error: 'Esta noticia no tiene cambios pendientes' });
+      }
+
+      const { motivo } = request.body || {};
+
+      const noticia = await prisma.noticia.update({
+        where: { id },
+        data: {
+          revision: null,
+          revisionFecha: null,
+          revisionMotivo: motivo?.trim() || 'Sin motivo especificado',
+        },
+      });
+
+      // Nada que redesplegar: la web no llego a ver estos cambios.
+      return reply.send({ data: formatNoticia(noticia, { conRevision: true }) });
+    }
+  );
+
   // POST /api/admin/noticias/:id/rechazar
   fastify.post(
     '/api/admin/noticias/:id/rechazar',
@@ -262,6 +433,10 @@ export default async function noticiasRoutes(fastify) {
         data: {
           estado: 'rechazada',
           motivoRechazo: motivo?.trim() ?? 'Sin motivo especificado',
+          // Si tenia cambios sin aprobar, se quedan escritos en la noticia: al
+          // salir de la web ya no hay nada que proteger, y el autor tiene que
+          // poder seguir corrigiendo sobre lo ultimo que escribio.
+          ...aplicarRevisionPendiente(previa),
         },
       });
 
@@ -281,9 +456,16 @@ export default async function noticiasRoutes(fastify) {
       const id = parseInt(request.params.id);
       if (isNaN(id)) return reply.status(400).send({ error: 'ID inválido' });
 
+      const previa = await prisma.noticia.findUnique({ where: { id } });
+
       const noticia = await prisma.noticia.update({
         where: { id },
-        data: { estado: 'pendiente' },
+        data: {
+          estado: 'pendiente',
+          // Igual que al rechazar: fuera de la web, los cambios pendientes
+          // pasan a ser el borrador con el que sigue trabajando el autor.
+          ...aplicarRevisionPendiente(previa),
+        },
       });
 
       solicitarRedespliegue(fastify.log, `noticia ${noticia.id} despublicada`);
