@@ -36,12 +36,10 @@
           </div>
         </div>
         <div class="actions" style="margin-top:12px">
-          <router-link
-            v-if="n.estado !== 'publicada'"
-            :to="`/noticias/${n.id}/editar`"
-            class="btn btn-secondary"
-          >Editar</router-link>
-          <span v-else class="text-muted">Publicada — edición bloqueada</span>
+          <router-link :to="`/noticias/${n.id}/editar`" class="btn btn-secondary">Editar</router-link>
+          <span v-if="n.estado === 'publicada'" class="text-muted">
+            Está en la web: lo que cambies se verá allí en unos minutos
+          </span>
         </div>
       </div>
     </div>

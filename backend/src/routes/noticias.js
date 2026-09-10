@@ -168,10 +168,11 @@ export default async function noticiasRoutes(fastify) {
         return reply.status(403).send({ error: 'Sin permisos para editar esta noticia' });
       }
 
-      // Profesores solo pueden editar noticias pendientes o rechazadas
-      if (!isAdmin && existing.estado === 'publicada') {
-        return reply.status(403).send({ error: 'No puedes editar una noticia publicada' });
-      }
+      // El autor puede corregir su noticia en cualquier estado, tambien
+      // publicada: una errata en la fecha de un examen tiene que poder
+      // arreglarla quien la escribio, sin esperar a que un administrador se
+      // conecte. La noticia sigue publicada y el cambio se lleva a la web con
+      // el redespliegue de mas abajo.
 
       const { titulo, subtitulo, cuerpo, categoria, portada, galeria } = request.body;
 

@@ -5,6 +5,10 @@
       <router-link to="/" class="btn btn-secondary">← Volver</router-link>
     </div>
 
+    <p v-if="estado === 'publicada'" class="aviso-publicada">
+      Esta noticia ya está en la web. Al guardar, el cambio se verá allí en unos minutos.
+    </p>
+
     <form class="card form-card" @submit.prevent="handleSubmit">
       <div class="form-group">
         <label>Título *</label>
@@ -13,7 +17,14 @@
 
       <div class="form-group">
         <label>Subtítulo / Resumen</label>
-        <input v-model="form.subtitulo" class="form-control" placeholder="Breve descripción (opcional)" />
+        <!-- Area de texto y no una linea: es la entradilla que sale bajo el
+             titulo en la web y se escribe entera, sin limite de caracteres. -->
+        <textarea
+          v-model="form.subtitulo"
+          class="form-control"
+          rows="3"
+          placeholder="Explica en un par de frases de qué va la noticia (opcional)"
+        ></textarea>
       </div>
 
       <div class="form-row">
@@ -89,6 +100,8 @@ const form = reactive({
 });
 
 const submitting = ref(false);
+/** Estado de la noticia que se edita, para avisar si ya esta en la web. */
+const estado = ref('');
 const portadaInput = ref(null);
 const galeriaInput = ref(null);
 
@@ -103,6 +116,7 @@ onMounted(async () => {
       noticia = data.data.find((n) => String(n.id) === String(route.params.id));
     }
     if (noticia) {
+      estado.value = noticia.estado ?? '';
       form.titulo = noticia.titulo;
       form.subtitulo = noticia.subtitulo ?? '';
       form.categoria = noticia.categoria;
@@ -163,6 +177,15 @@ async function handleSubmit() {
 
 <style scoped>
 .form-card { max-width: 780px; }
+.aviso-publicada {
+  max-width: 780px;
+  font-size: 13px;
+  color: var(--seneca-azul-medio);
+  background: var(--seneca-azul-claro);
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+}
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .upload-area {
   border: 2px dashed var(--seneca-borde);
