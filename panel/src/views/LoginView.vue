@@ -56,7 +56,7 @@ async function handleLogin() {
     const codigo = err.code || '';
     const mensajes = {
       'auth/unauthorized-domain':
-        'Este dominio no esta autorizado en Firebase. Anade redaccion.iesjandula.es en '
+        'Este dominio no esta autorizado en Firebase. Anade noticias.iesjandula.es en '
         + 'Firebase Console > Authentication > Settings > Authorized domains.',
       'auth/popup-blocked': 'El navegador ha bloqueado la ventana de Google. Permite las ventanas emergentes.',
       'auth/popup-closed-by-user': 'Se cerro la ventana de Google antes de terminar.',
