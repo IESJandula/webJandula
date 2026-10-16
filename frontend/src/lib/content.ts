@@ -261,26 +261,29 @@ export const ciclos = [
 ]; 
 
 export const departamentos = [
-  { nombre: 'Biología y Geología', jefe: 'Francisco Bejarano Casado' },
-  { nombre: 'Geografía e Historia', jefe: 'Isabel María Ruiz González' },
-  { nombre: 'Cultura Clásica', jefe: 'Santiago Guijarro Cano' },
-  { nombre: 'Formación, Evaluación e Innovación Educativa (FEIE)', jefe: 'Manuel Amaro Parrado' },
-  { nombre: 'Dibujo', jefe: 'Ana Navarro Frías' },
+  { nombre: 'Biología y Geología', jefe: 'Sol de Torres Martínez' },
+  { nombre: 'Educación Plástica, Visual y Audiovisual y Música', jefe: 'Ana María Navarro Frías' },
   { nombre: 'Economía FOL', jefe: 'José Luis Meco Benítez' },
-  { nombre: 'Educación Física', jefe: 'Antonio José Ortiz Muñoz' },
-  { nombre: 'Extraescolares', jefe: 'Ana Belén Mauro Cledera' },
-  { nombre: 'Filosofía', jefe: 'Sonia Racionero Rubio' },
-  { nombre: 'Física y Química', jefe: 'María Aránzazu González Mármol' },
-  { nombre: 'Francés', jefe: 'Yésica Pasadas Campos' },
-  { nombre: 'Informática', jefe: 'Vicente Serrano Martínez' },
-  { nombre: 'Inglés', jefe: 'Segundo Catalán Cubillas' },
-  { nombre: 'Lengua Castellana y Literatura', jefe: 'María Dolores Solís Perales' },
-  { nombre: 'Matemáticas', jefe: 'José María Luque Arias' },
-  { nombre: 'Orientación', jefe: 'Inmaculada Relaño Gutiérrez' },
-  { nombre: 'Proyectos Internacionales', jefe: 'Pedro J. Jurado Santiago' },
-  { nombre: 'Tecnología', jefe: 'Manuel Barbero Alcalde' }
-]
+  { nombre: 'Educación Física y Actividades Físicas y Deportivas', jefe: 'María Isabel Díaz Ruiz' },
+  { nombre: 'Filosofía', jefe: 'Elena Montes Castro' },
+  { nombre: 'Física y Química', jefe: 'Pedro José Jurado Santiago' },
+  { nombre: 'Geografía e Historia', jefe: 'Beatriz Linares Carrera' },
+  { nombre: 'Lenguas Extranjeras: Inglés y Francés', jefe: 'María del Carmen Rodríguez Martín' },
+  { nombre: 'Lengua Castellana y Literatura y Cultura Clásica', jefe: 'Jesús Gabriel Vera López' },
+  { nombre: 'Matemáticas', jefe: 'José Manuel Marín Lechado' },
+  { nombre: 'Tecnología', jefe: 'Manuel Barbero Alcalde' },
+  { nombre: 'Actividades Complementarias y Extraescolares (DACE)', jefe: 'Ana Belén Mauro Cledera' },
+  { nombre: 'Departamento de Orientación', jefe: 'Inmaculada Relaño Gutiérrez' },
+  { nombre: 'Órgano de Coordinación de Internacionalización y Programas Europeos', jefe: 'María Mercedes Casuso Quesada' },
+  { nombre: 'Órgano de Coordinación de Convivencia y Bienestar Emocional', jefe: 'Segundo Catalán Cubillas' },
+];
 
+export const coordinacionFP = [
+  { nombre: 'Departamento de Informática y Comunicaciones', jefe: 'Vicente Serrano Martínez' },
+  { nombre: 'Departamento de Instalación y Mantenimiento', jefe: 'Javier Catalán Requena' },
+  { nombre: 'Familia Profesional de Actividades Físicas y Deportivas', jefe: 'María Isabel Díaz Ruiz' },
+  { nombre: 'Área de Competencia de Formación Profesional', jefe: 'Vicente Serrano Martínez' },
+];
 
 export const equipodirectivo = [
   { cargo: 'Directora', nombre: 'María Aránzazu González Mármol' },
