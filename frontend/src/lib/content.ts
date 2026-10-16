@@ -266,7 +266,7 @@ export const departamentos = [
   { nombre: 'Cultura Clásica', jefe: 'Santiago Guijarro Cano' },
   { nombre: 'Formación, Evaluación e Innovación Educativa (FEIE)', jefe: 'Manuel Amaro Parrado' },
   { nombre: 'Dibujo', jefe: 'Ana Navarro Frías' },
-  { nombre: 'Economía', jefe: 'José Luis Meco Benítez' },
+  { nombre: 'Economía FOL', jefe: 'José Luis Meco Benítez' },
   { nombre: 'Educación Física', jefe: 'Antonio José Ortiz Muñoz' },
   { nombre: 'Extraescolares', jefe: 'Ana Belén Mauro Cledera' },
   { nombre: 'Filosofía', jefe: 'Sonia Racionero Rubio' },

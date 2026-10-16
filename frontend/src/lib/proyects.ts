@@ -40,9 +40,9 @@ export const proyectos = [
         images: []
     },
     {
-        nombre: "Aula de Jaque",
+        nombre: "AulaDjaque",
         resumen: "Un espacio de aprendizaje del ajedrez para fomentar el pensamiento crítico y la resolución de problemas.",
-        descripcion: "Aula de Jaque es el programa con el que el centro incorpora el ajedrez como herramienta educativa. Jugar al ajedrez ejercita el pensamiento lógico, la concentración, la memoria y la toma de decisiones, y fomenta además el respeto por las reglas y por el adversario.\n\nEl programa combina talleres de iniciación y perfeccionamiento con la participación en torneos escolares, en colaboración con entidades locales de ajedrez.",
+        descripcion: "AulaDjaque es el programa con el que el centro incorpora el ajedrez como herramienta educativa. Jugar al ajedrez ejercita el pensamiento lógico, la concentración, la memoria y la toma de decisiones, y fomenta además el respeto por las reglas y por el adversario.\n\nEl programa combina talleres de iniciación y perfeccionamiento con la participación en torneos escolares, en colaboración con entidades locales de ajedrez.",
         caracteristicas: [
             "Talleres de iniciación y perfeccionamiento en ajedrez",
             "Participación en torneos escolares locales y provinciales",
@@ -50,10 +50,10 @@ export const proyectos = [
             "Colaboración con entidades locales de ajedrez"
         ],
         etiquetas: ["Ajedrez", "Lógica", "Matemáticas"],
-        categoria: "Deportes y Juegos",
+        categoria: "Innovación educativa",
         // Foto real del Club de Ajedrez Jándula (la anterior estaba generada por IA).
         portada: "/images/proyects/aula-de-jaque.jpg",
-        portadaAlt: "Profesorado responsable del Aula de Jaque, con la equipación del Club de Ajedrez Jándula, junto a los tableros de juego",
+        portadaAlt: "Profesorado responsable de AulaDjaque, con la equipación del Club de Ajedrez Jándula, junto a los tableros de juego",
         images: []
     },
     {
