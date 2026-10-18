@@ -273,9 +273,9 @@ export const departamentos = [
   { nombre: 'Matemáticas', jefe: 'José Manuel Marín Lechado' },
   { nombre: 'Tecnología', jefe: 'Manuel Barbero Alcalde' },
   { nombre: 'Actividades Complementarias y Extraescolares (DACE)', jefe: 'Ana Belén Mauro Cledera' },
-  { nombre: 'Departamento de Orientación', jefe: 'Inmaculada Relaño Gutiérrez' },
-  { nombre: 'Departamento de Informática', jefe: 'Vicente Serrano Martínez' },
-  { nombre: 'Departamento de Instalación y Mantenimiento', jefe: 'Javier Catalán Requena' },
+  { nombre: 'Orientación', jefe: 'Inmaculada Relaño Gutiérrez' },
+  { nombre: 'Informática', jefe: 'Vicente Serrano Martínez' },
+  { nombre: 'Instalación y Mantenimiento', jefe: 'Javier Catalán Requena' },
   { nombre: 'Órgano de Coordinación de Internacionalización y Programas Europeos', jefe: 'María Mercedes Casuso Quesada' },
   { nombre: 'Órgano de Coordinación de Convivencia y Bienestar Emocional', jefe: 'Segundo Catalán Cubillas' },
 ];
