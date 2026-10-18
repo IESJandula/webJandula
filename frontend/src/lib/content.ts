@@ -262,7 +262,7 @@ export const ciclos = [
 
 export const departamentos = [
   { nombre: 'Biología y Geología', jefe: 'Sol de Torres Martínez' },
-  { nombre: 'Educación Plástica, Visual y Audiovisual y Música', jefe: 'Ana María Navarro Frías' },
+  { nombre: 'Educación Plástica, Visual, Audiovisual y Música', jefe: 'Ana María Navarro Frías' },
   { nombre: 'Economía FOL', jefe: 'José Luis Meco Benítez' },
   { nombre: 'Educación Física y Actividades Físicas y Deportivas', jefe: 'María Isabel Díaz Ruiz' },
   { nombre: 'Filosofía', jefe: 'Elena Montes Castro' },
