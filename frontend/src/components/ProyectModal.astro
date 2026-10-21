@@ -21,7 +21,6 @@ const galleryDotsId = `${id}-gallery-dots`;
 const statsId = `${id}-stats`;
 const featuresWrapId = `${id}-features-wrap`;
 const featuresId = `${id}-features`;
-const tagsId = `${id}-tags`;
 const publicationsWrapId = `${id}-publications-wrap`;
 const publicationsId = `${id}-publications`;
 
@@ -37,20 +36,20 @@ const publicationsId = `${id}-publications`;
 >
 	<div id={overlayId} class="absolute inset-0 bg-slate-900/60 backdrop-blur-[2px]"></div>
 
-	<div class="relative flex w-full sm:max-w-3xl sm:m-6 flex-col rounded-t-2xl sm:rounded-2xl bg-white shadow-2xl ring-1 ring-slate-200 max-h-[92dvh] sm:max-h-[90vh]">
+	<div class="relative flex w-full sm:max-w-4xl sm:m-6 flex-col overflow-hidden rounded-t-3xl sm:rounded-3xl bg-white shadow-2xl ring-1 ring-slate-200 max-h-[92dvh] sm:max-h-[90vh]">
 		<div class="flex justify-center pt-2 pb-1 sm:hidden flex-shrink-0" aria-hidden="true">
 			<div class="h-1.5 w-10 rounded-full bg-slate-300"></div>
 		</div>
 
-		<div class="flex items-start justify-between border-b border-slate-200 px-4 sm:px-6 py-3 sm:py-4 flex-shrink-0">
+		<div class="flex items-start justify-between border-b border-slate-200 border-t-4 border-t-blue-600 bg-slate-50/80 px-5 sm:px-9 py-5 sm:py-7 flex-shrink-0">
 			<div>
-				<p id={categoryId} class="text-xs font-semibold uppercase tracking-wide text-blue-700"></p>
-				<h3 id={titleId} class="mt-1 text-base sm:text-lg font-bold text-slate-900"></h3>
+				<p id={categoryId} class="text-xs font-semibold uppercase tracking-[0.14em] text-blue-700"></p>
+				<h3 id={titleId} class="mt-2 text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-slate-900"></h3>
 			</div>
 			<button
 				id={closeId}
 				type="button"
-				class="rounded-lg p-2 text-slate-500 transition hover:bg-slate-100 hover:text-slate-700 flex-shrink-0"
+				class="ml-4 rounded-full bg-white p-2.5 text-slate-500 ring-1 ring-slate-200 transition hover:bg-blue-50 hover:text-blue-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-blue-600 flex-shrink-0"
 				aria-label="Cerrar modal del proyecto"
 			>
 				<svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -63,11 +62,11 @@ const publicationsId = `${id}-publications`;
 			</button>
 		</div>
 
-		<div class="modal-scroll space-y-4 sm:space-y-6 overflow-y-auto p-4 sm:p-6">
+		<div class="modal-scroll min-h-0 space-y-7 overflow-y-auto overscroll-contain p-5 sm:p-9">
 			<div id={galleryWrapId} class="relative overflow-hidden rounded-xl bg-slate-100">
 				<img
 					id={heroId}
-					class="w-full aspect-[4/3] sm:aspect-[16/10] object-cover max-h-[220px] sm:max-h-[320px]"
+					class="w-full aspect-[4/3] sm:aspect-[16/10] object-cover max-h-[200px] sm:max-h-[260px]"
 					alt="Imagen del proyecto"
 					loading="lazy"
 					decoding="async"
@@ -99,11 +98,11 @@ const publicationsId = `${id}-publications`;
 
 			<div id={statsId} class="grid grid-cols-2 gap-3"></div>
 
-			<p id={descriptionId} class="text-sm sm:text-base leading-6 text-slate-700"></p>
+			<div id={descriptionId} class="project-description max-w-[68ch] space-y-4 text-base leading-7 text-slate-600"></div>
 
-			<div id={featuresWrapId} class="rounded-xl bg-slate-50 p-3 sm:p-4 ring-1 ring-slate-200/80">
-				<p class="text-xs font-semibold uppercase tracking-wide text-slate-500">Detalles</p>
-				<ul id={featuresId} class="mt-2 grid gap-2 text-sm text-slate-700"></ul>
+			<div id={featuresWrapId} class="rounded-2xl border border-slate-200 bg-slate-50/70 p-5 sm:p-6">
+				<h4 class="text-lg font-bold tracking-tight text-slate-900">Detalles del programa</h4>
+				<ul id={featuresId} class="project-features mt-4 grid text-sm sm:text-base leading-6 text-slate-600"></ul>
 			</div>
 
 			<!--
@@ -115,13 +114,14 @@ const publicationsId = `${id}-publications`;
 				<p class="text-xs font-semibold uppercase tracking-wide text-blue-700">Ediciones publicadas</p>
 				<ul id={publicationsId} class="mt-2 grid gap-1.5 text-sm"></ul>
 			</div>
-
-			<div id={tagsId} class="flex flex-wrap gap-2"></div>
 		</div>
 	</div>
 </div>
 
 <style>
+	.project-features :global(li + li) { border-top: 1px solid #e2e8f0; }
+	.project-features :global(li::before) { content: ""; position: absolute; left: 0; top: 1.3em; width: 5px; height: 5px; border-radius: 50%; background: #2563eb; }
+	.project-features :global(li:first-child::before) { top: .55em; }
 	.modal-scroll {
 		scrollbar-width: thin;
 		scrollbar-color: rgb(203 213 225) transparent;
@@ -141,7 +141,7 @@ const publicationsId = `${id}-publications`;
 	}
 </style>
 
-<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, galleryPrevId, galleryNextId, galleryDotsId, statsId, featuresWrapId, featuresId, tagsId, publicationsWrapId, publicationsId }}>
+<script define:vars={{ modalId, overlayId, closeId, titleId, categoryId, descriptionId, heroId, galleryPrevId, galleryNextId, galleryDotsId, statsId, featuresWrapId, featuresId, galleryWrapId, publicationsWrapId, publicationsId }}>
 	const modal = document.getElementById(modalId);
 	const overlay = document.getElementById(overlayId);
 	const closeButton = document.getElementById(closeId);
@@ -157,7 +157,9 @@ const publicationsId = `${id}-publications`;
 	const featuresEl = document.getElementById(featuresId);
 	const publicationsWrap = document.getElementById(publicationsWrapId);
 	const publicationsEl = document.getElementById(publicationsId);
-	const tagsEl = document.getElementById(tagsId);
+	const galleryWrap = document.getElementById(galleryWrapId);
+	let previousFocus = null;
+	let previousOverflow = "";
 
 	let galleryImages = [];
 	let galleryIndex = 0;
@@ -205,7 +207,6 @@ const publicationsId = `${id}-publications`;
 		const title = data.proyectoTitle || data.title || "";
 		const category = data.proyectoCategory || data.category || "";
 		const description = data.proyectoDescription || data.description || data.proyectoSummary || data.summary || "";
-		const tags = parseJson(data.proyectoTags || data.tags);
 		const features = parseJson(data.proyectoFeatures || data.features);
 		const stats = parseJson(data.proyectoStats || data.stats);
 		const images = parseJson(data.proyectoImages || data.images);
@@ -214,10 +215,18 @@ const publicationsId = `${id}-publications`;
 
 		if (titleEl) titleEl.textContent = title;
 		if (categoryEl) categoryEl.textContent = category;
-		if (descriptionEl) descriptionEl.innerHTML = description.replace(/\n/g, "<br />");
+		if (descriptionEl) {
+            descriptionEl.replaceChildren();
+            description.split(/\n\s*\n/).filter(Boolean).forEach((text) => {
+                const paragraph = document.createElement("p");
+                paragraph.textContent = text;
+                descriptionEl.appendChild(paragraph);
+            });
+        }
 
 		galleryImages = [hero, ...images.filter((img) => img && img !== hero)].filter(Boolean);
 		galleryIndex = 0;
+		setHidden(galleryWrap, galleryImages.length === 0);
 
 		if (heroEl) {
 			setHidden(heroEl, galleryImages.length === 0);
@@ -268,7 +277,7 @@ const publicationsId = `${id}-publications`;
 			if (features.length > 0) {
 				features.forEach((feature) => {
 					const item = document.createElement("li");
-					item.className = "flex items-start gap-2";
+					item.className = "relative py-3 pl-5 first:pt-0 last:pb-0";
 					item.textContent = feature;
 					featuresEl.appendChild(item);
 				});
@@ -299,24 +308,21 @@ const publicationsId = `${id}-publications`;
 			setHidden(publicationsWrap, publications.length === 0);
 		}
 
-		if (tagsEl) {
-			tagsEl.innerHTML = "";
-			tags.forEach((tag) => {
-				const badge = document.createElement("span");
-				badge.className = "inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-medium text-slate-600 ring-1 ring-inset ring-slate-500/10";
-				badge.textContent = tag.startsWith("#") ? tag : `#${tag}`;
-				tagsEl.appendChild(badge);
-			});
-		}
-
+		previousFocus = document.activeElement;
+		previousOverflow = document.body.style.overflow;
+		document.body.style.overflow = "hidden";
 		modal.classList.remove("hidden");
 		modal.setAttribute("aria-hidden", "false");
+		modal.querySelector(".modal-scroll")?.scrollTo(0, 0);
+		closeButton?.focus();
 	};
 
 	const closeModal = () => {
 		if (!modal) return;
 		modal.classList.add("hidden");
 		modal.setAttribute("aria-hidden", "true");
+		document.body.style.overflow = previousOverflow;
+		previousFocus?.focus();
 	};
 
 	openButtons.forEach((button) => {
@@ -331,7 +337,14 @@ const publicationsId = `${id}-publications`;
 
 	document.addEventListener("keydown", (event) => {
 		if (!modal || modal.classList.contains("hidden")) return;
-		if (event.key === "Escape") closeModal();
+		if (event.key === "Tab") {
+            const focusable = Array.from(modal.querySelectorAll('button, a[href]')).filter((el) => el.getClientRects().length > 0);
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last?.focus(); }
+            else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first?.focus(); }
+        }
+        if (event.key === "Escape") closeModal();
 		if (event.key === "ArrowLeft") goToGalleryImage(galleryIndex - 1);
 		if (event.key === "ArrowRight") goToGalleryImage(galleryIndex + 1);
 	});
