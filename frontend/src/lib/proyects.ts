@@ -42,12 +42,12 @@ export const proyectos = [
     {
         nombre: "AulaDjaque",
         resumen: "Un espacio de aprendizaje del ajedrez para fomentar el pensamiento crítico y la resolución de problemas.",
-        descripcion: "AulaDjaque es el programa con el que el centro incorpora el ajedrez como herramienta educativa. Jugar al ajedrez ejercita el pensamiento lógico, la concentración, la memoria y la toma de decisiones, y fomenta además el respeto por las reglas y por el adversario.\n\nEl programa combina talleres de iniciación y perfeccionamiento con la participación en torneos escolares, en colaboración con entidades locales de ajedrez.",
+        descripcion: "El programa aulaDjaque busca dar a conocer los beneficios de la práctica y enseñanza del ajedrez en el ámbito educativo. En este sentido, se pretende facilitar al profesorado andaluz un aliado pedagógico que convierta el aula en un espacio donde el alumnado descubra las potencialidades del noble juego desde un enfoque transversal, lúdico y creativo.",
         caracteristicas: [
-            "Talleres de iniciación y perfeccionamiento en ajedrez",
-            "Participación en torneos escolares locales y provinciales",
-            "Actividades de ajedrez adaptadas a diferentes niveles",
-            "Colaboración con entidades locales de ajedrez"
+            "Ofrecer una herramienta metodológica transversal del ajedrez en el aula.",
+            "Presentar el juego como un escenario ideal en el que surgen múltiples situaciones de aprendizaje.",
+            "Fomentar entre la comunidad educativa el sentido crítico y el desarrollo de un pensamiento estratégico y pautado propio del ajedrez, dentro y fuera del tablero.",
+            "Colaborar con el Club Ajedrez Jándula y el DACE del instituto."
         ],
         etiquetas: ["Ajedrez", "Lógica", "Matemáticas"],
         categoria: "Innovación educativa",
