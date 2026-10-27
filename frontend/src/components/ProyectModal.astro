@@ -164,6 +164,24 @@ const publicationsId = `${id}-publications`;
 	let galleryImages = [];
 	let galleryIndex = 0;
 
+	/*
+	 * El póster de Investiga y Descubre es vertical: con el recorte
+	 * aspect-[4/3] + object-cover del hero se pierde casi todo el cartel.
+	 * Cuando la imagen es más alta que ancha, la mostramos completa
+	 * (object-contain, sin aspect ratio fijo) en lugar de recortarla.
+	 */
+	heroEl?.addEventListener("load", () => {
+		if (!heroEl.naturalWidth || !heroEl.naturalHeight) return;
+		const vertical = heroEl.naturalHeight > heroEl.naturalWidth;
+		heroEl.classList.toggle("object-contain", vertical);
+		heroEl.classList.toggle("object-cover", !vertical);
+		heroEl.classList.toggle("aspect-[4/3]", !vertical);
+		heroEl.classList.toggle("sm:aspect-[16/10]", !vertical);
+		heroEl.classList.toggle("max-h-[200px]", !vertical);
+		heroEl.classList.toggle("sm:max-h-[260px]", !vertical);
+		heroEl.classList.toggle("max-h-[75vh]", vertical);
+	});
+
 	const renderGalleryImage = () => {
 		if (!heroEl || galleryImages.length === 0) return;
 		heroEl.setAttribute("src", galleryImages[galleryIndex]);
