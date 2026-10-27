@@ -1,6 +1,7 @@
 import { prisma } from '../plugins/prisma.js';
 import { authenticate, requireAdmin } from '../middlewares/auth.js';
 import { solicitarRedespliegue } from '../services/redespliegue.js';
+import { avisarNoticiaPendiente } from '../services/avisos.js';
 
 const PUBLIC_URL = process.env.PUBLIC_URL || 'http://localhost:3001';
 
@@ -215,6 +216,10 @@ export default async function noticiasRoutes(fastify) {
 
       if (noticia.estado === 'publicada') {
         solicitarRedespliegue(fastify.log, `noticia ${noticia.id} creada y publicada`);
+      } else {
+        // El profesor la ha dejado pendiente: aviso a los admin para que no
+        // tengan que mirar el panel para enterarse de que hay algo que revisar.
+        avisarNoticiaPendiente(fastify.log, noticia);
       }
 
       return reply.status(201).send({ data: formatNoticia(noticia) });
@@ -294,6 +299,12 @@ export default async function noticiasRoutes(fastify) {
 
       if (existing.estado === 'publicada' || updated.estado === 'publicada') {
         solicitarRedespliegue(fastify.log, `noticia ${updated.id} editada`);
+      }
+
+      // Si el profe ha corregido una rechazada, vuelve a pendiente: mismo aviso
+      // que una nueva, para que se sepa que ahí hay algo otra vez.
+      if (existing.estado === 'rechazada' && updated.estado === 'pendiente') {
+        avisarNoticiaPendiente(fastify.log, updated, { reenviada: true });
       }
 
       return reply.send({ data: formatNoticia(updated) });

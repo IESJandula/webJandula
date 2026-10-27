@@ -23,6 +23,15 @@ services:
       ADMIN_EMAILS: ${ADMIN_EMAILS}
       FRONTEND_URL: ${FRONTEND_URL}
       PANEL_URL: ${PANEL_URL}
+      # Cuenta SMTP de servicio del centro, la misma que usan agenda y guardias
+      # (valores copiados de vegaies/infra/dokploy/.env). Sin SMTP_HOST los
+      # avisos de noticia pendiente simplemente no se envían.
+      SMTP_HOST: ${SMTP_HOST}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM}
       # Webhook de despliegue del frontend en Dokploy. Imprescindible: el
       # frontend es estático y sin esto las noticias nuevas no llegan a la web.
       DEPLOY_HOOK_URL: ${DEPLOY_HOOK_URL}
