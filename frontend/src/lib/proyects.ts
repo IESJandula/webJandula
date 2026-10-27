@@ -132,6 +132,21 @@ export const proyectos = [
         images: []
     },
     {
+        nombre: "Ajedrez Curricular: Investiga y Descubre",
+        resumen: "Programa en el que el alumnado investiga, descubre y experimenta para elaborar su propio proyecto de ajedrez, asumiendo el protagonismo de su aprendizaje.",
+        descripcion: "Investiga y Descubre es un programa basado en una concepción activa del aprendizaje, en la que el alumnado asume un papel protagonista en la construcción del conocimiento mediante la investigación, el descubrimiento, la experimentación y la elaboración de un proyecto de ajedrez.",
+        caracteristicas: [
+            "Se favorece el desarrollo de la autonomía, el pensamiento crítico, la creatividad y la capacidad de iniciativa",
+            "Se favorecen las competencias necesarias para afrontar nuevos retos de aprendizaje, procurando un desarrollo equilibrado de las dimensiones cognitiva, social y emocional",
+            "Actuación de enriquecimiento educativo que, desde una perspectiva de respuesta a la diversidad de capacidades, intereses y motivaciones del alumnado"
+        ],
+        etiquetas: ["Ajedrez", "Investigación", "Aprendizaje Activo"],
+        categoria: "Innovación educativa",
+        portada: "/images/proyects/investiga-descubre-poster.jpg",
+        portadaAlt: "Póster del programa Investiga y Descubre del proyecto de ajedrez curricular del IES Jándula",
+        images: []
+    },
+    {
         nombre: "Recreos Inclusivos",
         resumen: "Actividades lúdicas y deportivas durante los recreos para fomentar la inclusión y la convivencia entre el alumnado.",
         descripcion: "Recreos Inclusivos convierte el tiempo de descanso en un espacio seguro, lúdico e integrador para todo el alumnado. Durante los recreos se organizan actividades lúdicas y deportivas, como la liga de fútbol sala, pensadas para que nadie se quede fuera.\n\nEl programa contribuye a reducir la conflictividad en los patios, a integrar al alumnado en riesgo de exclusión y a mejorar la convivencia general del centro.",
