@@ -21,7 +21,8 @@ const {
     noindex = false,
 } = Astro.props;
 
-const siteTitle  = `${title} | IES Jándula`;
+// La portada pasa el título completo; el resto lleva el nombre del centro detrás.
+const siteTitle  = title.includes("IES Jándula") ? title : `${title} | IES Jándula`;
 const siteUrl    = "https://iesjandula.es";
 const canonical  = new URL(Astro.url.pathname, siteUrl).href;
 const ogImageAbs = new URL(ogImage, siteUrl).href;
@@ -31,6 +32,7 @@ const orgSchema = {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
     name: "IES Jándula",
+    alternateName: "Instituto de Educación Secundaria Jándula",
     url: siteUrl,
     logo: `${siteUrl}/favicon.svg`,
     address: {
