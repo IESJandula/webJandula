@@ -31,18 +31,18 @@
     ]
   },
   {
-    "nombre": "Economía, FOL e IPE",
+    "nombre": "Economía y FOL",
     "grupos": [
       {
         "nombre": "ESO",
         "documentos": [
           {
             "nombre": "Economía y Emprendimiento (4.º)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/eso-economia-y-emprendimiento-4.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/eso-economia-y-emprendimiento-4.pdf"
           },
           {
             "nombre": "Formación y Orientación Personal y Profesional (4.º)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/eso-formacion-y-orientacion-personal-y-profesional-4.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/eso-formacion-y-orientacion-personal-y-profesional-4.pdf"
           }
         ]
       },
@@ -51,15 +51,15 @@
         "documentos": [
           {
             "nombre": "Economía (1.º)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/bachillerato-economia-1.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/bachillerato-economia-1.pdf"
           },
           {
             "nombre": "Empresa y Diseño de Modelos de Negocio (2.º)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/bachillerato-empresa-y-diseno-de-modelos-de-negocio-2.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/bachillerato-empresa-y-diseno-de-modelos-de-negocio-2.pdf"
           },
           {
             "nombre": "Fundamentos de Administración y Gestión (2.º)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/bachillerato-fundamentos-de-administracion-y-gestion-2.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/bachillerato-fundamentos-de-administracion-y-gestion-2.pdf"
           }
         ]
       },
@@ -68,59 +68,59 @@
         "documentos": [
           {
             "nombre": "Itinerario Personal para la Empleabilidad (FP Básica)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/itinerario-personal-para-la-empleabilidad-fp-basica.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/itinerario-personal-para-la-empleabilidad-fp-basica.pdf"
           },
           {
             "nombre": "IPE I · SMR",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-smr.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-i-smr.pdf"
           },
           {
             "nombre": "IPE II · 2.º SMR",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-smr.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-ii-2-smr.pdf"
           },
           {
             "nombre": "IPE I · 1.º DAM",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-dam.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-i-1-dam.pdf"
           },
           {
             "nombre": "Sostenibilidad Aplicada al Sistema Productivo · 1.º DAM",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/sostenibilidad-aplicada-al-sistema-productivo-1-dam.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/sostenibilidad-aplicada-al-sistema-productivo-1-dam.pdf"
           },
           {
             "nombre": "IPE II · 2.º DAM",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-dam.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-ii-2-dam.pdf"
           },
           {
             "nombre": "IPE I · 1.º DAW",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-daw.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-i-1-daw.pdf"
           },
           {
             "nombre": "IPE II · 2.º DAW",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-daw.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-ii-2-daw.pdf"
           },
           {
             "nombre": "IPE I · 1.º Mecatrónica",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-mecatronica.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-i-1-mecatronica.pdf"
           },
           {
             "nombre": "IPE II · 2.º Mecatrónica",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-mecatronica.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-ii-2-mecatronica.pdf"
           },
           {
             "nombre": "IPE I · 1.º Guía (grupo A)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-guia-grupo-a.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-i-1-guia-grupo-a.pdf"
           },
           {
             "nombre": "IPE I · 1.º Guía (grupo B)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-guia-grupo-b.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-i-1-guia-grupo-b.pdf"
           },
           {
             "nombre": "IPE II · 2.º Guía (grupo A)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-guia-grupo-a.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-ii-2-guia-grupo-a.pdf"
           },
           {
             "nombre": "IPE II · 2.º Guía (grupo B)",
-            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-guia-grupo-b.pdf"
+            "href": "/documentos/programaciones/economia-y-fol/ipe-ii-2-guia-grupo-b.pdf"
           }
         ]
       }
