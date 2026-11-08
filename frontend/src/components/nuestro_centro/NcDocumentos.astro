@@ -3,15 +3,15 @@ const apartados = [
   {
     titulo: 'Proyecto de dirección',
     descripcion: 'Las líneas de actuación y los objetivos de la dirección del centro.',
-    documentos: ['Proyecto de dirección'],
+    documentos: [{ nombre: 'Proyecto de dirección' }],
   },
   {
     titulo: 'Plan de centro',
     descripcion: 'Los documentos que organizan la vida y la actividad educativa del instituto.',
     documentos: [
-      'Proyecto educativo de centro (PEC)',
-      'Reglamento de organización y funcionamiento (ROF)',
-      'Proyecto de gestión',
+      { nombre: 'Proyecto educativo de centro (PEC)', href: '/documentos/proyecto-educativo-centro.pdf' },
+      { nombre: 'Reglamento de organización y funcionamiento (ROF)', href: '/documentos/reglamento-organizacion-funcionamiento.pdf' },
+      { nombre: 'Proyecto de gestión', href: '/documentos/proyecto-gestion.pdf' },
     ],
   },
   {
@@ -44,14 +44,22 @@ const apartados = [
               {apartado.documentos.map((documento) => (
                 <li class="flex gap-2">
                   <span aria-hidden="true" class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-blue-500"></span>
-                  <span>{documento}</span>
+                  {documento.href ? (
+                    <a href={documento.href} target="_blank" rel="noopener" class="font-medium text-blue-700 hover:text-blue-900 hover:underline">
+                      {documento.nombre} <span class="text-xs font-normal text-slate-400">PDF</span>
+                    </a>
+                  ) : (
+                    <span>{documento.nombre}</span>
+                  )}
                 </li>
               ))}
             </ul>
           )}
-          <div class="mt-auto pt-6">
-            <p class="rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-500">Pendiente de publicación</p>
-          </div>
+          {(apartado.documentos.length === 0 || apartado.documentos.some((documento) => !documento.href)) && (
+            <div class="mt-auto pt-6">
+              <p class="rounded-xl bg-slate-50 px-4 py-3 text-sm text-slate-500">Pendiente de publicación</p>
+            </div>
+          )}
         </article>
       ))}
     </div>
