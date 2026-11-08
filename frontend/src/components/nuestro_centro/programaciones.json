@@ -1,0 +1,966 @@
+[
+  {
+    "nombre": "Biología y Geología",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Biología y Geología (ESO)",
+            "href": "/documentos/programaciones/biologia-y-geologia/eso-biologia-y-geologia-eso.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Biología, Geología y Ciencias Ambientales (1.º)",
+            "href": "/documentos/programaciones/biologia-y-geologia/bachillerato-biologia-geologia-y-ciencias-ambientales-1.pdf"
+          },
+          {
+            "nombre": "Anatomía Aplicada (1.º)",
+            "href": "/documentos/programaciones/biologia-y-geologia/bachillerato-anatomia-aplicada-1.pdf"
+          },
+          {
+            "nombre": "Biología (2.º)",
+            "href": "/documentos/programaciones/biologia-y-geologia/bachillerato-biologia-2.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Economía, FOL e IPE",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Economía y Emprendimiento (4.º)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/eso-economia-y-emprendimiento-4.pdf"
+          },
+          {
+            "nombre": "Formación y Orientación Personal y Profesional (4.º)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/eso-formacion-y-orientacion-personal-y-profesional-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Economía (1.º)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/bachillerato-economia-1.pdf"
+          },
+          {
+            "nombre": "Empresa y Diseño de Modelos de Negocio (2.º)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/bachillerato-empresa-y-diseno-de-modelos-de-negocio-2.pdf"
+          },
+          {
+            "nombre": "Fundamentos de Administración y Gestión (2.º)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/bachillerato-fundamentos-de-administracion-y-gestion-2.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Formación Profesional",
+        "documentos": [
+          {
+            "nombre": "Itinerario Personal para la Empleabilidad (FP Básica)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/itinerario-personal-para-la-empleabilidad-fp-basica.pdf"
+          },
+          {
+            "nombre": "IPE I · SMR",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-smr.pdf"
+          },
+          {
+            "nombre": "IPE II · 2.º SMR",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-smr.pdf"
+          },
+          {
+            "nombre": "IPE I · 1.º DAM",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-dam.pdf"
+          },
+          {
+            "nombre": "Sostenibilidad Aplicada al Sistema Productivo · 1.º DAM",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/sostenibilidad-aplicada-al-sistema-productivo-1-dam.pdf"
+          },
+          {
+            "nombre": "IPE II · 2.º DAM",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-dam.pdf"
+          },
+          {
+            "nombre": "IPE I · 1.º DAW",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-daw.pdf"
+          },
+          {
+            "nombre": "IPE II · 2.º DAW",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-daw.pdf"
+          },
+          {
+            "nombre": "IPE I · 1.º Mecatrónica",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-mecatronica.pdf"
+          },
+          {
+            "nombre": "IPE II · 2.º Mecatrónica",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-mecatronica.pdf"
+          },
+          {
+            "nombre": "IPE I · 1.º Guía (grupo A)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-guia-grupo-a.pdf"
+          },
+          {
+            "nombre": "IPE I · 1.º Guía (grupo B)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-i-1-guia-grupo-b.pdf"
+          },
+          {
+            "nombre": "IPE II · 2.º Guía (grupo A)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-guia-grupo-a.pdf"
+          },
+          {
+            "nombre": "IPE II · 2.º Guía (grupo B)",
+            "href": "/documentos/programaciones/economia-fol-e-ipe/ipe-ii-2-guia-grupo-b.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Educación Física",
+    "grupos": [
+      {
+        "nombre": "Ciclo de Guía en el Medio Natural y de Tiempo Libre",
+        "documentos": [
+          {
+            "nombre": "Programación del ciclo",
+            "href": "/documentos/programaciones/educacion-fisica/programacion-del-ciclo.pdf"
+          },
+          {
+            "nombre": "Guía de baja y media montaña (1.º)",
+            "href": "/documentos/programaciones/educacion-fisica/guia-de-baja-y-media-montana-1.pdf"
+          },
+          {
+            "nombre": "Guía de bicicleta (1.º)",
+            "href": "/documentos/programaciones/educacion-fisica/guia-de-bicicleta-1.pdf"
+          },
+          {
+            "nombre": "Técnicas de tiempo libre (1.º)",
+            "href": "/documentos/programaciones/educacion-fisica/tecnicas-de-tiempo-libre-1.pdf"
+          },
+          {
+            "nombre": "Técnicas de equitación (1.º)",
+            "href": "/documentos/programaciones/educacion-fisica/tecnicas-de-equitacion-1.pdf"
+          },
+          {
+            "nombre": "Guía ecuestre (1.º)",
+            "href": "/documentos/programaciones/educacion-fisica/guia-ecuestre-1.pdf"
+          },
+          {
+            "nombre": "Sostenibilidad aplicada al sistema productivo (1.º)",
+            "href": "/documentos/programaciones/educacion-fisica/sostenibilidad-aplicada-al-sistema-productivo-1.pdf"
+          },
+          {
+            "nombre": "Digitalización aplicada a los sectores productivos",
+            "href": "/documentos/programaciones/educacion-fisica/digitalizacion-aplicada-a-los-sectores-productivos.pdf"
+          },
+          {
+            "nombre": "Socorrismo en el medio natural (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/socorrismo-en-el-medio-natural-2.pdf"
+          },
+          {
+            "nombre": "Acondicionamiento físico en el medio natural (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/acondicionamiento-fisico-en-el-medio-natural-2.pdf"
+          },
+          {
+            "nombre": "Atención a grupos (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/atencion-a-grupos-2.pdf"
+          },
+          {
+            "nombre": "Organización de itinerarios (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/organizacion-de-itinerarios-2.pdf"
+          },
+          {
+            "nombre": "Guía en el medio natural acuático (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/guia-en-el-medio-natural-acuatico-2.pdf"
+          },
+          {
+            "nombre": "Maniobras con cuerdas (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/maniobras-con-cuerdas-2.pdf"
+          },
+          {
+            "nombre": "Proyecto intermodular (2.º)",
+            "href": "/documentos/programaciones/educacion-fisica/proyecto-intermodular-2.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Educación Plástica, Visual y Audiovisual y Música",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Educación Plástica, Visual y Audiovisual (1.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/eso-educacion-plastica-visual-y-audiovisual-1.pdf"
+          },
+          {
+            "nombre": "Educación Plástica, Visual y Audiovisual (3.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/eso-educacion-plastica-visual-y-audiovisual-3.pdf"
+          },
+          {
+            "nombre": "Dibujo Técnico (4.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/eso-dibujo-tecnico-4.pdf"
+          },
+          {
+            "nombre": "Música (1.º y 2.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/eso-musica-1-y-2.pdf"
+          },
+          {
+            "nombre": "Cultura del Flamenco (3.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/eso-cultura-del-flamenco-3.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Dibujo Técnico I (1.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/bachillerato-dibujo-tecnico-i-1.pdf"
+          },
+          {
+            "nombre": "Dibujo Técnico II (2.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/bachillerato-dibujo-tecnico-ii-2.pdf"
+          },
+          {
+            "nombre": "Patrimonio Musical de Andalucía (1.º)",
+            "href": "/documentos/programaciones/educacion-plastica-visual-y-audiovisual-y-musica/bachillerato-patrimonio-musical-de-andalucia-1.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Filosofía",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Educación en Valores Cívicos y Éticos (2.º)",
+            "href": "/documentos/programaciones/filosofia/eso-educacion-en-valores-civicos-y-eticos-2.pdf"
+          },
+          {
+            "nombre": "Aprendizaje Social y Emocional (4.º)",
+            "href": "/documentos/programaciones/filosofia/eso-aprendizaje-social-y-emocional-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Filosofía (1.º, Ciencias y Tecnología)",
+            "href": "/documentos/programaciones/filosofia/bachillerato-filosofia-1-ciencias-y-tecnologia.pdf"
+          },
+          {
+            "nombre": "Filosofía (1.º, Humanidades y Ciencias Sociales)",
+            "href": "/documentos/programaciones/filosofia/bachillerato-filosofia-1-humanidades-y-ciencias-sociales.pdf"
+          },
+          {
+            "nombre": "Historia de la Filosofía (2.º, Ciencias y Tecnología)",
+            "href": "/documentos/programaciones/filosofia/bachillerato-historia-de-la-filosofia-2-ciencias-y-tecnologia.pdf"
+          },
+          {
+            "nombre": "Historia de la Filosofía (2.º, Humanidades y Ciencias Sociales)",
+            "href": "/documentos/programaciones/filosofia/bachillerato-historia-de-la-filosofia-2-humanidades-y-ciencias-sociales.pdf"
+          },
+          {
+            "nombre": "Psicología (2.º, Ciencias y Tecnología)",
+            "href": "/documentos/programaciones/filosofia/bachillerato-psicologia-2-ciencias-y-tecnologia.pdf"
+          },
+          {
+            "nombre": "Psicología (2.º, Humanidades y Ciencias Sociales)",
+            "href": "/documentos/programaciones/filosofia/bachillerato-psicologia-2-humanidades-y-ciencias-sociales.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Física y Química",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Física y Química (ESO)",
+            "href": "/documentos/programaciones/fisica-y-quimica/eso-fisica-y-quimica-eso.pdf"
+          },
+          {
+            "nombre": "Experimentando con la Ciencia (1.º)",
+            "href": "/documentos/programaciones/fisica-y-quimica/eso-experimentando-con-la-ciencia-1.pdf"
+          },
+          {
+            "nombre": "Ámbito Científico-Tecnológico (3.º y 4.º)",
+            "href": "/documentos/programaciones/fisica-y-quimica/eso-ambito-cientifico-tecnologico-3-y-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Física y Química (1.º)",
+            "href": "/documentos/programaciones/fisica-y-quimica/bachillerato-fisica-y-quimica-1.pdf"
+          },
+          {
+            "nombre": "Física (2.º)",
+            "href": "/documentos/programaciones/fisica-y-quimica/bachillerato-fisica-2.pdf"
+          },
+          {
+            "nombre": "Química (2.º)",
+            "href": "/documentos/programaciones/fisica-y-quimica/bachillerato-quimica-2.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Geografía e Historia",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Geografía e Historia (1.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/eso-geografia-e-historia-1.pdf"
+          },
+          {
+            "nombre": "Geografía e Historia (2.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/eso-geografia-e-historia-2.pdf"
+          },
+          {
+            "nombre": "Geografía e Historia (3.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/eso-geografia-e-historia-3.pdf"
+          },
+          {
+            "nombre": "Geografía e Historia (4.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/eso-geografia-e-historia-4.pdf"
+          },
+          {
+            "nombre": "Ámbito Lingüístico y Social (4.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/eso-ambito-linguistico-y-social-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Historia del Mundo Contemporáneo (1.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/bachillerato-historia-del-mundo-contemporaneo-1.pdf"
+          },
+          {
+            "nombre": "Taller «Pasa página» (1.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/bachillerato-taller-pasa-pagina-1.pdf"
+          },
+          {
+            "nombre": "Geografía (2.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/bachillerato-geografia-2.pdf"
+          },
+          {
+            "nombre": "Historia del Arte (2.º)",
+            "href": "/documentos/programaciones/geografia-e-historia/bachillerato-historia-del-arte-2.pdf"
+          },
+          {
+            "nombre": "Historia de España (2.º, Ciencias y Tecnología)",
+            "href": "/documentos/programaciones/geografia-e-historia/bachillerato-historia-de-espana-2-ciencias-y-tecnologia.pdf"
+          },
+          {
+            "nombre": "Historia de España (2.º, Humanidades y Ciencias Sociales)",
+            "href": "/documentos/programaciones/geografia-e-historia/bachillerato-historia-de-espana-2-humanidades-y-ciencias-sociales.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Informática",
+    "grupos": [
+      {
+        "nombre": "Departamento",
+        "documentos": [
+          {
+            "nombre": "Programación del departamento",
+            "href": "/documentos/programaciones/informatica/departamento-programacion-del-departamento.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Computación y Robótica (1.º)",
+            "href": "/documentos/programaciones/informatica/eso-computacion-y-robotica-1.pdf"
+          },
+          {
+            "nombre": "Computación y Robótica (2.º)",
+            "href": "/documentos/programaciones/informatica/eso-computacion-y-robotica-2.pdf"
+          },
+          {
+            "nombre": "Computación y Robótica (3.º)",
+            "href": "/documentos/programaciones/informatica/eso-computacion-y-robotica-3.pdf"
+          },
+          {
+            "nombre": "Digitalización (4.º)",
+            "href": "/documentos/programaciones/informatica/eso-digitalizacion-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Tecnologías de la Información y la Comunicación I (1.º)",
+            "href": "/documentos/programaciones/informatica/bachillerato-tecnologias-de-la-informacion-y-la-comunicacion-i-1.pdf"
+          },
+          {
+            "nombre": "Tecnologías de la Información y la Comunicación II (2.º, Ciencias)",
+            "href": "/documentos/programaciones/informatica/bachillerato-tecnologias-de-la-informacion-y-la-comunicacion-ii-2-ciencias.pdf"
+          },
+          {
+            "nombre": "Tecnologías de la Información y la Comunicación II (2.º, Humanidades y CC. Sociales)",
+            "href": "/documentos/programaciones/informatica/bachillerato-tecnologias-de-la-informacion-y-la-comunicacion-ii-2-humanidades-y-cc-sociales.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "FP Básica",
+        "documentos": [
+          {
+            "nombre": "Montaje y Mantenimiento de Sistemas y Componentes Informáticos (1.º)",
+            "href": "/documentos/programaciones/informatica/montaje-y-mantenimiento-de-sistemas-y-componentes-informaticos-1.pdf"
+          },
+          {
+            "nombre": "Operaciones Auxiliares para la Configuración y la Explotación (1.º)",
+            "href": "/documentos/programaciones/informatica/operaciones-auxiliares-para-la-configuracion-y-la-explotacion-1.pdf"
+          },
+          {
+            "nombre": "Equipos Eléctricos y Electrónicos (2.º)",
+            "href": "/documentos/programaciones/informatica/equipos-electricos-y-electronicos-2.pdf"
+          },
+          {
+            "nombre": "Instalación y Mantenimiento de Redes para Transmisión de Datos (2.º)",
+            "href": "/documentos/programaciones/informatica/instalacion-y-mantenimiento-de-redes-para-transmision-de-datos-2.pdf"
+          },
+          {
+            "nombre": "Proyecto Intermodular de Aprendizaje Colaborativo (2.º)",
+            "href": "/documentos/programaciones/informatica/proyecto-intermodular-de-aprendizaje-colaborativo-2.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Sistemas Microinformáticos y Redes (SMR)",
+        "documentos": [
+          {
+            "nombre": "Aplicaciones Ofimáticas (1.º)",
+            "href": "/documentos/programaciones/informatica/aplicaciones-ofimaticas-1.pdf"
+          },
+          {
+            "nombre": "Digitalización Aplicada a los Sistemas Productivos (1.º)",
+            "href": "/documentos/programaciones/informatica/digitalizacion-aplicada-a-los-sistemas-productivos-1.pdf"
+          },
+          {
+            "nombre": "Montaje y Mantenimiento de Equipos (1.º)",
+            "href": "/documentos/programaciones/informatica/montaje-y-mantenimiento-de-equipos-1.pdf"
+          },
+          {
+            "nombre": "Redes Locales (1.º)",
+            "href": "/documentos/programaciones/informatica/redes-locales-1.pdf"
+          },
+          {
+            "nombre": "Sostenibilidad Aplicada al Sistema Productivo (1.º)",
+            "href": "/documentos/programaciones/informatica/sostenibilidad-aplicada-al-sistema-productivo-1.pdf"
+          },
+          {
+            "nombre": "Sistemas Operativos Monopuesto (1.º)",
+            "href": "/documentos/programaciones/informatica/sistemas-operativos-monopuesto-1.pdf"
+          },
+          {
+            "nombre": "Aplicaciones Web (2.º)",
+            "href": "/documentos/programaciones/informatica/aplicaciones-web-2.pdf"
+          },
+          {
+            "nombre": "Fundamentos de Programación y Desarrollo Web (2.º)",
+            "href": "/documentos/programaciones/informatica/fundamentos-de-programacion-y-desarrollo-web-2.pdf"
+          },
+          {
+            "nombre": "Proyecto Intermodular (2.º)",
+            "href": "/documentos/programaciones/informatica/proyecto-intermodular-2.pdf"
+          },
+          {
+            "nombre": "Servicios en Red (2.º)",
+            "href": "/documentos/programaciones/informatica/servicios-en-red-2.pdf"
+          },
+          {
+            "nombre": "Sistemas Operativos en Red (2.º)",
+            "href": "/documentos/programaciones/informatica/sistemas-operativos-en-red-2.pdf"
+          },
+          {
+            "nombre": "Seguridad Informática (2.º)",
+            "href": "/documentos/programaciones/informatica/seguridad-informatica-2.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Desarrollo de Aplicaciones Multiplataforma (DAM)",
+        "documentos": [
+          {
+            "nombre": "Bases de Datos (1.º)",
+            "href": "/documentos/programaciones/informatica/bases-de-datos-1.pdf"
+          },
+          {
+            "nombre": "Digitalización Aplicada a los Sistemas Productivos (1.º)",
+            "href": "/documentos/programaciones/informatica/digitalizacion-aplicada-a-los-sistemas-productivos-1-2.pdf"
+          },
+          {
+            "nombre": "Entornos de Desarrollo (1.º)",
+            "href": "/documentos/programaciones/informatica/entornos-de-desarrollo-1.pdf"
+          },
+          {
+            "nombre": "Lenguajes de Marcas y Sistemas de Gestión de Información (1.º)",
+            "href": "/documentos/programaciones/informatica/lenguajes-de-marcas-y-sistemas-de-gestion-de-informacion-1.pdf"
+          },
+          {
+            "nombre": "Programación (1.º)",
+            "href": "/documentos/programaciones/informatica/programacion-1.pdf"
+          },
+          {
+            "nombre": "Sistemas Informáticos (1.º)",
+            "href": "/documentos/programaciones/informatica/sistemas-informaticos-1.pdf"
+          },
+          {
+            "nombre": "Acceso a Datos (2.º)",
+            "href": "/documentos/programaciones/informatica/acceso-a-datos-2.pdf"
+          },
+          {
+            "nombre": "Desarrollo de Interfaces (2.º)",
+            "href": "/documentos/programaciones/informatica/desarrollo-de-interfaces-2.pdf"
+          },
+          {
+            "nombre": "Horas de Libre Configuración (2.º)",
+            "href": "/documentos/programaciones/informatica/horas-de-libre-configuracion-2.pdf"
+          },
+          {
+            "nombre": "Programación Multimedia y Dispositivos Móviles (2.º)",
+            "href": "/documentos/programaciones/informatica/programacion-multimedia-y-dispositivos-moviles-2.pdf"
+          },
+          {
+            "nombre": "Programación de Servicios y Procesos (2.º)",
+            "href": "/documentos/programaciones/informatica/programacion-de-servicios-y-procesos-2.pdf"
+          },
+          {
+            "nombre": "Sistemas de Gestión Empresarial (2.º)",
+            "href": "/documentos/programaciones/informatica/sistemas-de-gestion-empresarial-2.pdf"
+          },
+          {
+            "nombre": "Proyecto Intermodular (2.º)",
+            "href": "/documentos/programaciones/informatica/proyecto-intermodular-2-2.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Desarrollo de Aplicaciones Web (DAW)",
+        "documentos": [
+          {
+            "nombre": "Bases de Datos (1.º)",
+            "href": "/documentos/programaciones/informatica/bases-de-datos-1-2.pdf"
+          },
+          {
+            "nombre": "Digitalización Aplicada a los Sistemas Productivos (1.º)",
+            "href": "/documentos/programaciones/informatica/digitalizacion-aplicada-a-los-sistemas-productivos-1-3.pdf"
+          },
+          {
+            "nombre": "Entornos de Desarrollo (1.º)",
+            "href": "/documentos/programaciones/informatica/entornos-de-desarrollo-1-2.pdf"
+          },
+          {
+            "nombre": "Lenguajes de Marcas (1.º)",
+            "href": "/documentos/programaciones/informatica/lenguajes-de-marcas-1.pdf"
+          },
+          {
+            "nombre": "Programación (1.º)",
+            "href": "/documentos/programaciones/informatica/programacion-1-2.pdf"
+          },
+          {
+            "nombre": "Sostenibilidad Aplicada al Sistema Productivo (1.º)",
+            "href": "/documentos/programaciones/informatica/sostenibilidad-aplicada-al-sistema-productivo-1-2.pdf"
+          },
+          {
+            "nombre": "Sistemas Informáticos (1.º)",
+            "href": "/documentos/programaciones/informatica/sistemas-informaticos-1-2.pdf"
+          },
+          {
+            "nombre": "Análisis de Datos y Big Data (2.º)",
+            "href": "/documentos/programaciones/informatica/analisis-de-datos-y-big-data-2.pdf"
+          },
+          {
+            "nombre": "Despliegue de Aplicaciones Web (2.º)",
+            "href": "/documentos/programaciones/informatica/despliegue-de-aplicaciones-web-2.pdf"
+          },
+          {
+            "nombre": "Desarrollo Web en Entorno Servidor (2.º)",
+            "href": "/documentos/programaciones/informatica/desarrollo-web-en-entorno-servidor-2.pdf"
+          },
+          {
+            "nombre": "Desarrollo Web en Entorno Cliente (2.º)",
+            "href": "/documentos/programaciones/informatica/desarrollo-web-en-entorno-cliente-2.pdf"
+          },
+          {
+            "nombre": "Diseño de Interfaces Web (2.º)",
+            "href": "/documentos/programaciones/informatica/diseno-de-interfaces-web-2.pdf"
+          },
+          {
+            "nombre": "Proyecto Intermodular (2.º)",
+            "href": "/documentos/programaciones/informatica/proyecto-intermodular-2-3.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Lengua Castellana y Literatura y Cultura Clásica",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Lengua Castellana y Literatura (ESO)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/eso-lengua-castellana-y-literatura-eso.pdf"
+          },
+          {
+            "nombre": "Área Lingüística de Carácter Transversal (1.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/eso-area-linguistica-de-caracter-transversal-1.pdf"
+          },
+          {
+            "nombre": "Latín (4.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/eso-latin-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Lengua Castellana y Literatura (Bachillerato)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/bachillerato-lengua-castellana-y-literatura-bachillerato.pdf"
+          },
+          {
+            "nombre": "Latín I (1.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/bachillerato-latin-i-1.pdf"
+          },
+          {
+            "nombre": "Latín II (2.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/bachillerato-latin-ii-2.pdf"
+          },
+          {
+            "nombre": "Griego I (1.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/bachillerato-griego-i-1.pdf"
+          },
+          {
+            "nombre": "Griego II (2.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/bachillerato-griego-ii-2.pdf"
+          },
+          {
+            "nombre": "Literatura Universal (1.º)",
+            "href": "/documentos/programaciones/lengua-castellana-y-literatura-y-cultura-clasica/bachillerato-literatura-universal-1.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Lenguas Extranjeras",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Inglés (ESO)",
+            "href": "/documentos/programaciones/lenguas-extranjeras/eso-ingles-eso.pdf"
+          },
+          {
+            "nombre": "Francés (ESO)",
+            "href": "/documentos/programaciones/lenguas-extranjeras/eso-frances-eso.pdf"
+          },
+          {
+            "nombre": "Ámbito Lingüístico y Social (3.º)",
+            "href": "/documentos/programaciones/lenguas-extranjeras/eso-ambito-linguistico-y-social-3.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Inglés (Bachillerato)",
+            "href": "/documentos/programaciones/lenguas-extranjeras/bachillerato-ingles-bachillerato.pdf"
+          },
+          {
+            "nombre": "Certificación de Inglés B2",
+            "href": "/documentos/programaciones/lenguas-extranjeras/bachillerato-certificacion-de-ingles-b2.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Formación Profesional",
+        "documentos": [
+          {
+            "nombre": "Ámbito de Comunicación y Ciencias Sociales I (FP Básica)",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ambito-de-comunicacion-y-ciencias-sociales-i-fp-basica.pdf"
+          },
+          {
+            "nombre": "Ámbito de Comunicación y Ciencias Sociales II (FP Básica)",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ambito-de-comunicacion-y-ciencias-sociales-ii-fp-basica.pdf"
+          },
+          {
+            "nombre": "Inglés Profesional · SMR",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ingles-profesional-smr.pdf"
+          },
+          {
+            "nombre": "Inglés Profesional · DAM",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ingles-profesional-dam.pdf"
+          },
+          {
+            "nombre": "Inglés Profesional · DAW",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ingles-profesional-daw.pdf"
+          },
+          {
+            "nombre": "Inglés Profesional · Guía",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ingles-profesional-guia.pdf"
+          },
+          {
+            "nombre": "Inglés Profesional · Mecatrónica",
+            "href": "/documentos/programaciones/lenguas-extranjeras/ingles-profesional-mecatronica.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Matemáticas",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Matemáticas (1.º)",
+            "href": "/documentos/programaciones/matematicas/eso-matematicas-1.pdf"
+          },
+          {
+            "nombre": "Matemáticas (2.º)",
+            "href": "/documentos/programaciones/matematicas/eso-matematicas-2.pdf"
+          },
+          {
+            "nombre": "Matemáticas (3.º)",
+            "href": "/documentos/programaciones/matematicas/eso-matematicas-3.pdf"
+          },
+          {
+            "nombre": "Matemáticas A (4.º)",
+            "href": "/documentos/programaciones/matematicas/eso-matematicas-a-4.pdf"
+          },
+          {
+            "nombre": "Matemáticas B (4.º)",
+            "href": "/documentos/programaciones/matematicas/eso-matematicas-b-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Matemáticas I (1.º)",
+            "href": "/documentos/programaciones/matematicas/bachillerato-matematicas-i-1.pdf"
+          },
+          {
+            "nombre": "Matemáticas Aplicadas a las CC. Sociales I (1.º)",
+            "href": "/documentos/programaciones/matematicas/bachillerato-matematicas-aplicadas-a-las-cc-sociales-i-1.pdf"
+          },
+          {
+            "nombre": "Matemáticas II (2.º)",
+            "href": "/documentos/programaciones/matematicas/bachillerato-matematicas-ii-2.pdf"
+          },
+          {
+            "nombre": "Matemáticas Aplicadas a las CC. Sociales II (2.º, Ciencias y Tecnología)",
+            "href": "/documentos/programaciones/matematicas/bachillerato-matematicas-aplicadas-a-las-cc-sociales-ii-2-ciencias-y-tecnologia.pdf"
+          },
+          {
+            "nombre": "Matemáticas Aplicadas a las CC. Sociales II (2.º, Humanidades y CC. Sociales)",
+            "href": "/documentos/programaciones/matematicas/bachillerato-matematicas-aplicadas-a-las-cc-sociales-ii-2-humanidades-y-cc-sociales.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "FP Básica",
+        "documentos": [
+          {
+            "nombre": "Ámbito Científico (1.º)",
+            "href": "/documentos/programaciones/matematicas/ambito-cientifico-1.pdf"
+          },
+          {
+            "nombre": "Ámbito Científico (2.º)",
+            "href": "/documentos/programaciones/matematicas/ambito-cientifico-2.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Mecatrónica",
+    "grupos": [
+      {
+        "nombre": "Departamento",
+        "documentos": [
+          {
+            "nombre": "Programación del departamento",
+            "href": "/documentos/programaciones/mecatronica/departamento-programacion-del-departamento.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Mecatrónica Industrial",
+        "documentos": [
+          {
+            "nombre": "Sistemas Mecánicos (1.º)",
+            "href": "/documentos/programaciones/mecatronica/sistemas-mecanicos-1.pdf"
+          },
+          {
+            "nombre": "Sistemas Hidráulicos y Neumáticos (1.º)",
+            "href": "/documentos/programaciones/mecatronica/sistemas-hidraulicos-y-neumaticos-1.pdf"
+          },
+          {
+            "nombre": "Sistemas Eléctricos y Electrónicos (1.º)",
+            "href": "/documentos/programaciones/mecatronica/sistemas-electricos-y-electronicos-1.pdf"
+          },
+          {
+            "nombre": "Elementos de Máquinas (1.º)",
+            "href": "/documentos/programaciones/mecatronica/elementos-de-maquinas-1.pdf"
+          },
+          {
+            "nombre": "Procesos de Fabricación (1.º)",
+            "href": "/documentos/programaciones/mecatronica/procesos-de-fabricacion-1.pdf"
+          },
+          {
+            "nombre": "Representación Gráfica de Sistemas Mecatrónicos (1.º)",
+            "href": "/documentos/programaciones/mecatronica/representacion-grafica-de-sistemas-mecatronicos-1.pdf"
+          },
+          {
+            "nombre": "Digitalización Aplicada al Sistema Productivo (1.º)",
+            "href": "/documentos/programaciones/mecatronica/digitalizacion-aplicada-al-sistema-productivo-1.pdf"
+          },
+          {
+            "nombre": "Sostenibilidad Aplicada al Sector Productivo (1.º)",
+            "href": "/documentos/programaciones/mecatronica/sostenibilidad-aplicada-al-sector-productivo-1.pdf"
+          },
+          {
+            "nombre": "Configuración de Sistemas Mecatrónicos (2.º)",
+            "href": "/documentos/programaciones/mecatronica/configuracion-de-sistemas-mecatronicos-2.pdf"
+          },
+          {
+            "nombre": "Procesos y Gestión del Mantenimiento y Calidad (2.º)",
+            "href": "/documentos/programaciones/mecatronica/procesos-y-gestion-del-mantenimiento-y-calidad-2.pdf"
+          },
+          {
+            "nombre": "Integración de Sistemas (2.º)",
+            "href": "/documentos/programaciones/mecatronica/integracion-de-sistemas-2.pdf"
+          },
+          {
+            "nombre": "Simulación de Sistemas Mecatrónicos (2.º)",
+            "href": "/documentos/programaciones/mecatronica/simulacion-de-sistemas-mecatronicos-2.pdf"
+          },
+          {
+            "nombre": "Proyecto Intermodular (2.º)",
+            "href": "/documentos/programaciones/mecatronica/proyecto-intermodular-2.pdf"
+          },
+          {
+            "nombre": "Instalación de Sistemas Neumáticos e Hidráulicos Cableados y Programados (2.º)",
+            "href": "/documentos/programaciones/mecatronica/instalacion-de-sistemas-neumaticos-e-hidraulicos-cableados-y-programados-2.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Orientación",
+    "grupos": [
+      {
+        "nombre": "Departamento",
+        "documentos": [
+          {
+            "nombre": "Plan de orientación",
+            "href": "/documentos/programaciones/orientacion/departamento-plan-de-orientacion.pdf"
+          },
+          {
+            "nombre": "Pedagogía Terapéutica",
+            "href": "/documentos/programaciones/orientacion/departamento-pedagogia-terapeutica.pdf"
+          },
+          {
+            "nombre": "Audición y Lenguaje",
+            "href": "/documentos/programaciones/orientacion/departamento-audicion-y-lenguaje.pdf"
+          },
+          {
+            "nombre": "Apoyo curricular al alumnado sordo",
+            "href": "/documentos/programaciones/orientacion/departamento-apoyo-curricular-al-alumnado-sordo.pdf"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "nombre": "Tecnología",
+    "grupos": [
+      {
+        "nombre": "ESO",
+        "documentos": [
+          {
+            "nombre": "Tecnología y Digitalización (2.º y 3.º)",
+            "href": "/documentos/programaciones/tecnologia/eso-tecnologia-y-digitalizacion-2-y-3.pdf"
+          },
+          {
+            "nombre": "Computación y Robótica (2.º)",
+            "href": "/documentos/programaciones/tecnologia/eso-computacion-y-robotica-2.pdf"
+          },
+          {
+            "nombre": "Computación y Robótica (3.º)",
+            "href": "/documentos/programaciones/tecnologia/eso-computacion-y-robotica-3.pdf"
+          },
+          {
+            "nombre": "Ámbito Científico-Tecnológico (3.º)",
+            "href": "/documentos/programaciones/tecnologia/eso-ambito-cientifico-tecnologico-3.pdf"
+          },
+          {
+            "nombre": "Tecnología (4.º)",
+            "href": "/documentos/programaciones/tecnologia/eso-tecnologia-4.pdf"
+          },
+          {
+            "nombre": "Digitalización (4.º)",
+            "href": "/documentos/programaciones/tecnologia/eso-digitalizacion-4.pdf"
+          }
+        ]
+      },
+      {
+        "nombre": "Bachillerato",
+        "documentos": [
+          {
+            "nombre": "Tecnología e Ingeniería (1.º y 2.º)",
+            "href": "/documentos/programaciones/tecnologia/bachillerato-tecnologia-e-ingenieria-1-y-2.pdf"
+          }
+        ]
+      }
+    ]
+  }
+]
